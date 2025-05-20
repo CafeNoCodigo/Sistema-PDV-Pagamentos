@@ -1,0 +1,31 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.awt.Button;
+
+import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
+
+public class telaVendaController {
+
+	@FXML
+	private AnchorPane root;
+
+	@FXML
+	private Button btn;
+
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+	    // Exemplo: botão terá 30% da largura e 10% da altura da tela
+	    meuBotao.prefWidthProperty().bind(root.widthProperty().multiply(0.3));
+	    meuBotao.prefHeightProperty().bind(root.heightProperty().multiply(0.1));
+
+	    // Centralizando o botão
+	    meuBotao.layoutXProperty().bind(
+	        root.widthProperty().subtract(meuBotao.widthProperty()).divide(2)
+	    );
+	    meuBotao.layoutYProperty().bind(
+	        root.heightProperty().subtract(meuBotao.heightProperty()).divide(2)
+	    );
+	}
+
+}

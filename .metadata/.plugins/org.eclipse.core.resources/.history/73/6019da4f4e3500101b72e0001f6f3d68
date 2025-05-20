@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.minhaloja.sistema_pagamento.controller.telaVendaController">
+
+    <!-- Topo com botão e texto -->
+    <top>
+        <HBox spacing="10" padding="10">
+            <Button text="Botão" prefWidth="120" prefHeight="50" />
+            <Label text="Texto Exemplo" />
+        </HBox>
+    </top>
+
+    <!-- Centro com tabela -->
+    <center>
+        <TableView fx:id="tabela">
+            <columns>
+                <TableColumn text="Coluna 1" prefWidth="150" />
+                <TableColumn text="Coluna 2" prefWidth="150" />
+            </columns>
+        </TableView>
+    </center>
+
+</BorderPane>

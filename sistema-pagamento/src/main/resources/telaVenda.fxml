@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="1353.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView prefHeight="508.0" prefWidth="748.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Item" />
+          <TableColumn prefWidth="114.0" text="Codigo" />
+            <TableColumn prefWidth="362.0" text="Nome" />
+            <TableColumn minWidth="0.0" prefWidth="79.0" text="Preco" />
+            <TableColumn prefWidth="117.0" text="Preco para Mestre" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

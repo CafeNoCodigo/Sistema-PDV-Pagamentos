@@ -1,0 +1,15 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.fxml.FXML;
+
+public class telaCadastroProdutoController {
+
+	@FXML
+	private VBox formulario;
+	
+	public void start(Stage stage) throws Exception{
+        stage.setResizable(false);         
+	}
+}

@@ -1,0 +1,7 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+public class telaCadastroProdutoController {
+
+	@FXML
+	private VBox formulario;
+}

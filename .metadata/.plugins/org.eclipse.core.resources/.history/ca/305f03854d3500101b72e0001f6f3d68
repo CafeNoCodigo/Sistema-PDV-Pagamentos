@@ -1,0 +1,50 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+
+public class telaVendaController {
+
+	@FXML
+	private AnchorPane root;
+	
+	@FXML
+	private Group containerGroup;
+	
+	@FXML
+	private TableView tabela;
+
+	private boolean emAjuste = false;
+
+	public void ajustarEscalaProporcional() {
+	    if (emAjuste) return;
+	    emAjuste = true;
+
+	    double baseWidth = 700;
+	    double baseHeight = 400;
+
+	    Scene scene = root.getScene();
+	    if (scene == null) {
+	        emAjuste = false;
+	        return;
+	    }
+
+	    double scaleX = scene.getWidth() / baseWidth;
+	    double scaleY = scene.getHeight() / baseHeight;
+	    double scale = Math.min(scaleX, scaleY);
+
+	    containerGroup.setScaleX(scale);
+	    containerGroup.setScaleY(scale);
+
+	    double offsetX = (scene.getWidth() - baseWidth * scale) / 2;
+	    double offsetY = (scene.getHeight() - baseHeight * scale) / 2;
+	    containerGroup.setLayoutX(offsetX);
+	    containerGroup.setLayoutY(offsetY);
+
+	    emAjuste = false;
+	}
+
+}

@@ -1,0 +1,59 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+
+public class telaVendaController {
+
+	@FXML
+	private AnchorPane root;
+
+	@FXML
+	private Button btn;
+	
+	@FXML
+	private Label lbl;
+	
+	@FXML
+	private TableView tb;
+
+	@FXML
+	private Group containerGroup; // novo!
+
+	public void ajustarEscalaProporcional() {
+	    double baseWidth = 700;
+	    double baseHeight = 400;
+
+	    Scene scene = root.getScene();
+	    if (scene == null) return;
+
+	    double scaleX = scene.getWidth() / baseWidth;
+	    double scaleY = scene.getHeight() / baseHeight;
+	    double scale = Math.min(scaleX, scaleY);
+
+	    containerGroup.setScaleX(scale);
+	    containerGroup.setScaleY(scale);
+
+	    // Centraliza
+	    double offsetX = (scene.getWidth() - baseWidth * scale) / 2;
+	    double offsetY = (scene.getHeight() - baseHeight * scale) / 2;
+	    containerGroup.setLayoutX(offsetX);
+	    containerGroup.setLayoutY(offsetY);
+
+	    // Escala dinâmica se usuário redimensionar depois
+	    scene.widthProperty().addListener((obs, o, n) -> ajustarEscalaProporcional());
+	    scene.heightProperty().addListener((obs, o, n) -> ajustarEscalaProporcional());
+	}
+
+
+
+
+
+}

@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane scaleShape="false" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.TelaPagamentoController">
+   <children>
+      <ImageView fitHeight="653.0" fitWidth="1267.0" layoutX="-3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@img/background.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="654.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="1267.0">
+         <fill>
+            <LinearGradient endX="0.9289099526066351" endY="1.0" startX="0.0616113744075831">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.9725490212440491" green="0.8705882430076599" blue="0.20392157137393951" opacity="0.6299999952316284" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.2338557865444426">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.6299999952316284" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.5570469798657718">
+                     <color>
+                        <Color red="0.9725490212440491" green="0.8705882430076599" blue="0.20392157137393951" opacity="0.6299999952316284" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.7703797675560647">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.6299999952316284" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.9082296611556718">
+                     <color>
+                        <Color red="0.9725490212440491" green="0.8705882430076599" blue="0.20392157137393951" opacity="0.6299999952316284" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="108.0" layoutX="-3.0" layoutY="76.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1267.0" />
+      <MenuBar prefHeight="76.0" prefWidth="1267.0" style="-fx-background-color: white;">
+        <menus>
+          <Menu mnemonicParsing="false" text="Cadastrar">
+               <graphic>
+                  <ImageView fitHeight="68.0" fitWidth="68.0">
+                     <image>
+                        <Image url="@img/cadastro.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic>
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Empresa" />
+                  <MenuItem mnemonicParsing="false" text="Usuário" />
+                  <MenuItem mnemonicParsing="false" text="Produto" />
+                  <MenuItem mnemonicParsing="false" text="Equipamento" />
+                  <MenuItem mnemonicParsing="false" text="Contas a pagar/Despesas" />
+                  <MenuItem mnemonicParsing="false" text="Serviços" />
+                  <MenuItem mnemonicParsing="false" text="Fornecedores" />
+                  <MenuItem mnemonicParsing="false" text="Cliente" />
+               </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Compras">
+               <graphic>
+                  <ImageView fitHeight="68.0" fitWidth="68.0">
+                     <image>
+                        <Image url="@img/compras.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic></Menu>
+          <Menu mnemonicParsing="false" text="Vendas">
+               <graphic>
+                  <ImageView fitHeight="68.0" fitWidth="68.0">
+                     <image>
+                        <Image url="@img/vendas.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Pesquisar">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Fornecedor" />
+                  <MenuItem mnemonicParsing="false" text="Produto" />
+                  <MenuItem mnemonicParsing="false" text="Venda" />
+                  <MenuItem mnemonicParsing="false" text="Serviço" />
+                  <MenuItem mnemonicParsing="false" text="Cliente" />
+              </items>
+               <graphic>
+                  <ImageView fitHeight="68.0" fitWidth="68.0">
+                     <image>
+                        <Image url="@img/pesquisa.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Relatorio">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Estoque de Produto" />
+                  <MenuItem mnemonicParsing="false" text="Vendas por Produto" />
+                  <MenuItem mnemonicParsing="false" text="Compras por Fornecedor" />
+                  <MenuItem mnemonicParsing="false" text="Compras por Produto" />
+                  <MenuItem mnemonicParsing="false" text="Lucro bruto por produto" />
+                  <MenuItem mnemonicParsing="false" text="Lucro esperado no estoque atual" />
+                  <MenuItem mnemonicParsing="false" text="Contas a Pagar" />
+              </items>
+               <graphic>
+                  <ImageView fitHeight="68.0" fitWidth="68.0">
+                     <image>
+                        <Image url="@img/relatorio.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Ordem de Serviço">
+               <graphic>
+                  <ImageView fitHeight="68.0" fitWidth="68.0">
+                     <image>
+                        <Image url="@img/ordemdeservico.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Menu>
+            <Menu mnemonicParsing="false" text="DEVOLUÇÃO">
+               <graphic>
+                  <ImageView fitHeight="68.0" fitWidth="68.0">
+                     <image>
+                        <Image url="@img/devolucao.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Configuracoes">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+               <graphic>
+                  <ImageView fitHeight="68.0" fitWidth="68.0">
+                     <image>
+                        <Image url="@img/configuracoes.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Menu>
+        </menus>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </MenuBar>
+      <Button layoutX="15.0" layoutY="81.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="76.0" style="-fx-background-color: none;">
+         <graphic>
+            <ImageView fitHeight="70.0" fitWidth="60.0" preserveRatio="true">
+               <image>
+                  <Image url="@img/venda2.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <VBox layoutX="14.0" layoutY="156.0" prefHeight="24.0" prefWidth="76.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="76.0" text="Venda" textAlignment="CENTER">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="165.0" layoutY="81.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="96.0" style="-fx-background-color: none;">
+         <graphic>
+            <ImageView fitHeight="70.0" fitWidth="60.0" preserveRatio="true">
+               <image>
+                  <Image url="@img/compras.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <VBox layoutX="159.0" layoutY="156.0" prefHeight="24.0" prefWidth="112.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="115.0" text="Compra" textAlignment="CENTER">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="332.0" layoutY="81.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="76.0" style="-fx-background-color: none;" AnchorPane.topAnchor="81.0">
+         <graphic>
+            <ImageView fitHeight="61.0" fitWidth="87.0">
+               <image>
+                  <Image url="@img/pesquisa2.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <VBox layoutX="291.0" layoutY="156.0" prefHeight="24.0" prefWidth="185.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="185.0" text="Pesquisar Produto" textAlignment="CENTER">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="515.0" layoutY="81.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="96.0" style="-fx-background-color: none;">
+         <graphic>
+            <ImageView fitHeight="58.0" fitWidth="78.0" preserveRatio="true">
+               <image>
+                  <Image url="@img/ordemdeservico2.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+      </Button>
+      <VBox layoutX="471.0" layoutY="156.0" prefHeight="24.0" prefWidth="185.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="185.0" text="Relatorio de Venda" textAlignment="CENTER">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="15.0" layoutY="191.0" prefHeight="24.0" prefWidth="196.0">
+         <children>
+            <Label prefHeight="27.0" prefWidth="254.0" text="Selecione o Vendedor:">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <ChoiceBox layoutX="217.0" layoutY="191.0" prefHeight="25.0" prefWidth="213.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow />
+         </effect></ChoiceBox>
+      <Line endX="556.0" layoutX="116.0" layoutY="216.0" startX="-107.0">
+         <effect>
+            <DropShadow />
+         </effect></Line>
+      <Button layoutX="27.0" layoutY="258.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="76.0" style="-fx-background-color: none;">
+         <graphic>
+            <ImageView fitHeight="74.0" fitWidth="69.0">
+               <image>
+                  <Image url="@img/cadastrarCliente.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <VBox layoutX="27.0" layoutY="340.0" prefHeight="24.0" prefWidth="100.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="100.0" text="Cad. Cliente" textAlignment="CENTER">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="211.0" layoutY="263.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="100.0" style="-fx-background-color: none;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="75.0" fitWidth="90.0" layoutX="211.0" layoutY="262.0">
+         <image>
+            <Image url="@img/cadastrarProduto.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <VBox layoutX="191.0" layoutY="340.0" prefHeight="24.0" prefWidth="132.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Cad. Produto" textAlignment="CENTER">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="385.0" layoutY="266.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="84.0" style="-fx-background-color: none;">
+         <graphic>
+            <ImageView fitHeight="60.0" fitWidth="74.0">
+               <image>
+                  <Image url="@img/cadastrarVendedor.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <VBox layoutX="364.0" layoutY="340.0" prefHeight="24.0" prefWidth="132.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Cad. Vendedor" textAlignment="CENTER">
+               <font>
+                  <Font name="Segoe UI Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="136.0" layoutX="151.0" layoutY="244.0" stroke="#f8de34" strokeType="INSIDE" width="20.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="136.0" layoutX="505.0" layoutY="244.0" stroke="#f8de34" strokeType="INSIDE" width="20.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="136.0" layoutX="331.0" layoutY="244.0" stroke="#f8de34" strokeType="INSIDE" width="20.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="24.0" layoutX="1.0" layoutY="364.0" stroke="#f8de34" strokeType="INSIDE" width="1267.0">
+         <effect>
+            <DropShadow />
+         </effect></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="24.0" layoutX="1.0" layoutY="239.0" stroke="#f8de34" strokeType="INSIDE" width="1267.0">
+         <effect>
+            <DropShadow />
+         </effect></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="24.0" layoutY="489.0" stroke="#f8de34" strokeType="INSIDE" width="1267.0">
+         <effect>
+            <DropShadow />
+         </effect></Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="136.0" layoutX="151.0" layoutY="364.0" stroke="#f8de34" strokeType="INSIDE" width="20.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="136.0" layoutX="505.0" layoutY="364.0" stroke="#f8de34" strokeType="INSIDE" width="20.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="136.0" layoutX="331.0" layoutY="364.0" stroke="#f8de34" strokeType="INSIDE" width="20.0" />
+      <Button layoutX="27.0" layoutY="390.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="100.0" style="-fx-background-color: none;">
+         <graphic>
+            <ImageView fitHeight="71.0" fitWidth="57.0">
+               <image>
+                  <Image url="@img/fluxoCaixa.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <VBox layoutX="11.0" layoutY="463.0" prefHeight="24.0" prefWidth="132.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="132.0" text="Fluxo de Caixa" textAlignment="CENTER">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="203.0" layoutY="390.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="100.0" style="-fx-background-color: none;">
+         <graphic>
+            <ImageView fitHeight="78.0" fitWidth="83.0">
+               <image>
+                  <Image url="@img/dre.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <VBox layoutX="187.0" layoutY="463.0" prefHeight="24.0" prefWidth="132.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="132.0" text="DRE">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="386.0" layoutY="393.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="100.0" style="-fx-background-color: none;">
+         <graphic>
+            <ImageView fitHeight="63.0" fitWidth="65.0">
+               <image>
+                  <Image url="@img/pesquisaVenda.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <VBox layoutX="364.0" layoutY="461.0" prefHeight="24.0" prefWidth="132.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="132.0" text="Estoque Atual" textAlignment="CENTER">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

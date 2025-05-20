@@ -1,0 +1,12 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
+
+
+public class telaVendaController {
+
+	@FXML
+	private AnchorPane root;
+
+}

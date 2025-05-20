@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.minhaloja.sistema_pagamento.controller.telaVendaController">
+
+    <top>
+        <HBox spacing="10" padding="10">
+            <children>
+                <Button text="Botão" />
+                <Label text="Texto Exemplo" />
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <TableView fx:id="tabela">
+            <columns>
+                <TableColumn fx:id="coluna1" text="Coluna 1" prefWidth="200"/>
+                <TableColumn fx:id="coluna2" text="Coluna 2" prefWidth="200"/>
+            </columns>
+        </TableView>
+    </center>
+
+</BorderPane>

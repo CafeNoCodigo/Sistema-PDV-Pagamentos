@@ -1,0 +1,49 @@
+.tab-pane {
+    -fx-background-color: #F0F4FF; /* mesmo fundo da root */
+    -fx-tab-min-height: 30px;
+    -fx-tab-max-height: 35px;
+    -fx-tab-min-width: 100px;
+    -fx-tab-max-width: 200px;
+    -fx-border-color: #D8D8D8;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.tab-pane .tab-header-area {
+    -fx-background-color: #DCEEF2; /* azul pastel suave */
+    -fx-padding: 5 10 5 10;
+    -fx-border-color: transparent transparent #C2E0C6 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-radius: 10px 10px 0 0;
+}
+
+.tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3a3a3a;
+    -fx-padding: 6px 14px;
+    -fx-background-radius: 8px 8px 0 0;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #C2E0C6; /* verde pastel */
+    -fx-text-fill: #2D2D2D;
+}
+
+.tab-pane .tab:hover {
+    -fx-background-color: #F7B2AD; /* rosa pastel hover */
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.tab-pane .tab-label {
+    -fx-text-fill: inherit;
+}
+
+.tab-content-area {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 10px;
+    -fx-background-radius: 0 0 10px 10px;
+}

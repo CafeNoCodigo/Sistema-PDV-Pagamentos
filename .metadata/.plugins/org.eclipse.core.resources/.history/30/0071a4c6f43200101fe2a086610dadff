@@ -1,0 +1,35 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextField;
+
+public class TelaPagamentoController {
+	
+	@FXML
+	private void abrirTelaCadastroProduto(ActionEvent event) {
+		try {
+			FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/telaCadastroProduto.fxml"));
+			Parent root = FXMLLoader.load();
+		}
+	}
+	
+
+    @FXML
+    private TextField nomeProduto;
+
+    @FXML
+    private TextField precoProduto;
+
+    @FXML
+    private TextField quantidadeProduto;
+
+    @FXML
+    private void salvarProduto() {
+        String nome = nomeProduto.getText();
+        String preco = precoProduto.getText();
+        String quantidade = quantidadeProduto.getText();
+
+        System.out.println("Produto salvo: " + nome + ", Preço: " + preco + ", Quantidade: " + quantidade);
+    }
+}
