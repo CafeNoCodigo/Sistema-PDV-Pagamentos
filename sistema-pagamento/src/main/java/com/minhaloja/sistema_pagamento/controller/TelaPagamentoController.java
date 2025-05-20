@@ -1,76 +1,34 @@
 package com.minhaloja.sistema_pagamento.controller;
 
-import java.io.IOException;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import com.minhaloja.sistema_pagamento.util.WindowManager;
 
 public class TelaPagamentoController {
 	
-	@FXML
-	private void abrirTelaCadastroProduto(ActionEvent event) {
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/telaCadastroProduto.fxml"));
-			Parent root = fxmlLoader.load();
-			
-			Stage stage = new Stage();
-			stage.setTitle("Cadastro de Produto");
-			stage.setResizable(false);
-			stage.setMaximized(true);
-			stage.setScene(new Scene(root));
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void abrirTelaCadastroProduto2() {
+		WindowManager.abrirTelaCadastroProduto();
 	}
 	
-	@FXML
-	private void abrirTelaCadastroFuncionario(ActionEvent event) {
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/telaCadastroFuncionario.fxml"));
-			Parent root = fxmlLoader.load();
-			
-			Stage stage = new Stage();
-			stage.setTitle("Cadastro de Funcionario");
-			stage.setResizable(false);
-			stage.setMaximized(false);
-			stage.setScene(new Scene(root));
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void abrirTelaFluxoCaixa2() {
+		WindowManager.abrirTelaFluxoCaixa();
 	}
 	
-	@FXML
-	private void abrirTelaVenda(ActionEvent event) {
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/telaVenda.fxml"));
-			Parent root = fxmlLoader.load();
-			
-			Stage stage = new Stage();
-			stage.setTitle("Venda de Produto");
-			//stage.setMaximized(true);
-			stage.setResizable(true);
-			//stage.setFullScreen(true);
-			
-			//stage.fullScreenProperty().addListener((obs, wasFullScreen, isNowFullScreen) -> {
-			//	if(!isNowFullScreen) {
-			//		stage.close();
-			//	}
-			//});
-			
-			stage.setScene(new Scene(root));
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void abrirTelaCadastroFuncionario2() {
+		WindowManager.abrirTelaCadastroFuncionario();
 	}
-
+	
+	public void abrirTelaVenda2() {
+		WindowManager.abrirTelaVenda();
+	}
+	
+	public void abrirTelaEstoqueAtual2() {
+		WindowManager.abrirTelaEstoqueAtual();
+	}
+	
+	public void abrirTelaRelatorio2() {
+		WindowManager.abrirTelaRelatorio();
+	}
     @FXML
     private TextField nomeProduto;
 

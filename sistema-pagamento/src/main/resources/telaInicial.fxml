@@ -80,8 +80,8 @@
                </graphic>
                <items>
                   <MenuItem mnemonicParsing="false" text="Empresa" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario" text="Funcionario" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroProduto" text="Produto" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario2" text="Funcionario" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" text="Produto" />
                   <MenuItem mnemonicParsing="false" text="Equipamento" />
                   <MenuItem mnemonicParsing="false" text="Contas a pagar/Despesas" />
                   <MenuItem mnemonicParsing="false" text="Serviços" />
@@ -103,7 +103,7 @@
             <Menu mnemonicParsing="false" text="          ">
               <items>
                 <MenuItem mnemonicParsing="false" text="Fornecedor" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaVenda" text="Produto" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaVenda2" text="Produto" />
                   <MenuItem mnemonicParsing="false" text="Serviço" />
                   <MenuItem mnemonicParsing="false" text="Cliente" />
               </items>
@@ -120,8 +120,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="          ">
               <items>
-                <MenuItem mnemonicParsing="false" text="Estoque de Produto" />
-                  <MenuItem mnemonicParsing="false" text="Vendas por Produto" />
+                <MenuItem mnemonicParsing="false" onAction="#abrirTelaEstoqueAtual2" text="Estoque de Produto" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaFluxoCaixa2" text="Fluxo de Caixa" />
                   <MenuItem mnemonicParsing="false" text="Compras por Fornecedor" />
                   <MenuItem mnemonicParsing="false" text="Compras por Produto" />
                   <MenuItem mnemonicParsing="false" text="Lucro bruto por produto" />
@@ -183,7 +183,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </MenuBar>
-      <Button layoutX="7.0" layoutY="122.0" mnemonicParsing="false" onAction="#abrirTelaVenda" prefHeight="58.0" prefWidth="90.0" styleClass="botao-pastel">
+      <Button layoutX="7.0" layoutY="122.0" mnemonicParsing="false" onAction="#abrirTelaVenda2" prefHeight="58.0" prefWidth="90.0" styleClass="botao-pastel">
          <graphic>
             <ImageView disable="true" fitHeight="42.0" fitWidth="45.0" preserveRatio="true" styleClass="botao-pastel">
                <image>
@@ -231,7 +231,7 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="336.0" layoutY="127.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="100.0" styleClass="botao-pastel" AnchorPane.topAnchor="127.0">
+      <Button layoutX="336.0" layoutY="127.0" mnemonicParsing="false" onAction="#abrirTelaEstoqueAtual2" prefHeight="51.0" prefWidth="100.0" styleClass="botao-pastel" AnchorPane.topAnchor="127.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -245,7 +245,7 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="512.0" layoutY="132.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="100.0" styleClass="botao-pastel" />
+      <Button layoutX="512.0" layoutY="132.0" mnemonicParsing="false" onAction="#abrirTelaRelatorio2" prefHeight="51.0" prefWidth="100.0" styleClass="botao-pastel" />
       <VBox layoutX="472.0" layoutY="179.0" prefHeight="24.0" prefWidth="185.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="185.0" text="Relatorio de Venda" textAlignment="CENTER">
@@ -289,7 +289,7 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="172.0" layoutY="263.0" mnemonicParsing="false" onAction="#abrirTelaCadastroProduto" prefHeight="99.0" prefWidth="160.0" styleClass="botao-pastel">
+      <Button layoutX="172.0" layoutY="263.0" mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" prefHeight="99.0" prefWidth="160.0" styleClass="botao-pastel">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -314,7 +314,7 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="353.0" layoutY="266.0" mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario" prefHeight="93.0" prefWidth="154.0" styleClass="botao-pastel">
+      <Button layoutX="353.0" layoutY="266.0" mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario2" prefHeight="93.0" prefWidth="154.0" styleClass="botao-pastel">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -346,7 +346,7 @@
          <effect>
             <DropShadow />
          </effect></Rectangle>
-      <Button layoutX="4.0" layoutY="390.0" mnemonicParsing="false" prefHeight="99.0" prefWidth="147.0" styleClass="botao-pastel">
+      <Button layoutX="4.0" layoutY="390.0" mnemonicParsing="false" onAction="#abrirTelaFluxoCaixa2" prefHeight="99.0" prefWidth="147.0" styleClass="botao-pastel">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -384,7 +384,7 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="354.0" layoutY="393.0" mnemonicParsing="false" prefHeight="93.0" prefWidth="147.0" styleClass="botao-pastel">
+      <Button layoutX="354.0" layoutY="393.0" mnemonicParsing="false" onAction="#abrirTelaEstoqueAtual2" prefHeight="93.0" prefWidth="147.0" styleClass="botao-pastel">
          <graphic>
             <ImageView disable="true" fitHeight="50.0" fitWidth="65.0">
                <image>
@@ -416,7 +416,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView disable="true" fitHeight="74.0" fitWidth="69.0" layoutX="43.0" layoutY="263.0">
+      <ImageView disable="true" fitHeight="68.0" fitWidth="69.0" layoutX="43.0" layoutY="269.0">
          <image>
             <Image url="@img/cadastrarCliente.png" />
          </image>
@@ -509,6 +509,25 @@
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="97.0" text="Configuracoes" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="525.0" layoutY="266.0" mnemonicParsing="false" prefHeight="93.0" prefWidth="154.0" styleClass="botao-pastel">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="75.0" fitWidth="100.0" layoutX="544.0" layoutY="266.0">
+         <image>
+            <Image url="@img/requisicao.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="536.0" layoutY="340.0" prefHeight="24.0" prefWidth="132.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Requisicao" textAlignment="CENTER">
+               <font>
+                  <Font name="Segoe UI Bold" size="17.0" />
                </font>
             </Label>
          </children>

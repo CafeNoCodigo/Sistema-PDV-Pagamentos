@@ -1,0 +1,18 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
+public class telaVendaController {
+
+    @FXML
+    private TableView<?> tabela;
+
+    @FXML
+    private TableColumn<?, ?> coluna1;
+
+    @FXML
+    private TableColumn<?, ?> coluna2;
+
+}

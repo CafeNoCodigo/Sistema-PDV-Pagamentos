@@ -1,0 +1,9 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import com.minhaloja.sistema_pagamento.controller.TelaPagamentoController;
+
+public class telaEstoqueAtualController {
+
+	TelaPagamentoController abrir = new TelaPagamentoController()''
+	abrir.abrirTelaCadastroProduto();
+}

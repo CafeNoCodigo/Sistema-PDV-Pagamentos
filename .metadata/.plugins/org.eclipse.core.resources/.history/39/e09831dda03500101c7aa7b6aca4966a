@@ -1,0 +1,99 @@
+package com.minhaloja.sistema_pagamento.util;
+
+import java.io.IOException;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class WindowManager {
+	@FXML
+	private void abrirTelaCadastroProduto() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.getClass().getResource("/telaCadastroProduto.fxml"));
+			Parent root = fxmlLoader.load();
+			
+			Stage stage = new Stage();
+			stage.setTitle("Cadastro de Produto");
+			stage.setResizable(false);
+			stage.setMaximized(false);
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void abrirTelaCadastroFuncionario() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/telaCadastroFuncionario.fxml"));
+			Parent root = fxmlLoader.load();
+			
+			Stage stage = new Stage();
+			stage.setTitle("Cadastro de Funcionario");
+			stage.setResizable(false);
+			stage.setMaximized(false);
+			
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void abrirTelaVenda() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/telaVenda.fxml"));
+			Parent root = fxmlLoader.load();
+			
+			Stage stage = new Stage();
+			stage.setTitle("Venda de Produto");
+			stage.setResizable(true);
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void abrirTelaFluxoCaixa() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/telaFluxoCaixa.fxml"));
+			Parent root = fxmlLoader.load();
+			
+			Stage stage = new Stage();
+			stage.setTitle("Fluxo de Caixa");
+			stage.setResizable(false);
+			stage.setMaximized(false);
+			
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	private void abrirTelaEstoqueAtual() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/telaEstoqueAtual.fxml"));
+			Parent root = fxmlLoader.load();
+			
+			Stage stage = new Stage();
+			stage.setTitle("Estoque Atual");
+			stage.setResizable(false);
+			stage.setMaximized(false);
+			
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
