@@ -1,5 +1,7 @@
 package com.minhaloja.sistema_pagamento;
 
+import java.sql.SQLException;
+
 import com.minhaloja.sistema_pagamento.util.Conexao;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +24,8 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-    	Conexao.criarBancoSeNaoExistir();
+    public static void main(String[] args) throws SQLException {
+    	Conexao.conectar();
     	launch(args);
     }
 }
