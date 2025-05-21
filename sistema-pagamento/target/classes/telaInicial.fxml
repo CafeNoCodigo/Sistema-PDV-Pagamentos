@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane scaleShape="false" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.TelaPagamentoController">
+<AnchorPane scaleShape="false" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaInicialController">
    <children>
       <ImageView fitHeight="653.0" fitWidth="1267.0" layoutX="-3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -64,10 +64,11 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fceb9e" height="82.0" layoutX="-3.0" layoutY="116.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1267.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fceb9e" height="82.0" layoutX="-3.0" layoutY="116.0" opacity="0.62" stroke="TRANSPARENT" strokeType="INSIDE" width="1267.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="271.0" layoutX="-2.0" layoutY="239.0" opacity="0.64" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="688.0" />
       <MenuBar layoutX="-15.0" prefHeight="82.0" prefWidth="1282.0">
         <menus>
-          <Menu mnemonicParsing="false" text="          ">
+          <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
                <graphic>
                   <ImageView fitHeight="68.0" fitWidth="68.0">
                      <image>
@@ -80,7 +81,7 @@
                </graphic>
                <items>
                   <MenuItem mnemonicParsing="false" text="Empresa" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario2" text="Funcionario" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario2" text="Funcionário" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" text="Produto" />
                   <MenuItem mnemonicParsing="false" text="Equipamento" />
                   <MenuItem mnemonicParsing="false" text="Contas a pagar/Despesas" />
@@ -89,7 +90,7 @@
                   <MenuItem mnemonicParsing="false" text="Cliente" />
                </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="          ">
+          <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
                <graphic>
                   <ImageView fitHeight="68.0" fitWidth="68.0">
                      <image>
@@ -99,8 +100,11 @@
                         <DropShadow />
                      </effect>
                   </ImageView>
-               </graphic></Menu>
-            <Menu mnemonicParsing="false" text="          ">
+               </graphic>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaRequisicao2" text="Requisição" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
               <items>
                 <MenuItem mnemonicParsing="false" text="Fornecedor" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaVenda2" text="Produto" />
@@ -118,7 +122,7 @@
                   </ImageView>
                </graphic>
             </Menu>
-            <Menu mnemonicParsing="false" text="          ">
+            <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#abrirTelaEstoqueAtual2" text="Estoque de Produto" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaFluxoCaixa2" text="Fluxo de Caixa" />
@@ -139,7 +143,7 @@
                   </ImageView>
                </graphic>
             </Menu>
-            <Menu mnemonicParsing="false" text="          ">
+            <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
                <graphic>
                   <ImageView fitHeight="68.0" fitWidth="68.0">
                      <image>
@@ -151,7 +155,7 @@
                   </ImageView>
                </graphic>
             </Menu>
-            <Menu mnemonicParsing="false" text="          ">
+            <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
                <graphic>
                   <ImageView fitHeight="68.0" fitWidth="68.0">
                      <image>
@@ -163,7 +167,7 @@
                   </ImageView>
                </graphic>
             </Menu>
-            <Menu mnemonicParsing="false" text="          ">
+            <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
               </items>
@@ -207,7 +211,7 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="172.0" layoutY="121.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="90.0" styleClass="botao-pastel">
+      <Button layoutX="172.0" layoutY="121.0" mnemonicParsing="false" onAction="#abrirTelaRequisicao2" prefHeight="58.0" prefWidth="90.0" styleClass="botao-pastel">
          <graphic>
             <ImageView disable="true" fitHeight="57.0" fitWidth="42.0" preserveRatio="true">
                <image>
@@ -236,7 +240,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <VBox layoutX="295.0" layoutY="179.0" prefHeight="24.0" prefWidth="185.0">
+      <VBox layoutX="295.0" layoutY="177.0" prefHeight="24.0" prefWidth="185.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="185.0" text="Pesquisar Produto" textAlignment="CENTER">
                <font>
@@ -246,9 +250,9 @@
          </children>
       </VBox>
       <Button layoutX="512.0" layoutY="132.0" mnemonicParsing="false" onAction="#abrirTelaRelatorio2" prefHeight="51.0" prefWidth="100.0" styleClass="botao-pastel" />
-      <VBox layoutX="472.0" layoutY="179.0" prefHeight="24.0" prefWidth="185.0">
+      <VBox layoutX="472.0" layoutY="176.0" prefHeight="24.0" prefWidth="185.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="185.0" text="Relatorio de Venda" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="185.0" text="Relatório de Venda" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -257,7 +261,7 @@
       </VBox>
       <VBox layoutX="15.0" layoutY="203.0" prefHeight="24.0" prefWidth="196.0">
          <children>
-            <Label prefHeight="27.0" prefWidth="254.0" text="Selecione o Funcionario:">
+            <Label prefHeight="27.0" prefWidth="254.0" text="Selecione o Funcionário:">
                <font>
                   <Font name="Franklin Gothic Medium" size="20.0" />
                </font>
@@ -275,7 +279,7 @@
          <effect>
             <DropShadow />
          </effect></Line>
-      <Button layoutX="2.0" layoutY="258.0" mnemonicParsing="false" prefHeight="108.0" prefWidth="147.0" styleClass="botao-pastel">
+      <Button disable="true" layoutX="2.0" layoutY="258.0" mnemonicParsing="false" prefHeight="108.0" prefWidth="147.0" styleClass="botao-pastel">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -321,7 +325,7 @@
       </Button>
       <VBox layoutX="364.0" layoutY="340.0" prefHeight="24.0" prefWidth="132.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Cad. Funcionario" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Cad. Funcionário" textAlignment="CENTER">
                <font>
                   <Font name="Segoe UI Bold" size="17.0" />
                </font>
@@ -360,7 +364,7 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="171.0" layoutY="390.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="160.0" styleClass="botao-pastel">
+      <Button disable="true" layoutX="171.0" layoutY="390.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="160.0" styleClass="botao-pastel">
          <graphic>
             <ImageView disable="true" fitHeight="78.0" fitWidth="83.0">
                <image>
@@ -416,7 +420,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView disable="true" fitHeight="68.0" fitWidth="69.0" layoutX="43.0" layoutY="269.0">
+      <ImageView disable="true" fitHeight="68.0" fitWidth="69.0" layoutX="43.0" layoutY="269.0" opacity="0.69">
          <image>
             <Image url="@img/cadastrarCliente.png" />
          </image>
@@ -479,7 +483,7 @@
       </VBox>
       <VBox layoutX="396.0" layoutY="98.0" prefHeight="24.0" prefWidth="83.0">
          <children>
-            <Label alignment="CENTER" prefHeight="27.0" prefWidth="76.0" text="Relatorio" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="76.0" text="Relatório" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -488,7 +492,7 @@
       </VBox>
       <VBox layoutX="505.0" layoutY="98.0" prefHeight="24.0" prefWidth="112.0">
          <children>
-            <Label alignment="CENTER" prefHeight="24.0" prefWidth="121.0" text="Ordem de Servico" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="24.0" prefWidth="121.0" text="Ordem de Serviço" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -497,7 +501,7 @@
       </VBox>
       <VBox layoutX="612.0" layoutY="101.0" prefHeight="17.0" prefWidth="160.0">
          <children>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Devolucao" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Devolução" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -506,9 +510,28 @@
       </VBox>
       <VBox layoutX="775.0" layoutY="101.0" prefHeight="17.0" prefWidth="90.0">
          <children>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="97.0" text="Configuracoes" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="97.0" text="Configurações" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutX="525.0" layoutY="266.0" mnemonicParsing="false" onAction="#abrirTelaRequisicao2" prefHeight="93.0" prefWidth="154.0" styleClass="botao-pastel">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView disable="true" fitHeight="75.0" fitWidth="100.0" layoutX="544.0" layoutY="266.0">
+         <image>
+            <Image url="@img/requisicao.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="536.0" layoutY="340.0" prefHeight="24.0" prefWidth="132.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Requisição" textAlignment="CENTER">
+               <font>
+                  <Font name="Segoe UI Bold" size="17.0" />
                </font>
             </Label>
          </children>

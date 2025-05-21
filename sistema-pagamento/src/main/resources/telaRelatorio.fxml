@@ -8,8 +8,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1233.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaRelatorioController">
    <children>
@@ -31,7 +32,7 @@
       <DatePicker layoutX="211.0" layoutY="78.0" prefHeight="29.0" prefWidth="150.0" />
       <VBox layoutX="13.0" layoutY="164.0" prefHeight="419.0" prefWidth="133.0" style="-fx-background-color: WHITE;">
          <children>
-            <Label alignment="CENTER" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #c0cd5e; -fx-background-radius: 10PX;" text="MESES" />
+            <Label alignment="CENTER" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #c0cd5e; -fx-background-radius: 10PX;" text="MÊSES" />
             <Label alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="JANEIRO" textFill="RED" />
             <Label alignment="CENTER" disable="true" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="FEVEREIRO" textFill="RED" />
             <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="MARCO" textFill="RED" />
@@ -82,15 +83,18 @@
       </VBox>
       <BarChart layoutX="470.0" layoutY="245.0" prefHeight="334.0" prefWidth="742.0" style="-fx-background-color: #c0cd5e;">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <CategoryAxis prefHeight="40.0" prefWidth="655.0" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis prefHeight="293.0" prefWidth="43.0" side="LEFT">
+               <tickLabelFont>
+                  <Font size="13.0" />
+               </tickLabelFont></NumberAxis>
         </yAxis>
       </BarChart>
       <VBox layoutX="470.0" layoutY="167.0" prefHeight="46.0" prefWidth="124.0">
          <children>
-            <Label alignment="CENTER" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: WHITE;" text="TOTAL NUMERARIO" />
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: WHITE;" text="TOTAL NUMERÁRIO" />
             <Label alignment="CENTER" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #c0cd5e; -fx-background-radius: 10PX;" text="0,00 MZN" />
          </children>
       </VBox>
@@ -128,6 +132,12 @@
       <VBox layoutX="13.0" layoutY="4.0" prefHeight="29.0" prefWidth="228.0" style="-fx-background-size: 20PX;">
          <children>
             <Label prefHeight="28.0" prefWidth="230.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="RESUMO DE VENDAS" />
+         </children>
+      </VBox>
+      <Line endX="1137.0" layoutX="96.0" layoutY="628.0" startX="-100.0" />
+      <VBox layoutX="13.0" layoutY="627.0" prefHeight="7.0" prefWidth="488.0">
+         <children>
+            <Label prefHeight="0.0" prefWidth="488.0" text="Resumo De Vendas Decorrente dos Mêses e Relativo ao Dia Pretendido" />
          </children>
       </VBox>
    </children>

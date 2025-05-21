@@ -116,11 +116,11 @@ public class WindowManager {
 	
 	public static void abrirTelaRequisicao() {
 		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaRequisicao.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaRelatorio.fxml"));
 			Parent root = fxmlLoader.load();
 			
 			Stage stage = new Stage();
-			stage.setTitle("Requisições");
+			stage.setTitle("Relatorio");
 			stage.setResizable(false);
 			stage.setMaximized(false);
 			

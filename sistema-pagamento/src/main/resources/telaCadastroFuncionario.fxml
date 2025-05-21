@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,7 +19,6 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="744.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaCadastroFuncionarioController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="401.0" layoutX="34.0" layoutY="72.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="687.0" />
-      <TextField layoutX="39.0" layoutY="80.0" prefHeight="14.0" prefWidth="676.0" style="-fx-padding: 2 5 2 5;" />
       <TabPane layoutX="38.0" layoutY="105.0" prefHeight="361.0" prefWidth="676.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Dados Pessoais">
@@ -145,9 +147,29 @@
                         <TextField layoutX="116.0" layoutY="114.0" prefHeight="21.0" prefWidth="135.0" style="-fx-padding: 2 5 2 5;" />
                         <Label layoutX="262.0" layoutY="113.0" prefHeight="26.0" prefWidth="68.0" text="Transporte" />
                         <TextField layoutX="341.0" layoutY="116.0" prefHeight="21.0" prefWidth="127.0" style="-fx-padding: 2 5 2 5;" />
+                        <Label layoutX="14.0" layoutY="144.0" prefHeight="26.0" prefWidth="88.0" text="Alimentação" />
+                        <TextField layoutX="116.0" layoutY="147.0" prefHeight="21.0" prefWidth="135.0" style="-fx-padding: 2 5 2 5;" />
                      </children></AnchorPane>
             </content>
           </Tab>
+            <Tab text="Lista dos Funcionarios">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView prefHeight="287.0" prefWidth="656.0">
+                          <columns>
+                            <TableColumn prefWidth="185.0" text="Nome" />
+                            <TableColumn prefWidth="107.0" text="Cargo" />
+                              <TableColumn prefWidth="74.0" text="Salário" />
+                              <TableColumn prefWidth="105.0" text="Contacto" />
+                              <TableColumn prefWidth="92.0" text="Nascido" />
+                              <TableColumn prefWidth="92.0" text="Loja" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
       <Button layoutX="39.0" layoutY="478.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" style="-fx-padding: 2 5 2 5;" text="Salvar" />
@@ -178,5 +200,6 @@
       <Button layoutX="481.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="65.0" text="Novo" />
       <Button layoutX="553.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="65.0" text="Editar" />
       <Button layoutX="627.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="88.0" styleClass="deletar" text="Eliminar" />
+      <ChoiceBox layoutX="43.0" layoutY="75.0" prefHeight="27.0" prefWidth="670.0" />
    </children>
 </AnchorPane>

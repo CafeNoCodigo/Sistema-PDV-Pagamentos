@@ -113,22 +113,5 @@ public class WindowManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void abrirTelaRequisicao() {
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaRequisicao.fxml"));
-			Parent root = fxmlLoader.load();
-			
-			Stage stage = new Stage();
-			stage.setTitle("Requisições");
-			stage.setResizable(false);
-			stage.setMaximized(false);
-			
-			stage.setScene(new Scene(root));
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 }
