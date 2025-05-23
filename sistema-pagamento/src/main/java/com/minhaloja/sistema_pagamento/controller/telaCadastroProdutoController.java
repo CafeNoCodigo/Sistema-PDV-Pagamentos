@@ -1,23 +1,24 @@
 package com.minhaloja.sistema_pagamento.controller;
 
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
 import com.minhaloja.sistema_pagamento.model.Produto;
-//import javafx.fxml.FXML;
+
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class telaCadastroProdutoController {
 
-	@FXML
-	private VBox formulario;
+	@FXML private VBox formulario;
 	@FXML private TextField tfNomeProduto;
     @FXML private TextField tfPrecoCompra;
     @FXML private TextField tfPrecoVenda;
     @FXML private TextField tfPrecoMestre;
     @FXML private TextField tfMargem;
     @FXML private TextField tfLucroBruto;
-    //@FXML private TextField tfUnidade;
     @FXML private TextField tfCategoria;
     @FXML private TextField tfGarantia;
     @FXML private TextField tfReferencia;
@@ -28,12 +29,34 @@ public class telaCadastroProdutoController {
     @FXML private TextField tfInfoAdicional;
     @FXML private TextField tfCodigoBarra;
     
+    @FXML public TableView<Produto> tabelaProdutos;
+    @FXML private TableColumn<Produto, String> colCodigoBarra;
+    @FXML private TableColumn<Produto, String> colNome;
+    @FXML private TableColumn<Produto, String> colCategoria;
+    @FXML private TableColumn<Produto, Double> colEstoque;
+    @FXML private TableColumn<Produto, Double> colPrecoVenda;
+    @FXML private TableColumn<Produto, Double> colPrecoMestre;
+    @FXML private TableColumn<Produto, Double> colPrecoCompra;
+    @FXML private TableColumn<Produto, Double> colReferencia;
+    
+    @FXML private Button btnFechar;
+    @FXML private Button btnNovo;
+    
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
+    
+    @FXML
+    private void fecharJanela() {
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+    }
+
 
     @FXML
     private void salvarProduto() {
-        Produto produto = new Produto();
+    	
+    	Produto produto = new Produto();      
 
+    	
         try {
             produto.setNome(tfNomeProduto.getText());
             produto.setPrecoCompra(Double.parseDouble(tfPrecoCompra.getText()));
@@ -41,7 +64,6 @@ public class telaCadastroProdutoController {
             produto.setPrecoMestre(Double.parseDouble(tfPrecoMestre.getText()));
             produto.setMargem(Double.parseDouble(tfMargem.getText()));
             produto.setLucroBruto(Double.parseDouble(tfLucroBruto.getText()));
-            //produto.setUnidade(tfUnidade.getText());
             produto.setCategoria(tfCategoria.getText());
             produto.setGarantia(tfGarantia.getText());
             produto.setReferencia(tfReferencia.getText());
@@ -53,13 +75,8 @@ public class telaCadastroProdutoController {
             produto.setCodigoBarra(tfCodigoBarra.getText());
 
             produtoDAO.salvarProduto(produto);
-
-            // Exibe mensagem de sucesso
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Sucesso");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Produto salvo com sucesso!");
-            alerta.showAndWait();
+            carregarProdutosNaTabela();
+            limparCampos();
 
         } catch (NumberFormatException e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -69,5 +86,67 @@ public class telaCadastroProdutoController {
             alerta.showAndWait();
         }
     }
+    
+    private void preencherCamposComProduto(Produto produto) {
+        tfCodigoBarra.setText(produto.getCodigoBarra());
+        tfNomeProduto.setText(produto.getNome());
+        tfCategoria.setText(produto.getCategoria());
+        tfEstoque.setText(String.valueOf(produto.getEstoque()));
+        tfPrecoVenda.setText(String.valueOf(produto.getPrecoVenda()));
+        tfPrecoMestre.setText(String.valueOf(produto.getPrecoMestre()));
+        tfPrecoCompra.setText(String.valueOf(produto.getPrecoCompra()));
+        tfReferencia.setText(produto.getReferencia());
+        tfLucroBruto.setText(String.valueOf(produto.getLucroBruto()));
+        tfLoja.setText(produto.getLoja());
+        tfFabricante.setText(String.valueOf(produto.getFabricante()));
+        tfInfoAdicional.setText(produto.getInfoAdicional());
+        tfMargem.setText(String.valueOf(produto.getMargem()));
+        tfGarantia.setText(produto.getGarantia());
+        tfFornecedor.setText(produto.getFornecedor());
+    }
+    
+    public void limparCampos() {
+        tfCodigoBarra.clear();
+        tfNomeProduto.clear();
+        tfCategoria.clear();
+        tfEstoque.clear();
+        tfPrecoVenda.clear();
+        tfPrecoMestre.clear();
+        tfPrecoCompra.clear();
+        tfReferencia.clear();
+        tfMargem.clear();
+        tfLucroBruto.clear();
+        tfLoja.clear();
+        tfGarantia.clear();
+        tfFabricante.clear();
+        tfFornecedor.clear();
+        tfInfoAdicional.clear();
+    }
 	
+    @FXML
+    public void initialize() {
+        colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPrecoVenda.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
+        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+        
+        tabelaProdutos.setItems(produtoDAO.listarProdutos());
+        
+        tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                preencherCamposComProduto(newSelection);
+            }
+        }); 
+    }
+    
+    private void carregarProdutosNaTabela() {
+        ProdutoDAO dao = new ProdutoDAO();
+        ObservableList<Produto> lista = dao.listarProdutos();
+        tabelaProdutos.setItems(lista);
+    }
+    
 }

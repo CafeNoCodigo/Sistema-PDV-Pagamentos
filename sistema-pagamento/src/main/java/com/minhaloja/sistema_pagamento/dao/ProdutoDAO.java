@@ -2,24 +2,20 @@ package com.minhaloja.sistema_pagamento.dao;
 
 import com.minhaloja.sistema_pagamento.model.Produto;
 import com.minhaloja.sistema_pagamento.util.Conexao;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import java.sql.ResultSet;
+import javafx.scene.control.Alert;
 import java.sql.Connection;
-//import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ProdutoDAO {
 
-   // private static final String URL = "jdbc:mysql://localhost:3306/minha_loja"; // Caminho do banco SQLite
-
     public ProdutoDAO() {
         criarTabelaSeNaoExistir();
     }
-
-   /* private Connection conectar() throws SQLException {
-        return DriverManager.getConnection(URL);
-    }*/
 
     private void criarTabelaSeNaoExistir() {
     	String sql = """
@@ -39,7 +35,7 @@ public class ProdutoDAO {
     		        fabricante VARCHAR(100),
     		        fornecedor VARCHAR(100),
     		        infoAdicional VARCHAR(255),
-    		        codigoBarra VARCHAR(50)
+    		        codigoBarra VARCHAR(50) UNIQUE
     		    );
     		""";
 
@@ -51,6 +47,39 @@ public class ProdutoDAO {
     }
 
     public void salvarProduto(Produto produto) {
+    	if (produtoExiste(produto)) {
+            System.out.println("Produto já cadastrado. Cadastro cancelado.");
+         
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Erro");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Produto Já Existe!");
+            alerta.showAndWait();
+            return;
+        }
+    	
+    	if (produtoExistePorNomeECategoria(produto.getNome(), produto.getCategoria())) {
+            System.out.println("Já existe um produto com este nome na mesma categoria.");
+        
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Atenção!");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Já existe um produto com este nome na mesma categoria!");
+            alerta.showAndWait();
+            return;
+        }
+    	
+    	if (produtoExistePorCodigoBarra(produto.getCodigoBarra())) {
+            System.out.println("Produto com este código de barras já existe.");
+            
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Atenção!");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Produto com este código de barras já existe!");
+            alerta.showAndWait();
+            return;
+        }
+    	
         String sql = """
             INSERT INTO produtos(nome, precoCompra, precoVenda, precoMestre, margem, lucroBruto, 
             categoria, garantia, referencia, estoque, loja, fabricante, fornecedor, infoAdicional, codigoBarra) 
@@ -76,8 +105,97 @@ public class ProdutoDAO {
 
             pstmt.executeUpdate();
             System.out.println("Produto salvo com sucesso.");
+         // Exibe mensagem de sucesso
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Sucesso");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Produto salvo com sucesso!");
+            alerta.showAndWait();
         } catch (SQLException e) {
             System.out.println("Erro ao salvar produto: " + e.getMessage());
         }
     }
+    
+    public boolean produtoExiste(Produto produto) {
+        String sql = """
+            SELECT COUNT(*) FROM produtos 
+            WHERE codigoBarra = ? AND nome = ? AND categoria = ?
+        """;
+
+        try (Connection conn = Conexao.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, produto.getCodigoBarra());
+            pstmt.setString(2, produto.getNome());
+            pstmt.setString(3, produto.getCategoria());
+
+            var rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }   
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar duplicidade: " + e.getMessage());
+        }
+        return false;
+    }
+    
+    public boolean produtoExistePorNomeECategoria(String nome, String categoria) {
+        String sql = "SELECT COUNT(*) FROM produtos WHERE nome = ? AND categoria = ?";
+
+        try (Connection conn = Conexao.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nome);
+            pstmt.setString(2, categoria);
+            var rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar nome e categoria: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    public boolean produtoExistePorCodigoBarra(String codigoBarra) {
+        String sql = "SELECT COUNT(*) FROM produtos WHERE codigoBarra = ?";
+
+        try (Connection conn = Conexao.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, codigoBarra);
+            var rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar código de barras: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    public ObservableList<Produto> listarProdutos() {
+        ObservableList<Produto> lista = FXCollections.observableArrayList();
+        String sql = "SELECT codigoBarra, nome, categoria, estoque, precoVenda, precoMestre, precoCompra, referencia FROM produtos";
+
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Produto p = new Produto();
+                p.setCodigoBarra(rs.getString("codigoBarra"));
+                p.setNome(rs.getString("nome"));
+                p.setCategoria(rs.getString("categoria"));
+                p.setEstoque(rs.getInt("estoque"));
+                p.setPrecoVenda(rs.getDouble("precoVenda"));
+                p.setPrecoMestre(rs.getDouble("precoMestre"));
+                p.setPrecoVenda(rs.getDouble("precoVenda"));
+                p.setPrecoCompra(rs.getDouble("precoCompra"));
+                p.setReferencia(rs.getString("referencia"));
+                lista.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar produtos: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
 }

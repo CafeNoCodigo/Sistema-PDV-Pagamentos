@@ -1,0 +1,72 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.scene.layout.VBox;
+import javafx.fxml.FXML;
+import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
+import com.minhaloja.sistema_pagamento.model.Produto;
+//import javafx.fxml.FXML;
+import javafx.scene.control.*;
+
+public class telaCadastroProdutoController {
+
+	@FXML private VBox formulario;
+	@FXML private TextField tfNomeProduto;
+    @FXML private TextField tfPrecoCompra;
+    @FXML private TextField tfPrecoVenda;
+    @FXML private TextField tfPrecoMestre;
+    @FXML private TextField tfMargem;
+    @FXML private TextField tfLucroBruto;
+    //@FXML private TextField tfUnidade;
+    @FXML private TextField tfCategoria;
+    @FXML private TextField tfGarantia;
+    @FXML private TextField tfReferencia;
+    @FXML private TextField tfEstoque;
+    @FXML private TextField tfLoja;
+    @FXML private TextField tfFabricante;
+    @FXML private TextField tfFornecedor;
+    @FXML private TextField tfInfoAdicional;
+    @FXML private TextField tfCodigoBarra;
+    
+    private final ProdutoDAO produtoDAO = new ProdutoDAO();
+
+    @FXML
+    private void salvarProduto() {
+    	Produto produto = new Produto();      
+
+        try {
+            produto.setNome(tfNomeProduto.getText());
+            produto.setPrecoCompra(Double.parseDouble(tfPrecoCompra.getText()));
+            produto.setPrecoVenda(Double.parseDouble(tfPrecoVenda.getText()));
+            produto.setPrecoMestre(Double.parseDouble(tfPrecoMestre.getText()));
+            produto.setMargem(Double.parseDouble(tfMargem.getText()));
+            produto.setLucroBruto(Double.parseDouble(tfLucroBruto.getText()));
+            //produto.setUnidade(tfUnidade.getText());
+            produto.setCategoria(tfCategoria.getText());
+            produto.setGarantia(tfGarantia.getText());
+            produto.setReferencia(tfReferencia.getText());
+            produto.setEstoque(Integer.parseInt(tfEstoque.getText()));
+            produto.setLoja(tfLoja.getText());
+            produto.setFabricante(tfFabricante.getText());
+            produto.setFornecedor(tfFornecedor.getText());
+            produto.setInfoAdicional(tfInfoAdicional.getText());
+            produto.setCodigoBarra(tfCodigoBarra.getText());
+
+            produtoDAO.salvarProduto(produto);
+
+            // Exibe mensagem de sucesso
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Sucesso");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Produto salvo com sucesso!");
+            alerta.showAndWait();
+
+        } catch (NumberFormatException e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro");
+            alerta.setHeaderText("Erro de Formato");
+            alerta.setContentText("Certifique-se de que os valores numéricos foram preenchidos corretamente.");
+            alerta.showAndWait();
+        }
+    }
+	
+}

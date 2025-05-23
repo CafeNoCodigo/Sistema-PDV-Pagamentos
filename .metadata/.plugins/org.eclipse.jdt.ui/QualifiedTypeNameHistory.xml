@@ -7,5 +7,6 @@
     <fullyQualifiedTypeName name="javafx.scene.Parent"/>
     <fullyQualifiedTypeName name="javafx.scene.layout.VBox"/>
     <fullyQualifiedTypeName name="javafx.fxml.FXML"/>
+    <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.controller.telaCadastroProdutoController"/>
     <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.util.Conexao"/>
 </qualifiedTypeNameHistroy>

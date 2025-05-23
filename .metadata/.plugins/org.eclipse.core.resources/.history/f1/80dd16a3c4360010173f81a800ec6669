@@ -1,0 +1,101 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import com.minhaloja.sistema_pagamento.model.Produto;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+import java.sql.Connection;
+//import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class ProdutoDAO {
+
+    public ProdutoDAO() {
+        criarTabelaSeNaoExistir();
+    }
+
+    private void criarTabelaSeNaoExistir() {
+    	String sql = """
+    		    CREATE TABLE IF NOT EXISTS produtos (
+    		        id INT PRIMARY KEY AUTO_INCREMENT,
+    		        nome VARCHAR(255) NOT NULL,
+    		        precoCompra DOUBLE,
+    		        precoVenda DOUBLE,
+    		        precoMestre DOUBLE,
+    		        margem DOUBLE,
+    		        lucroBruto DOUBLE,
+    		        categoria VARCHAR(100),
+    		        garantia VARCHAR(100),
+    		        referencia VARCHAR(100),
+    		        estoque INT,
+    		        loja VARCHAR(100),
+    		        fabricante VARCHAR(100),
+    		        fornecedor VARCHAR(100),
+    		        infoAdicional VARCHAR(255),
+    		        codigoBarra VARCHAR(50)
+    		    );
+    		""";
+
+        try (Connection conn = Conexao.conectar(); Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println("Erro ao criar tabela: " + e.getMessage());
+        }
+    }
+
+    public void salvarProduto(Produto produto) {
+        String sql = """
+            INSERT INTO produtos(nome, precoCompra, precoVenda, precoMestre, margem, lucroBruto, 
+            categoria, garantia, referencia, estoque, loja, fabricante, fornecedor, infoAdicional, codigoBarra) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """;
+
+        try (Connection conn = Conexao.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, produto.getNome());
+            pstmt.setDouble(2, produto.getPrecoCompra());
+            pstmt.setDouble(3, produto.getPrecoVenda());
+            pstmt.setDouble(4, produto.getPrecoMestre());
+            pstmt.setDouble(5, produto.getMargem());
+            pstmt.setDouble(6, produto.getLucroBruto());
+            pstmt.setString(7, produto.getCategoria());
+            pstmt.setString(8, produto.getGarantia());
+            pstmt.setString(9, produto.getReferencia());
+            pstmt.setInt(10, produto.getEstoque());
+            pstmt.setString(11, produto.getLoja());
+            pstmt.setString(12, produto.getFabricante());
+            pstmt.setString(13, produto.getFornecedor());
+            pstmt.setString(14, produto.getInfoAdicional());
+            pstmt.setString(15, produto.getCodigoBarra());
+
+            pstmt.executeUpdate();
+            System.out.println("Produto salvo com sucesso.");
+        } catch (SQLException e) {
+            System.out.println("Erro ao salvar produto: " + e.getMessage());
+        }
+    }
+    
+    public boolean produtoExiste(Produto produto) {
+        String sql = """
+            SELECT COUNT(*) FROM produtos 
+            WHERE codigoBarra = ? OR (nome = ? AND categoria = ?)
+        """;
+
+        try (Connection conn = Conexao.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, produto.getCodigoBarra());
+            pstmt.setString(2, produto.getNome());
+            pstmt.setString(3, produto.getCategoria());
+
+            var rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar duplicidade: " + e.getMessage());
+        }
+        return false;
+    }
+
+}
