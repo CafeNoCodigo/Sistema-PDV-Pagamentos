@@ -1,14 +1,33 @@
 package com.minhaloja.sistema_pagamento.controller;
 
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+import javax.imageio.ImageIO;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
 import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
 import com.minhaloja.sistema_pagamento.model.Produto;
 
-import javafx.scene.control.*;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class telaCadastroProdutoController {
 
@@ -28,6 +47,8 @@ public class telaCadastroProdutoController {
     @FXML private TextField tfFornecedor;
     @FXML private TextField tfInfoAdicional;
     @FXML private TextField tfCodigoBarra;
+    @FXML private TextField tfCodigo;
+    @FXML private TextField tfModelo;
     
     @FXML public TableView<Produto> tabelaProdutos;
     @FXML private TableColumn<Produto, String> colCodigoBarra;
@@ -41,9 +62,116 @@ public class telaCadastroProdutoController {
     
     @FXML private Button btnFechar;
     @FXML private Button btnNovo;
+    @FXML private Button btnGerar;
+    @FXML private Button btnApagar;
+    @FXML private Button btnExcluir;
+    
+    @FXML private Label estoqueQTD;
+    @FXML private Label contarP;
+    
+    @FXML private ImageView imgCodigoBarra;
+    
+    @FXML private ChoiceBox<String> choiceCategoria;
+    
+    @FXML private ChoiceBox<String> choiceFornecedor;
+    
+    private byte[] imgQrCode;
     
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
     
+    @FXML
+    public void excluirProdutoSelecionado() {
+        Produto selecionado = tabelaProdutos.getSelectionModel().getSelectedItem();
+        
+        if (selecionado == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Nenhuma seleção");
+            alerta.setHeaderText("Nenhum produto selecionado");
+            alerta.setContentText("Por favor, selecione um produto na tabela.");
+            alerta.showAndWait();
+            return;
+        }
+
+        // Confirmação
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setTitle("Confirmar exclusão");
+        confirmacao.setHeaderText("Você tem certeza que deseja excluir este produto?");
+        confirmacao.setContentText("Produto: " + selecionado.getNome());
+
+        // Espera a resposta do usuário
+        confirmacao.showAndWait().ifPresent(resposta -> {
+            if (resposta == javafx.scene.control.ButtonType.OK) {
+                boolean sucesso = produtoDAO.excluirProduto(selecionado.getCodigoBarra());
+
+                if (sucesso) {
+                    Alert sucessoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                    sucessoAlerta.setTitle("Sucesso");
+                    sucessoAlerta.setHeaderText("Produto excluído com sucesso.");
+                    sucessoAlerta.showAndWait();
+                    
+                    carregarProdutosNaTabela(); // Atualiza a tabela
+                    contarProdutos();           // Atualiza contador
+                    limparCampos();             // Limpa os campos se necessário
+                } else {
+                    Alert erro = new Alert(Alert.AlertType.ERROR);
+                    erro.setTitle("Erro");
+                    erro.setHeaderText("Erro ao excluir produto");
+                    erro.setContentText("Não foi possível excluir o produto.");
+                    erro.showAndWait();
+                }
+            }
+        });
+    }
+
+    
+    private void carregarCategoriasNoChoiceBox() {
+        List<String> categorias = produtoDAO.listarCategoriasUnicas();
+        choiceCategoria.getItems().setAll(categorias);
+    }
+    
+    private void carregarfornecedoresNoChoiceBox() {
+        List<String> fornecedores = produtoDAO.listarFornecedores();
+        choiceFornecedor.getItems().setAll(fornecedores);
+    }
+    
+    private void contarProdutos() {
+    	 int total = produtoDAO.contarProdutos();
+    	 contarP.setText(String.valueOf(total));
+    }
+    
+    
+    
+    public Image gerarCodigoDeBarrasImage(String codigo) throws Exception {
+        int width = 150;
+        int height = 150;
+
+        BitMatrix bitMatrix = new MultiFormatWriter().encode(codigo, BarcodeFormat.CODE_128, width, height);
+        BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+
+        // Salva a imagem em bytes para armazenar no banco
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", baos);
+        imgQrCode = baos.toByteArray(); // ← armazena os bytes em um campo
+
+        return SwingFXUtils.toFXImage(bufferedImage, null); // para exibir no ImageView
+    }
+
+    
+    @FXML
+    private String gerarCodigoBarras() {
+        // Gera base no tempo atual
+        String codigo = "SRG" + System.currentTimeMillis();
+        tfCodigoBarra.setText(codigo);
+        
+        try {
+            Image codigoBarraimg = gerarCodigoDeBarrasImage(codigo);
+            imgCodigoBarra.setImage(codigoBarraimg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return codigo;
+    }
+
     @FXML
     private void fecharJanela() {
         Stage stage = (Stage) btnFechar.getScene().getWindow();
@@ -53,17 +181,15 @@ public class telaCadastroProdutoController {
 
     @FXML
     private void salvarProduto() {
-    	
-    	Produto produto = new Produto();      
+        Produto produto = new Produto();
 
-    	
         try {
             produto.setNome(tfNomeProduto.getText());
             produto.setPrecoCompra(Double.parseDouble(tfPrecoCompra.getText()));
             produto.setPrecoVenda(Double.parseDouble(tfPrecoVenda.getText()));
             produto.setPrecoMestre(Double.parseDouble(tfPrecoMestre.getText()));
-            produto.setMargem(Double.parseDouble(tfMargem.getText()));
-            produto.setLucroBruto(Double.parseDouble(tfLucroBruto.getText()));
+            //produto.setMargem(Double.parseDouble(tfMargem.getText()));
+            //produto.setLucroBruto(Double.parseDouble(tfLucroBruto.getText()));
             produto.setCategoria(tfCategoria.getText());
             produto.setGarantia(tfGarantia.getText());
             produto.setReferencia(tfReferencia.getText());
@@ -73,21 +199,41 @@ public class telaCadastroProdutoController {
             produto.setFornecedor(tfFornecedor.getText());
             produto.setInfoAdicional(tfInfoAdicional.getText());
             produto.setCodigoBarra(tfCodigoBarra.getText());
-
-            produtoDAO.salvarProduto(produto);
-            carregarProdutosNaTabela();
-            limparCampos();
-
+            produto.setQrCode(imgQrCode);
+            produto.setModelo(tfModelo.getText());
+            produto.setCodigo(tfCodigo.getText());
         } catch (NumberFormatException e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Erro");
             alerta.setHeaderText("Erro de Formato");
             alerta.setContentText("Certifique-se de que os valores numéricos foram preenchidos corretamente.");
             alerta.showAndWait();
+            return;
+        }
+
+        try {
+            produtoDAO.salvarProduto(produto);
+            carregarProdutosNaTabela();
+            carregarCategoriasNoChoiceBox();
+            carregarfornecedoresNoChoiceBox();
+            limparCampos();
+            contarProdutos();
+            //contarP.setText.clear();
+           // produto.setCodigoBarra(tfCodigoBarra.getText());
+            //gerarCodigoDeBarrasImage(gerarCodigoBarras());
+            
+
+        } catch (Exception e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro");
+            alerta.setHeaderText("Erro ao salvar");
+            alerta.setContentText("Não foi possível salvar o produto: " + e.getMessage());
+            alerta.showAndWait();
         }
     }
     
     private void preencherCamposComProduto(Produto produto) {
+    	tfGarantia.setText(produto.getGarantia());
         tfCodigoBarra.setText(produto.getCodigoBarra());
         tfNomeProduto.setText(produto.getNome());
         tfCategoria.setText(produto.getCategoria());
@@ -101,9 +247,20 @@ public class telaCadastroProdutoController {
         tfFabricante.setText(String.valueOf(produto.getFabricante()));
         tfInfoAdicional.setText(produto.getInfoAdicional());
         tfMargem.setText(String.valueOf(produto.getMargem()));
-        tfGarantia.setText(produto.getGarantia());
         tfFornecedor.setText(produto.getFornecedor());
+        estoqueQTD.setText(String.valueOf(produto.getEstoque()));
+        tfModelo.setText(produto.getModelo());
+        tfCodigo.setText(produto.getCodigo());
+
+        // Carregar e exibir imagem do banco de dados
+        Image imagem = produtoDAO.obterImagemQrCode(produto.getCodigoBarra());
+        if (imagem != null) {
+            imgCodigoBarra.setImage(imagem);
+        } else {
+            imgCodigoBarra.setImage(null); // limpa se não houver imagem
+        }
     }
+
     
     public void limparCampos() {
         tfCodigoBarra.clear();
@@ -121,10 +278,22 @@ public class telaCadastroProdutoController {
         tfFabricante.clear();
         tfFornecedor.clear();
         tfInfoAdicional.clear();
+        imgCodigoBarra.setImage(null);
+        tfModelo.clear();
+        tfCodigo.clear();
     }
 	
     @FXML
     public void initialize() {
+    	carregarCategoriasNoChoiceBox();
+    	carregarfornecedoresNoChoiceBox();
+    	contarProdutos();
+    	
+    	//imgCodigoBarra.setFitWidth(148);
+        //imgCodigoBarra.setFitHeight(130);
+        imgCodigoBarra.setPreserveRatio(true);
+        imgCodigoBarra.setSmooth(true);
+        
         colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
@@ -141,6 +310,18 @@ public class telaCadastroProdutoController {
                 preencherCamposComProduto(newSelection);
             }
         }); 
+        
+        choiceCategoria.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                tfCategoria.setText(newVal);
+            }
+        });
+        
+        choiceFornecedor.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                tfFornecedor.setText(newVal);
+            }
+        });
     }
     
     private void carregarProdutosNaTabela() {

@@ -15,16 +15,23 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="515.0" layoutX="8.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="1100.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="43.0" layoutX="9.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="346.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="9.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="311.0" />
-      <TableView fx:id="tabelaProdutos2" layoutX="14.0" layoutY="152.0" prefHeight="493.0" prefWidth="1085.0">
+      <TableView fx:id="tabelaProdutos2" layoutX="14.0" layoutY="152.0" prefHeight="493.0" prefWidth="1086.0">
         <columns>
-          <TableColumn fx:id="colId" prefWidth="53.0" text="Item" />
-          <TableColumn fx:id="colCodigoBarra" prefWidth="147.0" text="Codigo" />
-            <TableColumn fx:id="colNome" prefWidth="318.0" text="Nome" />
-            <TableColumn fx:id="colCategoria" prefWidth="130.0" text="Categoria" />
-            <TableColumn fx:id="colEstoque" prefWidth="62.0" text="QTD" />
-            <TableColumn fx:id="colPrecoVenda" prefWidth="133.0" text="P. Venda" />
-            <TableColumn fx:id="colPrecoCompra" prefWidth="102.0" text="P. Compra" />
-            <TableColumn fx:id="colPrecoMestre" prefWidth="139.0" text="P. Mestre" />
+          <TableColumn fx:id="colCodigoBarra" prefWidth="127.0" text="Código de Barra" />
+            <TableColumn fx:id="colNome" prefWidth="152.0" text="Nome" />
+            <TableColumn fx:id="colCategoria" prefWidth="84.0" text="Categoria" />
+            <TableColumn fx:id="colEstoque" prefWidth="36.0" text="QTD" />
+            <TableColumn fx:id="colPrecoVenda" prefWidth="61.0" text="P. Venda" />
+            <TableColumn fx:id="colPrecoCompra" prefWidth="72.0" text="P. Compra" />
+            <TableColumn fx:id="colPrecoMestre" minWidth="0.0" prefWidth="66.0" text="P. Mestre" />
+            <TableColumn fx:id="colReferencia" prefWidth="101.0" text="Referência" />
+            <TableColumn fx:id="colLoja" prefWidth="93.0" text="Loja" />
+            <TableColumn fx:id="colFabricante" prefWidth="74.0" text="Fabricante" />
+            <TableColumn fx:id="colLucroBruto" prefWidth="77.0" text="Lucro Bruto" />
+            <TableColumn fx:id="colMargem" prefWidth="59.0" text="Lucro(%)" />
+            <TableColumn fx:id="colFornecedor" prefWidth="160.0" text="Fornecedor" />
+            <TableColumn fx:id="colModelo" prefWidth="75.0" text="Modelo" />
+            <TableColumn fx:id="colCodigo" prefWidth="75.0" text="Código" />
         </columns>
       </TableView>
       <VBox layoutX="14.0" layoutY="90.0" prefHeight="22.0" prefWidth="114.0">
@@ -35,7 +42,7 @@
       <TextField layoutX="128.0" layoutY="86.0" prefHeight="29.0" prefWidth="220.0" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" prefHeight="50.0" prefWidth="93.0" text="Adicionar" />
       <Button layoutX="117.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="93.0" text="Editar" />
-      <Button layoutX="221.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="93.0" styleClass="deletar" text="Excluir" />
+      <Button fx:id="btnExcluir" layoutX="221.0" layoutY="14.0" mnemonicParsing="false" onAction="#excluirProduto" prefHeight="50.0" prefWidth="93.0" styleClass="deletar" text="Excluir" />
       <Button fx:id="btnFechar" layoutX="1006.0" layoutY="15.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="50.0" prefWidth="93.0" style="-fx-background-color: #ff0000;" styleClass="deletar" text="Fechar" />
    </children>
 </AnchorPane>

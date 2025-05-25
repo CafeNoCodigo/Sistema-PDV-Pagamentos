@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="658.0" prefWidth="994.0" styleClass="container-retangulo" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaCadastroProdutoController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="537.0" layoutX="-7.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="810.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="47.0" layoutX="1.0" layoutY="543.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="438.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="53.0" layoutX="2.0" layoutY="595.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="612.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="158.0" layoutX="838.0" layoutY="412.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="148.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="158.0" layoutX="818.0" layoutY="246.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="168.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="25.0" layoutX="818.0" layoutY="167.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="168.0" />
+      <TextField fx:id="tfCodigoBarra" layoutX="1.0" layoutY="94.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" text="123445" />
+      <Button fx:id="btnGerar" layoutX="135.0" layoutY="92.0" mnemonicParsing="false" onAction="#gerarCodigoBarras" prefHeight="10.0" prefWidth="56.0" style="-fx-background-radius: 10; -fx-pref-height: 25; -fx-padding: 2 0 2 0;" text="Gerar" />
+      <TextField fx:id="tfNomeProduto" layoutX="199.0" layoutY="94.0" prefHeight="21.0" prefWidth="388.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" styleClass="text-field" text="Tecno Spark 3" />
+      <VBox layoutX="205.0" layoutY="75.0" prefHeight="18.0" prefWidth="185.0">
+         <children>
+            <Label prefHeight="27.0" prefWidth="185.0" text="Nome do Produto">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="539.0" layoutY="32.0" prefHeight="18.0" prefWidth="62.0" />
+      <TextField fx:id="tfPrecoCompra" layoutX="3.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" styleClass="text-field" text="20" />
+      <TextField fx:id="tfMargem" layoutX="172.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" styleClass="text-field" text="600" />
+      <TextField fx:id="tfLucroBruto" layoutX="310.0" layoutY="141.0" prefHeight="29.0" prefWidth="132.0" style="-fx-background-radius: 10;" text="480" />
+      <TextField fx:id="tfPrecoVenda" layoutX="453.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" text="500" />
+      <TextField fx:id="tfPrecoMestre" layoutX="594.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" text="140" />
+      <VBox layoutX="5.0" layoutY="73.0" prefHeight="18.0" prefWidth="124.0">
+         <children>
+            <VBox prefHeight="18.0" prefWidth="118.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="118.0" text="Codigo de Barras">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox layoutX="176.0" layoutY="128.0" prefHeight="18.0" prefWidth="105.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Margem (%)">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="314.0" layoutY="125.0" prefHeight="18.0" prefWidth="105.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Lucro Bruto">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="456.0" layoutY="125.0" prefHeight="18.0" prefWidth="105.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Preco de Venda">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="594.0" layoutY="128.0" prefHeight="18.0" prefWidth="105.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Preco para Mestre">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="143.0" layoutX="818.0" layoutY="25.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="168.0" />
+      <ImageView fitHeight="132.0" fitWidth="137.0" layoutX="840.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/inserirFotoProduto.png" />
+         </image></ImageView>
+      <TextField fx:id="tfReferencia" layoutX="594.0" layoutY="196.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" text="Spark 3" />
+      <ChoiceBox fx:id="choiceCategoria" layoutX="140.0" layoutY="190.0" prefHeight="28.0" prefWidth="148.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="tfEstoque" layoutX="310.0" layoutY="194.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" text="30" />
+      <VBox layoutX="8.0" layoutY="125.0" prefHeight="18.0" prefWidth="105.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Preco de Compra">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="178.0" layoutY="221.0" prefHeight="18.0" prefWidth="105.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Fabricante">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="314.0" layoutY="177.0" prefHeight="18.0" prefWidth="105.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Estoque">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="461.0" layoutY="176.0" prefHeight="18.0" prefWidth="105.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Loja">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="47.0" layoutX="818.0" layoutY="197.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="168.0" />
+      <TextField fx:id="tfGarantia" layoutX="3.0" layoutY="239.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" text="Sem" />
+      <TextField fx:id="tfFabricante" layoutX="173.0" layoutY="240.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" text="China" />
+      <ChoiceBox layoutX="447.0" layoutY="236.0" prefHeight="27.0" prefWidth="132.0" style="-fx-background-radius: 10;" />
+      <VBox layoutX="7.0" layoutY="177.0" prefHeight="18.0" prefWidth="105.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Categoria">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="597.0" layoutY="179.0" prefHeight="18.0" prefWidth="62.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Referencia">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="315.0" layoutY="221.0" prefHeight="18.0" prefWidth="105.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="75.0" text="Fornecedor">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <TextField fx:id="tfInfoAdicional" layoutX="1.0" layoutY="281.0" prefHeight="37.0" prefWidth="581.0" styleClass="text-field" text="Sem" />
+      <VBox layoutX="6.0" layoutY="262.0" prefHeight="18.0" prefWidth="210.0">
+         <children>
+            <VBox prefHeight="18.0" prefWidth="168.0" />
+            <Label prefHeight="18.0" prefWidth="210.0" text="Info. Adicionais do Produto">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <TableView fx:id="tabelaProdutos" layoutX="1.0" layoutY="340.0" prefHeight="189.0" prefWidth="794.0">
+        <columns>
+          <TableColumn fx:id="colCodigoBarra" prefWidth="180.0" text="Código" />
+          <TableColumn fx:id="colNome" prefWidth="192.0" text="Nome" />
+            <TableColumn fx:id="colCategoria" prefWidth="121.0" text="Categoria" />
+            <TableColumn fx:id="colEstoque" prefWidth="37.0" text="QTD" />
+            <TableColumn fx:id="colPrecoVenda" editable="false" prefWidth="65.0" text="P.Venda" />
+            <TableColumn fx:id="colPrecoMestre" prefWidth="66.0" text="P.Grosso" />
+            <TableColumn fx:id="colPrecoCompra" prefWidth="66.0" text="P.Compra" />
+            <TableColumn fx:id="colReferencia" text="Referência" />
+        </columns>
+      </TableView>
+      <VBox layoutX="3.0" layoutY="351.0" prefHeight="18.0" prefWidth="124.0" />
+      <TextField fx:id="" layoutX="127.0" layoutY="552.0" prefHeight="25.0" prefWidth="303.0" style="-fx-background-radius: 10;" />
+      <VBox layoutX="441.0" layoutY="559.0" prefHeight="18.0" prefWidth="124.0" style="-fx-background-color: lightyellow;" />
+      <VBox layoutX="553.0" layoutY="559.0" prefHeight="18.0" prefWidth="56.0" style="-fx-background-color: lightyellow;" />
+      <Line endX="-100.0" endY="67.0" layoutX="658.0" layoutY="510.0" startX="-100.0" startY="49.0" />
+      <Button layoutX="829.0" layoutY="170.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="142.0" style="-fx-padding: 2 5 2 5;" text="Inserir Foto">
+         <font>
+            <Font name="Franklin Gothic Medium" size="10.0" />
+         </font>
+      </Button>
+      <VBox layoutX="841.0" layoutY="465.0" prefHeight="53.0" prefWidth="142.0" style="-fx-background-color: lightyellow;">
+         <children>
+            <Label fx:id="estoqueQTD" alignment="CENTER" prefHeight="55.0" prefWidth="160.0" style="-fx-font-size: 30px; -fx-font-weight: bold;" textFill="#ff1100">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="854.0" layoutY="440.0" prefHeight="18.0" prefWidth="132.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="166.0" style="-fx-font-size: 11px;" text="Estoque Atual do Produto">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Button layoutY="5.0" mnemonicParsing="false" onAction="#salvarProduto" prefHeight="63.0" prefWidth="602.0" style="-fx-background-radius: 10; -fx-padding: 2 6 2 6;" text="Salvar">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnApagar" layoutX="816.0" layoutY="2.0" maxWidth="168.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="10.0" prefWidth="168.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 6 2 6;" styleClass="cancelar" text="Apagar">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnNovo" layoutX="3.0" layoutY="606.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="31.0" prefWidth="62.0" style="-fx-background-radius: 10;" text="Novo">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="85.0" layoutY="606.0" mnemonicParsing="false" onAction="#salvarProduto" prefHeight="31.0" prefWidth="69.0" style="-fx-background-radius: 10;" text="Salvar">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnExcluir" layoutX="167.0" layoutY="607.0" mnemonicParsing="false" onAction="#excluirProdutoSelecionado" prefHeight="31.0" prefWidth="69.0" style="-fx-background-radius: 10;" styleClass="deletar" text="Excluir">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="250.0" layoutY="606.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" style="-fx-background-radius: 10;" text="Imprimir">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnFechar" layoutX="529.0" layoutY="606.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="31.0" prefWidth="75.0" style="-fx-background-radius: 10;" text="Fechar">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="345.0" layoutY="606.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="75.0" style="-fx-background-radius: 10;" text="Alterar">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnApagar" layoutX="425.0" layoutY="606.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="31.0" prefWidth="83.0" style="-fx-background-radius: 10;" text="Apagar">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+         <styleClass>
+            <String fx:value="cancelar" />
+            <String fx:value="button" />
+         </styleClass>
+      </Button>
+      <Label layoutX="3.0" layoutY="557.0" prefHeight="18.0" prefWidth="126.0" text="Pesquisar Cadastro">
+         <font>
+            <Font name="Franklin Gothic Medium" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="444.0" layoutY="558.0" prefHeight="18.0" prefWidth="111.0" text="Total de Cadastros" textFill="#ff1212">
+         <font>
+            <Font name="Franklin Gothic Medium" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="contarP" alignment="CENTER" contentDisplay="CENTER" layoutX="559.0" layoutY="558.0" prefHeight="18.0" prefWidth="46.0" textFill="#ff0505">
+         <font>
+            <Font name="Franklin Gothic Medium" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="4.0" layoutY="321.0" prefHeight="18.0" prefWidth="166.0" text="Itens Cadastrados">
+         <font>
+            <Font name="Franklin Gothic Medium" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfCategoria" layoutX="4.0" layoutY="194.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" styleClass="text-field" text="Botao Power" />
+      <TextField fx:id="tfFornecedor" layoutX="311.0" layoutY="240.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" text="Rita" />
+      <TextField fx:id="tfLoja" layoutX="456.0" layoutY="194.0" prefHeight="21.0" prefWidth="126.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" text="Shoprite" />
+      <ImageView fx:id="imgCodigoBarra" fitHeight="132.0" fitWidth="142.0" layoutX="831.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="8.0" layoutY="221.0" prefHeight="18.0" prefWidth="118.0" text="Garantia">
+         <font>
+            <Font name="Franklin Gothic Medium" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnApagar1" layoutX="616.0" layoutY="5.0" maxWidth="185.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="63.0" prefWidth="179.0" style="-fx-background-radius: 10; -fx-padding: 2 6 2 6;" styleClass="cancelar" text="Cancelar">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+      </Button>
+      <TextField layoutX="594.0" layoutY="238.0" prefHeight="19.0" prefWidth="132.0" style="-fx-padding: 2 5 2 5; -fx-border-radius: 10PX;" />
+      <VBox layoutX="597.0" layoutY="221.0" prefHeight="18.0" prefWidth="62.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Modelo">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <TextField layoutX="594.0" layoutY="280.0" prefHeight="19.0" prefWidth="132.0" style="-fx-padding: 2 5 2 5; -fx-border-radius: 10PX;" />
+      <VBox layoutX="597.0" layoutY="262.0" prefHeight="18.0" prefWidth="62.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="118.0" text="Código">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

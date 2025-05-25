@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="1291.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="1291.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/21.0.7" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="527.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="980.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="161.0" layoutX="993.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="293.0" />

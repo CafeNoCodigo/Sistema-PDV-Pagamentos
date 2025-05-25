@@ -2,7 +2,7 @@ package com.minhaloja.sistema_pagamento.model;
 
 public class Produto {
 	
-	private int id;
+	//private int id;
 	private String nome;
     private double precoCompra;
     private double precoVenda;
@@ -18,14 +18,41 @@ public class Produto {
     private String fornecedor;
     private String infoAdicional;
     private String codigoBarra;
+    private byte[] qrCode;
+    private String modelo;
+    private String codigo;
     
-    public int getId() {
+    public String getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public byte[] getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(byte[] qrCode) {
+        this.qrCode = qrCode;
+    }
+    
+   /* public int getId() {
 		return id;
 	}
     
 	public void setId(int id) {
 		this.id = id;
-	}
+	}*/
     
     public double getPrecoMestre() {
 		return precoMestre;
@@ -68,6 +95,8 @@ public class Produto {
 	}
 	
 	public double getMargem() {
+		double margemLucro = (getLucroBruto()/getPrecoCompra())*100;
+		margem = margemLucro;
 		return margem;
 	}
 	
@@ -76,6 +105,8 @@ public class Produto {
 	}
 	
 	public double getLucroBruto() {
+		double lucro = getPrecoMestre() - getPrecoCompra();
+		this.lucroBruto = lucro;
 		return lucroBruto;
 	}
 	

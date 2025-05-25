@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class WindowManager {
+	
 	@FXML
 	public static void abrirTelaCadastroProduto() {
 		try {
@@ -86,7 +87,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			stage.setTitle("Estoque Atual");
-			stage.setResizable(false);
+			stage.setResizable(true);
 			stage.setMaximized(false);
 			
 			stage.setScene(new Scene(root));

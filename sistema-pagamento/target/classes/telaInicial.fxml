@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane scaleShape="false" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaInicialController">
+<AnchorPane scaleShape="false" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/21.0.7" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaInicialController">
    <children>
       <ImageView fitHeight="653.0" fitWidth="1267.0" layoutX="-3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -536,5 +536,6 @@
             </Label>
          </children>
       </VBox>
+      <Button fx:id="btnFechar" layoutX="1073.0" layoutY="26.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="62.0" prefWidth="120.0" styleClass="deletar" text="FECHAR" />
    </children>
 </AnchorPane>

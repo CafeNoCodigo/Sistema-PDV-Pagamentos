@@ -2,7 +2,23 @@ package com.minhaloja.sistema_pagamento.controller;
 
 import com.minhaloja.sistema_pagamento.util.WindowManager;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
 public class telaInicialController {
+	
+	@FXML private Button btnFechar;
+	
+	@FXML
+    private void fecharJanela() {
+		Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+        
+     // Finaliza a aplicação JavaFX completamente
+        javafx.application.Platform.exit();
+        System.exit(0);  // opcional, força encerramento
+    }
 	
 	public void abrirTelaCadastroProduto2() {
 		WindowManager.abrirTelaCadastroProduto();

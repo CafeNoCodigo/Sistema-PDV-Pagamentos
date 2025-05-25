@@ -4,7 +4,9 @@ import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
 import com.minhaloja.sistema_pagamento.model.Produto;
 import com.minhaloja.sistema_pagamento.util.WindowManager;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,7 +16,7 @@ import javafx.stage.Stage;
 public class telaEstoqueAtualController {
 	
 	@FXML public TableView<Produto> tabelaProdutos2;
-	@FXML private TableColumn<Produto, String> colId;
+	//@FXML private TableColumn<Produto, String> colId;
     @FXML private TableColumn<Produto, String> colCodigoBarra;
     @FXML private TableColumn<Produto, String> colNome;
     @FXML private TableColumn<Produto, String> colCategoria;
@@ -22,18 +24,27 @@ public class telaEstoqueAtualController {
     @FXML private TableColumn<Produto, Double> colPrecoVenda;
     @FXML private TableColumn<Produto, Double> colPrecoMestre;
     @FXML private TableColumn<Produto, Double> colPrecoCompra;
-   // @FXML private TableColumn<Produto, Double> colReferencia;
+    @FXML private TableColumn<Produto, String> colReferencia;
+    @FXML private TableColumn<Produto, String> colLoja;
+    @FXML private TableColumn<Produto, Double> colFabricante;
+    @FXML private TableColumn<Produto, Double> colLucroBruto;
+    @FXML private TableColumn<Produto, Double> colMargem;
+    @FXML private TableColumn<Produto, String> colFornecedor;
+    @FXML private TableColumn<Produto, String> colModelo;
+    @FXML private TableColumn<Produto, String> colCodigo;
     
     @FXML private Button btnFechar;
+    @FXML private Button btnExcluir;
     
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
+    //private final telaCadastroProdutoController tc = new telaCadastroProdutoController();
 
 	public void abrirTelaCadastroProduto2() {
 		WindowManager.abrirTelaCadastroProduto();
 	}
 	
 	public void initialize() {
-		colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+		//colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
@@ -41,7 +52,14 @@ public class telaEstoqueAtualController {
         colPrecoVenda.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
         colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
         colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
-        //colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+        colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
+        colFabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+        colLucroBruto.setCellValueFactory(new PropertyValueFactory<>("lucroBruto"));
+        colMargem.setCellValueFactory(new PropertyValueFactory<>("Margem"));
+        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         
         tabelaProdutos2.setItems(produtoDAO.listarProdutos()); 
     }
@@ -50,5 +68,56 @@ public class telaEstoqueAtualController {
     private void fecharJanela() {
         Stage stage = (Stage) btnFechar.getScene().getWindow();
         stage.close();
+    }
+	
+	@FXML
+	private void excluirProduto() {
+		Produto selecionado = tabelaProdutos2.getSelectionModel().getSelectedItem();
+        
+        if (selecionado == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Nenhuma seleção");
+            alerta.setHeaderText("Nenhum produto selecionado");
+            alerta.setContentText("Por favor, selecione um produto na tabela.");
+            alerta.showAndWait();
+            return;
+        }
+
+        // Confirmação
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setTitle("Confirmar exclusão");
+        confirmacao.setHeaderText("Você tem certeza que deseja excluir este produto?");
+        confirmacao.setContentText("Produto: " + selecionado.getNome());
+
+        // Espera a resposta do usuário
+        confirmacao.showAndWait().ifPresent(resposta -> {
+            if (resposta == javafx.scene.control.ButtonType.OK) {
+                boolean sucesso = produtoDAO.excluirProduto(selecionado.getCodigoBarra());
+
+                if (sucesso) {
+                    Alert sucessoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                    sucessoAlerta.setTitle("Sucesso");
+                    sucessoAlerta.setHeaderText("Produto excluído com sucesso.");
+                    sucessoAlerta.showAndWait();
+                    carregarProdutosNaTabela();
+                    
+                    //carregarProdutosNaTabela(); // Atualiza a tabela
+                    //contarProdutos();           // Atualiza contador
+                   // limparCampos();             // Limpa os campos se necessário
+                } else {
+                    Alert erro = new Alert(Alert.AlertType.ERROR);
+                    erro.setTitle("Erro");
+                    erro.setHeaderText("Erro ao excluir produto");
+                    erro.setContentText("Não foi possível excluir o produto.");
+                    erro.showAndWait();
+                }
+            }
+        });
+	}
+	
+	private void carregarProdutosNaTabela() {
+        ProdutoDAO dao = new ProdutoDAO();
+        ObservableList<Produto> lista = dao.listarProdutos();
+        tabelaProdutos2.setItems(lista);
     }
 }
