@@ -6064,3 +6064,676 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2025-05-25 08:21:32.094
 !MESSAGE The artifact mysql:mysql-connector-java:jar:8.0.33 has been relocated to com.mysql:mysql-connector-j:jar:8.0.33: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-05-25 08:48:16.318
+!MESSAGE The artifact mysql:mysql-connector-java:jar:8.0.33 has been relocated to com.mysql:mysql-connector-j:jar:8.0.33: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2025-05-25 08:48:59.490
+!MESSAGE The artifact mysql:mysql-connector-java:jar:8.0.33 has been relocated to com.mysql:mysql-connector-j:jar:8.0.33: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+
+!ENTRY org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+SHIFT+CR:
+Binding(CTRL+SHIFT+CR,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.smartEnterInverse,Insert Line Above Current Line,
+		Adds a new line above the current line,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.smartEnterInverse"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+SHIFT+CR,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.smartEnterInverse,Insert Line Above Current Line,
+		Adds a new line above the current line,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.smartEnterInverse"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+BS:
+Binding(CTRL+BS,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.deletePreviousWord,Delete Previous Word,
+		Delete the previous word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.deletePreviousWord"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+BS,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.deletePreviousWord,Delete Previous Word,
+		Delete the previous word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.deletePreviousWord"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+SHIFT+J:
+Binding(CTRL+SHIFT+J,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.findIncrementalReverse,Incremental Find Reverse,
+		Incremental find reverse,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.findIncrementalReverse"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+SHIFT+J,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.findIncrementalReverse,Incremental Find Reverse,
+		Incremental find reverse,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.findIncrementalReverse"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+SHIFT+K:
+Binding(CTRL+SHIFT+K,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.findPrevious,Find Previous,
+		Find previous item,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.findPrevious"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+K,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.findPrevious,Find Previous,
+		Find previous item,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.findPrevious"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for ALT+CTRL+J:
+Binding(ALT+CTRL+J,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.join.lines,Join Lines,
+		Join lines of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.join.lines"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(ALT+CTRL+J,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.join.lines,Join Lines,
+		Join lines of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.join.lines"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for ALT+SHIFT+A:
+Binding(ALT+SHIFT+A,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.toggleBlockSelectionMode,Toggle Block Selection,
+		Toggle block / column selection in the current text editor,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.toggleBlockSelectionMode"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(ALT+SHIFT+A,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.toggleBlockSelectionMode,Toggle Block Selection,
+		Toggle block / column selection in the current text editor,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.toggleBlockSelectionMode"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+J:
+Binding(CTRL+J,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.findIncremental,Incremental Find,
+		Incremental find,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.findIncremental"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+J,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.findIncremental,Incremental Find,
+		Incremental find,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.findIncremental"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+K:
+Binding(CTRL+K,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.findNext,Find Next,
+		Find next item,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.findNext"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+K,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.findNext,Find Next,
+		Find next item,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.findNext"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+L:
+Binding(CTRL+L,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.line,Go to Line,
+		Go to a specified line of text,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.line"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+L,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.line,Go to Line,
+		Go to a specified line of text,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.line"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+D:
+Binding(CTRL+D,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.delete.line,Delete Line,
+		Delete a line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.delete.line"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+D,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.delete.line,Delete Line,
+		Delete a line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.delete.line"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+SHIFT+DEL:
+Binding(CTRL+SHIFT+DEL,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.delete.line.to.end,Delete to End of Line,
+		Delete to the end of a line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.delete.line.to.end"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+SHIFT+DEL,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.delete.line.to.end,Delete to End of Line,
+		Delete to the end of a line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.delete.line.to.end"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+SHIFT+X:
+Binding(CTRL+SHIFT+X,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.upperCase,To Upper Case,
+		Changes the selection to upper case,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.upperCase"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+SHIFT+X,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.upperCase,To Upper Case,
+		Changes the selection to upper case,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.upperCase"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.607
+!MESSAGE A conflict occurred for CTRL+SHIFT+Y:
+Binding(CTRL+SHIFT+Y,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.lowerCase,To Lower Case,
+		Changes the selection to lower case,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.lowerCase"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+SHIFT+Y,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.lowerCase,To Lower Case,
+		Changes the selection to lower case,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.lowerCase"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.608
+!MESSAGE A conflict occurred for CTRL+DEL:
+Binding(CTRL+DEL,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.deleteNextWord,Delete Next Word,
+		Delete the next word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.deleteNextWord"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+DEL,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.deleteNextWord,Delete Next Word,
+		Delete the next word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.deleteNextWord"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.608
+!MESSAGE A conflict occurred for ALT+ARROW_UP:
+Binding(ALT+ARROW_UP,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.moveLineUp,Move Lines Up,
+		Moves the selected lines up,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.moveLineUp"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(ALT+ARROW_UP,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.moveLineUp,Move Lines Up,
+		Moves the selected lines up,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.moveLineUp"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.608
+!MESSAGE A conflict occurred for ALT+ARROW_DOWN:
+Binding(ALT+ARROW_DOWN,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.moveLineDown,Move Lines Down,
+		Moves the selected lines down,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.moveLineDown"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(ALT+ARROW_DOWN,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.moveLineDown,Move Lines Down,
+		Moves the selected lines down,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.moveLineDown"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.608
+!MESSAGE A conflict occurred for SHIFT+END:
+Binding(SHIFT+END,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.select.lineEnd,Select Line End,
+		Select to the end of the line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.select.lineEnd"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(SHIFT+END,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.select.lineEnd,Select Line End,
+		Select to the end of the line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.select.lineEnd"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.608
+!MESSAGE A conflict occurred for SHIFT+HOME:
+Binding(SHIFT+HOME,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.select.lineStart,Select Line Start,
+		Select to the beginning of the line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.select.lineStart"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(SHIFT+HOME,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.select.lineStart,Select Line Start,
+		Select to the beginning of the line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.select.lineStart"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for END:
+Binding(END,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.lineEnd,Line End,
+		Go to the end of the line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.lineEnd"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(END,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.lineEnd,Line End,
+		Go to the end of the line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.lineEnd"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for INSERT:
+Binding(INSERT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.toggleOverwrite,Toggle Overwrite,
+		Toggle overwrite mode,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.toggleOverwrite"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(INSERT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.toggleOverwrite,Toggle Overwrite,
+		Toggle overwrite mode,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.toggleOverwrite"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for F2:
+Binding(F2,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.rename,Rename,
+		Rename the selected item,
+		Category(org.eclipse.ui.category.file,File,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.rename"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(F2,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.showInformation,Show Tooltip Description,
+		Displays information for the current caret location in a focused hover,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.showInformation"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(F2,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.showInformation,Show Tooltip Description,
+		Displays information for the current caret location in a focused hover,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.showInformation"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for HOME:
+Binding(HOME,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.lineStart,Line Start,
+		Go to the start of the line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.lineStart"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(HOME,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.lineStart,Line Start,
+		Go to the start of the line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.lineStart"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for ALT+CTRL+ARROW_UP:
+Binding(ALT+CTRL+ARROW_UP,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.copyLineUp,Duplicate Lines,
+		Duplicates the selected lines and leaves the selection unchanged,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.copyLineUp"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(ALT+CTRL+ARROW_UP,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.copyLineUp,Duplicate Lines,
+		Duplicates the selected lines and leaves the selection unchanged,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.copyLineUp"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for ALT+CTRL+ARROW_DOWN:
+Binding(ALT+CTRL+ARROW_DOWN,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.copyLineDown,Copy Lines,
+		Duplicates the selected lines and moves the selection to the copy,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.copyLineDown"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(ALT+CTRL+ARROW_DOWN,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.copyLineDown,Copy Lines,
+		Duplicates the selected lines and moves the selection to the copy,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.copyLineDown"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for CTRL+SHIFT+INSERT:
+Binding(CTRL+SHIFT+INSERT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.toggleInsertMode,Toggle Insert Mode,
+		Toggle insert mode,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.toggleInsertMode"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+SHIFT+INSERT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.toggleInsertMode,Toggle Insert Mode,
+		Toggle insert mode,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.toggleInsertMode"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for CTRL+SHIFT+ARROW_LEFT:
+Binding(CTRL+SHIFT+ARROW_LEFT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.select.wordPrevious,Select Previous Word,
+		Select the previous word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.select.wordPrevious"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+SHIFT+ARROW_LEFT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.select.wordPrevious,Select Previous Word,
+		Select the previous word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.select.wordPrevious"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for CTRL+SHIFT+ARROW_RIGHT:
+Binding(CTRL+SHIFT+ARROW_RIGHT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.select.wordNext,Select Next Word,
+		Select the next word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.select.wordNext"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+SHIFT+ARROW_RIGHT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.select.wordNext,Select Next Word,
+		Select the next word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.select.wordNext"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for CTRL+F10:
+Binding(CTRL+F10,
+	ParameterizedCommand(Command(org.eclipse.ui.window.showViewMenu,Show View Menu,
+		Show the view menu,
+		Category(org.eclipse.ui.category.window,Window,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.window.showViewMenu"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.dialogAndWindow,,,system)
+Binding(CTRL+F10,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.showRulerContextMenu,Show Ruler Context Menu,
+		Show the context menu for the ruler,
+		Category(org.eclipse.ui.category.window,Window,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.showRulerContextMenu"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+F10,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.showRulerContextMenu,Show Ruler Context Menu,
+		Show the context menu for the ruler,
+		Category(org.eclipse.ui.category.window,Window,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.showRulerContextMenu"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for CTRL+END:
+Binding(CTRL+END,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.textEnd,Text End,
+		Go to the end of the text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.textEnd"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+END,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.textEnd,Text End,
+		Go to the end of the text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.textEnd"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for CTRL+ARROW_UP:
+Binding(CTRL+ARROW_UP,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.scroll.lineUp,Scroll Line Up,
+		Scroll up one line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.scroll.lineUp"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+ARROW_UP,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.scroll.lineUp,Scroll Line Up,
+		Scroll up one line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.scroll.lineUp"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for CTRL+ARROW_DOWN:
+Binding(CTRL+ARROW_DOWN,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.scroll.lineDown,Scroll Line Down,
+		Scroll down one line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.scroll.lineDown"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+ARROW_DOWN,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.scroll.lineDown,Scroll Line Down,
+		Scroll down one line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.scroll.lineDown"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for CTRL+ARROW_LEFT:
+Binding(CTRL+ARROW_LEFT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.wordPrevious,Previous Word,
+		Go to the previous word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.wordPrevious"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+ARROW_LEFT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.wordPrevious,Previous Word,
+		Go to the previous word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.wordPrevious"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for CTRL+ARROW_RIGHT:
+Binding(CTRL+ARROW_RIGHT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.wordNext,Next Word,
+		Go to the next word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.wordNext"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+ARROW_RIGHT,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.wordNext,Next Word,
+		Go to the next word,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.wordNext"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for CTRL+HOME:
+Binding(CTRL+HOME,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.textStart,Text Start,
+		Go to the beginning of the text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.textStart"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(CTRL+HOME,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.goto.textStart,Text Start,
+		Go to the beginning of the text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.goto.textStart"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for ALT+/:
+Binding(ALT+/,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.hippieCompletion,Word Completion,
+		Context insensitive completion,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.hippieCompletion"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(ALT+/,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.hippieCompletion,Word Completion,
+		Context insensitive completion,
+		Category(org.eclipse.ui.category.edit,Edit,null,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.hippieCompletion"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2025-05-25 10:50:38.639
+!MESSAGE A conflict occurred for SHIFT+CR:
+Binding(SHIFT+CR,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.smartEnter,Insert Line Below Current Line,
+		Adds a new line below the current line,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.smartEnter"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+Binding(SHIFT+CR,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.smartEnter,Insert Line Below Current Line,
+		Adds a new line below the current line,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		WorkbenchHandlerServiceHandler("org.eclipse.ui.edit.text.smartEnter"),
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.xtext.ui.embeddedTextEditorScope,,,system)

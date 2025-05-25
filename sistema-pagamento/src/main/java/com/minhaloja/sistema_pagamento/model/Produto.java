@@ -21,8 +21,27 @@ public class Produto {
     private byte[] qrCode;
     private String modelo;
     private String codigo;
+    private String cor;
+    private byte[] imagem;
+
+    public byte[] getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
+    }
+
     
-    public String getModelo() {
+    public String getCor() {
+		return cor;
+	}
+
+	public void setCor(String cor) {
+		this.cor = cor;
+	}
+
+	public String getModelo() {
 		return modelo;
 	}
 

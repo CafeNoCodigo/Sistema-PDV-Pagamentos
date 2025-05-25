@@ -91,7 +91,7 @@
          </children>
       </VBox>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="143.0" layoutX="818.0" layoutY="25.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="168.0" />
-      <ImageView fx:id="imgProduto" fitHeight="132.0" fitWidth="137.0" layoutX="836.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgProduto" fitHeight="132.0" fitWidth="142.0" layoutX="834.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/inserirFotoProduto.png" />
          </image></ImageView>
@@ -193,7 +193,7 @@
       <VBox layoutX="441.0" layoutY="559.0" prefHeight="18.0" prefWidth="124.0" style="-fx-background-color: lightyellow;" />
       <VBox layoutX="553.0" layoutY="559.0" prefHeight="18.0" prefWidth="56.0" style="-fx-background-color: lightyellow;" />
       <Line endX="-100.0" endY="67.0" layoutX="658.0" layoutY="510.0" startX="-100.0" startY="49.0" />
-      <Button fx:id="btnInserirImgProduto" layoutX="829.0" layoutY="170.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="142.0" style="-fx-padding: 2 5 2 5;" text="Inserir Foto">
+      <Button fx:id="btnInserirImgProduto" layoutX="829.0" layoutY="170.0" mnemonicParsing="false" onAction="#selecionarImagem" prefHeight="18.0" prefWidth="142.0" style="-fx-padding: 2 5 2 5;" text="Inserir Foto">
          <font>
             <Font name="Franklin Gothic Medium" size="10.0" />
          </font>
@@ -221,7 +221,7 @@
             <Font name="Franklin Gothic Medium" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="btnApagarImgProduto" layoutX="816.0" layoutY="2.0" maxWidth="168.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="168.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 6 2 6;" styleClass="cancelar" text="Apagar">
+      <Button fx:id="btnApagarImgProduto" layoutX="816.0" layoutY="2.0" maxWidth="168.0" mnemonicParsing="false" onAction="#apagarImgProduto" prefHeight="10.0" prefWidth="168.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 6 2 6;" styleClass="cancelar" text="Apagar">
          <font>
             <Font name="Franklin Gothic Medium" size="13.0" />
          </font>
@@ -294,7 +294,7 @@
             <Font name="Franklin Gothic Medium" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btnApagar1" layoutX="616.0" layoutY="5.0" maxWidth="185.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="63.0" prefWidth="179.0" style="-fx-background-radius: 10; -fx-padding: 2 6 2 6;" styleClass="cancelar" text="Limpar">
+      <Button fx:id="limparCampos" layoutX="616.0" layoutY="5.0" maxWidth="185.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="63.0" prefWidth="179.0" style="-fx-background-radius: 10; -fx-padding: 2 6 2 6;" styleClass="cancelar" text="Limpar">
          <font>
             <Font name="Franklin Gothic Medium" size="13.0" />
          </font>

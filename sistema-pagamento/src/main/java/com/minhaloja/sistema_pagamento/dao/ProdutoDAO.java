@@ -111,7 +111,9 @@ public class ProdutoDAO {
     		        codigoBarra VARCHAR(50) UNIQUE,
     		        imgQrCode BLOB,
     		        modelo VARCHAR(100),
-    		        codigo VARCHAR(50)
+    		        codigo VARCHAR(50),
+    		        cor VARCHAR (50),
+    		        imagem BLOB
     		    );
     		""";
 
@@ -157,8 +159,9 @@ public class ProdutoDAO {
         }
     	
         String sql = """
-            INSERT INTO produtos(nome, precoCompra, precoVenda, precoMestre, categoria, garantia, referencia, estoque, loja, fabricante, fornecedor, infoAdicional, codigoBarra, imgQrCode, modelo, codigo) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            INSERT INTO produtos(nome, precoCompra, precoVenda, precoMestre, categoria, garantia, 
+            referencia, estoque, loja, fabricante, fornecedor, infoAdicional, codigoBarra, imgQrCode, modelo, codigo, cor, imagem) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
 
         try (Connection conn = Conexao.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -178,6 +181,8 @@ public class ProdutoDAO {
             pstmt.setBytes(14, produto.getQrCode());
             pstmt.setString(15, produto.getModelo());
             pstmt.setString(16, produto.getCodigo());
+            pstmt.setString(17, produto.getCor());
+            pstmt.setBytes(18, produto.getImagem());
 
             pstmt.executeUpdate();
             System.out.println("Produto salvo com sucesso.");
@@ -251,7 +256,7 @@ public class ProdutoDAO {
     public ObservableList<Produto> listarProdutos() {
         ObservableList<Produto> lista = FXCollections.observableArrayList();
         String sql = "SELECT codigoBarra, nome, categoria, estoque, precoVenda, precoMestre, precoCompra, "
-        		+ "referencia, loja, fabricante, fornecedor, imgQrCode, modelo, codigo, garantia FROM produtos";
+        		+ "referencia, loja, fabricante, fornecedor, imgQrCode, modelo, codigo, garantia, cor, infoAdicional, imagem FROM produtos";
 
         try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
@@ -273,6 +278,9 @@ public class ProdutoDAO {
                 p.setModelo(rs.getString("modelo"));
                 p.setCodigo(rs.getString("codigo"));
                 p.setGarantia(rs.getString("garantia"));
+                p.setCor(rs.getString("cor"));
+                p.setInfoAdicional(rs.getString("infoAdicional"));
+                p.setImagem(rs.getBytes("imagem"));
                 
                 lista.add(p);
             }

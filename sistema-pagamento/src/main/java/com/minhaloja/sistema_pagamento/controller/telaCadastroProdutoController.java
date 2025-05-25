@@ -1,6 +1,7 @@
 package com.minhaloja.sistema_pagamento.controller;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
@@ -28,6 +29,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import javafx.stage.FileChooser;
 
 public class telaCadastroProdutoController {
 
@@ -65,22 +72,52 @@ public class telaCadastroProdutoController {
     @FXML private Button btnGerar;
     @FXML private Button btnApagar;
     @FXML private Button btnExcluir;
+    @FXML private Button btnInserirImgProduto;
+    @FXML private Button btnApagarImgProduto;
     
     @FXML private Label estoqueQTD;
     @FXML private Label contarP;
     
     @FXML private ImageView imgCodigoBarra;
+    @FXML private ImageView imgProduto;
     
     @FXML private ChoiceBox<String> choiceCategoria;
     
     @FXML private ChoiceBox<String> choiceFornecedor;
+    @FXML private ChoiceBox<String> choiceCor;
     
     private byte[] imgQrCode;
+    private byte[] imgProdutoByte;
     
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
     
-    @FXML
-    public void excluirProdutoSelecionado() {
+    @FXML public void apagarImgProduto() {
+    	imgProduto.setImage(null);
+    }
+    
+    @FXML private void selecionarImagem() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selecionar Imagem do Produto");
+
+        // Filtrar tipos de imagem
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.jfif")
+        );
+
+        File arquivo = fileChooser.showOpenDialog(btnInserirImgProduto.getScene().getWindow());
+
+        if (arquivo != null) {
+            try (InputStream is = new FileInputStream(arquivo)) {
+            	imgProdutoByte = is.readAllBytes(); // ← Armazena os bytes para salvar no banco
+                Image imagem = new Image(new FileInputStream(arquivo));
+                imgProduto.setImage(imagem); // ← Mostra no ImageView, pode trocar por outro se preferir
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML public void excluirProdutoSelecionado() {
         Produto selecionado = tabelaProdutos.getSelectionModel().getSelectedItem();
         
         if (selecionado == null) {
@@ -109,9 +146,9 @@ public class telaCadastroProdutoController {
                     sucessoAlerta.setHeaderText("Produto excluído com sucesso.");
                     sucessoAlerta.showAndWait();
                     
-                    carregarProdutosNaTabela(); // Atualiza a tabela
-                    contarProdutos();           // Atualiza contador
-                    limparCampos();             // Limpa os campos se necessário
+                    carregarProdutosNaTabela();
+                    contarProdutos();           
+                    limparCampos();             
                 } else {
                     Alert erro = new Alert(Alert.AlertType.ERROR);
                     erro.setTitle("Erro");
@@ -123,23 +160,26 @@ public class telaCadastroProdutoController {
         });
     }
 
-    
-    private void carregarCategoriasNoChoiceBox() {
+    @FXML private void carregarCategoriasNoChoiceBox() {
         List<String> categorias = produtoDAO.listarCategoriasUnicas();
         choiceCategoria.getItems().setAll(categorias);
     }
     
-    private void carregarfornecedoresNoChoiceBox() {
+    @FXML private void carregarfornecedoresNoChoiceBox() {
         List<String> fornecedores = produtoDAO.listarFornecedores();
         choiceFornecedor.getItems().setAll(fornecedores);
+    }
+    
+    @FXML private void carregarCoresChoiceBox() {
+        choiceCor.getItems().setAll(
+            "Vermelho", "Verde", "Azul", "Amarelo", "Laranja", "Roxo", "Rosa", "Castanho", "Cinza", "Preto", "Branco", "Ciano"
+        );
     }
     
     private void contarProdutos() {
     	 int total = produtoDAO.contarProdutos();
     	 contarP.setText(String.valueOf(total));
     }
-    
-    
     
     public Image gerarCodigoDeBarrasImage(String codigo) throws Exception {
         int width = 150;
@@ -188,8 +228,6 @@ public class telaCadastroProdutoController {
             produto.setPrecoCompra(Double.parseDouble(tfPrecoCompra.getText()));
             produto.setPrecoVenda(Double.parseDouble(tfPrecoVenda.getText()));
             produto.setPrecoMestre(Double.parseDouble(tfPrecoMestre.getText()));
-            //produto.setMargem(Double.parseDouble(tfMargem.getText()));
-            //produto.setLucroBruto(Double.parseDouble(tfLucroBruto.getText()));
             produto.setCategoria(tfCategoria.getText());
             produto.setGarantia(tfGarantia.getText());
             produto.setReferencia(tfReferencia.getText());
@@ -202,6 +240,8 @@ public class telaCadastroProdutoController {
             produto.setQrCode(imgQrCode);
             produto.setModelo(tfModelo.getText());
             produto.setCodigo(tfCodigo.getText());
+            produto.setCor(produto.getCor());
+            produto.setImagem(imgProdutoByte);
         } catch (NumberFormatException e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Erro");
@@ -218,10 +258,6 @@ public class telaCadastroProdutoController {
             carregarfornecedoresNoChoiceBox();
             limparCampos();
             contarProdutos();
-            //contarP.setText.clear();
-           // produto.setCodigoBarra(tfCodigoBarra.getText());
-            //gerarCodigoDeBarrasImage(gerarCodigoBarras());
-            
 
         } catch (Exception e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -251,13 +287,29 @@ public class telaCadastroProdutoController {
         estoqueQTD.setText(String.valueOf(produto.getEstoque()));
         tfModelo.setText(produto.getModelo());
         tfCodigo.setText(produto.getCodigo());
+        choiceCor.setValue(produto.getCor());
 
         // Carregar e exibir imagem do banco de dados
         Image imagem = produtoDAO.obterImagemQrCode(produto.getCodigoBarra());
         if (imagem != null) {
             imgCodigoBarra.setImage(imagem);
         } else {
-            imgCodigoBarra.setImage(null); // limpa se não houver imagem
+        	Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
+            imgCodigoBarra.setImage(imagemPadrao); // limpa se não houver imagem
+        }
+        
+        try {
+            byte[] imagemBytes = produto.getImagem();
+            if (imagemBytes != null) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(imagemBytes);
+                Image imagemP = new Image(bis);
+                imgProduto.setImage(imagemP);
+            } else {
+            	Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/semImg.png"));
+            	imgProduto.setImage(imagemPadrao);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -281,16 +333,25 @@ public class telaCadastroProdutoController {
         imgCodigoBarra.setImage(null);
         tfModelo.clear();
         tfCodigo.clear();
+        choiceCor.getSelectionModel().clearSelection();
+        choiceCategoria.getSelectionModel().clearSelection();
+        estoqueQTD.setText("");
+        
+        Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/inserirFotoProduto.png"));
+    	imgProduto.setImage(imagemPadrao);
+    	
+        Image imagemPadrao2 = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
+        imgCodigoBarra.setImage(imagemPadrao2);
     }
 	
-    @FXML
-    public void initialize() {
+    @FXML public void initialize() {
+    	carregarCoresChoiceBox();
     	carregarCategoriasNoChoiceBox();
     	carregarfornecedoresNoChoiceBox();
     	contarProdutos();
     	
-    	//imgCodigoBarra.setFitWidth(148);
-        //imgCodigoBarra.setFitHeight(130);
+    	Image imagemPadrao2 = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
+        imgCodigoBarra.setImage(imagemPadrao2);
         imgCodigoBarra.setPreserveRatio(true);
         imgCodigoBarra.setSmooth(true);
         

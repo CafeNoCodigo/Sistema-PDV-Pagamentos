@@ -1,0 +1,390 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+import javax.imageio.ImageIO;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
+import com.minhaloja.sistema_pagamento.model.Produto;
+
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import javafx.stage.FileChooser;
+
+public class telaCadastroProdutoController {
+
+	@FXML private VBox formulario;
+	@FXML private TextField tfNomeProduto;
+    @FXML private TextField tfPrecoCompra;
+    @FXML private TextField tfPrecoVenda;
+    @FXML private TextField tfPrecoMestre;
+    @FXML private TextField tfMargem;
+    @FXML private TextField tfLucroBruto;
+    @FXML private TextField tfCategoria;
+    @FXML private TextField tfGarantia;
+    @FXML private TextField tfReferencia;
+    @FXML private TextField tfEstoque;
+    @FXML private TextField tfLoja;
+    @FXML private TextField tfFabricante;
+    @FXML private TextField tfFornecedor;
+    @FXML private TextField tfInfoAdicional;
+    @FXML private TextField tfCodigoBarra;
+    @FXML private TextField tfCodigo;
+    @FXML private TextField tfModelo;
+    
+    @FXML public TableView<Produto> tabelaProdutos;
+    @FXML private TableColumn<Produto, String> colCodigoBarra;
+    @FXML private TableColumn<Produto, String> colNome;
+    @FXML private TableColumn<Produto, String> colCategoria;
+    @FXML private TableColumn<Produto, Double> colEstoque;
+    @FXML private TableColumn<Produto, Double> colPrecoVenda;
+    @FXML private TableColumn<Produto, Double> colPrecoMestre;
+    @FXML private TableColumn<Produto, Double> colPrecoCompra;
+    @FXML private TableColumn<Produto, Double> colReferencia;
+    
+    @FXML private Button btnFechar;
+    @FXML private Button btnNovo;
+    @FXML private Button btnGerar;
+    @FXML private Button btnApagar;
+    @FXML private Button btnExcluir;
+    @FXML private Button btnInserirImgProduto;
+    @FXML private Button btnApagarImgProduto;
+    
+    @FXML private Label estoqueQTD;
+    @FXML private Label contarP;
+    
+    @FXML private ImageView imgCodigoBarra;
+    @FXML private ImageView imgProduto;
+    
+    @FXML private ChoiceBox<String> choiceCategoria;
+    
+    @FXML private ChoiceBox<String> choiceFornecedor;
+    @FXML private ChoiceBox<String> choiceCor;
+    
+    private byte[] imgQrCode;
+    private byte[] imgProdutoByte;
+    
+    private final ProdutoDAO produtoDAO = new ProdutoDAO();
+    
+    @FXML private void selecionarImagem() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selecionar Imagem do Produto");
+
+        // Filtrar tipos de imagem
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.jfif")
+        );
+
+        File arquivo = fileChooser.showOpenDialog(btnInserirImgProduto.getScene().getWindow());
+
+        if (arquivo != null) {
+            try (InputStream is = new FileInputStream(arquivo)) {
+            	imgProdutoByte = is.readAllBytes(); // ← Armazena os bytes para salvar no banco
+                Image imagem = new Image(new FileInputStream(arquivo));
+                imgProduto.setImage(imagem); // ← Mostra no ImageView, pode trocar por outro se preferir
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML public void excluirProdutoSelecionado() {
+        Produto selecionado = tabelaProdutos.getSelectionModel().getSelectedItem();
+        
+        if (selecionado == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Nenhuma seleção");
+            alerta.setHeaderText("Nenhum produto selecionado");
+            alerta.setContentText("Por favor, selecione um produto na tabela.");
+            alerta.showAndWait();
+            return;
+        }
+
+        // Confirmação
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setTitle("Confirmar exclusão");
+        confirmacao.setHeaderText("Você tem certeza que deseja excluir este produto?");
+        confirmacao.setContentText("Produto: " + selecionado.getNome());
+
+        // Espera a resposta do usuário
+        confirmacao.showAndWait().ifPresent(resposta -> {
+            if (resposta == javafx.scene.control.ButtonType.OK) {
+                boolean sucesso = produtoDAO.excluirProduto(selecionado.getCodigoBarra());
+
+                if (sucesso) {
+                    Alert sucessoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                    sucessoAlerta.setTitle("Sucesso");
+                    sucessoAlerta.setHeaderText("Produto excluído com sucesso.");
+                    sucessoAlerta.showAndWait();
+                    
+                    carregarProdutosNaTabela();
+                    contarProdutos();           
+                    limparCampos();             
+                } else {
+                    Alert erro = new Alert(Alert.AlertType.ERROR);
+                    erro.setTitle("Erro");
+                    erro.setHeaderText("Erro ao excluir produto");
+                    erro.setContentText("Não foi possível excluir o produto.");
+                    erro.showAndWait();
+                }
+            }
+        });
+    }
+
+    @FXML private void carregarCategoriasNoChoiceBox() {
+        List<String> categorias = produtoDAO.listarCategoriasUnicas();
+        choiceCategoria.getItems().setAll(categorias);
+    }
+    
+    @FXML private void carregarfornecedoresNoChoiceBox() {
+        List<String> fornecedores = produtoDAO.listarFornecedores();
+        choiceFornecedor.getItems().setAll(fornecedores);
+    }
+    
+    @FXML private void carregarCoresChoiceBox() {
+        choiceCor.getItems().setAll(
+            "Vermelho", "Verde", "Azul", "Amarelo", "Laranja", "Roxo", "Rosa", "Castanho", "Cinza", "Preto", "Branco", "Ciano"
+        );
+    }
+    
+    private void contarProdutos() {
+    	 int total = produtoDAO.contarProdutos();
+    	 contarP.setText(String.valueOf(total));
+    }
+    
+    public Image gerarCodigoDeBarrasImage(String codigo) throws Exception {
+        int width = 150;
+        int height = 150;
+
+        BitMatrix bitMatrix = new MultiFormatWriter().encode(codigo, BarcodeFormat.CODE_128, width, height);
+        BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+
+        // Salva a imagem em bytes para armazenar no banco
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", baos);
+        imgQrCode = baos.toByteArray(); // ← armazena os bytes em um campo
+
+        return SwingFXUtils.toFXImage(bufferedImage, null); // para exibir no ImageView
+    }
+
+    
+    @FXML
+    private String gerarCodigoBarras() {
+        // Gera base no tempo atual
+        String codigo = "SRG" + System.currentTimeMillis();
+        tfCodigoBarra.setText(codigo);
+        
+        try {
+            Image codigoBarraimg = gerarCodigoDeBarrasImage(codigo);
+            imgCodigoBarra.setImage(codigoBarraimg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return codigo;
+    }
+
+    @FXML
+    private void fecharJanela() {
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+    }
+
+
+    @FXML
+    private void salvarProduto() {
+        Produto produto = new Produto();
+
+        try {
+            produto.setNome(tfNomeProduto.getText());
+            produto.setPrecoCompra(Double.parseDouble(tfPrecoCompra.getText()));
+            produto.setPrecoVenda(Double.parseDouble(tfPrecoVenda.getText()));
+            produto.setPrecoMestre(Double.parseDouble(tfPrecoMestre.getText()));
+            produto.setCategoria(tfCategoria.getText());
+            produto.setGarantia(tfGarantia.getText());
+            produto.setReferencia(tfReferencia.getText());
+            produto.setEstoque(Integer.parseInt(tfEstoque.getText()));
+            produto.setLoja(tfLoja.getText());
+            produto.setFabricante(tfFabricante.getText());
+            produto.setFornecedor(tfFornecedor.getText());
+            produto.setInfoAdicional(tfInfoAdicional.getText());
+            produto.setCodigoBarra(tfCodigoBarra.getText());
+            produto.setQrCode(imgQrCode);
+            produto.setModelo(tfModelo.getText());
+            produto.setCodigo(tfCodigo.getText());
+            produto.setCor(produto.getCor());
+            produto.setImagem(imgProdutoByte);
+        } catch (NumberFormatException e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro");
+            alerta.setHeaderText("Erro de Formato");
+            alerta.setContentText("Certifique-se de que os valores numéricos foram preenchidos corretamente.");
+            alerta.showAndWait();
+            return;
+        }
+
+        try {
+            produtoDAO.salvarProduto(produto);
+            carregarProdutosNaTabela();
+            carregarCategoriasNoChoiceBox();
+            carregarfornecedoresNoChoiceBox();
+            limparCampos();
+            contarProdutos();
+
+        } catch (Exception e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro");
+            alerta.setHeaderText("Erro ao salvar");
+            alerta.setContentText("Não foi possível salvar o produto: " + e.getMessage());
+            alerta.showAndWait();
+        }
+    }
+    
+    private void preencherCamposComProduto(Produto produto) {
+    	tfGarantia.setText(produto.getGarantia());
+        tfCodigoBarra.setText(produto.getCodigoBarra());
+        tfNomeProduto.setText(produto.getNome());
+        tfCategoria.setText(produto.getCategoria());
+        tfEstoque.setText(String.valueOf(produto.getEstoque()));
+        tfPrecoVenda.setText(String.valueOf(produto.getPrecoVenda()));
+        tfPrecoMestre.setText(String.valueOf(produto.getPrecoMestre()));
+        tfPrecoCompra.setText(String.valueOf(produto.getPrecoCompra()));
+        tfReferencia.setText(produto.getReferencia());
+        tfLucroBruto.setText(String.valueOf(produto.getLucroBruto()));
+        tfLoja.setText(produto.getLoja());
+        tfFabricante.setText(String.valueOf(produto.getFabricante()));
+        tfInfoAdicional.setText(produto.getInfoAdicional());
+        tfMargem.setText(String.valueOf(produto.getMargem()));
+        tfFornecedor.setText(produto.getFornecedor());
+        estoqueQTD.setText(String.valueOf(produto.getEstoque()));
+        tfModelo.setText(produto.getModelo());
+        tfCodigo.setText(produto.getCodigo());
+        choiceCor.setValue(produto.getCor());
+
+        // Carregar e exibir imagem do banco de dados
+        Image imagem = produtoDAO.obterImagemQrCode(produto.getCodigoBarra());
+        if (imagem != null) {
+            imgCodigoBarra.setImage(imagem);
+        } else {
+        	Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
+            imgCodigoBarra.setImage(imagemPadrao); // limpa se não houver imagem
+        }
+        
+        try {
+            byte[] imagemBytes = produto.getImagem();
+            if (imagemBytes != null) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(imagemBytes);
+                Image imagemP = new Image(bis);
+                imgProduto.setImage(imagemP);
+            } else {
+            	Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/semImg.png"));
+            	imgProduto.setImage(imagemPadrao);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
+    public void limparCampos() {
+        tfCodigoBarra.clear();
+        tfNomeProduto.clear();
+        tfCategoria.clear();
+        tfEstoque.clear();
+        tfPrecoVenda.clear();
+        tfPrecoMestre.clear();
+        tfPrecoCompra.clear();
+        tfReferencia.clear();
+        tfMargem.clear();
+        tfLucroBruto.clear();
+        tfLoja.clear();
+        tfGarantia.clear();
+        tfFabricante.clear();
+        tfFornecedor.clear();
+        tfInfoAdicional.clear();
+        imgCodigoBarra.setImage(null);
+        tfModelo.clear();
+        tfCodigo.clear();
+        choiceCor.getSelectionModel().clearSelection();
+        choiceCategoria.getSelectionModel().clearSelection();
+        contarP.setText("");
+        
+        Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/inserirFotoProduto.png"));
+    	imgProduto.setImage(imagemPadrao);
+    	
+        Image imagemPadrao2 = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
+        imgCodigoBarra.setImage(imagemPadrao2);
+    }
+	
+    @FXML public void initialize() {
+    	carregarCoresChoiceBox();
+    	carregarCategoriasNoChoiceBox();
+    	carregarfornecedoresNoChoiceBox();
+    	contarProdutos();
+    	
+    	Image imagemPadrao2 = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
+        imgCodigoBarra.setImage(imagemPadrao2);
+        imgCodigoBarra.setPreserveRatio(true);
+        imgCodigoBarra.setSmooth(true);
+        
+        colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPrecoVenda.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
+        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+        
+        tabelaProdutos.setItems(produtoDAO.listarProdutos());
+        
+        tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                preencherCamposComProduto(newSelection);
+            }
+        }); 
+        
+        choiceCategoria.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                tfCategoria.setText(newVal);
+            }
+        });
+        
+        choiceFornecedor.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                tfFornecedor.setText(newVal);
+            }
+        });
+    }
+    
+    private void carregarProdutosNaTabela() {
+        ProdutoDAO dao = new ProdutoDAO();
+        ObservableList<Produto> lista = dao.listarProdutos();
+        tabelaProdutos.setItems(lista);
+    }
+    
+}

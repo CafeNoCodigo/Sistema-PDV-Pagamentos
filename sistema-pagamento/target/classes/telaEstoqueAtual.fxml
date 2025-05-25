@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1114.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaEstoqueAtualController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1114.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/21.0.7" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaEstoqueAtualController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="999.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="106.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="515.0" layoutX="8.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="1100.0" />
