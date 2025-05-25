@@ -2,7 +2,6 @@ package com.minhaloja.sistema_pagamento.model;
 
 public class Produto {
 	
-	//private int id;
 	private String nome;
     private double precoCompra;
     private double precoVenda;

@@ -1,0 +1,82 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import com.minhaloja.sistema_pagamento.dao.FuncionarioDAO;
+import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
+import com.minhaloja.sistema_pagamento.model.Funcionario;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+
+public class telaCadastroFuncionarioController {
+	
+	@FXML private TextField tfCodigo;
+	@FXML private TextField tfNome;
+	@FXML private TextField tfNumeroBi;
+	@FXML private TextField tfTelefone1;
+	@FXML private TextField tfTelefone2;
+	@FXML private TextField tfEndereco;
+	@FXML private TextField tfBairro;
+	@FXML private TextField tfCidade;
+	@FXML private TextField tfNuit;
+	@FXML private TextField tfCargo;
+	@FXML private TextField tfContaBancaria1;
+	@FXML private TextField tfContaBancaria2;
+	@FXML private TextField tfSalario;
+	@FXML private TextField tfTransporte;
+	@FXML private TextField tfAlimentacao;
+	@FXML private TextField tfLoja;
+	
+	@FXML private Button btnSalvar;
+
+	private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+	
+	@FXML public void salvarFuncionario() {
+		Funcionario funcionario = new Funcionario();
+		
+		try {
+            funcionario.setNome(tfNome.getText());
+            funcionario.setNumeroBi(tfNumeroBi.getText());
+            funcionario.setPrecoVenda(Double.parseDouble(tfPrecoVenda.getText()));
+            funcionario.setPrecoMestre(Double.parseDouble(tfPrecoMestre.getText()));
+            funcionario.setCategoria(tfCategoria.getText());
+            funcionario.setGarantia(tfGarantia.getText());
+            funcionario.setReferencia(tfReferencia.getText());
+            funcionario.setEstoque(Integer.parseInt(tfEstoque.getText()));
+            funcionario.setLoja(tfLoja.getText());
+            funcionario.setFabricante(tfFabricante.getText());
+            funcionario.setFornecedor(tfFornecedor.getText());
+            funcionario.setInfoAdicional(tfInfoAdicional.getText());
+            funcionario.setCodigoBarra(tfCodigoBarra.getText());
+            funcionario.setQrCode(imgQrCode);
+            funcionario.setModelo(tfModelo.getText());
+            funcionario.setCodigo(Double.parseDouble(tfCodigo.getText()));
+            funcionario.setCor(funcionario.getCor());
+            funcionario.setImagem(imgProdutoByte);
+        } catch (NumberFormatException e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro");
+            alerta.setHeaderText("Erro de Formato");
+            alerta.setContentText("Certifique-se de que os valores numéricos foram preenchidos corretamente.");
+            alerta.showAndWait();
+            return;
+        }
+
+        try {
+            produtoDAO.salvarProduto(funcionario);
+            carregarProdutosNaTabela();
+            carregarCategoriasNoChoiceBox();
+            carregarfornecedoresNoChoiceBox();
+            limparCampos();
+            contarProdutos();
+
+        } catch (Exception e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro");
+            alerta.setHeaderText("Erro ao salvar");
+            alerta.setContentText("Não foi possível salvar o produto: " + e.getMessage());
+            alerta.showAndWait();
+        }
+	}
+}

@@ -1,0 +1,29 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import com.minhaloja.sistema_pagamento.dao.FuncionarioDAO;
+import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+
+public class telaCadastroFuncionarioController {
+	
+	@FXML private TextField tfCodigo;
+	@FXML private TextField tfNome;
+	@FXML private TextField tfNumeroBi;
+	@FXML private TextField tfTelefone1;
+	@FXML private TextField tfTelefone2;
+	@FXML private TextField tfEndereco;
+	@FXML private TextField tfBairro;
+	@FXML private TextField tfCidade;
+	@FXML private TextField tfNuit;
+	@FXML private TextField tfCargo;
+	@FXML private TextField tfContaBancaria1;
+	@FXML private TextField tfContaBancaria2;
+	@FXML private TextField tfSalario;
+	@FXML private TextField tfTransporte;
+	@FXML private TextField tfAlimentacao;
+	
+
+	private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+}

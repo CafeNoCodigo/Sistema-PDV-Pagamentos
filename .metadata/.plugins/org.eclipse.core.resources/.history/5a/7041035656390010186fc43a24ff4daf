@@ -1,0 +1,11 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import com.minhaloja.sistema_pagamento.dao.FuncionarioDAO;
+import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
+
+public class telaCadastroFuncionarioController {
+	
+	@FXML private TextField codigo;
+
+	private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+}
