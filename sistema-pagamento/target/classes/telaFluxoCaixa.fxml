@@ -6,12 +6,13 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="1291.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/21.0.7" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="1291.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="527.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="980.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="161.0" layoutX="993.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="293.0" />
@@ -95,5 +96,12 @@
             <Label prefHeight="29.0" prefWidth="194.0" style="-fx-background-color: white;" />
          </children>
       </VBox>
+      <ImageView fitHeight="181.0" fitWidth="200.0" layoutX="969.0" layoutY="421.0" opacity="0.36">
+         <image>
+            <Image url="@img/carinho.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1158.0" layoutY="469.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
+      <Label layoutX="1158.0" layoutY="510.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
    </children>
 </AnchorPane>

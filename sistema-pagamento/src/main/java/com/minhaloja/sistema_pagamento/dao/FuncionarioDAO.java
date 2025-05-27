@@ -1,11 +1,15 @@
 package com.minhaloja.sistema_pagamento.dao;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.minhaloja.sistema_pagamento.model.Funcionario;
 import com.minhaloja.sistema_pagamento.util.Conexao;
@@ -13,11 +17,91 @@ import com.minhaloja.sistema_pagamento.util.Conexao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 
 public class FuncionarioDAO {
 	
 	public FuncionarioDAO() {
 		criarTabelaSeNaoExistir();
+	}
+	
+	public Funcionario buscarFuncionarioPorNome(String nome) {
+	    Funcionario funcionario = null;
+	    String sql = "SELECT * FROM funcionarios WHERE nome = ?";
+
+	    try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            funcionario = new Funcionario();
+	            funcionario.setCodigo(rs.getDouble("codigo"));
+	            funcionario.setNome(rs.getString("nome"));
+	            funcionario.setNumeroBi(rs.getString("bi"));
+	            funcionario.setTelefone1(rs.getString("telefone1"));
+	            funcionario.setTelefone2(rs.getString("telefone2"));
+	            funcionario.setEndereco(rs.getString("endereco"));
+	            funcionario.setBairro(rs.getString("bairro"));
+	            funcionario.setCidade(rs.getString("cidade"));
+	            funcionario.setNuit(rs.getString("nuit"));
+	            funcionario.setCargo(rs.getString("cargo"));
+	            funcionario.setContaBancaria1(rs.getString("contaBancaria1"));
+	            funcionario.setContaBancaria2(rs.getString("contaBancaria2"));
+	            funcionario.setLoja(rs.getString("loja"));
+	            funcionario.setSalario(rs.getInt("salario"));
+	            funcionario.setTransporte(rs.getInt("transporte"));
+	            funcionario.setAlimentacao(rs.getInt("alimentacao"));
+	            funcionario.setDataNascido(rs.getDate("dataNascido") != null ? rs.getDate("dataNascido").toLocalDate() : null);
+	            funcionario.setDataInicio(rs.getDate("dataInicio") != null ? rs.getDate("dataInicio").toLocalDate() : null);
+	            funcionario.setDataFim(rs.getDate("dataFim") != null ? rs.getDate("dataFim").toLocalDate() : null);
+	            funcionario.setImagemBi(rs.getBytes("imagemBi"));
+	            funcionario.setImagemFuncionario(rs.getBytes("imagemFuncionario"));
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return funcionario;
+	}
+
+	
+	public Image obterImagem(String imagemFuncionario) {
+        String sql = "SELECT imagemFuncionario FROM funcionarios WHERE bi = ?";
+        
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, imagemFuncionario);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                byte[] imagemBytes = rs.getBytes("imagemFuncionario");
+                if (imagemBytes != null) {
+                    InputStream is = new ByteArrayInputStream(imagemBytes);
+                    return new Image(is);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao carregar imagem do Funcionário: " + e.getMessage());
+        }
+        return null;
+    }
+	
+	public List<String> listarFuncionariosChoiceBox() {
+	    List<String> funcionarios = new ArrayList<>();
+	    String sql = "SELECT DISTINCT nome FROM funcionarios ORDER BY nome";
+
+	    try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            funcionarios.add(rs.getString("nome"));
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return funcionarios;
 	}
 	
 	public int contarFuncionarios() {
@@ -69,8 +153,8 @@ public class FuncionarioDAO {
 	            f.setEndereco(rs.getString("endereco"));
 	            f.setBairro(rs.getString("bairro"));
 	            f.setCidade(rs.getString("cidade"));
-	            f.setTelefone1(rs.getDouble("telefone1"));
-	            f.setTelefone2(rs.getDouble("telefone2"));
+	            f.setTelefone1(rs.getString("telefone1"));
+	            f.setTelefone2(rs.getString("telefone2"));
 	            f.setNuit(rs.getString("nuit"));
 	            f.setDataNascido(rs.getDate("dataNascido") != null ? rs.getDate("dataNascido").toLocalDate() : null);
 	            f.setCargo(rs.getString("cargo"));
@@ -107,8 +191,8 @@ public class FuncionarioDAO {
     		        endereco VARCHAR(255),
     		        bairro VARCHAR(255),
     		        cidade VARCHAR(100),
-    		        telefone1 DOUBLE,
-    		        telefone2 DOUBLE,
+    		        telefone1 VARCHAR(100),
+    		        telefone2 VARCHAR(100),
     		        nuit VARCHAR(100),
     		        dataNascido DATE,
     		        cargo VARCHAR(100),
@@ -147,8 +231,8 @@ public class FuncionarioDAO {
 	        pstmt.setString(3, funcionario.getEndereco());
 	        pstmt.setString(4, funcionario.getBairro());
 	        pstmt.setString(5, funcionario.getCidade());
-	        pstmt.setDouble(6, funcionario.getTelefone1());
-	        pstmt.setDouble(7, funcionario.getTelefone2());
+	        pstmt.setString(6, funcionario.getTelefone1());
+	        pstmt.setString(7, funcionario.getTelefone2());
 	        pstmt.setString(8, funcionario.getNuit());
 
 	        // Datas (LocalDate para java.sql.Date)

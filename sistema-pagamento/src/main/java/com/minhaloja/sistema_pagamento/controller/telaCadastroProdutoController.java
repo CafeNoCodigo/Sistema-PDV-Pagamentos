@@ -14,9 +14,13 @@ import com.google.zxing.common.BitMatrix;
 import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
 import com.minhaloja.sistema_pagamento.model.Produto;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -25,10 +29,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,6 +62,7 @@ public class telaCadastroProdutoController {
     @FXML private TextField tfCodigoBarra;
     @FXML private TextField tfCodigo;
     @FXML private TextField tfModelo;
+    @FXML private TextField tfBusca;
     
     @FXML public TableView<Produto> tabelaProdutos;
     @FXML private TableColumn<Produto, String> colCodigoBarra;
@@ -74,6 +81,8 @@ public class telaCadastroProdutoController {
     @FXML private Button btnExcluir;
     @FXML private Button btnInserirImgProduto;
     @FXML private Button btnApagarImgProduto;
+    @FXML private Button btnBuscar;
+    @FXML private Button btnTodos;
     
     @FXML private Label estoqueQTD;
     @FXML private Label contarP;
@@ -90,6 +99,93 @@ public class telaCadastroProdutoController {
     private byte[] imgProdutoByte;
     
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
+    
+    //Fade transition genérico para qualquer Node
+    private void aplicarFadeTransition(javafx.scene.Node node) {
+        FadeTransition ft = new FadeTransition(Duration.millis(600), node);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.play();
+    }
+
+    // Configura ImageView com fade + cursor mão
+    private void configurarImageViewComEfeito(ImageView imgView) {
+        aplicarFadeTransition(imgView);
+        imgView.setCursor(Cursor.HAND);
+    }
+
+    // Aplica fade em TextField ao limpar ou preencher - use no limparCampos e ao preencher
+    private void aplicarFadeEmTextField(TextField tf) {
+        aplicarFadeTransition(tf);
+    }
+    
+ // Botão: sombra + cursor + escala suave no hover
+    private void adicionarEfeitoBotao(Button botao) {
+        DropShadow sombra = new DropShadow();
+        
+        botao.setOnMouseEntered(e -> {
+            botao.setEffect(sombra);
+            botao.setCursor(Cursor.HAND);
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), botao);
+            st.setToX(1.05);
+            st.setToY(1.05);
+            st.play();
+        });
+        
+        botao.setOnMouseExited(e -> {
+            botao.setEffect(null);
+            botao.setCursor(Cursor.DEFAULT);
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), botao);
+            st.setToX(1.0);
+            st.setToY(1.0);
+            st.play();
+        });
+    }
+    
+    private void contarProdutosComEfeito() {
+        int total = produtoDAO.contarProdutos();
+        contarP.setText(String.valueOf(total));
+        // Escala + Fade para destacar atualização
+        ScaleTransition st = new ScaleTransition(Duration.millis(300), contarP);
+        st.setFromX(1);
+        st.setFromY(1);
+        st.setToX(1.2);
+        st.setToY(1.2);
+        st.setAutoReverse(true);
+        st.setCycleCount(2);
+        st.play();
+
+        FadeTransition ft = new FadeTransition(Duration.millis(300), contarP);
+        ft.setFromValue(0.7);
+        ft.setToValue(1.0);
+        ft.play();
+    }
+    
+    @FXML
+    private void listarTodos() {
+    	colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPrecoVenda.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
+        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+        
+        tabelaProdutos.setItems(produtoDAO.listarProdutos());
+    }
+    
+    @FXML
+    private void buscarProduto(ActionEvent event) {
+        String textoBusca = tfBusca.getText().trim();
+
+        if (!textoBusca.isEmpty()) {
+            ObservableList<Produto> resultados = produtoDAO.buscarProdutosPorTexto(textoBusca);
+            tabelaProdutos.setItems(resultados);
+        } else {
+            tabelaProdutos.setItems(produtoDAO.listarProdutos());
+        }
+    }
     
     @FXML public void apagarImgProduto() {
     	imgProduto.setImage(null);
@@ -221,6 +317,8 @@ public class telaCadastroProdutoController {
 
     @FXML
     private void salvarProduto() {
+        tfMargem.setText("0");
+        tfLucroBruto.setText("0");
         Produto produto = new Produto();
 
         try {
@@ -240,7 +338,7 @@ public class telaCadastroProdutoController {
             produto.setQrCode(imgQrCode);
             produto.setModelo(tfModelo.getText());
             produto.setCodigo(tfCodigo.getText());
-            produto.setCor(produto.getCor());
+            produto.setCor(choiceCor.getValue());  // <- Corrigido para pegar a cor do ChoiceBox
             produto.setImagem(imgProdutoByte);
         } catch (NumberFormatException e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -338,23 +436,56 @@ public class telaCadastroProdutoController {
         estoqueQTD.setText("");
         
         Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/inserirFotoProduto.png"));
-    	imgProduto.setImage(imagemPadrao);
-    	
+        imgProduto.setImage(imagemPadrao);
+        
         Image imagemPadrao2 = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
         imgCodigoBarra.setImage(imagemPadrao2);
+
+        // Aplicar fade em TextFields para suavizar a limpeza
+        aplicarFadeEmTextField(tfCodigoBarra);
+        aplicarFadeEmTextField(tfNomeProduto);
+        aplicarFadeEmTextField(tfCategoria);
+        aplicarFadeEmTextField(tfEstoque);
+        aplicarFadeEmTextField(tfPrecoVenda);
+        aplicarFadeEmTextField(tfPrecoMestre);
+        aplicarFadeEmTextField(tfPrecoCompra);
+        aplicarFadeEmTextField(tfReferencia);
+        aplicarFadeEmTextField(tfMargem);
+        aplicarFadeEmTextField(tfLucroBruto);
+        aplicarFadeEmTextField(tfLoja);
+        aplicarFadeEmTextField(tfGarantia);
+        aplicarFadeEmTextField(tfFabricante);
+        aplicarFadeEmTextField(tfFornecedor);
+        aplicarFadeEmTextField(tfInfoAdicional);
+        aplicarFadeEmTextField(tfModelo);
+        aplicarFadeEmTextField(tfCodigo);
+    }
+    
+    private Image getImagemPadraoProduto() {
+        return new Image(getClass().getResourceAsStream("/img/inserirFotoProduto.png"));
+    }
+
+    private Image getImagemPadraoQrCode() {
+        return new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
     }
 	
     @FXML public void initialize() {
-    	carregarCoresChoiceBox();
-    	carregarCategoriasNoChoiceBox();
-    	carregarfornecedoresNoChoiceBox();
-    	contarProdutos();
-    	
-    	Image imagemPadrao2 = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
+        carregarCoresChoiceBox();
+        carregarCategoriasNoChoiceBox();
+        carregarfornecedoresNoChoiceBox();
+        contarProdutosComEfeito();
+
+        // Efeito fade-in na tabela de produtos ao iniciar
+        aplicarFadeTransition(tabelaProdutos);
+
+        // Imagem padrão e efeito fade
+        Image imagemPadrao2 = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
         imgCodigoBarra.setImage(imagemPadrao2);
         imgCodigoBarra.setPreserveRatio(true);
         imgCodigoBarra.setSmooth(true);
-        
+        aplicarFadeTransition(imgCodigoBarra);
+
+        // Configura colunas
         colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
@@ -369,26 +500,50 @@ public class telaCadastroProdutoController {
         tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 preencherCamposComProduto(newSelection);
+                aplicarFadeTransition(imgProduto);
             }
         }); 
         
         choiceCategoria.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 tfCategoria.setText(newVal);
+                aplicarFadeTransition(tfCategoria);
             }
         });
         
         choiceFornecedor.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 tfFornecedor.setText(newVal);
+                aplicarFadeTransition(tfFornecedor);
             }
         });
+        
+        // Adicionar efeito fade em TextFields ao inicializar (exemplo em alguns)
+        aplicarFadeTransition(tfNomeProduto);
+        aplicarFadeTransition(tfPrecoCompra);
+        aplicarFadeTransition(tfPrecoVenda);
+        aplicarFadeTransition(tfPrecoMestre);
+        aplicarFadeTransition(tfCategoria);
+        
+        // Aplicar efeito fade também em TextFields ao limpar e preencher
+        // Recomendo usar no método limparCampos (vou adicionar lá)
+        
+        // Botões: efeito escala + sombra no hover + cursor mão
+        Button[] botoes = {
+            btnFechar, btnNovo, btnGerar, btnApagar, btnExcluir, btnInserirImgProduto,
+            btnApagarImgProduto, btnBuscar, btnTodos
+        };
+        for (Button botao : botoes) {
+            adicionarEfeitoBotao(botao);
+        }
+        
+        // Cursor mão e fade para ImageViews
+        configurarImageViewComEfeito(imgCodigoBarra);
+        configurarImageViewComEfeito(imgProduto);
     }
     
     private void carregarProdutosNaTabela() {
-        ProdutoDAO dao = new ProdutoDAO();
-        ObservableList<Produto> lista = dao.listarProdutos();
-        tabelaProdutos.setItems(lista);
+        tabelaProdutos.setItems(produtoDAO.listarProdutos());
     }
     
 }

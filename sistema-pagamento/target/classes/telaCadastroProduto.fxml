@@ -18,9 +18,9 @@
 <AnchorPane prefHeight="658.0" prefWidth="994.0" styleClass="container-retangulo" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaCadastroProdutoController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="537.0" layoutX="-7.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="810.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="47.0" layoutX="1.0" layoutY="543.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="438.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="47.0" layoutX="1.0" layoutY="543.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="554.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="53.0" layoutX="2.0" layoutY="595.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="612.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="158.0" layoutX="838.0" layoutY="412.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="148.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="91.0" layoutX="838.0" layoutY="412.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="148.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="158.0" layoutX="818.0" layoutY="246.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="168.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="25.0" layoutX="818.0" layoutY="167.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="168.0" />
       <TextField fx:id="tfCodigoBarra" layoutX="1.0" layoutY="94.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" />
@@ -37,8 +37,8 @@
       </VBox>
       <VBox layoutX="539.0" layoutY="32.0" prefHeight="18.0" prefWidth="62.0" />
       <TextField fx:id="tfPrecoCompra" layoutX="3.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" styleClass="text-field" />
-      <TextField fx:id="tfMargem" layoutX="172.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" styleClass="text-field" />
-      <TextField fx:id="tfLucroBruto" layoutX="310.0" layoutY="141.0" prefHeight="29.0" prefWidth="132.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="tfMargem" disable="true" layoutX="172.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" styleClass="text-field" text="0" />
+      <TextField fx:id="tfLucroBruto" disable="true" layoutX="310.0" layoutY="141.0" prefHeight="29.0" prefWidth="132.0" style="-fx-background-radius: 10;" text="0" />
       <TextField fx:id="tfPrecoVenda" layoutX="453.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" />
       <TextField fx:id="tfPrecoMestre" layoutX="594.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" />
       <VBox layoutX="5.0" layoutY="73.0" prefHeight="18.0" prefWidth="124.0">
@@ -176,29 +176,29 @@
             </Label>
          </children>
       </VBox>
-      <TableView fx:id="tabelaProdutos" layoutX="1.0" layoutY="340.0" prefHeight="189.0" prefWidth="794.0">
+      <TableView fx:id="tabelaProdutos" layoutX="1.0" layoutY="340.0" prefHeight="189.0" prefWidth="790.0">
         <columns>
-          <TableColumn fx:id="colCodigoBarra" prefWidth="180.0" text="Código" />
-          <TableColumn fx:id="colNome" prefWidth="192.0" text="Nome" />
-            <TableColumn fx:id="colCategoria" prefWidth="121.0" text="Categoria" />
-            <TableColumn fx:id="colEstoque" prefWidth="37.0" text="QTD" />
-            <TableColumn fx:id="colPrecoVenda" editable="false" prefWidth="65.0" text="P.Venda" />
-            <TableColumn fx:id="colPrecoMestre" prefWidth="66.0" text="P.Grosso" />
-            <TableColumn fx:id="colPrecoCompra" prefWidth="66.0" text="P.Compra" />
-            <TableColumn fx:id="colReferencia" text="Referência" />
+          <TableColumn fx:id="colCodigoBarra" prefWidth="158.0" text="Código" />
+          <TableColumn fx:id="colNome" prefWidth="159.0" text="Nome" />
+            <TableColumn fx:id="colCategoria" prefWidth="102.0" text="Categoria" />
+            <TableColumn fx:id="colEstoque" prefWidth="35.0" text="QTD" />
+            <TableColumn fx:id="colPrecoVenda" editable="false" prefWidth="56.0" text="P.Venda" />
+            <TableColumn fx:id="colPrecoMestre" prefWidth="59.0" text="P.Grosso" />
+            <TableColumn fx:id="colPrecoCompra" prefWidth="65.0" text="P.Compra" />
+            <TableColumn fx:id="colReferencia" prefWidth="155.0" text="Referência" />
         </columns>
       </TableView>
       <VBox layoutX="3.0" layoutY="351.0" prefHeight="18.0" prefWidth="124.0" />
-      <TextField fx:id="" layoutX="127.0" layoutY="552.0" prefHeight="25.0" prefWidth="303.0" style="-fx-background-radius: 10;" />
-      <VBox layoutX="441.0" layoutY="559.0" prefHeight="18.0" prefWidth="124.0" style="-fx-background-color: lightyellow;" />
-      <VBox layoutX="553.0" layoutY="559.0" prefHeight="18.0" prefWidth="56.0" style="-fx-background-color: lightyellow;" />
-      <Line endX="-100.0" endY="67.0" layoutX="658.0" layoutY="510.0" startX="-100.0" startY="49.0" />
+      <TextField fx:id="tfBusca" layoutX="127.0" layoutY="552.0" prefHeight="25.0" prefWidth="303.0" style="-fx-background-radius: 10;" />
+      <VBox layoutX="562.0" layoutY="559.0" prefHeight="18.0" prefWidth="124.0" style="-fx-background-color: lightyellow;" />
+      <VBox layoutX="678.0" layoutY="559.0" prefHeight="18.0" prefWidth="56.0" style="-fx-background-color: lightyellow;" />
+      <Line endX="-100.0" endY="67.0" layoutX="774.0" layoutY="510.0" startX="-100.0" startY="49.0" />
       <Button fx:id="btnInserirImgProduto" layoutX="829.0" layoutY="170.0" mnemonicParsing="false" onAction="#selecionarImagem" prefHeight="18.0" prefWidth="142.0" style="-fx-padding: 2 5 2 5;" text="Inserir Foto">
          <font>
             <Font name="Franklin Gothic Medium" size="10.0" />
          </font>
       </Button>
-      <VBox layoutX="841.0" layoutY="465.0" prefHeight="53.0" prefWidth="142.0" style="-fx-background-color: lightyellow;">
+      <VBox layoutX="841.0" layoutY="443.0" prefHeight="53.0" prefWidth="142.0" style="-fx-background-color: lightyellow;">
          <children>
             <Label fx:id="estoqueQTD" alignment="CENTER" prefHeight="55.0" prefWidth="160.0" style="-fx-font-size: 30px; -fx-font-weight: bold;" textFill="#ff1100">
                <font>
@@ -207,7 +207,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox layoutX="854.0" layoutY="440.0" prefHeight="18.0" prefWidth="132.0">
+      <VBox layoutX="846.0" layoutY="426.0" prefHeight="18.0" prefWidth="132.0">
          <children>
             <Label prefHeight="18.0" prefWidth="166.0" style="-fx-font-size: 11px;" text="Estoque Atual do Produto">
                <font>
@@ -251,12 +251,12 @@
             <Font name="Franklin Gothic Medium" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="345.0" layoutY="606.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="75.0" style="-fx-background-radius: 10;" text="Alterar">
+      <Button fx:id="btnTodos" layoutX="345.0" layoutY="606.0" mnemonicParsing="false" onAction="#listarTodos" prefHeight="31.0" prefWidth="75.0" style="-fx-background-radius: 10;" text="Todos">
          <font>
             <Font name="Franklin Gothic Medium" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="btnApagar" layoutX="425.0" layoutY="606.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="31.0" prefWidth="83.0" style="-fx-background-radius: 10;" text="Apagar">
+      <Button fx:id="btnApagar" layoutX="425.0" layoutY="606.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="31.0" prefWidth="83.0" style="-fx-background-radius: 10;" text="Limpar">
          <font>
             <Font name="Franklin Gothic Medium" size="13.0" />
          </font>
@@ -270,12 +270,12 @@
             <Font name="Franklin Gothic Medium" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="444.0" layoutY="558.0" prefHeight="18.0" prefWidth="111.0" text="Total de Cadastros" textFill="#ff1212">
+      <Label layoutX="563.0" layoutY="558.0" prefHeight="18.0" prefWidth="111.0" text="Total de Cadastros" textFill="#ff1212">
          <font>
             <Font name="Franklin Gothic Medium" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="contarP" alignment="CENTER" contentDisplay="CENTER" layoutX="559.0" layoutY="558.0" prefHeight="18.0" prefWidth="46.0" textFill="#ff0505">
+      <Label fx:id="contarP" alignment="CENTER" contentDisplay="CENTER" layoutX="678.0" layoutY="558.0" prefHeight="18.0" prefWidth="46.0" textFill="#ff0505">
          <font>
             <Font name="Franklin Gothic Medium" size="14.0" />
          </font>
@@ -329,5 +329,17 @@
          </children>
       </VBox>
       <ChoiceBox fx:id="choiceCor" layoutX="595.0" layoutY="91.0" prefHeight="27.0" prefWidth="132.0" style="-fx-background-radius: 10;" />
+      <Button fx:id="btnBuscar" layoutX="453.0" layoutY="553.0" mnemonicParsing="false" onAction="#buscarProduto" prefHeight="31.0" prefWidth="92.0" style="-fx-background-radius: 10;" text="Pesquisar">
+         <font>
+            <Font name="Franklin Gothic Medium" size="13.0" />
+         </font>
+      </Button>
+      <Label layoutX="869.0" layoutY="564.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
+      <Label layoutX="869.0" layoutY="605.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
+      <ImageView fitHeight="102.0" fitWidth="126.0" layoutX="740.0" layoutY="551.0" opacity="0.36">
+         <image>
+            <Image url="@img/carinho.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

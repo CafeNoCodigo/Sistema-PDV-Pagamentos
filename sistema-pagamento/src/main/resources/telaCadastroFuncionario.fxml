@@ -17,12 +17,12 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="841.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaCadastroFuncionarioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="860.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaCadastroFuncionarioController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="408.0" layoutX="28.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="693.0" />
       <TabPane layoutX="38.0" layoutY="105.0" prefHeight="361.0" prefWidth="676.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Dados Pessoais">
+          <Tab fx:id="dp" text="Dados Pessoais">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="286.0" prefWidth="662.0">
                      <children>
@@ -106,7 +106,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Adicionais">
+          <Tab fx:id="ad" text="Adicionais">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -155,7 +155,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Lista dos Funcionarios">
+            <Tab fx:id="lf" text="Lista dos Funcionarios">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -176,7 +176,7 @@
         </tabs>
       </TabPane>
       <Button fx:id="btnSalvar" layoutX="39.0" layoutY="478.0" mnemonicParsing="false" onAction="#salvarFuncionario" prefHeight="21.0" prefWidth="106.0" style="-fx-padding: 2 5 2 5;" text="Salvar" />
-      <Button layoutX="157.0" layoutY="478.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" style="-fx-padding: 2 5 2 5;" styleClass="cancelar" text="Cancelar" />
+      <Button fx:id="btnCancelar" layoutX="157.0" layoutY="478.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="21.0" prefWidth="106.0" style="-fx-padding: 2 5 2 5;" styleClass="cancelar" text="Cancelar" />
       <VBox layoutX="5.0" layoutY="506.0" prefHeight="17.0" prefWidth="283.0">
          <children>
             <Label prefHeight="17.0" prefWidth="331.0" text="Manutencao no Cadastro de Funcionarios" />
@@ -196,17 +196,24 @@
          </children>
       </VBox>
       <Line endX="694.0" layoutX="147.0" layoutY="506.0" opacity="0.54" startX="-147.0" />
-      <Button layoutX="39.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" text="Primeiro" />
-      <Button layoutX="123.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="68.0" text="Ultimo" />
-      <Button layoutX="208.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" text="Anterior" />
-      <Button layoutX="294.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" text="Proximo" />
-      <Button layoutX="386.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="88.0" text="Novo" />
+      <Button disable="true" layoutX="39.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" text="Primeiro" />
+      <Button disable="true" layoutX="123.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="68.0" text="Ultimo" />
+      <Button disable="true" layoutX="208.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" text="Anterior" />
+      <Button disable="true" layoutX="294.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" text="Proximo" />
+      <Button fx:id="btnNovo" layoutX="386.0" layoutY="7.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="48.0" prefWidth="88.0" text="Novo" />
       <Line endX="-20.5" endY="2.0" layoutX="219.0" layoutY="63.0" opacity="0.54" startX="-20.5" startY="-63.0" />
       <Line endX="-20.5" endY="2.0" layoutX="401.0" layoutY="63.0" opacity="0.54" startX="-20.5" startY="-63.0" />
       <Button fx:id="btnLimpar" layoutX="481.0" layoutY="7.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="48.0" prefWidth="88.0" text="Limpar" />
-      <Button fx:id="btnEliminar" layoutX="585.0" layoutY="7.0" mnemonicParsing="false" onAction="#excluirProdutoSelecionado" prefHeight="48.0" prefWidth="137.0" styleClass="deletar" text="Eliminar" />
-      <ChoiceBox layoutX="43.0" layoutY="75.0" prefHeight="27.0" prefWidth="670.0" />
+      <Button fx:id="btnEliminar" layoutX="585.0" layoutY="7.0" mnemonicParsing="false" onAction="#excluirFuncionarioSelecionado" prefHeight="48.0" prefWidth="137.0" styleClass="deletar" text="Eliminar" />
+      <ChoiceBox fx:id="choiceFuncionarios" layoutX="43.0" layoutY="75.0" prefHeight="27.0" prefWidth="670.0" />
       <Line endX="-20.5" endY="2.0" layoutX="596.0" layoutY="63.0" opacity="0.54" startX="-20.5" startY="-63.0" />
-      <Button fx:id="btnFechar" layoutX="759.0" layoutY="7.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="48.0" prefWidth="68.0" styleClass="deletar" text="Fechar" />
+      <Button fx:id="btnFechar" layoutX="759.0" layoutY="7.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="48.0" prefWidth="88.0" styleClass="deletar" text="Fechar" />
+      <Label layoutX="737.0" layoutY="388.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
+      <Label layoutX="737.0" layoutY="429.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
+      <ImageView fitHeight="104.0" fitWidth="117.0" layoutX="737.0" layoutY="286.0" opacity="0.36">
+         <image>
+            <Image url="@img/carinho.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

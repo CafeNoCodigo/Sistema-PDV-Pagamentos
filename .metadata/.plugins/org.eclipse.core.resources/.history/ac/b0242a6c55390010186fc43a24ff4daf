@@ -1,8 +1,0 @@
-package com.minhaloja.sistema_pagamento.controller;
-
-import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
-
-public class telaCadastroFuncionarioController {
-
-	private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-}

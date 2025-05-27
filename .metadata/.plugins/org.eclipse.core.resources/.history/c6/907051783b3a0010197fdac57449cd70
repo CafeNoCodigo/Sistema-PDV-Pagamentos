@@ -1,0 +1,101 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
+import com.minhaloja.sistema_pagamento.model.Produto;
+
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
+
+public class telaVendaController  {
+
+	@FXML public TableView<Produto> tabelaProdutos;
+    @FXML private TableColumn<Produto, String> colCodigo;
+    @FXML private TableColumn<Produto, String> colNome;
+    @FXML private TableColumn<Produto, Double> colEstoque;
+    @FXML private TableColumn<Produto, Double> colPreco;
+    @FXML private TableColumn<Produto, Double> colPrecoMestre;
+    
+    @FXML private Button btnFechar;
+    @FXML private Button btnBusca;
+    @FXML private Button btnListaTodos;
+    
+    @FXML private TextField tfBusca;
+    
+    @FXML private Label lbPreco;
+    @FXML private Label lbTotal;
+    
+    ProdutoDAO produtoDAO = new ProdutoDAO();
+    private Venda venda = new Venda();
+    
+    @FXML
+    private void adicionarAoTotal() {
+        try {
+            String textoPreco = lbPreco.getText().replace("MZN$", "").replace(",", ".").trim();
+            double precoAtual = Double.parseDouble(textoPreco);
+            
+            venda.adicionarPreco(precoAtual);
+            lbTotal.setText(String.format("MZN$ %.2f", venda.getTotalProduto()));
+            
+        } catch (Exception e) {
+            System.out.println("Erro ao adicionar preço: " + e.getMessage());
+        }
+    }
+
+    
+    @FXML
+    private void listarTodos() {
+    	colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPreco.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        
+        tabelaProdutos.setItems(produtoDAO.listarProdutos());
+     
+    }
+    
+    @FXML
+    private void buscarProduto(ActionEvent event) {
+        String textoBusca = tfBusca.getText().trim();
+
+        if (!textoBusca.isEmpty()) {
+            ObservableList<Produto> resultados = produtoDAO.buscarProdutosPorTexto(textoBusca);
+            tabelaProdutos.setItems(resultados);
+        } else {
+            tabelaProdutos.setItems(produtoDAO.listarProdutos());
+        }
+    }
+    
+    @FXML
+    private void fecharJanela() {
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+    }
+
+	@FXML
+    public void initialize() {
+    	colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPreco.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        
+        tabelaProdutos.setItems(produtoDAO.listarProdutos());
+        
+        tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                double preco = newSelection.getPrecoVenda();
+                lbPreco.setText(String.format("MZN$ %.2f", preco));
+            }
+        });
+    }
+}

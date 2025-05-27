@@ -1,0 +1,21 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+public class VendaDAO {
+
+	@FXML
+    private void initialize() {
+    	colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPrecoVenda.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
+        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+        
+        tabelaProdutos.setItems(produtoDAO.listarProdutos());
+    }
+}

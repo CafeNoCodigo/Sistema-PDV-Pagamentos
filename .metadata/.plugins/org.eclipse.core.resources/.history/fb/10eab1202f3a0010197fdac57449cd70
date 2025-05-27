@@ -1,0 +1,28 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+public class telaVendaController  {
+
+    @FXML
+    private TableView<?> tabela;
+
+    @FXML
+    private TableColumn<?, ?> coluna1;
+
+    @FXML
+    private TableColumn<?, ?> coluna2;
+
+    @FXML
+    public void initialize() {
+    	colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		colCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
+		colSalario.setCellValueFactory(new PropertyValueFactory<>("salario"));
+		colTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone1"));
+		colNascido.setCellValueFactory(new PropertyValueFactory<>("dataNascido"));
+		colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
+    }
+}

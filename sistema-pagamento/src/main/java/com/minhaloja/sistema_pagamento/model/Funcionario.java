@@ -9,8 +9,8 @@ public class Funcionario {
 	private String endereco;
 	private String bairro;
 	private String cidade;
-	private double telefone1;
-	private double telefone2;
+	private String telefone1;
+	private String telefone2;
 	private String nuit;
 	private String cargo;
 	private String contaBancaria1;
@@ -77,16 +77,16 @@ public class Funcionario {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	public double getTelefone1() {
+	public String getTelefone1() {
 		return telefone1;
 	}
-	public void setTelefone1(double telefone1) {
+	public void setTelefone1(String telefone1) {
 		this.telefone1 = telefone1;
 	}
-	public double getTelefone2() {
+	public String getTelefone2() {
 		return telefone2;
 	}
-	public void setTelefone2(double telefone2) {
+	public void setTelefone2(String telefone2) {
 		this.telefone2 = telefone2;
 	}
 	public String getNuit() {
@@ -160,7 +160,5 @@ public class Funcionario {
 	}
 	public void setImagemBi(byte[] imagemBi) {
 		this.imagemBi = imagemBi;
-	}
-	
-	
+	}	
 }

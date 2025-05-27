@@ -1,0 +1,99 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.util.List;
+
+import com.minhaloja.sistema_pagamento.dao.FuncionarioDAO;
+import com.minhaloja.sistema_pagamento.util.WindowManager;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+public class telaInicialController {
+	
+	@FXML private Button btnFechar;
+	
+	@FXML private ChoiceBox<String> choiceFuncionario;
+	
+	@FXML private Label labelAnimada;
+
+	
+	@FXML
+	public void initialize() {
+		carregarFuncionariosNoChoiceBox();
+		iniciarAnimacaoLabel();
+	}
+	
+	private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+
+	private final String textoAnimado = "F P S  ";
+	private int indiceTexto = 0;
+	private Timeline timeline;
+
+	private void iniciarAnimacaoLabel() {
+		timeline = new Timeline(
+		    new KeyFrame(Duration.millis(600), e -> {
+		        if (indiceTexto <= textoAnimado.length()) {
+		            labelAnimada.setText(textoAnimado.substring(0, indiceTexto));
+		            indiceTexto++;
+		        } else {
+		            indiceTexto = 0;
+		            labelAnimada.setText("");
+		        }
+		    })
+		);
+		timeline.setCycleCount(javafx.animation.Animation.INDEFINITE);
+		timeline.play();
+	}
+
+	
+	@FXML
+	private void carregarFuncionariosNoChoiceBox() {
+	    List<String> nomes = funcionarioDAO.listarFuncionariosChoiceBox();
+	    choiceFuncionario.getItems().setAll(nomes);
+	}
+	
+	@FXML
+    private void fecharJanela() {
+		Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+        
+     // Finaliza a aplicação JavaFX completamente
+        javafx.application.Platform.exit();
+        System.exit(0);  // opcional, força encerramento
+    }
+	
+	public void abrirTelaCadastroProduto2() {
+		WindowManager.abrirTelaCadastroProduto();
+	}
+	
+	public void abrirTelaFluxoCaixa2() {
+		WindowManager.abrirTelaFluxoCaixa();
+	}
+	
+	public void abrirTelaCadastroFuncionario2() {
+		WindowManager.abrirTelaCadastroFuncionario();
+	}
+	
+	public void abrirTelaVenda2() {
+		WindowManager.abrirTelaVenda();
+	}
+	
+	public void abrirTelaEstoqueAtual2() {
+		WindowManager.abrirTelaEstoqueAtual();
+	}
+	
+	public void abrirTelaRelatorio2() {
+		WindowManager.abrirTelaRelatorio();
+	}
+	
+	public void abrirTelaRequisicao2() {
+		WindowManager.abrirTelaRequisicao();
+	}
+	
+}

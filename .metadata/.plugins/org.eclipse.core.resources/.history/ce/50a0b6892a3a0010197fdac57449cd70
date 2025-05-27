@@ -1,0 +1,12 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.time.LocalDate;
+
+public class Venda {
+	private LocalDate data;
+	private double troco;
+	private double valPago;
+	private double totalProduto;
+	private String FormaPagamento;
+
+}

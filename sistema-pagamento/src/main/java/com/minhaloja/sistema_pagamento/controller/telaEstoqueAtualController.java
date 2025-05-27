@@ -5,18 +5,19 @@ import com.minhaloja.sistema_pagamento.model.Produto;
 import com.minhaloja.sistema_pagamento.util.WindowManager;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class telaEstoqueAtualController {
 	
 	@FXML public TableView<Produto> tabelaProdutos2;
-	//@FXML private TableColumn<Produto, String> colId;
     @FXML private TableColumn<Produto, String> colCodigoBarra;
     @FXML private TableColumn<Produto, String> colNome;
     @FXML private TableColumn<Produto, String> colCategoria;
@@ -35,16 +36,50 @@ public class telaEstoqueAtualController {
     
     @FXML private Button btnFechar;
     @FXML private Button btnExcluir;
+    @FXML private Button btnTodos;
+    
+    @FXML private TextField tfBusca;
     
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
-    //private final telaCadastroProdutoController tc = new telaCadastroProdutoController();
+    
+    @FXML
+    private void listarTodos() {
+    	colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPrecoVenda.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+        colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
+        colFabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+        colLucroBruto.setCellValueFactory(new PropertyValueFactory<>("lucroBruto"));
+        colMargem.setCellValueFactory(new PropertyValueFactory<>("Margem"));
+        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        
+        tabelaProdutos2.setItems(produtoDAO.listarProdutos());
+    }
+    
+    @FXML
+    private void buscarProduto(ActionEvent event) {
+        String textoBusca = tfBusca.getText().trim();
+
+        if (!textoBusca.isEmpty()) {
+            ObservableList<Produto> resultados = produtoDAO.buscarProdutosPorTexto(textoBusca);
+            tabelaProdutos2.setItems(resultados);
+        } else {
+            tabelaProdutos2.setItems(produtoDAO.listarProdutos());
+        }
+    }
 
 	public void abrirTelaCadastroProduto2() {
 		WindowManager.abrirTelaCadastroProduto();
 	}
 	
 	public void initialize() {
-		//colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));

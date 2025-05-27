@@ -6,14 +6,21 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1233.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/21.0.7" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaRelatorioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1233.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaRelatorioController">
    <children>
+      <ImageView fitHeight="146.0" fitWidth="200.0" layoutX="912.0" layoutY="28.0" opacity="0.36">
+         <image>
+            <Image url="@img/carinho.png" />
+         </image>
+      </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="63.0" layoutX="463.0" layoutY="157.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="764.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="363.0" layoutX="459.0" layoutY="229.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="764.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="441.0" layoutX="5.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="444.0" />
@@ -140,5 +147,7 @@
             <Label prefHeight="0.0" prefWidth="488.0" text="Resumo De Vendas Decorrente dos Mêses e Relativo ao Dia Pretendido" />
          </children>
       </VBox>
+      <Label layoutX="1095.0" layoutY="49.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
+      <Label layoutX="1095.0" layoutY="90.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
    </children>
 </AnchorPane>

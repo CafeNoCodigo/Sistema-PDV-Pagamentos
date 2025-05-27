@@ -1,19 +1,25 @@
 package com.minhaloja.sistema_pagamento.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import com.minhaloja.sistema_pagamento.dao.FuncionarioDAO;
 import com.minhaloja.sistema_pagamento.model.Funcionario;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,6 +28,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class telaCadastroFuncionarioController {
 	
@@ -46,8 +53,10 @@ public class telaCadastroFuncionarioController {
 	@FXML private Button btnSelecionarImagemFuncionario;
 	@FXML private Button btnSelecionarImagemBi;
 	@FXML private Button btnLimpar;
-	@FXML private Button btnEiminar;
+	@FXML private Button btnEliminar;
 	@FXML private Button btnFechar;
+	@FXML private Button btnNovo;
+	@FXML private Button btnCancelar;
 	
 	@FXML private DatePicker dpDataNascido;
 	@FXML private DatePicker dpDataInicio;
@@ -65,7 +74,13 @@ public class telaCadastroFuncionarioController {
     @FXML private TableColumn<Funcionario, LocalDate> colNascido;
     @FXML private TableColumn<Funcionario, String> colLoja;
     
+    @FXML private ChoiceBox<String> choiceFuncionarios;
+    
     @FXML private Label contarF;
+    
+    @FXML private Tab dp;
+    @FXML private Tab ad;
+    @FXML private Tab lf;
 	
 	private byte[] imagemFuncionarioBytes;
 	private byte[] imagemBiBytes;
@@ -73,10 +88,111 @@ public class telaCadastroFuncionarioController {
 
 	private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 	
+	private void aplicarAnimacaoHover(Button btn) {
+	    btn.setOnMouseEntered(e -> {
+	        btn.setScaleX(1.05);
+	        btn.setScaleY(1.05);
+	    });
+	    btn.setOnMouseExited(e -> {
+	        btn.setScaleX(1.0);
+	        btn.setScaleY(1.0);
+	    });
+	}
+
+	
+	private void aplicarFadeInInicial() {
+	    aplicarFade(tfNome);
+	    aplicarFade(tfEndereco);
+	    aplicarFade(imageViewBi);
+	    aplicarFade(btnSalvar);
+	    aplicarFade(tfCodigo);
+	    aplicarFade(btnSelecionarImagemBi);
+	    aplicarFade(choiceFuncionarios);
+	    aplicarFade(contarF);
+	    aplicarFade(tfBairro);
+	    aplicarFade(tfCidade);
+	    aplicarFade(tfTelefone1);
+	    aplicarFade(tfTelefone2);
+	    aplicarFade(tfNuit);
+	    aplicarFade(dpDataNascido);
+	    aplicarFade(tfNumeroBi);
+	}
+
+	private void aplicarFade(javafx.scene.Node node) {
+	    FadeTransition ft = new FadeTransition(Duration.millis(800), node);
+	    ft.setFromValue(0.0);
+	    ft.setToValue(1.0);
+	    ft.play();
+	}
+
+	
+	private void preencherCamposComFuncionario(Funcionario funcionario) {
+    	tfCodigo.setText(String.valueOf(funcionario.getCodigo()));
+        tfNome.setText(funcionario.getNome());
+        tfNumeroBi.setText(funcionario.getNumeroBi());
+        tfTelefone1.setText(funcionario.getTelefone1());
+        tfTelefone2.setText(funcionario.getTelefone2());
+        tfEndereco.setText(funcionario.getEndereco());
+        tfBairro.setText(funcionario.getBairro());
+        tfCidade.setText(funcionario.getCidade());
+        tfNuit.setText(funcionario.getNuit());
+        tfCargo.setText(funcionario.getCargo());
+        tfContaBancaria1.setText(funcionario.getContaBancaria1());
+        tfContaBancaria2.setText(funcionario.getContaBancaria2());
+        tfLoja.setText(funcionario.getLoja());
+        tfSalario.setText(String.valueOf(funcionario.getSalario()));
+        tfTransporte.setText(String.valueOf(funcionario.getTransporte()));
+        tfAlimentacao.setText(String.valueOf(funcionario.getAlimentacao()));
+        dpDataNascido.setValue(funcionario.getDataNascido());
+        dpDataInicio.setValue(funcionario.getDataInicio());
+        dpDataFim.setValue(funcionario.getDataFim());
+
+
+        // Carregar e exibir imagem do banco de dados
+        Image imagem = funcionarioDAO.obterImagem(funcionario.getNumeroBi());
+        if (imagem != null) {
+        	imageViewFuncionario.setImage(imagem);
+        } else {
+        	Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/inserirFotoBI.png"));
+        	imageViewFuncionario.setImage(imagemPadrao); // limpa se não houver imagem
+        }
+        
+        try {
+            byte[] imagemBytes = funcionario.getImagemBi();
+            if (imagemBytes != null) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(imagemBytes);
+                Image imagemP = new Image(bis);
+                imageViewBi.setImage(imagemP);
+            } else {
+            	Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/semImg.png"));
+            	imageViewBi.setImage(imagemPadrao);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+	@FXML private void carregarFuncionariosChoiceBox() {
+        List<String> funcionarios = funcionarioDAO.listarFuncionariosChoiceBox();
+        choiceFuncionarios.getItems().setAll(funcionarios);
+    }
+	
 	private void contarFuncionarios() {
-   	 int total = funcionarioDAO.contarFuncionarios();
-   	 contarF.setText(String.valueOf(total));
-   }
+	    int total = funcionarioDAO.contarFuncionarios();
+	    contarF.setText(String.valueOf(total));
+
+	    ScaleTransition scale = new ScaleTransition(Duration.millis(300), contarF);
+	    scale.setFromX(1.0); scale.setFromY(1.0);
+	    scale.setToX(1.2);   scale.setToY(1.2);
+	    scale.setCycleCount(2); scale.setAutoReverse(true);
+
+	    FadeTransition fade = new FadeTransition(Duration.millis(300), contarF);
+	    fade.setFromValue(0.5); fade.setToValue(1.0);
+
+	    scale.play();
+	    fade.play();
+	}
+
 	
 	@FXML
     private void fecharJanela() {
@@ -84,13 +200,13 @@ public class telaCadastroFuncionarioController {
         stage.close();
     }
 	
-	private void carregarProdutosNaTabela() {
+	private void carregarFuncionarioTabela() {
         FuncionarioDAO funcionario = new FuncionarioDAO();
         ObservableList<Funcionario> lista = funcionario.listarFuncionarios();
         tabelaFuncionarios.setItems(lista);
     }
 	
-	@FXML public void excluirProdutoSelecionado() {
+	@FXML public void excluirFuncionarioSelecionado() {
         Funcionario selecionado = tabelaFuncionarios.getSelectionModel().getSelectedItem();
         
         if (selecionado == null) {
@@ -119,8 +235,9 @@ public class telaCadastroFuncionarioController {
                     sucessoAlerta.setHeaderText("funcionário excluído com sucesso.");
                     sucessoAlerta.showAndWait();
                     
-                    carregarProdutosNaTabela();
-                    contarFuncionarios();           
+                    carregarFuncionarioTabela();
+                    contarFuncionarios(); 
+                    carregarFuncionariosChoiceBox();
                     limparCampos();             
                 } else {
                     Alert erro = new Alert(Alert.AlertType.ERROR);
@@ -135,6 +252,16 @@ public class telaCadastroFuncionarioController {
 	
 	@FXML
 	public void initialize() {
+		aplicarFadeInInicial();
+		aplicarAnimacaoHover(btnSalvar);
+		aplicarAnimacaoHover(btnSelecionarImagemFuncionario);
+		aplicarAnimacaoHover(btnSelecionarImagemBi);
+		aplicarAnimacaoHover(btnFechar);
+		aplicarAnimacaoHover(btnLimpar);
+		aplicarAnimacaoHover(btnEliminar);
+		aplicarAnimacaoHover(btnNovo);
+		aplicarAnimacaoHover(btnCancelar);
+
 		colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		colCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
 		colSalario.setCellValueFactory(new PropertyValueFactory<>("salario"));
@@ -142,35 +269,74 @@ public class telaCadastroFuncionarioController {
 		colNascido.setCellValueFactory(new PropertyValueFactory<>("dataNascido"));
 		colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
 		
-		contarFuncionarios(); 
+		contarFuncionarios();
+		carregarFuncionariosChoiceBox();
+		
+		tabelaFuncionarios.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                preencherCamposComFuncionario(newSelection);
+                
+                aplicarFade(tfNome);
+                aplicarFade(imageViewFuncionario);
+                aplicarFade(imageViewBi);
+            }
+        });
 
 		tabelaFuncionarios.setItems(funcionarioDAO.listarFuncionarios());
+		
+		choiceFuncionarios.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+		    if (newVal != null && !newVal.isEmpty()) {
+		        Funcionario funcionario = funcionarioDAO.buscarFuncionarioPorNome(newVal);
+		        if (funcionario != null) {
+		            preencherCamposComFuncionario(funcionario);
+		        }
+		    }
+		});
+
 
 	}
 	
 	@FXML
 	private void limparCampos() {
-		tfCodigo.clear();
-		tfNome.clear();
-		tfTelefone1.clear();
-		tfTelefone2.clear();
-		tfNumeroBi.clear();
-		tfEndereco.clear();
-		tfCidade.clear();
-		tfBairro.clear();
-		tfContaBancaria1.clear();
-		tfContaBancaria2.clear();
-		tfNuit.clear();
-		tfCargo.clear();
-		tfSalario.clear();
-		tfAlimentacao.clear();
-		tfTransporte.clear();
-		tfLoja.clear();
-		
-		Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/inserirFotoBI.png"));
-		imageViewFuncionario.setImage(imagemPadrao);
-		imageViewBi.setImage(imagemPadrao);
+	    tfCodigo.clear(); tfNome.clear(); tfTelefone1.clear();
+	    tfTelefone2.clear(); tfNumeroBi.clear(); tfEndereco.clear();
+	    tfCidade.clear(); tfBairro.clear(); tfContaBancaria1.clear();
+	    tfContaBancaria2.clear(); tfNuit.clear(); tfCargo.clear();
+	    tfSalario.clear(); tfAlimentacao.clear(); tfTransporte.clear();
+	    tfLoja.clear(); choiceFuncionarios.getSelectionModel().clearSelection();
+
+	    Image img = new Image(getClass().getResourceAsStream("/img/inserirFotoBI.png"));
+	    imageViewFuncionario.setImage(img);
+	    imageViewBi.setImage(img);
+
+	    // Aplica fade nos campos principais após limpar
+	    aplicarFade(tfNome);
+	    aplicarFade(tfEndereco);
+	    aplicarFade(imageViewBi);
+	    aplicarFade(btnSalvar);
+	    aplicarFade(tfCodigo);
+	    aplicarFade(btnSelecionarImagemBi);
+	    aplicarFade(choiceFuncionarios);
+	    aplicarFade(contarF);
+	    aplicarFade(tfBairro);
+	    aplicarFade(tfCidade);
+	    aplicarFade(tfTelefone1);
+	    aplicarFade(tfTelefone2);
+	    aplicarFade(tfNuit);
+	    aplicarFade(dpDataNascido);
+	    aplicarFade(tfNumeroBi);
+	    aplicarFade(tfCargo);
+	    aplicarFade(tfContaBancaria1);
+	    aplicarFade(tfContaBancaria2);
+	    aplicarFade(dpDataInicio);
+	    aplicarFade(dpDataFim);
+	    aplicarFade(tfSalario);
+	    aplicarFade(tfAlimentacao);
+	    aplicarFade(tfTransporte);
+	    aplicarFade(tfLoja);
+	    
 	}
+
 	
 	@FXML
 	private void selecionarImagemFuncionario() {
@@ -222,7 +388,6 @@ public class telaCadastroFuncionarioController {
 	    }
 	}
 
-	
 	@FXML
 	public void salvarFuncionario() {
 	    Funcionario funcionario = new Funcionario();
@@ -231,10 +396,10 @@ public class telaCadastroFuncionarioController {
 	        funcionario.setNome(tfNome.getText());
 	        funcionario.setNumeroBi(tfNumeroBi.getText());
 	        if (!tfTelefone1.getText().isEmpty()) {
-	            funcionario.setTelefone1(Double.parseDouble(tfTelefone1.getText()));
+	            funcionario.setTelefone1(tfTelefone1.getText());
 	        }
 	        if (!tfTelefone2.getText().isEmpty()) {
-	            funcionario.setTelefone1(Double.parseDouble(tfTelefone2.getText()));
+	            funcionario.setTelefone2(tfTelefone2.getText());
 	        }
 	        funcionario.setEndereco(tfEndereco.getText());
 	        funcionario.setBairro(tfBairro.getText());
@@ -273,6 +438,7 @@ public class telaCadastroFuncionarioController {
 	        funcionario.setImagemFuncionario(imagemFuncionarioBytes);
 	        funcionario.setImagemBi(imagemBiBytes);
 	        contarFuncionarios(); 
+	        carregarFuncionariosChoiceBox();
 	        limparCampos();
 	        tabelaFuncionarios.setItems(funcionarioDAO.listarFuncionarios());
 

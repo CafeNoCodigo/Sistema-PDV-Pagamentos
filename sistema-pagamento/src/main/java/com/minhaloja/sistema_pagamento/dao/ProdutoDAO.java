@@ -20,6 +20,65 @@ import java.util.ArrayList;
 
 public class ProdutoDAO {
 	
+	public ObservableList<Produto> buscarProdutosPorTexto(String texto) {
+	    ObservableList<Produto> lista = FXCollections.observableArrayList();
+	    boolean isNumero = texto.matches("\\d+"); // Verifica se o texto é inteiro
+
+	    String sql = "SELECT * FROM produtos WHERE "
+	               + "nome LIKE ? OR categoria LIKE ? OR referencia LIKE ? OR modelo LIKE ? OR fornecedor LIKE ?";
+
+	    if (isNumero) {
+	        sql += " OR estoque LIKE ? OR precoCompra LIKE ? ";
+	    }
+
+	    try (Connection conn = Conexao.conectar();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        String buscaComLike = "%" + texto + "%";
+	        stmt.setString(1, buscaComLike); // nome
+	        stmt.setString(2, buscaComLike); // categoria
+	        stmt.setString(3, buscaComLike); // referencia
+	        stmt.setString(4, buscaComLike); // modelo
+	        stmt.setString(5, buscaComLike); // fornecedor
+
+	        if (isNumero) {
+	            stmt.setInt(6, Integer.parseInt(texto)); // quantidade
+	            stmt.setInt(7, Integer.parseInt(texto)); // preco de compra
+	        }
+
+	        ResultSet rs = stmt.executeQuery();
+	        while (rs.next()) {
+	            Produto p = new Produto();
+	            p.setCodigoBarra(rs.getString("codigoBarra"));
+	            p.setNome(rs.getString("nome"));
+	            p.setCategoria(rs.getString("categoria"));
+	            p.setEstoque(rs.getInt("estoque"));
+	            p.setPrecoVenda(rs.getDouble("precoVenda"));
+	            p.setPrecoMestre(rs.getDouble("precoMestre"));
+	            p.setPrecoCompra(rs.getDouble("precoCompra"));
+	            p.setReferencia(rs.getString("referencia"));
+	            p.setLoja(rs.getString("loja"));
+	            p.setFabricante(rs.getString("fabricante"));
+	            p.setFornecedor(rs.getString("fornecedor"));
+	            p.setQrCode(rs.getBytes("imgQrCode"));
+	            p.setModelo(rs.getString("modelo"));
+	            p.setCodigo(rs.getString("codigo"));
+	            p.setGarantia(rs.getString("garantia"));
+	            p.setCor(rs.getString("cor"));
+	            p.setInfoAdicional(rs.getString("infoAdicional"));
+	            p.setImagem(rs.getBytes("imagem"));
+	            lista.add(p);
+	        }
+
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return lista;
+	}
+
+	
 	public List<String> listarFornecedores() {
 	    List<String> fornecedores = new ArrayList<>();
 	    String sql = "SELECT DISTINCT fornecedor FROM produtos ORDER BY fornecedor";
