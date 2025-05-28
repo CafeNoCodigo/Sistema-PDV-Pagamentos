@@ -461,13 +461,13 @@ public class telaCadastroProdutoController {
         aplicarFadeEmTextField(tfCodigo);
     }
     
-    private Image getImagemPadraoProduto() {
-        return new Image(getClass().getResourceAsStream("/img/inserirFotoProduto.png"));
-    }
+    //private Image getImagemPadraoProduto() {
+    //    return new Image(getClass().getResourceAsStream("/img/inserirFotoProduto.png"));
+    //}
 
-    private Image getImagemPadraoQrCode() {
-        return new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
-    }
+   // private Image getImagemPadraoQrCode() {
+    //    return new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
+    //}
 	
     @FXML public void initialize() {
         carregarCoresChoiceBox();

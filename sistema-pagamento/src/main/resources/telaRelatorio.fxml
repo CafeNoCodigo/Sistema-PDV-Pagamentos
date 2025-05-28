@@ -117,19 +117,19 @@
             <Label alignment="CENTER" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #c0cd5e; -fx-background-radius: 10PX;" text="0,00 MZN" />
          </children>
       </VBox>
-      <VBox layoutX="866.0" layoutY="167.0" prefHeight="46.0" prefWidth="124.0">
+      <VBox disable="true" layoutX="866.0" layoutY="167.0" prefHeight="46.0" prefWidth="124.0">
          <children>
             <Label alignment="CENTER" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: WHITE;" text="TOTAL M-KESH" />
             <Label alignment="CENTER" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #c0cd5e; -fx-background-radius: 10PX;" text="0,00 MZN" />
          </children>
       </VBox>
-      <VBox layoutX="997.0" layoutY="167.0" prefHeight="46.0" prefWidth="124.0">
+      <VBox disable="true" layoutX="997.0" layoutY="167.0" prefHeight="46.0" prefWidth="124.0">
          <children>
             <Label alignment="CENTER" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: WHITE;" text="TOTAL BIM" />
             <Label alignment="CENTER" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #c0cd5e; -fx-background-radius: 10PX;" text="0,00 MZN" />
          </children>
       </VBox>
-      <VBox layoutX="1129.0" layoutY="167.0" prefHeight="46.0" prefWidth="93.0">
+      <VBox disable="true" layoutX="1129.0" layoutY="167.0" prefHeight="46.0" prefWidth="93.0">
          <children>
             <Label alignment="CENTER" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: WHITE;" text="TOTAL BIM" />
             <Label alignment="CENTER" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #78e867; -fx-background-radius: 10PX;" text="0,00 MZN" />
