@@ -1,6 +1,7 @@
 com\minhaloja\sistema_pagamento\controller\telaEstoqueAtualController.class
 com\minhaloja\sistema_pagamento\controller\telaCadastroFuncionarioController.class
 com\minhaloja\sistema_pagamento\App.class
+com\minhaloja\sistema_pagamento\dao\FormaPagamentoDAO.class
 com\minhaloja\sistema_pagamento\controller\telaVendaController.class
 com\minhaloja\sistema_pagamento\controller\telaInicialController.class
 com\minhaloja\sistema_pagamento\controller\telaCadastroProdutoController.class
@@ -13,6 +14,7 @@ com\minhaloja\sistema_pagamento\controller\TelaRequisicaoController.class
 com\minhaloja\sistema_pagamento\util\Conexao.class
 com\minhaloja\sistema_pagamento\model\Produto.class
 com\minhaloja\sistema_pagamento\dao\VendaDAO.class
+com\minhaloja\sistema_pagamento\model\FormaPagamento.class
 com\minhaloja\sistema_pagamento\controller\telaRelatorioController.class
 com\minhaloja\sistema_pagamento\TesteConexao.class
 com\minhaloja\sistema_pagamento\model\Funcionario.class

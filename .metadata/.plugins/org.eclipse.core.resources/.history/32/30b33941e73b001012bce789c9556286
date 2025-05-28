@@ -1,0 +1,53 @@
+package com.minhaloja.sistema_pagamento.model;
+
+public class FormaPagamento {
+
+	private String nome;
+	private String conta;
+	private String responsavel;
+	private String email;
+	private String id;
+	private static int contadorMpesa = 1;
+	private static int contadorEmola = 1;
+
+	public static String gerarIdUnicoMpesa() {
+	    return "Mpesa-" + (contadorMpesa++);
+	}
+	
+	public static String gerarIdUnicoEmola() {
+	    return "Emola-" + (contadorEmola++);
+	}
+
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getConta() {
+		return conta;
+	}
+	public void setConta(String conta) {
+		this.conta = conta;
+	}
+	public String getResponsavel() {
+		return responsavel;
+	}
+	public void setResponsavel(String responsavel) {
+		this.responsavel = responsavel;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	
+}

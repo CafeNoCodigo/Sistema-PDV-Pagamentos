@@ -1,13 +1,18 @@
 package com.minhaloja.sistema_pagamento.controller;
 
+import com.minhaloja.sistema_pagamento.dao.FormaPagamentoDAO;
+import com.minhaloja.sistema_pagamento.model.FormaPagamento;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -34,6 +39,68 @@ public class TelaFormaPagamentoController {
     @FXML private TextField tfResponsavel;
 
     private boolean menuAberto = false;
+    
+    private final FormaPagamentoDAO formaPagamentoDAO = new FormaPagamentoDAO();
+    private String match = "";
+    private String msgErro = "";
+    
+    @FXML
+    private void registrarFormaPagamento() {
+        limparEstilosErros(); // Limpa estilos anteriores
+
+        String conta = tfConta.getText();
+
+        if (!conta.matches(match)) {
+            exibirErroConta(msgErro);
+            return;
+        }
+
+        FormaPagamento formaPagamento = new FormaPagamento();
+
+        try {
+            formaPagamento.setNome(tfNome.getText());
+            formaPagamento.setConta(conta);
+            formaPagamento.setId(tfId.getText());
+            formaPagamento.setEmail(tfEmail.getText());
+            formaPagamento.setResponsavel(tfResponsavel.getText());
+
+            formaPagamentoDAO.registrarConta(formaPagamento);
+            limparCampos();
+            desabilitarTf();
+        } catch (Exception e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Erro");
+            alerta.setHeaderText("Erro ao salvar");
+            alerta.setContentText("Não foi possível salvar a forma de pagamento: " + e.getMessage());
+            alerta.showAndWait();
+        }
+    }
+
+    private void exibirErroConta(String mensagem) {
+        tfConta.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+
+        // Fade (piscar borda vermelha)
+        FadeTransition ft = new FadeTransition(Duration.millis(100), tfConta);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.5);
+        ft.setCycleCount(6);
+        ft.setAutoReverse(true);
+        ft.play();
+
+        // Tooltip de erro (ícone de aviso ao passar o mouse)
+        Tooltip tooltip = new Tooltip(mensagem);
+        tooltip.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;");
+        Tooltip.install(tfConta, tooltip);
+
+        // Alerta padrão também (opcional)
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle("Conta Inválida");
+        alerta.setHeaderText("Número de conta inválido");
+        alerta.setContentText(mensagem);
+        alerta.showAndWait();
+    }
+
+
 
     @FXML
     public void initialize() {
@@ -50,12 +117,20 @@ public class TelaFormaPagamentoController {
 
     @FXML
     private void registrarMpesa() {
+    	match = "^(84|85)\\d{7}$";
+    	msgErro = "A conta deve começar com '84' ou '85' e ter exatamente 9 dígitos numéricos.";
     	selecionado();
+    	String novoId = formaPagamentoDAO.gerarProximoIdFormaPagamentoMpesa();
+        tfId.setText(novoId);
     }
 
     @FXML
     private void registrarEmola() {
+    	msgErro = "A conta deve começar com '86' ou '87' e ter exatamente 9 dígitos numéricos.";
+    	match = "^(86|87)\\d{7}$";
     	selecionado();
+    	String novoId = formaPagamentoDAO.gerarProximoIdFormaPagamentoEmola();
+        tfId.setText(novoId);
     }
     
     private void selecionado() {
@@ -76,7 +151,7 @@ public class TelaFormaPagamentoController {
     	tfNome.setDisable(false);
     	tfConta.setDisable(false);
     	tfResponsavel.setDisable(false);
-    	tfId.setDisable(false);
+    	//tfId.setDisable(false);
     	tfEmail.setDisable(false);
     }
     
@@ -166,4 +241,11 @@ public class TelaFormaPagamentoController {
             st.play();
         });
     }
+    
+    private void limparEstilosErros() {
+        tfConta.setStyle(""); // Remove borda vermelha
+        Tooltip.uninstall(tfConta, null); // Remove qualquer tooltip anterior
+        tfConta.setDisable(true);
+    }
+
 }

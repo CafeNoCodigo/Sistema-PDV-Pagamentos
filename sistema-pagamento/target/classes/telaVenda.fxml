@@ -117,7 +117,7 @@
           <TableColumn fx:id="colItemNome" prefWidth="242.0" text="Nome" />
             <TableColumn fx:id="colItemSubtotal" prefWidth="98.0" text="Subtotal" />
             <TableColumn fx:id="colItemQuantidade" prefWidth="96.0" text="Quantidade" />
-            <TableColumn prefWidth="174.0" text="Categoria" />
+            <TableColumn fx:id="colItemCategoria" prefWidth="174.0" text="Categoria" />
         </columns>
       </TableView>
       <Label layoutX="14.0" layoutY="282.0" prefHeight="24.0" prefWidth="77.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Carinho" textFill="#67a4b5" />

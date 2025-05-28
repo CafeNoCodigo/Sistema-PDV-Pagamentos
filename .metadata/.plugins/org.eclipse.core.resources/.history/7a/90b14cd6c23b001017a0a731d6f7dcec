@@ -1,0 +1,6 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+public class VendaDAO {
+	
+	
+}

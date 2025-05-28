@@ -20,6 +20,10 @@ import java.util.ArrayList;
 
 public class ProdutoDAO {
 	
+	public ProdutoDAO() {
+        criarTabelaSeNaoExistir();
+    }
+	
 	public ObservableList<Produto> buscarProdutosPorTexto(String texto) {
 	    ObservableList<Produto> lista = FXCollections.observableArrayList();
 	    boolean isNumero = texto.matches("\\d+"); // Verifica se o texto é inteiro
@@ -144,11 +148,6 @@ public class ProdutoDAO {
         }
 
         return 0;
-    }
-
-
-    public ProdutoDAO() {
-        criarTabelaSeNaoExistir();
     }
 
     private void criarTabelaSeNaoExistir() {
