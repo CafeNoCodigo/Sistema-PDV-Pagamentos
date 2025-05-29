@@ -1,10 +1,13 @@
 package com.minhaloja.sistema_pagamento.controller;
 
 import java.io.ByteArrayInputStream;
+import java.util.List;
 import java.util.Optional;
 
+import com.minhaloja.sistema_pagamento.dao.FormaPagamentoDAO;
 import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
 import com.minhaloja.sistema_pagamento.dao.VendaDAO;
+import com.minhaloja.sistema_pagamento.model.FormaPagamento;
 import com.minhaloja.sistema_pagamento.model.ItemVenda;
 import com.minhaloja.sistema_pagamento.model.Produto;
 
@@ -17,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -51,11 +55,14 @@ public class telaVendaController  {
     @FXML private Button btnLimparItem;
     
     @FXML private TextField tfBusca;
+    @FXML private TextField tfConta;
     
     @FXML private Label lbPreco;
     @FXML private Label lbTotal;
     
     @FXML private ImageView imgProduto;
+    
+    @FXML private ChoiceBox<FormaPagamento> cbFormaPagamento;
     
     ProdutoDAO produtoDAO = new ProdutoDAO();
     private ItemVenda venda = new ItemVenda();
@@ -64,9 +71,14 @@ public class telaVendaController  {
 
     private ObservableList<ItemVenda> itensVenda = FXCollections.observableArrayList();
     
-    @FXML
-    private void registrarVenda() {
-    	
+    private void carregarFormasPagamento() {
+    	FormaPagamentoDAO formaPagamentoDAO = new FormaPagamentoDAO();
+        List<FormaPagamento> formasPagamento = formaPagamentoDAO.buscarTodas();
+
+        if (formasPagamento != null) {
+        	cbFormaPagamento.getItems().addAll(formasPagamento);
+
+        }
     }
     
     @FXML
@@ -232,5 +244,16 @@ public class telaVendaController  {
         colItemSubtotal.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSubtotal()).asObject());
 
         tabelaItensVenda.setItems(itensVenda);
+        
+        carregarFormasPagamento();
+        
+        cbFormaPagamento.getSelectionModel().selectedItemProperty().addListener((obs, antigo, selecionado) -> {
+            if (selecionado != null) {
+                tfConta.setText(selecionado.getConta());
+            } else {
+                tfConta.clear();
+            }
+        });
+
     }
 }

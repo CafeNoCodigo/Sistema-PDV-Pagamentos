@@ -78,7 +78,7 @@
             <Label prefHeight="31.0" prefWidth="157.0" text="Forma de pagamento" />
          </children>
       </VBox>
-      <ChoiceBox layoutX="916.0" layoutY="296.0" prefHeight="27.0" prefWidth="160.0" />
+      <ChoiceBox fx:id="cbFormaPagamento" layoutX="916.0" layoutY="296.0" prefHeight="27.0" prefWidth="105.0" />
       <VBox layoutX="787.0" layoutY="336.0" prefHeight="28.0" prefWidth="69.0">
          <children>
             <Label prefHeight="31.0" prefWidth="157.0" text="Valor Pago" />
@@ -135,12 +135,12 @@
       <Label layoutX="906.0" layoutY="389.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
       <Label layoutX="906.0" layoutY="434.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
       <Button layoutX="951.0" layoutY="335.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="77.0" text="Gerar" />
-      <VBox layoutX="1106.0" layoutY="292.0" prefHeight="28.0" prefWidth="69.0">
+      <VBox layoutX="1022.0" layoutY="292.0" prefHeight="28.0" prefWidth="69.0">
          <children>
             <Label prefHeight="31.0" prefWidth="157.0" text="Número" />
          </children>
       </VBox>
-      <TextField layoutX="1160.0" layoutY="292.0" prefHeight="29.0" prefWidth="152.0" />
+      <TextField fx:id="tfConta" editable="false" layoutX="1076.0" layoutY="292.0" prefHeight="33.0" prefWidth="85.0" style="-fx-font-weight: bold; -fx-font-size: 13px;" />
       <VBox layoutX="463.0" layoutY="271.0" prefHeight="28.0" prefWidth="132.0">
          <children>
             <Label prefHeight="31.0" prefWidth="157.0" text="Reduzir do Carinho" />
@@ -158,5 +158,11 @@
             <Label alignment="CENTER" prefHeight="31.0" prefWidth="157.0" text="Remover do Carinho" />
          </children>
       </VBox>
+      <VBox layoutX="1165.0" layoutY="292.0" prefHeight="28.0" prefWidth="99.0">
+         <children>
+            <Label prefHeight="31.0" prefWidth="157.0" text="Número Cliente" />
+         </children>
+      </VBox>
+      <TextField layoutX="1260.0" layoutY="292.0" prefHeight="29.0" prefWidth="77.0" style="-fx-font-weight: bold;" />
    </children>
 </AnchorPane>

@@ -8,6 +8,11 @@ public class FormaPagamento {
 	private String email;
 	private String id;
 	
+	@Override
+	public String toString() {
+	    return id;
+	}
+
 
 	public String getNome() {
 		return nome;

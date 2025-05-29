@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.minhaloja.sistema_pagamento.model.FormaPagamento;
 import com.minhaloja.sistema_pagamento.util.Conexao;
@@ -17,6 +19,33 @@ public class FormaPagamentoDAO {
 	public FormaPagamentoDAO() {
 		criarTabelaSeNaoExistir();
 	}
+	
+	public List<FormaPagamento> buscarTodas() {
+	    List<FormaPagamento> lista = new ArrayList<>();
+
+	    String sql = "SELECT * FROM formapagamento";
+
+	    try (Connection conn = Conexao.conectar();
+	         PreparedStatement stmt = conn.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            FormaPagamento forma = new FormaPagamento();
+	            forma.setId(rs.getString("id"));
+	            forma.setNome(rs.getString("nome"));
+	            forma.setConta(rs.getString("numeroConta"));
+	            forma.setEmail(rs.getString("email"));
+	            forma.setResponsavel(rs.getString("nomeResponsavel"));
+	            lista.add(forma);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return lista;
+	}
+
 	
 	public String gerarProximoIdFormaPagamentoMpesa() {
 	    String prefixo = "Mpesa-";

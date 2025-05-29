@@ -1,5 +1,6 @@
 package com.minhaloja.sistema_pagamento.controller;
 
+
 import com.minhaloja.sistema_pagamento.dao.FormaPagamentoDAO;
 import com.minhaloja.sistema_pagamento.model.FormaPagamento;
 
@@ -44,6 +45,35 @@ public class TelaFormaPagamentoController {
     private String match = "";
     private String msgErro = "";
     
+    private boolean emailValido(TextField tfEmail) {
+        String email = tfEmail.getText().trim();
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return email.matches(regex);
+    }
+    
+    private void exibirErroEmail(String mensagem) {
+        tfEmail.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+
+        FadeTransition ft = new FadeTransition(Duration.millis(100), tfEmail);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.5);
+        ft.setCycleCount(6);
+        ft.setAutoReverse(true);
+        ft.play();
+
+        Tooltip tooltip = new Tooltip(mensagem);
+        tooltip.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-weight: bold;");
+        Tooltip.install(tfEmail, tooltip);
+
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle("E-mail Inválido");
+        alerta.setHeaderText("Formato de e-mail incorreto");
+        alerta.setContentText(mensagem);
+        alerta.showAndWait();
+    }
+
+
+    
     @FXML
     private void registrarFormaPagamento() {
         limparEstilosErros(); // Limpa estilos anteriores
@@ -54,6 +84,12 @@ public class TelaFormaPagamentoController {
             exibirErroConta(msgErro);
             return;
         }
+
+        if (!emailValido(tfEmail)) {
+            exibirErroEmail("E-mail inválido! Verifique o formato (ex: nome@exemplo.com)");
+            return;
+        }
+
 
         FormaPagamento formaPagamento = new FormaPagamento();
 
@@ -113,6 +149,7 @@ public class TelaFormaPagamentoController {
         configurarBotaoAnimado(btnFechar2);
         configurarBotaoAnimado(menuButton);
         configurarBotaoAnimado(btnRegistrar); 
+        
     }
 
     @FXML
