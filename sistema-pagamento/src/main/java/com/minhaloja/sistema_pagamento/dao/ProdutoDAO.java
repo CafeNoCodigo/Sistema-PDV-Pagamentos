@@ -47,7 +47,7 @@ public class ProdutoDAO {
 
 	        if (isNumero) {
 	            stmt.setInt(6, Integer.parseInt(texto)); // quantidade
-	            stmt.setInt(7, Integer.parseInt(texto)); // preco de compra
+	            stmt.setDouble(7, Double.parseDouble(texto)); // preco de compra
 	        }
 
 	        ResultSet rs = stmt.executeQuery();
@@ -74,14 +74,12 @@ public class ProdutoDAO {
 	            lista.add(p);
 	        }
 
-
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
 
 	    return lista;
 	}
-
 	
 	public List<String> listarFornecedores() {
 	    List<String> fornecedores = new ArrayList<>();
@@ -130,8 +128,7 @@ public class ProdutoDAO {
 	    }
 
 	    return categorias;
-	}    
-
+	}
 	
 	public int contarProdutos() {
         String sql = "SELECT COUNT(*) FROM produtos";
@@ -326,7 +323,6 @@ public class ProdutoDAO {
                 p.setEstoque(rs.getInt("estoque"));
                 p.setPrecoVenda(rs.getDouble("precoVenda"));
                 p.setPrecoMestre(rs.getDouble("precoMestre"));
-                p.setPrecoVenda(rs.getDouble("precoVenda"));
                 p.setPrecoCompra(rs.getDouble("precoCompra"));
                 p.setReferencia(rs.getString("referencia"));
                 p.setLoja(rs.getString("loja"));

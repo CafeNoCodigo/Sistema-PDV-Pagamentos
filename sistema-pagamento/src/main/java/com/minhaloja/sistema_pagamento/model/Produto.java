@@ -22,8 +22,17 @@ public class Produto {
     private String codigo;
     private String cor;
     private byte[] imagem;
+    private int id;
 
-    public byte[] getImagem() {
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public byte[] getImagem() {
         return imagem;
     }
 

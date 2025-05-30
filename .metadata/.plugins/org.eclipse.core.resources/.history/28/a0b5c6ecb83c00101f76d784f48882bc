@@ -1,0 +1,93 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
+import com.minhaloja.sistema_pagamento.model.ItemVenda;
+import com.minhaloja.sistema_pagamento.model.Venda;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+public class VendaDAO {
+
+    public VendaDAO() {
+        criarTabelaSeNaoExistir();
+    }
+
+    public int inserirVenda(Venda venda) throws SQLException {
+        String sql = "INSERT INTO venda (totalProduto, formaPagamento, valPago, troco, data) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setDouble(1, venda.getTotalProduto());
+            stmt.setString(2, venda.getFormaPagamento());
+            stmt.setDouble(3, venda.getValorPago());
+            stmt.setDouble(4, venda.getTroco());
+            stmt.setDate(5, java.sql.Date.valueOf(venda.getData()));
+            stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1); // ID gerado
+            }
+        }
+        return -1;
+    }
+
+    public void inserirItensVenda(int idVenda, List<ItemVenda> itens) throws SQLException {
+        String sql = "INSERT INTO item_venda (id_venda, id_produto, quantidade, preco_unitario, subtotal) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            for (ItemVenda item : itens) {
+                stmt.setInt(1, idVenda);
+                stmt.setInt(2, item.getProduto().getId());
+                stmt.setInt(3, item.getQuantidade());
+                stmt.setDouble(4, item.getPrecoUnitario());
+                stmt.setDouble(5, item.getSubtotal());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+        }
+    }
+
+    private void criarTabelaSeNaoExistir() {
+        String sqlVenda = """
+            CREATE TABLE IF NOT EXISTS venda (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                totalProduto DOUBLE,
+                formaPagamento VARCHAR(50),
+                valPago DOUBLE,
+                troco DOUBLE,
+                data DATE
+            );
+        """;
+
+        String sqlItemVenda = """
+            CREATE TABLE IF NOT EXISTS item_venda (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                id_venda INT,
+                id_produto INT,
+                quantidade INT,
+                preco_unitario DOUBLE,
+                subtotal DOUBLE,
+                FOREIGN KEY (id_venda) REFERENCES venda(id),
+                FOREIGN KEY (id_produto) REFERENCES produto(id)
+            );
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             Statement stmt = conn.createStatement()) {
+
+            stmt.execute(sqlVenda);
+            stmt.execute(sqlItemVenda);
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao criar tabelas de venda: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}

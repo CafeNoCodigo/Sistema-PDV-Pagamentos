@@ -1,0 +1,80 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
+import com.minhaloja.sistema_pagamento.model.ItemVenda;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+public class VendaDAO {
+	
+	public VendaDAO() {
+		criarTabelaSeNaoExistir();
+	}
+	
+	public int inserirVenda(ItemVenda venda) throws SQLException {
+	    String sql = "INSERT INTO venda (total, forma_pagamento, valor_pago, troco) VALUES (?, ?, ?, ?)";
+	    try (Connection conn = Conexao.conectar();
+	         PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+	        stmt.setDouble(1, venda.getTotalProduto());
+	        stmt.setString(2, venda.getFormaPagamento());
+	        stmt.setDouble(3, venda.getValPago());
+	        stmt.setDouble(4, venda.getTroco());
+	        stmt.executeUpdate();
+
+	        ResultSet rs = stmt.getGeneratedKeys();
+	        if (rs.next()) {
+	            return rs.getInt(1); // retorna o id gerado
+	        }
+	    }
+	    return -1;
+	}
+	
+	public void inserirItensVenda(int idVenda, List<ItemVenda> itens) throws SQLException {
+	    String sql = "INSERT INTO item_venda (id_venda, id_produto, quantidade, preco_unitario, subtotal) VALUES (?, ?, ?, ?, ?)";
+	    try (Connection conn = Conexao.conectar();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        for (ItemVenda item : itens) {
+	            stmt.setInt(1, idVenda);
+	            stmt.setInt(2, item.getProduto().getId()); // Certifique-se que Produto tem getId()
+	            stmt.setInt(3, item.getQuantidade());
+	            stmt.setDouble(4, item.getProduto().getPrecoVenda());
+	            stmt.setDouble(5, item.getSubtotal());
+	            stmt.addBatch();
+	        }
+	        stmt.executeBatch();
+	    }
+	}
+
+
+	
+	public void criarTabelaSeNaoExistir() {
+    	String sql = """
+    		    CREATE TABLE IF NOT EXISTS venda (
+    		        codigoBarra VARCHAR(50) UNIQUE,
+    		        valPago DOUBLE,
+    		        formaPagamento VARCHAR(100),
+    		        troco DOUBLE,
+    		        numeroVenda DOUBLE,
+    		        vendedor VARCHAR(255),
+    		        totalProduto DOUBLE,
+    		        data DATE
+    		    );
+    		""";
+
+        try (Connection conn = Conexao.conectar(); Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println("Erro ao criar tabela: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+	
+	
+}

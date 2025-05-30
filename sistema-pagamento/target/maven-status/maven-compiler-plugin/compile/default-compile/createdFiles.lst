@@ -16,6 +16,7 @@ com\minhaloja\sistema_pagamento\model\Produto.class
 com\minhaloja\sistema_pagamento\dao\VendaDAO.class
 com\minhaloja\sistema_pagamento\model\FormaPagamento.class
 com\minhaloja\sistema_pagamento\controller\telaRelatorioController.class
+com\minhaloja\sistema_pagamento\model\Venda.class
 com\minhaloja\sistema_pagamento\TesteConexao.class
 com\minhaloja\sistema_pagamento\model\Funcionario.class
 com\minhaloja\sistema_pagamento\dao\FuncionarioDAO.class

@@ -84,7 +84,7 @@
             <Label prefHeight="31.0" prefWidth="157.0" text="Valor Pago" />
          </children>
       </VBox>
-      <TextField layoutX="856.0" layoutY="336.0" prefHeight="29.0" prefWidth="90.0" />
+      <TextField fx:id="tfValorPago" layoutX="856.0" layoutY="336.0" prefHeight="29.0" prefWidth="90.0" />
       <VBox layoutX="1071.0" layoutY="337.0" prefHeight="28.0" prefWidth="38.0">
          <children>
             <Label prefHeight="31.0" prefWidth="157.0" text="Troco" />
@@ -93,7 +93,7 @@
       <HBox layoutX="1106.0" layoutY="335.0" prefHeight="32.0" prefWidth="227.0" style="-fx-background-color: white; -fx-border-radius: 10;">
          <children>
             <Label prefHeight="32.0" prefWidth="94.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text=" MZN" textFill="RED" />
-            <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="141.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text="0,00" textAlignment="RIGHT" textFill="RED" />
+            <Label fx:id="lbTroco" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="141.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text="0,00" textAlignment="RIGHT" textFill="RED" />
          </children>
       </HBox>
       <Button fx:id="btnAdicionar" layoutX="787.0" layoutY="92.0" mnemonicParsing="false" onAction="#adicionarProdutoAVenda" prefHeight="28.0" prefWidth="117.0" style="-fx-font-size: 20px; -fx-padding: 2 5 2 5;" text="+" />
@@ -134,7 +134,7 @@
       </ImageView>
       <Label layoutX="906.0" layoutY="389.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
       <Label layoutX="906.0" layoutY="434.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
-      <Button layoutX="951.0" layoutY="335.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="77.0" text="Gerar" />
+      <Button fx:id="btnGerar" layoutX="951.0" layoutY="335.0" mnemonicParsing="false" onAction="#verificarPagamento" prefHeight="31.0" prefWidth="77.0" text="Gerar" />
       <VBox layoutX="1022.0" layoutY="292.0" prefHeight="28.0" prefWidth="69.0">
          <children>
             <Label prefHeight="31.0" prefWidth="157.0" text="Número" />

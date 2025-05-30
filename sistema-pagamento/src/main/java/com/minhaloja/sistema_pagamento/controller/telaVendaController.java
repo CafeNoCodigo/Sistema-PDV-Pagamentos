@@ -10,250 +10,236 @@ import com.minhaloja.sistema_pagamento.dao.VendaDAO;
 import com.minhaloja.sistema_pagamento.model.FormaPagamento;
 import com.minhaloja.sistema_pagamento.model.ItemVenda;
 import com.minhaloja.sistema_pagamento.model.Produto;
+import com.minhaloja.sistema_pagamento.model.Venda;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class telaVendaController  {
+public class telaVendaController {
 
-	@FXML public TableView<Produto> tabelaProdutos;
+    @FXML private TableView<Produto> tabelaProdutos;
     @FXML private TableColumn<Produto, String> colCodigo;
     @FXML private TableColumn<ItemVenda, String> colCodigo2;
     @FXML private TableColumn<Produto, String> colNome;
     @FXML private TableColumn<Produto, Double> colEstoque;
     @FXML private TableColumn<Produto, Double> colPreco;
     @FXML private TableColumn<Produto, Double> colPrecoMestre;
-    @FXML private TableColumn<Produto, Double> colCategoria;
+    @FXML private TableColumn<Produto, String> colCategoria;
+
     @FXML private TableView<ItemVenda> tabelaItensVenda;
     @FXML private TableColumn<ItemVenda, String> colItemNome;
     @FXML private TableColumn<ItemVenda, Integer> colItemQuantidade;
     @FXML private TableColumn<ItemVenda, Double> colItemSubtotal;
     @FXML private TableColumn<ItemVenda, String> colItemCategoria;
-    
-    @FXML private Button btnFechar;
-    @FXML private Button btnBusca;
-    @FXML private Button btnListaTodos;
-    @FXML private Button btnAdicionar;
-    @FXML private Button btnRemoverItem; 
-    @FXML private Button btnCancelarVenda;
-    @FXML private Button btnLimparItem;
-    
-    @FXML private TextField tfBusca;
-    @FXML private TextField tfConta;
-    
-    @FXML private Label lbPreco;
-    @FXML private Label lbTotal;
-    
+
+    @FXML private Button btnFechar, btnBusca, btnListaTodos, btnAdicionar, btnRemoverItem, btnCancelarVenda, btnLimparItem, btnGerar;
+    @FXML private TextField tfBusca, tfConta, tfValorPago;
+    @FXML private Label lbPreco, lbTotal, lbTroco;
     @FXML private ImageView imgProduto;
-    
     @FXML private ChoiceBox<FormaPagamento> cbFormaPagamento;
-    
-    ProdutoDAO produtoDAO = new ProdutoDAO();
-    private ItemVenda venda = new ItemVenda();
-    Produto produto = new Produto();
+
+    private final ProdutoDAO produtoDAO = new ProdutoDAO();
     private final VendaDAO vendaDAO = new VendaDAO();
+    private final Venda venda = new Venda();
+    private final ObservableList<ItemVenda> itensVenda = FXCollections.observableArrayList();
 
-    private ObservableList<ItemVenda> itensVenda = FXCollections.observableArrayList();
-    
+    @FXML
+    public void initialize() {
+        configurarTabelaProdutos();
+        configurarTabelaItensVenda();
+        carregarFormasPagamento();
+        configurarEventos();
+        tabelaProdutos.setItems(produtoDAO.listarProdutos());
+    }
+
+    private void configurarTabelaProdutos() {
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPreco.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+    }
+
+    private void configurarTabelaItensVenda() {
+        colCodigo2.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProduto().getCodigoBarra()));
+        colItemNome.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNome()));
+        colItemQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        colItemSubtotal.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSubtotal()).asObject());
+        colItemCategoria.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProduto().getCategoria()));
+
+        tabelaItensVenda.setItems(itensVenda);
+    }
+
+    private void configurarEventos() {
+        tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> exibirDetalhesProduto(newVal));
+
+        cbFormaPagamento.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, selected) -> {
+            tfConta.setText(selected != null ? selected.getConta() : "");
+        });
+    }
+
+    private void exibirDetalhesProduto(Produto produto) {
+        if (produto != null) {
+            lbPreco.setText(String.format("%.2f", produto.getPrecoVenda()));
+            Image imagem = produto.getImagem() != null ? new Image(new ByteArrayInputStream(produto.getImagem()))
+                    : new Image(getClass().getResourceAsStream("/img/semImg.png"));
+            imgProduto.setImage(imagem);
+        } else {
+            lbPreco.setText("");
+            imgProduto.setImage(new Image(getClass().getResourceAsStream("/img/semImg.png")));
+        }
+    }
+
     private void carregarFormasPagamento() {
-    	FormaPagamentoDAO formaPagamentoDAO = new FormaPagamentoDAO();
-        List<FormaPagamento> formasPagamento = formaPagamentoDAO.buscarTodas();
-
+        List<FormaPagamento> formasPagamento = new FormaPagamentoDAO().buscarTodas();
         if (formasPagamento != null) {
-        	cbFormaPagamento.getItems().addAll(formasPagamento);
-
+            cbFormaPagamento.getItems().addAll(formasPagamento);
         }
     }
-    
-    @FXML
-    private void limparItemSelecionado() {
-        ItemVenda itemSelecionado = tabelaItensVenda.getSelectionModel().getSelectedItem();
-
-        if (itemSelecionado != null) {
-            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta.setTitle("Confirmação");
-            alerta.setHeaderText("Remover Item");
-            alerta.setContentText("Deseja remover completamente o item \"" + itemSelecionado.getNome() + "\" da venda?");
-
-            Optional<ButtonType> resultado = alerta.showAndWait();
-            if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-                double subtotalItem = itemSelecionado.getSubtotal();
-                itensVenda.remove(itemSelecionado);
-                venda.setTotalProduto(venda.getTotalProduto() - subtotalItem);
-                lbTotal.setText(String.format("MZN$ %.2f", venda.getTotalProduto()));
-            }
-        }
-    }
-
-
-    
-    @FXML
-    private void cancelarVenda() {
-        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("Confirmação");
-        alerta.setHeaderText("Cancelar Venda");
-        alerta.setContentText("Tem certeza de que deseja cancelar a venda atual?");
-
-        Optional<ButtonType> resultado = alerta.showAndWait();
-        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-            itensVenda.clear();        // Limpa a lista de itens
-            venda.resetar();           // Zera o total
-            lbTotal.setText("MZN$ 0.00");
-        }
-    }
-
-    
-    @FXML
-    private void removerItemSelecionado() {
-        ItemVenda itemSelecionado = tabelaItensVenda.getSelectionModel().getSelectedItem();
-
-        if (itemSelecionado != null) {
-            int quantidadeAtual = itemSelecionado.getQuantidade();
-            double precoUnitario = itemSelecionado.getProduto().getPrecoVenda();
-
-            if (quantidadeAtual > 1) {
-                itemSelecionado.quantidade--; // diminui diretamente a quantidade
-                // Subtrai do total acumulado
-                venda.setTotalProduto(venda.getTotalProduto() - precoUnitario);
-                tabelaItensVenda.refresh();
-            } else {
-                itensVenda.remove(itemSelecionado);
-                venda.setTotalProduto(venda.getTotalProduto() - precoUnitario);
-            }
-
-            lbTotal.setText(String.format("MZN$ %.2f", venda.getTotalProduto()));
-        }
-    }
-
 
     @FXML
     private void adicionarProdutoAVenda() {
-    	
-        Produto selecionado = tabelaProdutos.getSelectionModel().getSelectedItem();
-        if (selecionado == null) return;
+        Produto produtoSelecionado = tabelaProdutos.getSelectionModel().getSelectedItem();
+        if (produtoSelecionado == null) return;
 
-        // Verifica se o produto já está na lista
         for (ItemVenda item : itensVenda) {
-            if (item.getProduto().getCodigoBarra().equals(selecionado.getCodigoBarra())) {
+            if (item.getProduto().getCodigoBarra().equals(produtoSelecionado.getCodigoBarra())) {
                 item.incrementarQuantidade();
-                tabelaItensVenda.refresh(); // atualiza a tabela
-                venda.adicionarPreco(selecionado.getPrecoVenda());
-                lbTotal.setText(String.format("MZN$ %.2f", venda.getTotalProduto()));
+                venda.adicionarPreco(produtoSelecionado.getPrecoVenda());
+                tabelaItensVenda.refresh();
+                atualizarTotal();
                 return;
             }
         }
 
-        // Se não estiver na lista, adiciona como novo item
-        ItemVenda novoItem = new ItemVenda(selecionado);
+        ItemVenda novoItem = new ItemVenda(produtoSelecionado);
         itensVenda.add(novoItem);
-        venda.adicionarPreco(selecionado.getPrecoVenda());
-        lbTotal.setText(String.format("MZN$ %.2f", venda.getTotalProduto()));
+        venda.adicionarPreco(produtoSelecionado.getPrecoVenda());
+        atualizarTotal();
     }
 
-    
+    @FXML
+    private void removerItemSelecionado() {
+        ItemVenda item = tabelaItensVenda.getSelectionModel().getSelectedItem();
+        if (item == null) return;
+
+        if (item.getQuantidade() > 1) {
+            item.decrementarQuantidade();
+            venda.adicionarPreco(-item.getProduto().getPrecoVenda());
+        } else {
+            itensVenda.remove(item);
+            venda.adicionarPreco(-item.getProduto().getPrecoVenda());
+        }
+
+        tabelaItensVenda.refresh();
+        atualizarTotal();
+    }
+
+    @FXML
+    private void limparItemSelecionado() {
+        ItemVenda item = tabelaItensVenda.getSelectionModel().getSelectedItem();
+        if (item == null) return;
+
+        if (confirmar("Remover Item", "Deseja remover completamente o item \"" + item.getNome() + "\" da venda?")) {
+            venda.adicionarPreco(-item.getSubtotal());
+            itensVenda.remove(item);
+            atualizarTotal();
+        }
+    }
+
+    @FXML
+    private void cancelarVenda() {
+        if (confirmar("Cancelar Venda", "Tem certeza de que deseja cancelar a venda atual?")) {
+            itensVenda.clear();
+            venda.resetar();
+            atualizarTotal();
+        }
+    }
+
+    @FXML
+    private void verificarPagamento() {
+        tfValorPago.setStyle("");
+        lbTroco.setText("0,00");
+
+        if (venda.getTotalProduto() == 0.0) {
+            alerta("Adicione produtos ao carrinho antes de realizar o pagamento.");
+            return;
+        }
+
+        String texto = tfValorPago.getText().trim();
+        if (texto.isEmpty()) {
+            destacarErro(tfValorPago);
+            alerta("Por favor, preencha o valor pago.");
+            return;
+        }
+
+        try {
+            double valorPago = Double.parseDouble(texto);
+            if (valorPago < venda.getTotalProduto()) {
+                destacarErro(tfValorPago);
+                alerta("O valor pago é inferior ao total da venda.");
+                return;
+            }
+
+            double troco = valorPago - venda.getTotalProduto();
+            venda.setValorPago(valorPago);
+            venda.setTroco(troco);
+            lbTroco.setText(String.format("%.2f", troco));
+
+        } catch (NumberFormatException e) {
+            destacarErro(tfValorPago);
+            alerta("O valor pago deve ser numérico.");
+        }
+    }
+
+    @FXML
+    private void buscarProduto() {
+        String textoBusca = tfBusca.getText().trim();
+        tabelaProdutos.setItems(textoBusca.isEmpty() ? produtoDAO.listarProdutos()
+                : produtoDAO.buscarProdutosPorTexto(textoBusca));
+    }
 
     @FXML
     private void listarTodos() {
-    	colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
-        colPreco.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
-        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
-        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        
         tabelaProdutos.setItems(produtoDAO.listarProdutos());
-        
-        
-     
     }
-    
-    @FXML
-    private void buscarProduto(ActionEvent event) {
-        String textoBusca = tfBusca.getText().trim();
 
-        if (!textoBusca.isEmpty()) {
-            ObservableList<Produto> resultados = produtoDAO.buscarProdutosPorTexto(textoBusca);
-            tabelaProdutos.setItems(resultados);
-        } else {
-            tabelaProdutos.setItems(produtoDAO.listarProdutos());
-        }
-    }
-    
     @FXML
     private void fecharJanela() {
-        Stage stage = (Stage) btnFechar.getScene().getWindow();
-        stage.close();
+        ((Stage) btnFechar.getScene().getWindow()).close();
     }
 
-	@FXML
-    public void initialize() {
-    	colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
-        colPreco.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
-        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
-        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        
-        tabelaProdutos.setItems(produtoDAO.listarProdutos());
-        
-        tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                double preco = newSelection.getPrecoVenda();
-                lbPreco.setText(String.format("MZN$ %.2f", preco));
+    private void atualizarTotal() {
+        lbTotal.setText(String.format("MZN$ %.2f", venda.getTotalProduto()));
+    }
 
-                try {
-                    byte[] imagemBytes = newSelection.getImagem();
-                    if (imagemBytes != null) {
-                        ByteArrayInputStream bis = new ByteArrayInputStream(imagemBytes);
-                        Image imagemP = new Image(bis);
-                        imgProduto.setImage(imagemP);
-                    } else {
-                        Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/semImg.png"));
-                        imgProduto.setImage(imagemPadrao);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                lbPreco.setText("");
-                Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/semImg.png"));
-                imgProduto.setImage(imagemPadrao);
-            }
-        });
-        
-        colCodigo2.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().produto.getCodigoBarra()));
-        colItemCategoria.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().produto.getCategoria()));
-        colItemNome.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNome()));
-        colItemQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-        colItemSubtotal.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSubtotal()).asObject());
+    private void alerta(String msg) {
+        Alert alerta = new Alert(Alert.AlertType.WARNING);
+        alerta.setTitle("Aviso");
+        alerta.setHeaderText(null);
+        alerta.setContentText(msg);
+        alerta.showAndWait();
+    }
 
-        tabelaItensVenda.setItems(itensVenda);
-        
-        carregarFormasPagamento();
-        
-        cbFormaPagamento.getSelectionModel().selectedItemProperty().addListener((obs, antigo, selecionado) -> {
-            if (selecionado != null) {
-                tfConta.setText(selecionado.getConta());
-            } else {
-                tfConta.clear();
-            }
-        });
+    private boolean confirmar(String titulo, String msg) {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(msg);
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        return resultado.isPresent() && resultado.get() == ButtonType.OK;
+    }
 
+    private void destacarErro(TextField campo) {
+        campo.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
     }
 }
