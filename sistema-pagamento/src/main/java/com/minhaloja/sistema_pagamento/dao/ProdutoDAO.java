@@ -24,6 +24,22 @@ public class ProdutoDAO {
         criarTabelaSeNaoExistir();
     }
 	
+	public boolean atualizarEstoque(String codigoBarra, int novoEstoque) {
+	    String sql = "UPDATE produtos SET estoque = ? WHERE codigoBarra = ?";
+
+	    try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setInt(1, novoEstoque);
+	        stmt.setString(2, codigoBarra);
+
+	        int linhasAfetadas = stmt.executeUpdate();
+	        return linhasAfetadas > 0;
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao atualizar estoque: " + e.getMessage());
+	        return false;
+	    }
+	}
+
+	
 	public ObservableList<Produto> buscarProdutosPorTexto(String texto) {
 	    ObservableList<Produto> lista = FXCollections.observableArrayList();
 	    boolean isNumero = texto.matches("\\d+"); // Verifica se o texto é inteiro

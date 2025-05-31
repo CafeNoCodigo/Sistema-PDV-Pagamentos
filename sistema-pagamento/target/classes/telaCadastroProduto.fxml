@@ -341,5 +341,15 @@
             <Image url="@img/carinho.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="13.0" fitWidth="15.0" layoutX="759.0" layoutY="645.0">
+         <image>
+            <Image url="@img/copyright-1345865_1280.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="776.0" layoutY="645.0" style="-fx-font-size: 10PX;" text="ALL COPYRIGHTS RESERVED TO FPS SOLUTIONS">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

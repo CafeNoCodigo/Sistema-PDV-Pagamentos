@@ -565,5 +565,15 @@
          </children>
       </VBox>
       <Button fx:id="btnAtualizar" layoutX="441.0" layoutY="199.0" mnemonicParsing="false" onAction="#carregarFuncionariosNoChoiceBox" prefHeight="31.0" prefWidth="83.0" text="Atualizar" />
+      <ImageView fitHeight="13.0" fitWidth="15.0" layoutX="1035.0" layoutY="640.0">
+         <image>
+            <Image url="@img/copyright-1345865_1280.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1052.0" layoutY="640.0" style="-fx-font-size: 10PX;" text="ALL COPYRIGHTS RESERVED TO FPS SOLUTIONS">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

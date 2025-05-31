@@ -98,7 +98,7 @@
       </HBox>
       <Button fx:id="btnAdicionar" layoutX="787.0" layoutY="92.0" mnemonicParsing="false" onAction="#adicionarProdutoAVenda" prefHeight="28.0" prefWidth="117.0" style="-fx-font-size: 20px; -fx-padding: 2 5 2 5;" text="+" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="85.0" layoutX="767.0" layoutY="525.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="578.0" />
-      <Button layoutX="779.0" layoutY="534.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="132.0" text="Registrar Venda" />
+      <Button fx:id="btnRegistrarVenda" layoutX="779.0" layoutY="534.0" mnemonicParsing="false" onAction="#registrarVenda" prefHeight="68.0" prefWidth="132.0" text="Registrar Venda" />
       <Button fx:id="btnListarTodos" layoutX="924.0" layoutY="534.0" mnemonicParsing="false" onAction="#listarTodos" prefHeight="68.0" prefWidth="92.0" text="Todos" />
       <Button disable="true" layoutX="1028.0" layoutY="534.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="92.0" styleClass="deletar" />
       <Button fx:id="btnCancelarVenda" layoutX="1130.0" layoutY="534.0" mnemonicParsing="false" onAction="#cancelarVenda" prefHeight="68.0" prefWidth="99.0" styleClass="cancelar" text="Cancelar" />
@@ -164,5 +164,15 @@
          </children>
       </VBox>
       <TextField layoutX="1260.0" layoutY="292.0" prefHeight="29.0" prefWidth="77.0" style="-fx-font-weight: bold;" />
+      <ImageView fitHeight="13.0" fitWidth="15.0" layoutX="1120.0" layoutY="657.0">
+         <image>
+            <Image url="@img/copyright-1345865_1280.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1137.0" layoutY="657.0" style="-fx-font-size: 10PX;" text="ALL COPYRIGHTS RESERVED TO FPS SOLUTIONS">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

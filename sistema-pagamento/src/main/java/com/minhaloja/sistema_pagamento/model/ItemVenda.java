@@ -3,8 +3,17 @@ package com.minhaloja.sistema_pagamento.model;
 public class ItemVenda {
     private Produto produto;
     private int quantidade;
+    private int vendaId;
 
-    public ItemVenda(Produto produto) {
+    public int getVendaId() {
+		return vendaId;
+	}
+
+	public void setVendaId(int vendaId) {
+		this.vendaId = vendaId;
+	}
+
+	public ItemVenda(Produto produto) {
         this.produto = produto;
         this.quantidade = 1;
     }

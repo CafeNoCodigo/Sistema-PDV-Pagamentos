@@ -25,19 +25,9 @@ public class TelaFormaPagamentoController {
     @FXML private VBox vbText;
     @FXML private Label lb1;
 
-    @FXML private Button menuButton;
-    @FXML private Button btnMpesa;
-    @FXML private Button btnFechar;
-    @FXML private Button btnFechar2;
-    @FXML private Button btnEmola;
-    @FXML private Button btnBim;
-    @FXML private Button btnRegistrar; 
+    @FXML private Button menuButton, btnMpesa, btnFechar, btnFechar2, btnEmola, btnBim, btnRegistrar; 
     
-    @FXML private TextField tfNome;
-    @FXML private TextField tfConta;
-    @FXML private TextField tfId;
-    @FXML private TextField tfEmail;
-    @FXML private TextField tfResponsavel;
+    @FXML private TextField tfNome, tfConta, tfId, tfEmail, tfResponsavel;
 
     private boolean menuAberto = false;
     

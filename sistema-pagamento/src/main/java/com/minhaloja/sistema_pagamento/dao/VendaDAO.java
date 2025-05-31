@@ -27,7 +27,10 @@ public class VendaDAO {
             stmt.setDouble(3, venda.getValorPago());
             stmt.setDouble(4, venda.getTroco());
             stmt.setDate(5, java.sql.Date.valueOf(venda.getData()));
-            stmt.executeUpdate();
+            //stmt.executeUpdate();
+            int linhasAfetadas = stmt.executeUpdate();
+            System.out.println("Linhas afetadas (venda): " + linhasAfetadas);
+
 
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
@@ -37,20 +40,26 @@ public class VendaDAO {
         return -1;
     }
 
-    public void inserirItensVenda(int idVenda, List<ItemVenda> itens) throws SQLException {
+    public void inserirItensVenda(int vendaId, List<ItemVenda> itens) throws SQLException {
         String sql = "INSERT INTO item_venda (id_venda, id_produto, quantidade, preco_unitario, subtotal) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             for (ItemVenda item : itens) {
-                stmt.setInt(1, idVenda);
+                stmt.setInt(1, vendaId);
                 stmt.setInt(2, item.getProduto().getId());
                 stmt.setInt(3, item.getQuantidade());
                 stmt.setDouble(4, item.getPrecoUnitario());
                 stmt.setDouble(5, item.getSubtotal());
+                
+                System.out.println("Inserindo item: " + item.getProduto().getId() + ", qtd: " + item.getQuantidade());
+                
                 stmt.addBatch();
             }
             stmt.executeBatch();
+        } catch (SQLException e) {
+        	System.err.println("Erro ao inserir itens da venda: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

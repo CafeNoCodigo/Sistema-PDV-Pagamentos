@@ -1,16 +1,14 @@
 package com.minhaloja.sistema_pagamento.controller;
 
 import java.io.ByteArrayInputStream;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.minhaloja.sistema_pagamento.dao.FormaPagamentoDAO;
-import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
-import com.minhaloja.sistema_pagamento.dao.VendaDAO;
-import com.minhaloja.sistema_pagamento.model.FormaPagamento;
-import com.minhaloja.sistema_pagamento.model.ItemVenda;
-import com.minhaloja.sistema_pagamento.model.Produto;
-import com.minhaloja.sistema_pagamento.model.Venda;
+import com.minhaloja.sistema_pagamento.dao.*;
+import com.minhaloja.sistema_pagamento.model.*;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -25,7 +23,10 @@ import javafx.stage.Stage;
 
 public class telaVendaController {
 
+    // --- Componentes da UI ---
     @FXML private TableView<Produto> tabelaProdutos;
+    @FXML private TableView<ItemVenda> tabelaItensVenda;
+
     @FXML private TableColumn<Produto, String> colCodigo;
     @FXML private TableColumn<ItemVenda, String> colCodigo2;
     @FXML private TableColumn<Produto, String> colNome;
@@ -34,22 +35,22 @@ public class telaVendaController {
     @FXML private TableColumn<Produto, Double> colPrecoMestre;
     @FXML private TableColumn<Produto, String> colCategoria;
 
-    @FXML private TableView<ItemVenda> tabelaItensVenda;
     @FXML private TableColumn<ItemVenda, String> colItemNome;
     @FXML private TableColumn<ItemVenda, Integer> colItemQuantidade;
     @FXML private TableColumn<ItemVenda, Double> colItemSubtotal;
     @FXML private TableColumn<ItemVenda, String> colItemCategoria;
 
-    @FXML private Button btnFechar, btnBusca, btnListaTodos, btnAdicionar, btnRemoverItem, btnCancelarVenda, btnLimparItem, btnGerar;
+    @FXML private Button btnFechar, btnBusca, btnListaTodos, btnAdicionar, btnRemoverItem, btnCancelarVenda, btnLimparItem, btnGerar, btnRegistrarVenda;
     @FXML private TextField tfBusca, tfConta, tfValorPago;
     @FXML private Label lbPreco, lbTotal, lbTroco;
     @FXML private ImageView imgProduto;
     @FXML private ChoiceBox<FormaPagamento> cbFormaPagamento;
 
+    // --- Objetos auxiliares ---
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
-    private final VendaDAO vendaDAO = new VendaDAO();
-    private final Venda venda = new Venda();
+    //rivate final VendaDAO vendaDAO = new VendaDAO();
     private final ObservableList<ItemVenda> itensVenda = FXCollections.observableArrayList();
+    private final Venda venda = new Venda();
 
     @FXML
     public void initialize() {
@@ -57,9 +58,10 @@ public class telaVendaController {
         configurarTabelaItensVenda();
         carregarFormasPagamento();
         configurarEventos();
-        tabelaProdutos.setItems(produtoDAO.listarProdutos());
+        listarTodos();
     }
 
+    // --- Tabelas ---
     private void configurarTabelaProdutos() {
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -79,51 +81,33 @@ public class telaVendaController {
         tabelaItensVenda.setItems(itensVenda);
     }
 
+    // --- Eventos ---
     private void configurarEventos() {
-        tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> exibirDetalhesProduto(newVal));
+        tabelaProdutos.getSelectionModel().selectedItemProperty().addListener(
+            (obs, oldVal, newVal) -> exibirDetalhesProduto(newVal));
 
-        cbFormaPagamento.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, selected) -> {
-            tfConta.setText(selected != null ? selected.getConta() : "");
-        });
-    }
-
-    private void exibirDetalhesProduto(Produto produto) {
-        if (produto != null) {
-            lbPreco.setText(String.format("%.2f", produto.getPrecoVenda()));
-            Image imagem = produto.getImagem() != null ? new Image(new ByteArrayInputStream(produto.getImagem()))
-                    : new Image(getClass().getResourceAsStream("/img/semImg.png"));
-            imgProduto.setImage(imagem);
-        } else {
-            lbPreco.setText("");
-            imgProduto.setImage(new Image(getClass().getResourceAsStream("/img/semImg.png")));
-        }
-    }
-
-    private void carregarFormasPagamento() {
-        List<FormaPagamento> formasPagamento = new FormaPagamentoDAO().buscarTodas();
-        if (formasPagamento != null) {
-            cbFormaPagamento.getItems().addAll(formasPagamento);
-        }
+        cbFormaPagamento.getSelectionModel().selectedItemProperty().addListener(
+            (obs, oldVal, selected) -> tfConta.setText(selected != null ? selected.getConta() : ""));
     }
 
     @FXML
     private void adicionarProdutoAVenda() {
-        Produto produtoSelecionado = tabelaProdutos.getSelectionModel().getSelectedItem();
-        if (produtoSelecionado == null) return;
+        Produto produto = tabelaProdutos.getSelectionModel().getSelectedItem();
+        if (produto == null) return;
 
         for (ItemVenda item : itensVenda) {
-            if (item.getProduto().getCodigoBarra().equals(produtoSelecionado.getCodigoBarra())) {
+            if (item.getProduto().getCodigoBarra().equals(produto.getCodigoBarra())) {
                 item.incrementarQuantidade();
-                venda.adicionarPreco(produtoSelecionado.getPrecoVenda());
+                venda.adicionarPreco(produto.getPrecoVenda());
                 tabelaItensVenda.refresh();
                 atualizarTotal();
                 return;
             }
         }
 
-        ItemVenda novoItem = new ItemVenda(produtoSelecionado);
+        ItemVenda novoItem = new ItemVenda(produto);
         itensVenda.add(novoItem);
-        venda.adicionarPreco(produtoSelecionado.getPrecoVenda());
+        venda.adicionarPreco(produto.getPrecoVenda());
         atualizarTotal();
     }
 
@@ -132,12 +116,11 @@ public class telaVendaController {
         ItemVenda item = tabelaItensVenda.getSelectionModel().getSelectedItem();
         if (item == null) return;
 
+        venda.adicionarPreco(-item.getProduto().getPrecoVenda());
         if (item.getQuantidade() > 1) {
             item.decrementarQuantidade();
-            venda.adicionarPreco(-item.getProduto().getPrecoVenda());
         } else {
             itensVenda.remove(item);
-            venda.adicionarPreco(-item.getProduto().getPrecoVenda());
         }
 
         tabelaItensVenda.refresh();
@@ -194,7 +177,6 @@ public class telaVendaController {
             venda.setValorPago(valorPago);
             venda.setTroco(troco);
             lbTroco.setText(String.format("%.2f", troco));
-
         } catch (NumberFormatException e) {
             destacarErro(tfValorPago);
             alerta("O valor pago deve ser numérico.");
@@ -202,10 +184,122 @@ public class telaVendaController {
     }
 
     @FXML
+    private void registrarVenda() throws SQLException {
+        if (itensVenda.isEmpty()) {
+            alerta(Alert.AlertType.WARNING, "Aviso", "Nenhum item na venda!");
+            return;
+        }
+
+        double total = venda.getTotalProduto();
+        FormaPagamento forma = cbFormaPagamento.getValue();
+        if (forma == null) {
+            alerta(Alert.AlertType.ERROR, "Erro", "Selecione uma forma de pagamento.");
+            return;
+        }
+
+        double valorPago;
+        try {
+            valorPago = Double.parseDouble(tfValorPago.getText());
+        } catch (NumberFormatException e) {
+            alerta(Alert.AlertType.ERROR, "Erro", "Valor pago inválido.");
+            return;
+        }
+
+        if (valorPago < total) {
+            alerta(Alert.AlertType.ERROR, "Erro", "Valor pago insuficiente.");
+            return;
+        }
+
+        venda.setData(LocalDate.now());
+        venda.setTotalProduto(total);
+        venda.setFormaPagamento(forma.getNome());
+        venda.setValorPago(valorPago);
+        venda.setTroco(valorPago - total);
+        venda.setItens(new ArrayList<>(itensVenda));
+
+        // Verifica se todos os produtos têm IDs válidos
+        for (ItemVenda item : itensVenda) {
+            Produto produto = item.getProduto();
+            System.out.println("Produto: " + produto.getNome() + " - ID: " + produto.getId());
+            if (produto.getId() <= 0) {
+                alerta(Alert.AlertType.ERROR, "Erro", "Produto '" + produto.getNome() + "' está sem ID válido! Verifique se está cadastrado corretamente.");
+                return;
+            }
+            System.out.println("✔ Produto: " + produto.getNome() + " | ID: " + produto.getId());
+        }
+
+        // Salva a venda
+        VendaDAO vendaDAO = new VendaDAO();
+        int vendaId = vendaDAO.inserirVenda(venda);
+        if (vendaId <= 0) {
+            alerta(Alert.AlertType.ERROR, "Erro", "Erro ao salvar a venda.");
+            return;
+        }
+
+        try {
+            // Salva os itens da venda
+        	//int idVenda = vendaDAO.inserirVenda(venda);
+        	vendaDAO.inserirItensVenda(vendaId, venda.getItens()); // salva os itens
+        	//if (idVenda != -1) {
+        	//vendaDAO.inserirItensVenda(idVenda, venda.getItens()); // salva os itens
+        	//}
+            //vendaDAO.inserirItensVenda(vendaId, itensVenda);
+        } catch (SQLException e) {
+            alerta(Alert.AlertType.ERROR, "Erro", "Erro ao salvar itens da venda: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+
+        // Atualiza estoque
+        for (ItemVenda item : itensVenda) {
+            Produto produto = item.getProduto();
+            int novoEstoque = produto.getEstoque() - item.getQuantidade();
+            boolean atualizado = produtoDAO.atualizarEstoque(produto.getCodigoBarra(), novoEstoque);
+
+            if (!atualizado) {
+                alerta(Alert.AlertType.ERROR, "Erro", "Erro ao atualizar estoque do produto: " + produto.getNome());
+                return;
+            }
+        }
+
+        alerta(Alert.AlertType.INFORMATION, "Sucesso", "Venda registrada com sucesso!");
+        limparCamposVenda();
+        System.out.println(venda.getItens());
+    }
+
+
+
+    // --- Utilitários ---
+    private void atualizarTotal() {
+        lbTotal.setText(String.format("MZN$ %.2f", venda.getTotalProduto()));
+    }
+
+    private void exibirDetalhesProduto(Produto produto) {
+        if (produto != null) {
+            lbPreco.setText(String.format("%.2f", produto.getPrecoVenda()));
+            Image imagem = produto.getImagem() != null
+                    ? new Image(new ByteArrayInputStream(produto.getImagem()))
+                    : new Image(getClass().getResourceAsStream("/img/semImg.png"));
+            imgProduto.setImage(imagem);
+        } else {
+            lbPreco.setText("");
+            imgProduto.setImage(new Image(getClass().getResourceAsStream("/img/semImg.png")));
+        }
+    }
+
+    private void carregarFormasPagamento() {
+        List<FormaPagamento> formas = new FormaPagamentoDAO().buscarTodas();
+        if (formas != null) {
+            cbFormaPagamento.getItems().setAll(formas);
+        }
+    }
+
+    @FXML
     private void buscarProduto() {
-        String textoBusca = tfBusca.getText().trim();
-        tabelaProdutos.setItems(textoBusca.isEmpty() ? produtoDAO.listarProdutos()
-                : produtoDAO.buscarProdutosPorTexto(textoBusca));
+        String texto = tfBusca.getText().trim();
+        tabelaProdutos.setItems(texto.isEmpty()
+                ? produtoDAO.listarProdutos()
+                : produtoDAO.buscarProdutosPorTexto(texto));
     }
 
     @FXML
@@ -215,16 +309,30 @@ public class telaVendaController {
 
     @FXML
     private void fecharJanela() {
-        ((Stage) btnFechar.getScene().getWindow()).close();
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
     }
 
-    private void atualizarTotal() {
-        lbTotal.setText(String.format("MZN$ %.2f", venda.getTotalProduto()));
+    private void limparCamposVenda() {
+        itensVenda.clear();
+        venda.resetar();
+
+        tfValorPago.clear();
+        tfConta.clear();
+        lbTotal.setText("0.00");
+        lbTroco.setText("0.00");
+        lbPreco.setText("");
+        cbFormaPagamento.getSelectionModel().clearSelection();
+        imgProduto.setImage(new Image(getClass().getResourceAsStream("/img/semImg.png")));
     }
 
     private void alerta(String msg) {
-        Alert alerta = new Alert(Alert.AlertType.WARNING);
-        alerta.setTitle("Aviso");
+        alerta(Alert.AlertType.WARNING, "Aviso", msg);
+    }
+
+    private void alerta(Alert.AlertType tipo, String titulo, String msg) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(msg);
         alerta.showAndWait();
