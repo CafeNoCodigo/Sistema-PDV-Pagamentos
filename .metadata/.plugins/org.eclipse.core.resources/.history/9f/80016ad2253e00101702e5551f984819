@@ -1,0 +1,117 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import com.minhaloja.sistema_pagamento.model.ItemVenda;
+import com.minhaloja.sistema_pagamento.model.Venda;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+import java.sql.*;
+import java.util.List;
+
+public class VendaDAO {
+
+    public VendaDAO() {
+        criarTabelaSeNaoExistir();
+    }
+
+    private void criarTabelaSeNaoExistir() {
+        String sqlVenda = """
+            CREATE TABLE IF NOT EXISTS venda (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                totalProduto DOUBLE,
+                formaPagamento VARCHAR(100),
+                valPago DOUBLE,
+                troco DOUBLE,
+                data TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+        """;
+
+        String sqlItemVenda = """
+            CREATE TABLE IF NOT EXISTS item_venda (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                id_venda INT,
+                id_produto INT,
+                quantidade INT,
+                preco_unitario DOUBLE,
+                subtotal DOUBLE,
+                FOREIGN KEY (id_venda) REFERENCES venda(id) ON DELETE CASCADE,
+                FOREIGN KEY (id_produto) REFERENCES produtos(id)
+            );
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sqlVenda);
+            stmt.execute(sqlItemVenda);
+        } catch (SQLException e) {
+            System.err.println("Erro ao criar tabelas venda e item_venda: " + e.getMessage());
+        }
+    }
+
+    public int salvarVenda(Venda venda) {
+        String sql = "INSERT INTO venda(totalProduto, formaPagamento, valPago, troco, data) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setDouble(1, venda.getTotalProduto());
+            pstmt.setString(2, venda.getFormaPagamento());
+            pstmt.setDouble(3, venda.getValPago());
+            pstmt.setDouble(4, venda.getTroco());
+            pstmt.setTimestamp(5, venda.getData());
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows == 0) {
+                System.err.println("Falha ao salvar venda, nenhuma linha afetada.");
+                return -1;
+            }
+
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int idVenda = generatedKeys.getInt(1);
+                    venda.setId(idVenda);
+                    return idVenda;
+                } else {
+                    System.err.println("Falha ao obter ID da venda.");
+                    return -1;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao salvar venda: " + e.getMessage());
+            return -1;
+        }
+    }
+
+    public boolean salvarItensVenda(int idVenda, List<ItemVenda> itensVenda) {
+        String sql = """
+            INSERT INTO item_venda(id_venda, id_produto, quantidade, preco_unitario, subtotal)
+            VALUES (?, ?, ?, ?, ?)
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            for (ItemVenda item : itensVenda) {
+                pstmt.setInt(1, idVenda);
+                pstmt.setInt(2, item.getProduto().getId());
+                pstmt.setInt(3, item.getQuantidade());
+                pstmt.setDouble(4, item.getPrecoUnitario());
+                pstmt.setDouble(5, item.getSubtotal());
+                pstmt.addBatch();
+            }
+
+            int[] results = pstmt.executeBatch();
+
+            for (int res : results) {
+                if (res == Statement.EXECUTE_FAILED) {
+                    System.err.println("Falha ao inserir um item da venda.");
+                    return false;
+                }
+            }
+
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Erro ao salvar itens da venda: " + e.getMessage());
+            return false;
+        }
+    }
+
+}

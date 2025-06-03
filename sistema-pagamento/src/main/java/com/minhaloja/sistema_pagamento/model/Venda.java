@@ -12,8 +12,15 @@ public class Venda {
     private double troco;
     private LocalDate data;
     private List<ItemVenda> itens = new ArrayList<>();
+    private int idCaixa;
 
-    public int getId() { return id; }
+    public int getIdCaixa() {
+		return idCaixa;
+	}
+	public void setIdCaixa(int idCaixa) {
+		this.idCaixa = idCaixa;
+	}
+	public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
     public double getTotalProduto() { return totalProduto; }

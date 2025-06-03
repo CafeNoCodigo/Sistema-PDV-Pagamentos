@@ -1,0 +1,33 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+public class ProdutoEsgtadoDAO {
+
+	private void criarTabelaSeNaoExistir() {
+        String sqlVenda = """
+            CREATE TABLE IF NOT EXISTS venda (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                totalProduto DOUBLE,
+                formaPagamento VARCHAR(50),
+                valPago DOUBLE,
+                troco DOUBLE,
+                data DATE
+            );
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             Statement stmt = conn.createStatement()) {
+
+            stmt.execute(sqlVenda);
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao criar tabelas de produtos esgotados: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}

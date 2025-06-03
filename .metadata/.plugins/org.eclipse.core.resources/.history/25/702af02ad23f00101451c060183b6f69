@@ -1,0 +1,63 @@
+package com.minhaloja.sistema_pagamento.model;
+
+import java.time.LocalDateTime;
+
+public class Caixa {
+    private int id;
+    private LocalDateTime dataAbertura;
+    private LocalDateTime dataFechamento;
+    private double valorAbertura;
+    private double valorFechamento;
+    private boolean aberto;
+
+    public Caixa() {}
+
+    // Getters e Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDataAbertura() {
+        return dataAbertura;
+    }
+
+    public void setDataAbertura(LocalDateTime dataAbertura) {
+        this.dataAbertura = dataAbertura;
+    }
+
+    public LocalDateTime getDataFechamento() {
+        return dataFechamento;
+    }
+
+    public void setDataFechamento(LocalDateTime dataFechamento) {
+        this.dataFechamento = dataFechamento;
+    }
+
+    public double getValorAbertura() {
+        return valorAbertura;
+    }
+
+    public void setValorAbertura(double valorAbertura) {
+        this.valorAbertura = valorAbertura;
+    }
+
+    public double getValorFechamento() {
+        return valorFechamento;
+    }
+
+    public void setValorFechamento(double valorFechamento) {
+        this.valorFechamento = valorFechamento;
+    }
+
+    public boolean isAberto() {
+        return aberto;
+    }
+
+    public void setAberto(boolean aberto) {
+        this.aberto = aberto;
+    }
+}

@@ -1,0 +1,110 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.minhaloja.sistema_pagamento.model.Produto;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+public class ProdutoEsgotadoDAO {
+	
+	public ProdutoEsgotadoDAO() {
+		criarTabelaSeNaoExistir();
+	}
+	
+
+    
+    public ProdutoEsgotadoDAO(Connection conn) {
+        try {
+			conn = Conexao.conectar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        criarTabelaSeNaoExistir();
+    }
+    
+    public void registrarProdutoEsgotado(int idProduto) throws SQLException {
+        // Verifica se já não está registrado
+        String verificaSql = "SELECT COUNT(*) FROM produtos_esgotados WHERE id_produto = ?";
+        try (PreparedStatement verificaStmt = Conexao.conectar().prepareStatement(verificaSql)) {
+            verificaStmt.setInt(1, idProduto);
+            ResultSet rs = verificaStmt.executeQuery();
+            rs.next();
+            if (rs.getInt(1) == 0) {
+                // Só insere se não existir
+                String insereSql = "INSERT INTO produtos_esgotados (id_produto, data_esgotado) VALUES (?, ?)";
+                try (PreparedStatement insereStmt = Conexao.conectar().p.prepareStatement(insereSql)) {
+                    insereStmt.setInt(1, idProduto);
+                    insereStmt.setDate(2, Date.valueOf(LocalDate.now()));
+                    insereStmt.executeUpdate();
+                }
+            }
+        }
+    }
+
+	private void criarTabelaSeNaoExistir() {
+        String sqlEsgotado = """
+            CREATE TABLE IF NOT EXISTS produtos_esgotados (
+		    id INT AUTO_INCREMENT PRIMARY KEY,
+		    id_produto INT NOT NULL,
+		    data_esgotado DATE NOT NULL,
+		    FOREIGN KEY (id_produto) REFERENCES produtos(id)
+            );
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             Statement stmt = conn.createStatement()) {
+
+            stmt.execute(sqlEsgotado);
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao criar tabelas de produtos esgotados: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public List<Produto> listarProdutosEsgotados() throws SQLException {
+        List<Produto> produtos = new ArrayList<>();
+        String sql = "SELECT p.* FROM produtos p "
+        		+ "LEFT JOIN produtos_esgotados pe ON p.id = pe.id_produto "
+        		+ "WHERE p.estoque <= 0 OR pe.id_produto IS NOT NULL";
+        
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            while (rs.next()) {
+                Produto p = new Produto();
+                p.setId(rs.getInt("id"));
+                p.setCodigoBarra(rs.getString("codigoBarra"));
+	            p.setNome(rs.getString("nome"));
+	            p.setCategoria(rs.getString("categoria"));
+	            p.setEstoque(rs.getInt("estoque"));
+	            p.setPrecoVenda(rs.getDouble("precoVenda"));
+	            p.setPrecoMestre(rs.getDouble("precoMestre"));
+	            p.setPrecoCompra(rs.getDouble("precoCompra"));
+	            p.setReferencia(rs.getString("referencia"));
+	            p.setLoja(rs.getString("loja"));
+	            p.setFabricante(rs.getString("fabricante"));
+	            p.setFornecedor(rs.getString("fornecedor"));
+	            p.setQrCode(rs.getBytes("imgQrCode"));
+	            p.setModelo(rs.getString("modelo"));
+	            p.setCodigo(rs.getString("codigo"));
+	            p.setGarantia(rs.getString("garantia"));
+	            p.setCor(rs.getString("cor"));
+	            p.setInfoAdicional(rs.getString("infoAdicional"));
+	            p.setImagem(rs.getBytes("imagem"));
+                // ... outros campos
+                produtos.add(p);
+            }
+        }
+        return produtos;
+    }
+}

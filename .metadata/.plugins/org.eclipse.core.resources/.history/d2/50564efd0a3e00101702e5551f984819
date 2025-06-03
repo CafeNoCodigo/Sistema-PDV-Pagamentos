@@ -1,0 +1,60 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.sql.SQLException;
+
+import com.minhaloja.sistema_pagamento.dao.ProdutoEsgotadoDAO;
+import com.minhaloja.sistema_pagamento.model.Produto;
+
+public class TelaRequisicaoController {
+    
+    @FXML private TableView<Produto> tabelaProdutosEsgotados;
+    
+    // Colunas da tabela
+    @FXML private TableColumn<Produto, Integer> colId;
+    @FXML private TableColumn<Produto, String> colNome;
+    @FXML private TableColumn<Produto, String> colLoja;
+    @FXML private TableColumn<Produto, String> colFornecedor;
+    @FXML private TableColumn<Produto, String> colCodigo;
+    @FXML private TableColumn<Produto, String> colCategoria;
+    @FXML private TableColumn<Produto, String> colReferencia;
+    @FXML private TableColumn<Produto, String> colFabricante;
+    @FXML private TableColumn<Produto, Double> colPrecoCompra;
+    
+    @FXML
+    public void initialize() {
+        configurarColunas();
+        carregarProdutosEsgotados();
+    }
+    
+    private void configurarColunas() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
+        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+        //colFabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
+    }
+    
+    private void carregarProdutosEsgotados() {
+        try {
+            tabelaProdutosEsgotados.setItems(
+                FXCollections.observableArrayList(
+                    new ProdutoEsgotadoDAO().listarProdutosEsgotados()
+                )
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Aqui você pode adicionar um alerta ou log de erro
+            System.err.println("Erro ao carregar produtos esgotados: " + e.getMessage());
+        }
+    }
+}

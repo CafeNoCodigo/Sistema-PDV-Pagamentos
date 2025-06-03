@@ -1,0 +1,12 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.fxml.FXML;
+
+public class TelaRequisicaoController {
+	
+	@FXML
+	public void initialize() {
+		
+	}
+
+}

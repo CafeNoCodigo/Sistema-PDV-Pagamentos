@@ -18,7 +18,7 @@ public class VendaDAO {
     }
 
     public int inserirVenda(Venda venda) throws SQLException {
-        String sql = "INSERT INTO venda (totalProduto, formaPagamento, valPago, troco, data) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO venda (totalProduto, formaPagamento, valPago, troco, data, id_caixa) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -27,18 +27,19 @@ public class VendaDAO {
             stmt.setDouble(3, venda.getValorPago());
             stmt.setDouble(4, venda.getTroco());
             stmt.setDate(5, java.sql.Date.valueOf(venda.getData()));
-            //stmt.executeUpdate();
+            stmt.setInt(6, venda.getIdCaixa());
+
             int linhasAfetadas = stmt.executeUpdate();
             System.out.println("Linhas afetadas (venda): " + linhasAfetadas);
 
-
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
-                return rs.getInt(1); // ID gerado
+                return rs.getInt(1);
             }
         }
         return -1;
     }
+
 
     public void inserirItensVenda(int vendaId, List<ItemVenda> itens) throws SQLException {
         String sql = "INSERT INTO item_venda (id_venda, id_produto, quantidade, preco_unitario, subtotal) VALUES (?, ?, ?, ?, ?)";
@@ -64,16 +65,19 @@ public class VendaDAO {
     }
 
     private void criarTabelaSeNaoExistir() {
-        String sqlVenda = """
-            CREATE TABLE IF NOT EXISTS venda (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                totalProduto DOUBLE,
-                formaPagamento VARCHAR(50),
-                valPago DOUBLE,
-                troco DOUBLE,
-                data DATE
-            );
-        """;
+    	String sqlVenda = """
+    		    CREATE TABLE IF NOT EXISTS venda (
+    		        id INT AUTO_INCREMENT PRIMARY KEY,
+    		        totalProduto DOUBLE,
+    		        formaPagamento VARCHAR(50),
+    		        valPago DOUBLE,
+    		        troco DOUBLE,
+    		        data DATE,
+    		        id_caixa INT,
+    		        FOREIGN KEY (id_caixa) REFERENCES caixa(id)
+    		    );
+    		""";
+
 
         String sqlItemVenda = """
             CREATE TABLE IF NOT EXISTS item_venda (

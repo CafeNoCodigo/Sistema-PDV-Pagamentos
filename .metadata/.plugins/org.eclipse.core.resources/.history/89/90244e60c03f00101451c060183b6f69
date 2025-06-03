@@ -1,0 +1,55 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.util.List;
+
+import com.minhaloja.sistema_pagamento.dao.ProdutoEsgotadoDAO;
+import com.minhaloja.sistema_pagamento.model.Produto;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+public class TelaRequisicaoController {
+
+    @FXML private TableView<Produto> tabelaRequisicao;
+
+    @FXML private TableColumn<Produto, String> colId;
+    @FXML private TableColumn<Produto, String> colNome;
+    @FXML private TableColumn<Produto, String> colFornecedor;
+    @FXML private TableColumn<Produto, Double> colPrecoMestre;
+    @FXML private TableColumn<Produto, String> colCategoria;
+    @FXML private TableColumn<Produto, String> colLoja;
+    @FXML private TableColumn<Produto, String> colModelo;
+    @FXML private TableColumn<Produto, String> colCor;
+
+    private ProdutoEsgotadoDAO produtoEsgotadoDAO = new ProdutoEsgotadoDAO();
+
+    @FXML
+    public void initialize() {
+        configurarTabelaRequisicao();
+
+        // Registra produtos esgotados e atualiza tabela
+        produtoEsgotadoDAO.verificarProdutosEsgotados();
+        carregarProdutosEsgotados();
+    }
+
+    private void configurarTabelaRequisicao() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
+        colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+        colCor.setCellValueFactory(new PropertyValueFactory<>("cor"));
+    }
+
+    private void carregarProdutosEsgotados() {
+        List<Produto> produtos = produtoEsgotadoDAO.listarProdutosEsgotados();
+        ObservableList<Produto> observableList = FXCollections.observableArrayList(produtos);
+        tabelaRequisicao.setItems(observableList);
+    }
+}

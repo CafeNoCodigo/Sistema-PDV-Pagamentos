@@ -1,0 +1,49 @@
+package com.minhaloja.sistema_pagamento.model;
+
+import java.time.LocalDateTime;
+
+public class Caixa {
+    private int id;
+    private LocalDateTime dataHoraAbertura;
+    private LocalDateTime dataHoraFechamento;
+    private double valorAbertura;
+    private double valorFechamento;
+    private boolean aberto;
+    private int contadorVendas;
+
+    public Caixa() {}
+
+    public Caixa(double valorAbertura) {
+        this.valorAbertura = valorAbertura;
+        this.dataHoraAbertura = LocalDateTime.now();
+        this.aberto = true;
+    }
+    
+
+    public int getContadorVendas() {
+        return contadorVendas;
+    }
+
+    public void setContadorVendas(int contadorVendas) {
+        this.contadorVendas = contadorVendas;
+    }
+
+    // Getters e Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public LocalDateTime getDataHoraAbertura() { return dataHoraAbertura; }
+    public void setDataHoraAbertura(LocalDateTime dataHoraAbertura) { this.dataHoraAbertura = dataHoraAbertura; }
+
+    public LocalDateTime getDataHoraFechamento() { return dataHoraFechamento; }
+    public void setDataHoraFechamento(LocalDateTime dataHoraFechamento) { this.dataHoraFechamento = dataHoraFechamento; }
+
+    public double getValorAbertura() { return valorAbertura; }
+    public void setValorAbertura(double valorAbertura) { this.valorAbertura = valorAbertura; }
+
+    public double getValorFechamento() { return valorFechamento; }
+    public void setValorFechamento(double valorFechamento) { this.valorFechamento = valorFechamento; }
+
+    public boolean isAberto() { return aberto; }
+    public void setAberto(boolean aberto) { this.aberto = aberto; }
+}

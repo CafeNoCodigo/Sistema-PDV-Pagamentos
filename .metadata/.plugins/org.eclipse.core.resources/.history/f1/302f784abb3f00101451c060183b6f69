@@ -1,0 +1,44 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.time.LocalDate;
+import java.util.Date;
+
+import com.minhaloja.sistema_pagamento.model.ItemVenda;
+import com.minhaloja.sistema_pagamento.model.Produto;
+import com.minhaloja.sistema_pagamento.model.Venda;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+public class TelaRequisicaoController {
+	
+	@FXML private TableView<ItemVenda> tabelaRequisicao;
+
+    @FXML private TableColumn<Produto, String> colId;
+    @FXML private TableColumn<Produto, String> colNome;
+    @FXML private TableColumn<Venda, LocalDate> colData;
+    @FXML private TableColumn<Produto, Double> colEstoque;
+    @FXML private TableColumn<Produto, String> colFornecedor;
+    @FXML private TableColumn<Produto, Double> colPrecoMestre;
+    @FXML private TableColumn<Produto, String> colCategoria;
+    @FXML private TableColumn<Produto, String> colLoja;
+	
+	@FXML
+	public void initialize() {
+		configurarTabelaRequisicao();
+	}
+	
+	private void configurarTabelaRequisicao() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
+        colData.setCellValueFactory(new PropertyValueFactory<>("data"));
+    }
+
+}

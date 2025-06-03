@@ -1,0 +1,56 @@
+public class TelaRequisicaoController {
+    
+    @FXML private TableView<Produto> tabelaProdutosEsgotados;
+    @FXML private TableColumn<Produto, Integer> colId;
+    @FXML private TableColumn<Produto, String> colNome;
+    @FXML private TableColumn<Produto, String> colCodigo;
+    @FXML private TableColumn<Produto, Double> colPrecoCompra;
+    @FXML private TableColumn<Produto, Integer> colEstoque;
+    @FXML private TableColumn<Produto, String> colFornecedor;
+    
+    @FXML
+    public void initialize() {
+        configurarColunas();
+        carregarProdutosEsgotados();
+    }
+    
+    private void configurarColunas() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        
+        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
+        colPrecoCompra.setCellFactory(tc -> new TableCell<Produto, Double>() {
+            @Override
+            protected void updateItem(Double preco, boolean empty) {
+                super.updateItem(preco, empty);
+                setText(empty || preco == null ? null : String.format("MZN %.2f", preco));
+            }
+        });
+        
+        // Ordena por ID por padrão
+        colId.setSortType(TableColumn.SortType.ASCENDING);
+        tabelaProdutosEsgotados.getSortOrder().add(colId);
+    }
+    
+    private void carregarProdutosEsgotados() {
+        try {
+            List<Produto> esgotados = new ProdutoEsgotadoDAO().listarProdutosEsgotados();
+            tabelaProdutosEsgotados.setItems(FXCollections.observableArrayList(esgotados));
+            tabelaProdutosEsgotados.sort();
+        } catch (SQLException e) {
+            System.err.println("Erro ao carregar produtos esgotados: " + e.getMessage());
+            alerta("Erro", "Não foi possível carregar os produtos esgotados");
+        }
+    }
+    
+    private void alerta(String titulo, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+}

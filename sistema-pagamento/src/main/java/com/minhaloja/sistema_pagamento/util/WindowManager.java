@@ -70,7 +70,8 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			stage.setTitle("Venda de Produto");
-			stage.setResizable(true);
+			stage.setResizable(false);
+			stage.setMaximized(true);
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (IOException e) {
@@ -87,7 +88,7 @@ public class WindowManager {
 			Stage stage = new Stage();
 			stage.setTitle("Fluxo de Caixa");
 			stage.setResizable(false);
-			stage.setMaximized(false);
+			stage.setMaximized(true);
 			
 			stage.setScene(new Scene(root));
 			stage.show();
@@ -104,8 +105,8 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			stage.setTitle("Estoque Atual");
-			stage.setResizable(true);
-			stage.setMaximized(false);
+			stage.setResizable(false);
+			stage.setMaximized(true);
 			
 			stage.setScene(new Scene(root));
 			stage.show();
@@ -123,7 +124,7 @@ public class WindowManager {
 			Stage stage = new Stage();
 			stage.setTitle("Relatorio");
 			stage.setResizable(false);
-			stage.setMaximized(false);
+			stage.setMaximized(true);
 			
 			stage.setScene(new Scene(root));
 			stage.show();

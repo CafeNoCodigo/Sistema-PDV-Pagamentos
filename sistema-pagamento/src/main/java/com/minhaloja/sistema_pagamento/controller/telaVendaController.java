@@ -3,6 +3,7 @@ package com.minhaloja.sistema_pagamento.controller;
 import java.io.ByteArrayInputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,30 +28,25 @@ public class telaVendaController {
     @FXML private TableView<Produto> tabelaProdutos;
     @FXML private TableView<ItemVenda> tabelaItensVenda;
 
-    @FXML private TableColumn<Produto, String> colCodigo;
     @FXML private TableColumn<ItemVenda, String> colCodigo2;
-    @FXML private TableColumn<Produto, String> colNome;
-    @FXML private TableColumn<Produto, Double> colEstoque;
-    @FXML private TableColumn<Produto, Double> colPreco;
-    @FXML private TableColumn<Produto, Double> colPrecoMestre;
-    @FXML private TableColumn<Produto, String> colCategoria;
+    @FXML private TableColumn<Produto, String> colNome, colCategoria, colCodigo;
+    @FXML private TableColumn<Produto, Double> colEstoque, colPrecoMestre, colPreco;
 
-    @FXML private TableColumn<ItemVenda, String> colItemNome;
+    @FXML private TableColumn<ItemVenda, String> colItemNome, colItemCategoria;
     @FXML private TableColumn<ItemVenda, Integer> colItemQuantidade;
     @FXML private TableColumn<ItemVenda, Double> colItemSubtotal;
-    @FXML private TableColumn<ItemVenda, String> colItemCategoria;
 
-    @FXML private Button btnFechar, btnBusca, btnListaTodos, btnAdicionar, btnRemoverItem, btnCancelarVenda, btnLimparItem, btnGerar, btnRegistrarVenda;
+    @FXML private Button btnFecharCaixa, btnAbrirCaixa, btnFechar, btnBusca, btnListaTodos, btnAdicionar, btnRemoverItem, btnCancelarVenda, btnLimparItem, btnGerar, btnRegistrarVenda;
     @FXML private TextField tfBusca, tfConta, tfValorPago;
-    @FXML private Label lbPreco, lbTotal, lbTroco;
+    @FXML private Label lbPreco, lbTotal, lbTroco, lbContadorVendas;
     @FXML private ImageView imgProduto;
     @FXML private ChoiceBox<FormaPagamento> cbFormaPagamento;
 
     // --- Objetos auxiliares ---
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
-    //rivate final VendaDAO vendaDAO = new VendaDAO();
     private final ObservableList<ItemVenda> itensVenda = FXCollections.observableArrayList();
     private final Venda venda = new Venda();
+    private CaixaDAO caixaDAO = new CaixaDAO();
 
     @FXML
     public void initialize() {
@@ -59,6 +55,12 @@ public class telaVendaController {
         carregarFormasPagamento();
         configurarEventos();
         listarTodos();
+        
+        boolean aberto = caixaDAO.isCaixaAberto();
+        btnAbrirCaixa.setDisable(aberto);
+        btnFecharCaixa.setDisable(!aberto);
+        
+        atualizarContadorVendas();
     }
 
     // --- Tabelas ---
@@ -89,7 +91,65 @@ public class telaVendaController {
         cbFormaPagamento.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldVal, selected) -> tfConta.setText(selected != null ? selected.getConta() : ""));
     }
+    
+    private void atualizarContadorVendas() {
+        int contador = caixaDAO.contarVendasCaixaAtual();
+        lbContadorVendas.setText(String.valueOf(contador));
+    }
 
+    
+    @FXML
+    private void abrirCaixa() {
+        // Se já existir um caixa aberto, avisa e sai
+        if (caixaDAO.isCaixaAberto()) {
+            alerta(Alert.AlertType.INFORMATION, "Aviso", "Já existe um caixa aberto.");
+            return;
+        }
+
+        double valorAbertura = 0.0;
+
+        Caixa caixa = new Caixa();
+        caixa.setDataHoraAbertura(LocalDateTime.now());
+        caixa.setValorAbertura(valorAbertura);
+        caixa.setAberto(true);
+
+        int idCaixa = caixaDAO.abrirCaixa(caixa);  // agora retorna o ID
+        if (idCaixa > 0) {
+            alerta(Alert.AlertType.INFORMATION, "Sucesso", "Caixa aberto com sucesso. ID: " + idCaixa);
+            btnAbrirCaixa.setDisable(true);
+            btnFecharCaixa.setDisable(false);
+            atualizarContadorVendas();
+
+        } else {
+            alerta(Alert.AlertType.ERROR, "Erro", "Falha ao abrir o caixa.");
+        }
+    }
+
+
+    @FXML
+    private void fecharCaixa() {
+        // Verifica se há caixa aberto
+        if (!caixaDAO.isCaixaAberto()) {
+            alerta(Alert.AlertType.INFORMATION, "Aviso", "Não há caixa aberto para fechar.");
+            return;
+        }
+
+        // Soma vendas desde a abertura do caixa
+        double valorFechamento = caixaDAO.calcularValorTotalVendasCaixaAtual();
+        int contadorVendas = caixaDAO.contarVendasCaixaAtual();
+
+        boolean sucesso = caixaDAO.fecharCaixa(valorFechamento, contadorVendas);
+        if (sucesso) {
+            String valorFormatado = String.format("%.2f", valorFechamento);
+            alerta(Alert.AlertType.INFORMATION, "Sucesso", "Caixa fechado com sucesso. Valor total: MZN " + valorFormatado);
+            btnAbrirCaixa.setDisable(false);
+            btnFecharCaixa.setDisable(true);
+            atualizarContadorVendas();
+        } else {
+            alerta(Alert.AlertType.ERROR, "Erro", "Falha ao fechar o caixa.");
+        }
+    }
+    
     @FXML
     private void adicionarProdutoAVenda() {
         Produto produto = tabelaProdutos.getSelectionModel().getSelectedItem();
@@ -97,6 +157,12 @@ public class telaVendaController {
 
         for (ItemVenda item : itensVenda) {
             if (item.getProduto().getCodigoBarra().equals(produto.getCodigoBarra())) {
+                if (item.getQuantidade() >= produto.getEstoque()) {
+                    alerta(Alert.AlertType.WARNING, "Estoque insuficiente", 
+                        "Não é possível adicionar mais unidades. Estoque disponível: " + produto.getEstoque());
+                    return;
+                }
+
                 item.incrementarQuantidade();
                 venda.adicionarPreco(produto.getPrecoVenda());
                 tabelaItensVenda.refresh();
@@ -105,9 +171,20 @@ public class telaVendaController {
             }
         }
 
+        if (produto.getEstoque() <= 0) {
+            alerta(Alert.AlertType.WARNING, "Produto esgotado", 
+                "O produto selecionado está com estoque zerado.");
+            return;
+        }
+
+        habilitarBtn();
+        
         ItemVenda novoItem = new ItemVenda(produto);
+        
         itensVenda.add(novoItem);
+        
         venda.adicionarPreco(produto.getPrecoVenda());
+        
         atualizarTotal();
     }
 
@@ -145,6 +222,7 @@ public class telaVendaController {
             itensVenda.clear();
             venda.resetar();
             atualizarTotal();
+            desabilitarBtn();
         }
     }
 
@@ -210,22 +288,29 @@ public class telaVendaController {
             return;
         }
 
+        // ⚠️ Buscar o ID do caixa aberto ANTES de salvar a venda
+        int idCaixaAtual = caixaDAO.buscarIdCaixaAberto();
+        if (idCaixaAtual <= 0) {
+            alerta(Alert.AlertType.ERROR, "Erro", "Nenhum caixa aberto para associar à venda.");
+            return;
+        }
+
+        // Preencher venda
         venda.setData(LocalDate.now());
         venda.setTotalProduto(total);
         venda.setFormaPagamento(forma.getNome());
         venda.setValorPago(valorPago);
         venda.setTroco(valorPago - total);
         venda.setItens(new ArrayList<>(itensVenda));
+        venda.setIdCaixa(idCaixaAtual); // ✅ Agora sim
 
-        // Verifica se todos os produtos têm IDs válidos
+        // Verifica se os produtos têm ID válido
         for (ItemVenda item : itensVenda) {
             Produto produto = item.getProduto();
-            System.out.println("Produto: " + produto.getNome() + " - ID: " + produto.getId());
             if (produto.getId() <= 0) {
-                alerta(Alert.AlertType.ERROR, "Erro", "Produto '" + produto.getNome() + "' está sem ID válido! Verifique se está cadastrado corretamente.");
+                alerta(Alert.AlertType.ERROR, "Erro", "Produto '" + produto.getNome() + "' está sem ID válido!");
                 return;
             }
-            System.out.println("✔ Produto: " + produto.getNome() + " | ID: " + produto.getId());
         }
 
         // Salva a venda
@@ -237,16 +322,9 @@ public class telaVendaController {
         }
 
         try {
-            // Salva os itens da venda
-        	//int idVenda = vendaDAO.inserirVenda(venda);
-        	vendaDAO.inserirItensVenda(vendaId, venda.getItens()); // salva os itens
-        	//if (idVenda != -1) {
-        	//vendaDAO.inserirItensVenda(idVenda, venda.getItens()); // salva os itens
-        	//}
-            //vendaDAO.inserirItensVenda(vendaId, itensVenda);
+            vendaDAO.inserirItensVenda(vendaId, venda.getItens());
         } catch (SQLException e) {
             alerta(Alert.AlertType.ERROR, "Erro", "Erro ao salvar itens da venda: " + e.getMessage());
-            e.printStackTrace();
             return;
         }
 
@@ -254,18 +332,23 @@ public class telaVendaController {
         for (ItemVenda item : itensVenda) {
             Produto produto = item.getProduto();
             int novoEstoque = produto.getEstoque() - item.getQuantidade();
-            boolean atualizado = produtoDAO.atualizarEstoque(produto.getCodigoBarra(), novoEstoque);
-
-            if (!atualizado) {
+            if (!produtoDAO.atualizarEstoque(produto.getCodigoBarra(), novoEstoque)) {
                 alerta(Alert.AlertType.ERROR, "Erro", "Erro ao atualizar estoque do produto: " + produto.getNome());
                 return;
             }
         }
 
+        // Incrementa contador de vendas do caixa
+        caixaDAO.incrementarContadorVendas();
+
         alerta(Alert.AlertType.INFORMATION, "Sucesso", "Venda registrada com sucesso!");
         limparCamposVenda();
-        System.out.println(venda.getItens());
+        listarTodos();
+        desabilitarBtn();
+        
+        atualizarContadorVendas();
     }
+
 
 
 
@@ -322,7 +405,6 @@ public class telaVendaController {
         lbTotal.setText("0.00");
         lbTroco.setText("0.00");
         lbPreco.setText("");
-        cbFormaPagamento.getSelectionModel().clearSelection();
         imgProduto.setImage(new Image(getClass().getResourceAsStream("/img/semImg.png")));
     }
 
@@ -349,5 +431,17 @@ public class telaVendaController {
 
     private void destacarErro(TextField campo) {
         campo.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+    }
+    
+    private void habilitarBtn() {
+    	btnRemoverItem.setDisable(false);
+        btnCancelarVenda.setDisable(false);
+        btnLimparItem.setDisable(false);
+    }
+    
+    private void desabilitarBtn() {
+    	btnRemoverItem.setDisable(true);
+        btnCancelarVenda.setDisable(true);        
+        btnLimparItem.setDisable(true);
     }
 }

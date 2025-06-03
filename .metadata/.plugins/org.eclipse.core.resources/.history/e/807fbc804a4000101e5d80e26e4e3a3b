@@ -1,0 +1,87 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.io.ByteArrayInputStream;
+import java.util.List;
+
+import com.minhaloja.sistema_pagamento.dao.ProdutoEsgotadoDAO;
+import com.minhaloja.sistema_pagamento.model.Produto;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+public class TelaRequisicaoController {
+
+    @FXML private TableView<Produto> tabelaRequisicao;
+
+    @FXML private TableColumn<Produto, String> colNome, colFornecedor, colCategoria, colLoja, colModelo, colCor, colId;
+    @FXML private TableColumn<Produto, Double> colPrecoMestre;
+    
+    @FXML private ImageView imgProduto;
+    
+    @FXML private Button btnFechar, btnAdicionar;
+    @FXML private TextField tfQTD;
+
+    private ProdutoEsgotadoDAO produtoEsgotadoDAO = new ProdutoEsgotadoDAO();
+
+    @FXML
+    public void initialize() {
+        configurarTabelaRequisicao();
+
+        // Registra produtos esgotados e atualiza tabela
+        produtoEsgotadoDAO.verificarProdutosEsgotados();
+        carregarProdutosEsgotados();
+        
+        tabelaRequisicao.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+            	try {
+            	    Produto produto = newSelection; // usa o item selecionado
+            	    byte[] imagemBytes = produto.getImagem();
+            	    
+            	    if (imagemBytes != null && imagemBytes.length > 0) {
+            	        ByteArrayInputStream bis = new ByteArrayInputStream(imagemBytes);
+            	        Image imagemP = new Image(bis);
+            	        imgProduto.setImage(imagemP);
+            	    } else {
+            	        Image imagemPadrao = new Image(getClass().getResourceAsStream("/img/semImg.png"));
+            	        imgProduto.setImage(imagemPadrao);
+            	    }
+            	} catch (Exception e) {
+            	    e.printStackTrace();
+            	}
+
+            }
+        });
+    }
+
+    private void configurarTabelaRequisicao() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
+        colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+        colCor.setCellValueFactory(new PropertyValueFactory<>("cor"));
+    }
+
+    private void carregarProdutosEsgotados() {
+        List<Produto> produtos = produtoEsgotadoDAO.listarProdutosEsgotados();
+        ObservableList<Produto> observableList = FXCollections.observableArrayList(produtos);
+        tabelaRequisicao.setItems(observableList);
+    }
+    
+    @FXML
+    private void fecharJanela() {
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+    }
+}

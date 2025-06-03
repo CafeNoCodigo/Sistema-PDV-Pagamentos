@@ -24,7 +24,27 @@ public class ProdutoDAO {
         criarTabelaSeNaoExistir();
     }
 	
+	public boolean atualizarEstoque(int id, double novoEstoque) {
+	    String sql = "UPDATE produtos SET estoque = ? WHERE id = ?";
+
+	    try (Connection conn = Conexao.conectar();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setDouble(1, novoEstoque);
+	        stmt.setInt(2, id);
+	        return stmt.executeUpdate() > 0;
+
+	    } catch (SQLException e) {
+	        System.err.println("Erro ao atualizar estoque do produto: " + e.getMessage());
+	        return false;
+	    }
+	}
+
+	
 	public boolean atualizarEstoque(String codigoBarra, int novoEstoque) {
+		if(novoEstoque < 0) {
+			return false;
+		}
 	    String sql = "UPDATE produtos SET estoque = ? WHERE codigoBarra = ?";
 
 	    try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -184,7 +204,8 @@ public class ProdutoDAO {
     		        modelo VARCHAR(100),
     		        codigo VARCHAR(50),
     		        cor VARCHAR (50),
-    		        imagem BLOB
+    		        imagem BLOB,
+    		        data DATE
     		    );
     		""";
 
@@ -231,8 +252,8 @@ public class ProdutoDAO {
     	
         String sql = """
             INSERT INTO produtos(nome, precoCompra, precoVenda, precoMestre, categoria, garantia, 
-            referencia, estoque, loja, fabricante, fornecedor, infoAdicional, codigoBarra, imgQrCode, modelo, codigo, cor, imagem) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            referencia, estoque, loja, fabricante, fornecedor, infoAdicional, codigoBarra, imgQrCode, modelo, codigo, cor, imagem, data) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
 
         try (Connection conn = Conexao.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -254,6 +275,7 @@ public class ProdutoDAO {
             pstmt.setString(16, produto.getCodigo());
             pstmt.setString(17, produto.getCor());
             pstmt.setBytes(18, produto.getImagem());
+            pstmt.setDate(19, java.sql.Date.valueOf(produto.getData()));
 
             pstmt.executeUpdate();
             System.out.println("Produto salvo com sucesso.");
@@ -326,13 +348,15 @@ public class ProdutoDAO {
 
     public ObservableList<Produto> listarProdutos() {
         ObservableList<Produto> lista = FXCollections.observableArrayList();
-        String sql = "SELECT codigoBarra, nome, categoria, estoque, precoVenda, precoMestre, precoCompra, "
-        		+ "referencia, loja, fabricante, fornecedor, imgQrCode, modelo, codigo, garantia, cor, infoAdicional, imagem FROM produtos";
+        String sql = "SELECT id, codigoBarra, nome, categoria, estoque, precoVenda, precoMestre, precoCompra, "
+                   + "referencia, loja, fabricante, fornecedor, imgQrCode, modelo, codigo, garantia, cor, infoAdicional, imagem "
+                   + "FROM produtos WHERE estoque > 0";
 
         try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Produto p = new Produto();
+                p.setId(rs.getInt("id"));
                 p.setCodigoBarra(rs.getString("codigoBarra"));
                 p.setNome(rs.getString("nome"));
                 p.setCategoria(rs.getString("categoria"));
@@ -351,7 +375,7 @@ public class ProdutoDAO {
                 p.setCor(rs.getString("cor"));
                 p.setInfoAdicional(rs.getString("infoAdicional"));
                 p.setImagem(rs.getBytes("imagem"));
-                
+
                 lista.add(p);
             }
         } catch (SQLException e) {

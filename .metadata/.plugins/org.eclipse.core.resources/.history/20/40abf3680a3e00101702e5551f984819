@@ -1,0 +1,33 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableView;
+
+import java.sql.SQLException;
+
+import com.minhaloja.sistema_pagamento.dao.ProdutoEsgotadoDAO;
+import com.minhaloja.sistema_pagamento.model.Produto;
+
+public class TelaRequisicaoController {
+    
+    @FXML private TableView<Produto> tabelaProdutosEsgotados;
+    
+    @FXML
+    public void initialize() {
+        carregarProdutosEsgotados();
+    }
+    
+    private void carregarProdutosEsgotados() {
+        try {
+            tabelaProdutosEsgotados.setItems(
+                FXCollections.observableArrayList(
+                    new ProdutoEsgotadoDAO().listarProdutosEsgotados()
+                )
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Tratar erro
+        }
+    }
+}

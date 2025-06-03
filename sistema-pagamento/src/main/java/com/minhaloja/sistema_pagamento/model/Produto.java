@@ -1,5 +1,7 @@
 package com.minhaloja.sistema_pagamento.model;
 
+import java.time.LocalDate;
+
 public class Produto {
 	
 	private String nome;
@@ -23,8 +25,17 @@ public class Produto {
     private String cor;
     private byte[] imagem;
     private int id;
+    private LocalDate data;
 
-    public int getId() {
+    public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
+	public int getId() {
 		return id;
 	}
 

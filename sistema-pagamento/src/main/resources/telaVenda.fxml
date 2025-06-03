@@ -53,13 +53,13 @@
       <HBox layoutX="1054.0" layoutY="91.0" prefHeight="32.0" prefWidth="278.0" style="-fx-background-color: white; -fx-border-radius: 10;">
          <children>
             <Label prefHeight="32.0" prefWidth="77.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text=" MZN" textFill="RED" />
-            <Label fx:id="lbPreco" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="195.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text="0,00" textAlignment="RIGHT" textFill="RED" />
+            <Label fx:id="lbPreco" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="195.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text="0.00" textAlignment="RIGHT" textFill="RED" />
          </children>
       </HBox>
-      <HBox layoutX="783.0" layoutY="155.0" prefHeight="32.0" prefWidth="549.0" style="-fx-background-color: white; -fx-border-radius: 10;">
+      <HBox layoutX="783.0" layoutY="155.0" prefHeight="44.0" prefWidth="549.0" style="-fx-background-color: white; -fx-border-radius: 10;">
          <children>
-            <Label prefHeight="32.0" prefWidth="77.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text=" MZN" textFill="RED" />
-            <Label fx:id="lbTotal" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="487.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text="0,00" textAlignment="RIGHT" textFill="RED">
+            <Label prefHeight="48.0" prefWidth="125.0" style="-fx-font-size: 35px; -fx-font-weight: bold;" text=" MZN" textFill="RED" />
+            <Label fx:id="lbTotal" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="417.0" style="-fx-font-size: 40px; -fx-font-weight: bold;" text="0.00" textAlignment="RIGHT" textFill="RED">
                <font>
                   <Font name="Franklin Gothic Medium" size="24.0" />
                </font>
@@ -70,7 +70,7 @@
       <HBox layoutX="923.0" layoutY="240.0" prefHeight="32.0" prefWidth="287.0">
          <children>
             <Label prefHeight="32.0" prefWidth="224.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text="Pedido Número: " textFill="#bf9e2f" />
-            <Label alignment="CENTER" prefHeight="32.0" prefWidth="107.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text="1" textFill="#bf9e2f" />
+            <Label fx:id="lbContadorVendas" alignment="CENTER" prefHeight="32.0" prefWidth="107.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" textFill="#bf9e2f" />
          </children>
       </HBox>
       <VBox layoutX="787.0" layoutY="294.0" prefHeight="28.0" prefWidth="132.0">
@@ -90,28 +90,23 @@
             <Label prefHeight="31.0" prefWidth="157.0" text="Troco" />
          </children>
       </VBox>
-      <HBox layoutX="1106.0" layoutY="335.0" prefHeight="32.0" prefWidth="227.0" style="-fx-background-color: white; -fx-border-radius: 10;">
+      <HBox layoutX="1106.0" layoutY="335.0" prefHeight="48.0" prefWidth="227.0" style="-fx-background-color: white; -fx-border-radius: 10;">
          <children>
-            <Label prefHeight="32.0" prefWidth="94.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text=" MZN" textFill="RED" />
-            <Label fx:id="lbTroco" alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="141.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text="0,00" textAlignment="RIGHT" textFill="RED" />
+            <Label prefHeight="48.0" prefWidth="102.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text=" MZN" textFill="RED" />
+            <Label fx:id="lbTroco" alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="118.0" style="-fx-font-size: 30px; -fx-font-weight: bold;" text="0.00" textAlignment="RIGHT" textFill="RED" />
          </children>
       </HBox>
       <Button fx:id="btnAdicionar" layoutX="787.0" layoutY="92.0" mnemonicParsing="false" onAction="#adicionarProdutoAVenda" prefHeight="28.0" prefWidth="117.0" style="-fx-font-size: 20px; -fx-padding: 2 5 2 5;" text="+" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="85.0" layoutX="767.0" layoutY="525.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="578.0" />
-      <Button fx:id="btnRegistrarVenda" layoutX="779.0" layoutY="534.0" mnemonicParsing="false" onAction="#registrarVenda" prefHeight="68.0" prefWidth="132.0" text="Registrar Venda" />
-      <Button fx:id="btnListarTodos" layoutX="924.0" layoutY="534.0" mnemonicParsing="false" onAction="#listarTodos" prefHeight="68.0" prefWidth="92.0" text="Todos" />
-      <Button disable="true" layoutX="1028.0" layoutY="534.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="92.0" styleClass="deletar" />
-      <Button fx:id="btnCancelarVenda" layoutX="1130.0" layoutY="534.0" mnemonicParsing="false" onAction="#cancelarVenda" prefHeight="68.0" prefWidth="99.0" styleClass="cancelar" text="Cancelar" />
+      <Button fx:id="btnRegistrarVenda" layoutX="779.0" layoutY="534.0" mnemonicParsing="false" onAction="#registrarVenda" prefHeight="68.0" prefWidth="117.0" text="Registrar Venda" />
+      <Button fx:id="btnListarTodos" layoutX="900.0" layoutY="534.0" mnemonicParsing="false" onAction="#listarTodos" prefHeight="68.0" prefWidth="92.0" text="Todos" />
+      <Button fx:id="btnFecharCaixa" layoutX="1003.0" layoutY="534.0" mnemonicParsing="false" onAction="#fecharCaixa" prefHeight="68.0" prefWidth="117.0" styleClass="deletar" text="Fechar Caixa" />
+      <Button fx:id="btnAbrirCaixa" layoutX="1130.0" layoutY="534.0" mnemonicParsing="false" onAction="#abrirCaixa" prefHeight="68.0" prefWidth="99.0" styleClass="cancelar" text="Abrir Caixa" />
       <Button fx:id="btnFechar" layoutX="1238.0" layoutY="534.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="68.0" prefWidth="99.0" style="-fx-background-color: red;" styleClass="deletar" text="Fechar" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="116.0" layoutX="1153.0" layoutY="380.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="152.0" />
-      <ImageView fx:id="imgProduto" fitHeight="105.0" fitWidth="110.0" layoutX="1177.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/inserirFotoBI.png" />
-         </image>
-      </ImageView>
       <Button fx:id="btnBusca" layoutX="1238.0" layoutY="29.0" mnemonicParsing="false" onAction="#buscarProduto" prefHeight="28.0" prefWidth="92.0" style="-fx-font-size: 15px; -fx-padding: 2 5 2 5;" text="Pesquisar" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="390.0" layoutX="5.0" layoutY="266.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="751.0" />
-      <TableView fx:id="tabelaItensVenda" layoutX="12.0" layoutY="322.0" prefHeight="326.0" prefWidth="740.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="249.0" layoutX="561.0" layoutY="351.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="195.0" />
+      <TableView fx:id="tabelaItensVenda" layoutX="12.0" layoutY="322.0" prefHeight="326.0" prefWidth="549.0">
         <columns>
           <TableColumn fx:id="colCodigo2" prefWidth="129.0" text="Código" />
           <TableColumn fx:id="colItemNome" prefWidth="242.0" text="Nome" />
@@ -126,7 +121,7 @@
             <Image url="@img/carinho.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnRemoverItem" layoutX="469.0" layoutY="297.0" mnemonicParsing="false" onAction="#removerItemSelecionado" prefHeight="13.0" prefWidth="99.0" style="-fx-padding: 2 5 2 5;" styleClass="deletar" text="Reduzir" />
+      <Button fx:id="btnRemoverItem" disable="true" layoutX="274.0" layoutY="297.0" mnemonicParsing="false" onAction="#removerItemSelecionado" prefHeight="13.0" prefWidth="99.0" style="-fx-padding: 2 5 2 5;" styleClass="deletar" text="Reduzir" />
       <ImageView fitHeight="160.0" fitWidth="161.0" layoutX="758.0" layoutY="361.0" opacity="0.24" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/carinho.png" />
@@ -141,19 +136,19 @@
          </children>
       </VBox>
       <TextField fx:id="tfConta" editable="false" layoutX="1076.0" layoutY="292.0" prefHeight="33.0" prefWidth="85.0" style="-fx-font-weight: bold; -fx-font-size: 13px;" />
-      <VBox layoutX="463.0" layoutY="271.0" prefHeight="28.0" prefWidth="132.0">
+      <VBox layoutX="267.0" layoutY="268.0" prefHeight="28.0" prefWidth="132.0">
          <children>
             <Label prefHeight="31.0" prefWidth="157.0" text="Reduzir do Carinho" />
          </children>
       </VBox>
-      <Button fx:id="btnCancelarVenda" layoutX="350.0" layoutY="297.0" mnemonicParsing="false" onAction="#cancelarVenda" prefHeight="15.0" prefWidth="99.0" style="-fx-padding: 2 5 2 5;" styleClass="deletar" text="Limpar" />
-      <VBox layoutX="352.0" layoutY="271.0" prefHeight="28.0" prefWidth="99.0">
+      <Button fx:id="btnCancelarVenda" disable="true" layoutX="155.0" layoutY="297.0" mnemonicParsing="false" onAction="#cancelarVenda" prefHeight="15.0" prefWidth="99.0" style="-fx-padding: 2 5 2 5;" styleClass="deletar" text="Limpar" />
+      <VBox layoutX="155.0" layoutY="268.0" prefHeight="28.0" prefWidth="99.0">
          <children>
             <Label prefHeight="31.0" prefWidth="157.0" text="Limpar Carinho" />
          </children>
       </VBox>
-      <Button fx:id="btnLimparItem" layoutX="594.0" layoutY="297.0" mnemonicParsing="false" onAction="#limparItemSelecionado" prefHeight="13.0" prefWidth="99.0" style="-fx-padding: 2 5 2 5; -fx-background-color: red;" styleClass="deletar" text="Remover" />
-      <VBox layoutX="576.0" layoutY="271.0" prefHeight="28.0" prefWidth="132.0">
+      <Button fx:id="btnLimparItem" disable="true" layoutX="399.0" layoutY="297.0" mnemonicParsing="false" onAction="#limparItemSelecionado" prefHeight="13.0" prefWidth="99.0" style="-fx-padding: 2 5 2 5; -fx-background-color: red;" styleClass="deletar" text="Remover" />
+      <VBox layoutX="389.0" layoutY="268.0" prefHeight="28.0" prefWidth="132.0">
          <children>
             <Label alignment="CENTER" prefHeight="31.0" prefWidth="157.0" text="Remover do Carinho" />
          </children>
@@ -174,5 +169,7 @@
             <Font size="22.0" />
          </font>
       </Label>
+      <ImageView fx:id="imgProduto" fitHeight="236.0" fitWidth="188.0" layoutX="564.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="1235.0" layoutY="428.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="99.0" styleClass="cancelar" text="Cancelar" />
    </children>
 </AnchorPane>

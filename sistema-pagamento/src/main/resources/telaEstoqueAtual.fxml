@@ -12,13 +12,13 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1114.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaEstoqueAtualController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="1239.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaEstoqueAtualController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="999.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="106.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="515.0" layoutX="8.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="1100.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="1126.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="106.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="589.0" layoutX="8.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="1225.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="43.0" layoutX="9.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="460.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="9.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="311.0" />
-      <TableView fx:id="tabelaProdutos2" layoutX="14.0" layoutY="152.0" prefHeight="493.0" prefWidth="1086.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="9.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="301.0" />
+      <TableView fx:id="tabelaProdutos2" layoutX="14.0" layoutY="152.0" prefHeight="567.0" prefWidth="1210.0">
         <columns>
           <TableColumn fx:id="colCodigoBarra" prefWidth="127.0" text="Código de Barra" />
             <TableColumn fx:id="colNome" prefWidth="152.0" text="Nome" />
@@ -44,26 +44,27 @@
       </VBox>
       <TextField fx:id="tfBusca" layoutX="128.0" layoutY="86.0" prefHeight="29.0" prefWidth="220.0" />
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" prefHeight="50.0" prefWidth="93.0" text="Adicionar" />
-      <Button fx:id="btnTodos" layoutX="117.0" layoutY="14.0" mnemonicParsing="false" onAction="#listarTodos" prefHeight="50.0" prefWidth="93.0" text="Todos" />
-      <Button fx:id="btnExcluir" layoutX="221.0" layoutY="14.0" mnemonicParsing="false" onAction="#excluirProduto" prefHeight="50.0" prefWidth="93.0" styleClass="deletar" text="Excluir" />
-      <Button fx:id="btnFechar" layoutX="1006.0" layoutY="36.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="50.0" prefWidth="93.0" style="-fx-background-color: #ff0000;" styleClass="deletar" text="Fechar" />
+      <Button fx:id="btnTodos" layoutX="114.0" layoutY="15.0" mnemonicParsing="false" onAction="#listarTodos" prefHeight="50.0" prefWidth="93.0" text="Todos" />
+      <Button fx:id="btnExcluir" layoutX="213.0" layoutY="15.0" mnemonicParsing="false" onAction="#excluirProduto" prefHeight="50.0" prefWidth="93.0" styleClass="deletar" text="Excluir" />
+      <Button fx:id="btnFechar" layoutX="1133.0" layoutY="36.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="50.0" prefWidth="93.0" style="-fx-background-color: #ff0000;" styleClass="deletar" text="Fechar" />
       <Button fx:id="btnBusca" layoutX="367.0" layoutY="85.0" mnemonicParsing="false" onAction="#buscarProduto" prefHeight="29.0" prefWidth="93.0" text="Pesquisar" />
-      <Label layoutX="829.0" layoutY="22.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
-      <Label layoutX="829.0" layoutY="63.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
-      <ImageView fitHeight="122.0" fitWidth="150.0" layoutX="679.0" layoutY="2.0" opacity="0.36">
+      <Label layoutX="852.0" layoutY="22.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
+      <Label layoutX="852.0" layoutY="63.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
+      <ImageView fitHeight="122.0" fitWidth="150.0" layoutX="702.0" layoutY="2.0" opacity="0.36">
          <image>
             <Image url="@img/carinho.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="13.0" fitWidth="15.0" layoutX="876.0" layoutY="3.0">
+      <ImageView fitHeight="13.0" fitWidth="15.0" layoutX="1003.0" layoutY="3.0">
          <image>
             <Image url="@img/copyright-1345865_1280.png" />
          </image>
       </ImageView>
-      <Label layoutX="893.0" layoutY="3.0" style="-fx-font-size: 10PX;" text="ALL COPYRIGHTS RESERVED TO FPS SOLUTIONS">
+      <Label layoutX="1020.0" layoutY="3.0" style="-fx-font-size: 10PX;" text="ALL COPYRIGHTS RESERVED TO FPS SOLUTIONS">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
+      <Button layoutX="476.0" layoutY="11.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="117.0" text="Atualizar Preço" />
    </children>
 </AnchorPane>

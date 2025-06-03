@@ -10,4 +10,5 @@
     <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.controller.telaCadastroProdutoController"/>
     <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.util.Conexao"/>
     <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.model.FormaPagamento"/>
+    <fullyQualifiedTypeName name="javafx.scene.control.Alert.AlertType"/>
 </qualifiedTypeNameHistroy>

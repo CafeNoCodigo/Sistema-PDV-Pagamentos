@@ -1,0 +1,461 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.io.ByteArrayInputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import com.minhaloja.sistema_pagamento.dao.*;
+//import com.minhaloja.sistema_pagamento.dao.ProdutoEsgotadoDAO;
+import com.minhaloja.sistema_pagamento.model.*;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+
+public class telaVendaController {
+
+    // --- Componentes da UI ---
+    @FXML private TableView<Produto> tabelaProdutos;
+    @FXML private TableView<ItemVenda> tabelaItensVenda;
+
+    @FXML private TableColumn<Produto, String> colCodigo;
+    @FXML private TableColumn<ItemVenda, String> colCodigo2;
+    @FXML private TableColumn<Produto, String> colNome;
+    @FXML private TableColumn<Produto, Double> colEstoque;
+    @FXML private TableColumn<Produto, Double> colPreco;
+    @FXML private TableColumn<Produto, Double> colPrecoMestre;
+    @FXML private TableColumn<Produto, String> colCategoria;
+
+    @FXML private TableColumn<ItemVenda, String> colItemNome;
+    @FXML private TableColumn<ItemVenda, Integer> colItemQuantidade;
+    @FXML private TableColumn<ItemVenda, Double> colItemSubtotal;
+    @FXML private TableColumn<ItemVenda, String> colItemCategoria;
+
+    @FXML private Button btnFechar, btnBusca, btnListaTodos, btnAdicionar, btnRemoverItem, btnCancelarVenda, btnLimparItem, btnGerar, btnRegistrarVenda;
+    @FXML private TextField tfBusca, tfConta, tfValorPago;
+    @FXML private Label lbPreco, lbTotal, lbTroco;
+    @FXML private ImageView imgProduto;
+    @FXML private ChoiceBox<FormaPagamento> cbFormaPagamento;
+
+    // --- Objetos auxiliares ---
+    private final ProdutoDAO produtoDAO = new ProdutoDAO();
+    //rivate final VendaDAO vendaDAO = new VendaDAO();
+    private final ObservableList<ItemVenda> itensVenda = FXCollections.observableArrayList();
+    private final Venda venda = new Venda();
+
+    @FXML
+    public void initialize() {
+        configurarTabelaProdutos();
+        configurarTabelaItensVenda();
+        carregarFormasPagamento();
+        configurarEventos();
+        listarTodos();
+        
+        btnCancelarVenda.setDisable(itensVenda.isEmpty());
+        
+        // Listener para habilitar/desabilitar o botão conforme itens são adicionados/removidos
+        itensVenda.addListener((ListChangeListener<ItemVenda>) change -> {
+            btnCancelarVenda.setDisable(itensVenda.isEmpty());
+        });
+        
+        itensVenda.addListener((ListChangeListener<ItemVenda>) change -> {
+            boolean listaVazia = itensVenda.isEmpty();
+            btnCancelarVenda.setDisable(listaVazia);
+            btnLimparItem.setDisable(listaVazia);
+            btnRemoverItem.setDisable(listaVazia);
+        });
+    }
+
+    // --- Tabelas ---
+    private void configurarTabelaProdutos() {
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPreco.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        
+    }
+
+    private void configurarTabelaItensVenda() {
+        colCodigo2.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProduto().getCodigoBarra()));
+        colItemNome.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNome()));
+        colItemQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        colItemSubtotal.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSubtotal()).asObject());
+        colItemCategoria.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProduto().getCategoria()));
+
+        tabelaItensVenda.setItems(itensVenda);
+    }
+
+    // --- Eventos ---
+    private void atualizarListaProdutos() {
+        ObservableList<Produto> produtosDisponiveis = FXCollections.observableArrayList();
+        
+        for (Produto p : produtoDAO.listarProdutos()) {
+            if (p.getEstoque() > 0) {
+                produtosDisponiveis.add(p);
+            }
+        }
+        
+        tabelaProdutos.setItems(produtosDisponiveis);
+    }
+    
+    private void configurarEventos() {
+        tabelaProdutos.getSelectionModel().selectedItemProperty().addListener(
+            (obs, oldVal, newVal) -> exibirDetalhesProduto(newVal));
+
+        cbFormaPagamento.getSelectionModel().selectedItemProperty().addListener(
+            (obs, oldVal, selected) -> tfConta.setText(selected != null ? selected.getConta() : ""));
+    }
+
+    @FXML
+    private void adicionarProdutoAVenda() {
+        Produto produto = tabelaProdutos.getSelectionModel().getSelectedItem();
+        if (produto == null) return;
+
+        // Verifica se ainda há estoque disponível
+        if (produto.getEstoque() <= 0) {
+            alerta("Produto esgotado!", "Este produto não está mais disponível em estoque.");
+            return;
+        }
+
+        for (ItemVenda item : itensVenda) {
+            if (item.getProduto().getCodigoBarra().equals(produto.getCodigoBarra())) {
+                // Verifica se não excede o estoque
+                if (item.getQuantidade() >= produto.getEstoque()) {
+                    alerta("Estoque insuficiente", "Não há quantidade suficiente em estoque.");
+                    return;
+                }
+                
+                item.incrementarQuantidade();
+                venda.adicionarPreco(produto.getPrecoVenda());
+                tabelaItensVenda.refresh();
+                atualizarTotal();
+                return;
+            }
+        }
+
+        // Se for um item novo no carrinho
+        ItemVenda novoItem = new ItemVenda(produto);
+        itensVenda.add(novoItem);
+        venda.adicionarPreco(produto.getPrecoVenda());
+        atualizarTotal();
+    }
+
+    @FXML
+    private void removerItemSelecionado() {
+        ItemVenda item = tabelaItensVenda.getSelectionModel().getSelectedItem();
+        if (item == null) return;
+
+        venda.adicionarPreco(-item.getProduto().getPrecoVenda());
+        if (item.getQuantidade() > 1) {
+            item.decrementarQuantidade();
+        } else {
+            itensVenda.remove(item);
+        }
+
+        tabelaItensVenda.refresh();
+        atualizarTotal();
+    }
+
+    @FXML
+    private void limparItemSelecionado() {
+        ItemVenda item = tabelaItensVenda.getSelectionModel().getSelectedItem();
+        if (item == null) return;
+
+        if (confirmar("Remover Item", "Deseja remover completamente o item \"" + item.getNome() + "\" da venda?")) {
+            venda.adicionarPreco(-item.getSubtotal());
+            itensVenda.remove(item);
+            atualizarTotal();
+        }
+    }
+
+    @FXML
+    private void cancelarVenda() {
+    	if (itensVenda.isEmpty()) {
+            alerta("Não há itens para cancelar.");
+            return;
+        }
+    	
+        if (confirmar("Cancelar Venda", "Tem certeza de que deseja cancelar a venda atual?")) {
+            itensVenda.clear();
+            venda.resetar();
+            atualizarTotal();
+        }
+    }
+
+    @FXML
+    private void verificarPagamento() {
+        tfValorPago.setStyle("");
+        lbTroco.setText("0,00");
+
+        if (venda.getTotalProduto() == 0.0) {
+            alerta("Adicione produtos ao carrinho antes de realizar o pagamento.");
+            return;
+        }
+
+        String texto = tfValorPago.getText().trim();
+        if (texto.isEmpty()) {
+            destacarErro(tfValorPago);
+            alerta("Por favor, preencha o valor pago.");
+            return;
+        }
+
+        try {
+            double valorPago = Double.parseDouble(texto);
+            if (valorPago < venda.getTotalProduto()) {
+                destacarErro(tfValorPago);
+                alerta("O valor pago é inferior ao total da venda.");
+                return;
+            }
+
+            double troco = valorPago - venda.getTotalProduto();
+            venda.setValorPago(valorPago);
+            venda.setTroco(troco);
+            lbTroco.setText(String.format("%.2f", troco));
+            btnRegistrarVenda.setDisable(false);
+        } catch (NumberFormatException e) {
+            destacarErro(tfValorPago);
+            alerta("O valor pago deve ser numérico.");
+        }
+    }
+
+    @FXML
+    private void registrarVenda() {
+        // Validações iniciais
+        if (itensVenda.isEmpty()) {
+            alerta(Alert.AlertType.WARNING, "Aviso", "Nenhum item na venda!");
+            return;
+        }
+
+        double total = venda.getTotalProduto();
+        FormaPagamento forma = cbFormaPagamento.getValue();
+        if (forma == null) {
+            alerta(Alert.AlertType.ERROR, "Erro", "Selecione uma forma de pagamento.");
+            return;
+        }
+
+        // Validação do valor pago
+        double valorPago;
+        try {
+            valorPago = Double.parseDouble(tfValorPago.getText());
+        } catch (NumberFormatException e) {
+            alerta(Alert.AlertType.ERROR, "Erro", "Valor pago inválido.");
+            return;
+        }
+
+        if (valorPago < total) {
+            alerta(Alert.AlertType.ERROR, "Erro", "Valor pago insuficiente.");
+            return;
+        }
+
+        // Configura os dados da venda
+        venda.setData(LocalDate.now());
+        venda.setTotalProduto(total);
+        venda.setFormaPagamento(forma.getNome());
+        venda.setValorPago(valorPago);
+        venda.setTroco(valorPago - total);
+        venda.setItens(new ArrayList<>(itensVenda));
+
+        Connection conn = null;
+        try {
+            // Inicia transação
+            conn = Conexao.conectar();
+            conn.setAutoCommit(false);
+
+            // 1. Registra a venda principal
+            VendaDAO vendaDAO = new VendaDAO(conn);
+            int vendaId = vendaDAO.inserirVenda(venda);
+            
+            if (vendaId <= 0) {
+                throw new SQLException("Falha ao registrar venda principal");
+            }
+
+            // 2. Registra os itens da venda
+            vendaDAO.inserirItensVenda(vendaId, venda.getItens());
+
+            // 3. Atualiza estoques e verifica produtos esgotados
+            ProdutoDAO produtoDAO = new ProdutoDAO(conn);
+            ProdutoEsgotadoDAO esgotadoDAO = new ProdutoEsgotadoDAO(conn);
+
+            for (ItemVenda item : venda.getItens()) {
+                Produto produto = item.getProduto();
+                
+                // Valida ID do produto
+                if (produto.getId() <= 0) {
+                    throw new SQLException("Produto '" + produto.getNome() + "' está sem ID válido!");
+                }
+
+                // Calcula novo estoque (nunca menor que zero)
+                int novoEstoque = Math.max(0, produto.getEstoque() - item.getQuantidade());
+                
+                // Atualiza o estoque no banco
+                boolean atualizado = produtoDAO.atualizarEstoque(produto.getId(), novoEstoque);
+                
+                if (!atualizado) {
+                    throw new SQLException("Falha ao atualizar estoque do produto: " + produto.getNome());
+                }
+
+                // Atualiza estoque localmente
+                produto.setEstoque(novoEstoque);
+
+                // Se esgotou, registra na tabela de esgotados
+                if (novoEstoque == 0) {
+                    esgotadoDAO.registrarProdutoEsgotado(produto.getId());
+                    System.out.println("Produto esgotado registrado: " + produto.getNome());
+                }
+            }
+
+            // Commit da transação
+            conn.commit();
+            
+            // Atualiza a interface
+            alerta(Alert.AlertType.INFORMATION, "Sucesso", "Venda registrada com sucesso!");
+            limparCamposVenda();
+            btnRegistrarVenda.setDisable(true);
+            
+            // Atualiza lista de produtos (remove os esgotados)
+            atualizarListaProdutos();
+
+        } catch (SQLException e) {
+            // Rollback em caso de erro
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException ex) {
+                System.err.println("Erro ao fazer rollback: " + ex.getMessage());
+            }
+            
+            alerta(Alert.AlertType.ERROR, "Erro", "Falha ao registrar venda: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            // Libera recursos
+            try {
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Erro ao fechar conexão: " + e.getMessage());
+            }
+        }
+    }
+
+    private void atualizarListaProdutos() {
+        try {
+            ObservableList<Produto> produtosDisponiveis = produtoDAO.listarProdutos()
+                .filtered(p -> p.getEstoque() > 0);
+            tabelaProdutos.setItems(produtosDisponiveis);
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar lista de produtos: " + e.getMessage());
+        }
+    }
+
+    
+    // --- Utilitários ---
+    private void alerta(String titulo, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+
+
+    private void atualizarTotal() {
+        lbTotal.setText(String.format("MZN$ %.2f", venda.getTotalProduto()));
+    }
+
+    private void exibirDetalhesProduto(Produto produto) {
+        if (produto != null) {
+            lbPreco.setText(String.format("%.2f", produto.getPrecoVenda()));
+            Image imagem = produto.getImagem() != null
+                    ? new Image(new ByteArrayInputStream(produto.getImagem()))
+                    : new Image(getClass().getResourceAsStream("/img/semImg.png"));
+            imgProduto.setImage(imagem);
+        } else {
+            lbPreco.setText("");
+            imgProduto.setImage(new Image(getClass().getResourceAsStream("/img/semImg.png")));
+        }
+    }
+
+    private void carregarFormasPagamento() {
+        List<FormaPagamento> formas = new FormaPagamentoDAO().buscarTodas();
+        if (formas != null) {
+            cbFormaPagamento.getItems().setAll(formas);
+        }
+    }
+
+    @FXML
+    private void buscarProduto() {
+        String texto = tfBusca.getText().trim();
+        ObservableList<Produto> resultados = texto.isEmpty()
+                ? produtoDAO.listarProdutos()
+                : produtoDAO.buscarProdutosPorTexto(texto);
+        
+        ObservableList<Produto> resultadosComEstoque = resultados.filtered(p -> p.getEstoque() > 0);
+        tabelaProdutos.setItems(resultadosComEstoque);
+    }
+
+    @FXML
+    private void listarTodos() {
+        tabelaProdutos.setItems(produtoDAO.listarProdutosDisponiveis());
+    }
+
+    @FXML
+    private void fecharJanela() {
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+    }
+
+    private void limparCamposVenda() {
+        itensVenda.clear();
+        venda.resetar();
+        tfValorPago.clear();
+        tfConta.clear();
+        lbTotal.setText("0.00");
+        lbTroco.setText("0.00");
+        lbPreco.setText("");
+        cbFormaPagamento.getSelectionModel().clearSelection();
+        imgProduto.setImage(new Image(getClass().getResourceAsStream("/img/semImg.png")));
+    }
+
+    private void alerta(String msg) {
+        alerta(Alert.AlertType.WARNING, "Aviso", msg);
+    }
+
+    private void alerta(Alert.AlertType tipo, String titulo, String msg) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(msg);
+        alerta.showAndWait();
+    }
+
+    private boolean confirmar(String titulo, String msg) {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(msg);
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        return resultado.isPresent() && resultado.get() == ButtonType.OK;
+    }
+
+    private void destacarErro(TextField campo) {
+        campo.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+    }
+}
