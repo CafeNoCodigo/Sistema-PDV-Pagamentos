@@ -475,7 +475,6 @@ public class telaCadastroProdutoController {
         carregarfornecedoresNoChoiceBox();
         contarProdutosComEfeito();
 
-        // Efeito fade-in na tabela de produtos ao iniciar
         aplicarFadeTransition(tabelaProdutos);
 
         // Imagem padrão e efeito fade

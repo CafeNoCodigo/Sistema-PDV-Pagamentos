@@ -20,6 +20,7 @@ com\minhaloja\sistema_pagamento\model\Venda.class
 com\minhaloja\sistema_pagamento\dao\CaixaDAO.class
 com\minhaloja\sistema_pagamento\model\Caixa.class
 com\minhaloja\sistema_pagamento\TesteConexao.class
+com\minhaloja\sistema_pagamento\dao\ItemVendaDAO.class
 com\minhaloja\sistema_pagamento\model\Funcionario.class
 com\minhaloja\sistema_pagamento\dao\FuncionarioDAO.class
 com\minhaloja\sistema_pagamento\dao\ProdutoEsgotadoDAO.class

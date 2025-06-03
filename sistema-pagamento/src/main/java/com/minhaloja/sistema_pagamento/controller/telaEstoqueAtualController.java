@@ -18,27 +18,12 @@ import javafx.stage.Stage;
 public class telaEstoqueAtualController {
 	
 	@FXML public TableView<Produto> tabelaProdutos2;
-    @FXML private TableColumn<Produto, String> colCodigoBarra;
-    @FXML private TableColumn<Produto, String> colNome;
-    @FXML private TableColumn<Produto, String> colCategoria;
-    @FXML private TableColumn<Produto, Double> colEstoque;
-    @FXML private TableColumn<Produto, Double> colPrecoVenda;
-    @FXML private TableColumn<Produto, Double> colPrecoMestre;
-    @FXML private TableColumn<Produto, Double> colPrecoCompra;
-    @FXML private TableColumn<Produto, String> colReferencia;
-    @FXML private TableColumn<Produto, String> colLoja;
-    @FXML private TableColumn<Produto, Double> colFabricante;
-    @FXML private TableColumn<Produto, Double> colLucroBruto;
-    @FXML private TableColumn<Produto, Double> colMargem;
-    @FXML private TableColumn<Produto, String> colFornecedor;
-    @FXML private TableColumn<Produto, String> colModelo;
-    @FXML private TableColumn<Produto, String> colCodigo;
+    @FXML private TableColumn<Produto, String> colCodigoBarra, colNome, colCategoria,colReferencia, colLoja, colFornecedor, colModelo, colCodigo;
+    @FXML private TableColumn<Produto, Double> colEstoque, colPrecoCompra, colPrecoMestre, colPrecoVenda, colFabricante, colLucroBruto, colMargem;
     
-    @FXML private Button btnFechar;
-    @FXML private Button btnExcluir;
-    @FXML private Button btnTodos;
+    @FXML private Button btnFechar, btnExcluir, btnTodos, btnAtualizarPreco, btnAtualizarPreco1;
     
-    @FXML private TextField tfBusca;
+    @FXML private TextField tfBusca, tfPreco;
     
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
     
@@ -61,6 +46,70 @@ public class telaEstoqueAtualController {
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         
         tabelaProdutos2.setItems(produtoDAO.listarProdutos());
+    }
+    
+    @FXML
+    private void atualizarPrecoSelecionado() {
+        Produto produtoSelecionado = tabelaProdutos2.getSelectionModel().getSelectedItem();
+
+        if (produtoSelecionado == null) {
+            alerta(Alert.AlertType.WARNING, "Seleção necessária", "Por favor, selecione um item na tabela.");
+            return;
+        }
+
+        String valorTexto = tfPreco.getText();
+        double novoPreco;
+
+        try {
+            novoPreco = Double.parseDouble(valorTexto);
+        } catch (NumberFormatException e) {
+            alerta(Alert.AlertType.ERROR, "Valor inválido", "Insira um valor numérico válido.");
+            return;
+        }
+
+        int codigo = produtoSelecionado.getId();
+
+        boolean sucesso = new ProdutoDAO().atualizarPreco(codigo, novoPreco);
+
+        if (sucesso) {
+            alerta(Alert.AlertType.INFORMATION, "Sucesso", "Preço atualizado com sucesso.");
+            tabelaProdutos2.setItems(produtoDAO.listarProdutos());
+            tfPreco.clear();
+        } else {
+            alerta(Alert.AlertType.ERROR, "Erro", "Falha ao atualizar o preço.");
+        }
+    }
+    
+    @FXML
+    private void atualizarPrecoCompraSelecionado() {
+        Produto produtoSelecionado = tabelaProdutos2.getSelectionModel().getSelectedItem();
+
+        if (produtoSelecionado == null) {
+            alerta(Alert.AlertType.WARNING, "Seleção necessária", "Por favor, selecione um item na tabela.");
+            return;
+        }
+
+        String valorTexto = tfPreco.getText();
+        double novoPreco;
+
+        try {
+            novoPreco = Double.parseDouble(valorTexto);
+        } catch (NumberFormatException e) {
+            alerta(Alert.AlertType.ERROR, "Valor inválido", "Insira um valor numérico válido.");
+            return;
+        }
+
+        int codigo = produtoSelecionado.getId();
+
+        boolean sucesso = new ProdutoDAO().atualizarPrecoCompra(codigo, novoPreco);
+
+        if (sucesso) {
+            alerta(Alert.AlertType.INFORMATION, "Sucesso", "Preço atualizado com sucesso.");
+            tabelaProdutos2.setItems(produtoDAO.listarProdutos());
+            tfPreco.clear();
+        } else {
+            alerta(Alert.AlertType.ERROR, "Erro", "Falha ao atualizar o preço.");
+        }
     }
     
     @FXML
@@ -154,5 +203,13 @@ public class telaEstoqueAtualController {
         ProdutoDAO dao = new ProdutoDAO();
         ObservableList<Produto> lista = dao.listarProdutos();
         tabelaProdutos2.setItems(lista);
+    }
+	
+	private void alerta(Alert.AlertType tipo, String titulo, String msg) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(msg);
+        alerta.showAndWait();
     }
 }

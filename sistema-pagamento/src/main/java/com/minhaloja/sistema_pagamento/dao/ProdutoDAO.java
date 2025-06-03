@@ -24,6 +24,38 @@ public class ProdutoDAO {
         criarTabelaSeNaoExistir();
     }
 	
+	public boolean atualizarPrecoCompra(int id, double novoPreco) {
+	    String sql = "UPDATE produtos SET precoCompra = ? WHERE id = ?";
+
+	    try (Connection conn = Conexao.conectar();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setDouble(1, novoPreco);
+	        stmt.setInt(2, id);
+	        return stmt.executeUpdate() > 0;
+
+	    } catch (SQLException e) {
+	        System.err.println("Erro ao atualizar preço do produto: " + e.getMessage());
+	        return false;
+	    }
+	}
+	
+	public boolean atualizarPreco(int id, double novoPreco) {
+	    String sql = "UPDATE produtos SET precoVenda = ? WHERE id = ?";
+
+	    try (Connection conn = Conexao.conectar();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setDouble(1, novoPreco);
+	        stmt.setInt(2, id);
+	        return stmt.executeUpdate() > 0;
+
+	    } catch (SQLException e) {
+	        System.err.println("Erro ao atualizar preço do produto: " + e.getMessage());
+	        return false;
+	    }
+	}
+	
 	public boolean atualizarEstoque(int id, double novoEstoque) {
 	    String sql = "UPDATE produtos SET estoque = ? WHERE id = ?";
 

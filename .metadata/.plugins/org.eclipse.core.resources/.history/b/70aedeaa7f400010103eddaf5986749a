@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="1291.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="telaFluxoCaixaController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="527.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="980.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="161.0" layoutX="993.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="293.0" />
+      <TableView fx:id="tabelaFluxoCaixa" layoutX="-2.0" layoutY="89.0" prefHeight="515.0" prefWidth="974.0">
+        <columns>
+          <TableColumn fx:id="colCodigo" prefWidth="115.0" text="Código" />
+            <TableColumn fx:id="colNome" prefWidth="132.0" text="Nome" />
+            <TableColumn fx:id="colPrecoVenda" prefWidth="61.0" text="P.Venda" />
+            <TableColumn fx:id="colData" prefWidth="75.0" text="Data" />
+            <TableColumn fx:id="colCategoria" minWidth="0.0" prefWidth="93.0" text="Categoria" />
+            <TableColumn fx:id="colFormaPagamento" prefWidth="79.0" text="F. de Pagamento" />
+            <TableColumn fx:id="colReferencia" prefWidth="62.0" text="Ref" />
+            <TableColumn fx:id="colQTD" prefWidth="55.0" text="QTD" />
+            <TableColumn fx:id="colLoja" prefWidth="72.0" text="Loja" />
+            <TableColumn fx:id="colFornecedor" prefWidth="76.0" text="Fornecedor" />
+            <TableColumn fx:id="colModelo" prefWidth="73.0" text="Modelo" />
+            <TableColumn fx:id="colCor" prefWidth="59.0" text="Cor" />
+            <TableColumn fx:id="colFuncionario" prefWidth="95.0" text="Funcionário" />
+        </columns>
+      </TableView>
+      <VBox layoutX="14.0" layoutY="14.0" prefHeight="57.0" prefWidth="227.0">
+         <children>
+            <Label prefHeight="84.0" prefWidth="225.0" style="-fx-font-size: 25px;" text="Pesquisar Registro" />
+         </children>
+      </VBox>
+      <TextField layoutX="222.0" layoutY="30.0" prefHeight="29.0" prefWidth="434.0" />
+      <VBox layoutX="666.0" layoutY="16.0" prefHeight="57.0" prefWidth="110.0">
+         <children>
+            <Label prefHeight="84.0" prefWidth="225.0" style="-fx-font-size: 25px;" text="Categoria" />
+         </children>
+      </VBox>
+      <ChoiceBox layoutX="776.0" layoutY="34.0" prefHeight="27.0" prefWidth="204.0" />
+      <VBox layoutX="1001.0" layoutY="19.0" prefHeight="57.0" prefWidth="63.0">
+         <children>
+            <Label prefHeight="84.0" prefWidth="225.0" style="-fx-font-size: 25px;" text="Data" />
+         </children>
+      </VBox>
+      <DatePicker layoutX="1064.0" layoutY="33.0" prefHeight="29.0" prefWidth="215.0" />
+      <VBox layoutX="1005.0" layoutY="71.0" prefHeight="57.0" prefWidth="135.0">
+         <children>
+            <Label prefHeight="84.0" prefWidth="225.0" style="-fx-font-size: 25px;" text="Total do dia" />
+         </children>
+      </VBox>
+      <VBox layoutX="1157.0" layoutY="85.0" prefHeight="29.0" prefWidth="119.0">
+         <children>
+            <Label prefHeight="29.0" prefWidth="194.0" style="-fx-background-color: white;" />
+         </children>
+      </VBox>
+      <VBox layoutX="1005.0" layoutY="127.0" prefHeight="57.0" prefWidth="152.0">
+         <children>
+            <Label prefHeight="84.0" prefWidth="225.0" style="-fx-font-size: 25px;" text="Total do Mes" />
+         </children>
+      </VBox>
+      <VBox layoutX="1157.0" layoutY="141.0" prefHeight="29.0" prefWidth="119.0">
+         <children>
+            <Label prefHeight="29.0" prefWidth="194.0" style="-fx-background-color: white;" />
+         </children>
+      </VBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="209.0" layoutX="993.0" layoutY="212.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="293.0" />
+      <VBox layoutX="997.0" layoutY="219.0" prefHeight="57.0" prefWidth="190.0">
+         <children>
+            <Label prefHeight="84.0" prefWidth="225.0" style="-fx-font-size: 25px;" text="Total de Entrada" />
+         </children>
+      </VBox>
+      <VBox layoutX="997.0" layoutY="285.0" prefHeight="57.0" prefWidth="171.0">
+         <children>
+            <Label prefHeight="84.0" prefWidth="225.0" style="-fx-font-size: 25px;" text="Total de Saida" />
+         </children>
+      </VBox>
+      <VBox layoutX="997.0" layoutY="364.0" prefHeight="57.0" prefWidth="72.0">
+         <children>
+            <Label prefHeight="84.0" prefWidth="225.0" style="-fx-font-size: 25px;" text="Lucro" />
+         </children>
+      </VBox>
+      <VBox layoutX="1181.0" layoutY="233.0" prefHeight="29.0" prefWidth="99.0">
+         <children>
+            <Label prefHeight="29.0" prefWidth="194.0" style="-fx-background-color: white;" />
+         </children>
+      </VBox>
+      <VBox layoutX="1181.0" layoutY="299.0" prefHeight="29.0" prefWidth="99.0">
+         <children>
+            <Label prefHeight="29.0" prefWidth="194.0" style="-fx-background-color: white;" />
+         </children>
+      </VBox>
+      <VBox layoutX="1181.0" layoutY="384.0" prefHeight="29.0" prefWidth="99.0">
+         <children>
+            <Label prefHeight="29.0" prefWidth="194.0" style="-fx-background-color: white;" />
+         </children>
+      </VBox>
+      <ImageView fitHeight="181.0" fitWidth="200.0" layoutX="969.0" layoutY="421.0" opacity="0.36">
+         <image>
+            <Image url="@img/carinho.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1158.0" layoutY="469.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
+      <Label layoutX="1158.0" layoutY="510.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
+      <ImageView fitHeight="13.0" fitWidth="15.0" layoutX="1059.0" layoutY="590.0">
+         <image>
+            <Image url="@img/copyright-1345865_1280.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1076.0" layoutY="590.0" style="-fx-font-size: 10PX;" text="ALL COPYRIGHTS RESERVED TO FPS SOLUTIONS">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,9 +1,70 @@
 package com.minhaloja.sistema_pagamento.model;
 
+import java.time.LocalDate;
+
 public class ItemVenda {
     private Produto produto;
     private int quantidade;
     private int vendaId;
+    
+    public ItemVenda(Produto produto, int quantidade) {
+        this.produto = produto;
+        this.quantidade = quantidade;
+    }
+    
+    public int getIdCaixa() {
+        return venda != null ? venda.getIdCaixa() : 0;
+    }
+
+    
+    private Venda venda;
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
+    }
+
+    public LocalDate getData() {
+        return venda != null ? venda.getData() : null;
+    }
+
+    public String getFormaPagamento() {
+        return venda != null ? venda.getFormaPagamento() : "";
+    }
+
+   /* public String getFuncionario() {
+        return venda != null && venda.getFuncionario() != null
+            ? venda.getFuncionario().getNome() : "";
+    }
+*/
+    
+    public String getCodigoBarra() {
+        return produto != null ? produto.getCodigoBarra() : "";
+    }
+
+    public String getReferencia() {
+        return produto != null ? produto.getReferencia() : "";
+    }
+
+    public String getFornecedor() {
+        return produto != null ? produto.getFornecedor() : "";
+    }
+
+    public String getModelo() {
+        return produto != null ? produto.getModelo() : "";
+    }
+
+    public String getCor() {
+        return produto != null ? produto.getCor() : "";
+    }
+
+    public String getLoja() {
+        return produto != null ? produto.getLoja() : "";
+    }
+
 
     public int getVendaId() {
 		return vendaId;

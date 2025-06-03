@@ -1,0 +1,69 @@
+package com.minhaloja.sistema_pagamento.model;
+
+public class ItemVenda {
+    private Produto produto;
+    private int quantidade;
+    private int vendaId;
+    
+    public ItemVenda(Produto produto, int quantidade) {
+        this.produto = produto;
+        this.quantidade = quantidade;
+    }
+
+    public int getVendaId() {
+		return vendaId;
+	}
+
+	public void setVendaId(int vendaId) {
+		this.vendaId = vendaId;
+	}
+
+	public ItemVenda(Produto produto) {
+        this.produto = produto;
+        this.quantidade = 1;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        if (quantidade >= 0) {
+            this.quantidade = quantidade;
+        }
+    }
+
+    public void incrementarQuantidade() {
+        this.quantidade++;
+    }
+
+    public void decrementarQuantidade() {
+        if (quantidade > 1) {
+            this.quantidade--;
+        }
+    }
+
+    public double getPrecoUnitario() {
+        return produto != null ? produto.getPrecoVenda() : 0.0;
+    }
+
+    public double getSubtotal() {
+        return getPrecoUnitario() * quantidade;
+    }
+
+    public String getNome() {
+        return produto != null ? produto.getNome() : "";
+    }
+
+    public String getCategoria() {
+        return produto != null ? produto.getCategoria() : "";
+    }
+}

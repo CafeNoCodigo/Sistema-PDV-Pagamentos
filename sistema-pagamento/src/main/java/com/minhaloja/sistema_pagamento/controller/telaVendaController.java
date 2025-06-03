@@ -37,7 +37,7 @@ public class telaVendaController {
     @FXML private TableColumn<ItemVenda, Double> colItemSubtotal;
 
     @FXML private Button btnFecharCaixa, btnAbrirCaixa, btnFechar, btnBusca, btnListaTodos, btnAdicionar, btnRemoverItem, btnCancelarVenda, btnLimparItem, btnGerar, btnRegistrarVenda;
-    @FXML private TextField tfBusca, tfConta, tfValorPago;
+    @FXML private TextField tfBusca, tfConta, tfValorPago, tfAdicionarAVenda;
     @FXML private Label lbPreco, lbTotal, lbTroco, lbContadorVendas;
     @FXML private ImageView imgProduto;
     @FXML private ChoiceBox<FormaPagamento> cbFormaPagamento;
@@ -119,6 +119,7 @@ public class telaVendaController {
             btnAbrirCaixa.setDisable(true);
             btnFecharCaixa.setDisable(false);
             atualizarContadorVendas();
+            btnRegistrarVenda.setDisable(false);
 
         } else {
             alerta(Alert.AlertType.ERROR, "Erro", "Falha ao abrir o caixa.");
@@ -145,6 +146,7 @@ public class telaVendaController {
             btnAbrirCaixa.setDisable(false);
             btnFecharCaixa.setDisable(true);
             atualizarContadorVendas();
+            btnRegistrarVenda.setDisable(true);
         } else {
             alerta(Alert.AlertType.ERROR, "Erro", "Falha ao fechar o caixa.");
         }
@@ -155,38 +157,60 @@ public class telaVendaController {
         Produto produto = tabelaProdutos.getSelectionModel().getSelectedItem();
         if (produto == null) return;
 
-        for (ItemVenda item : itensVenda) {
-            if (item.getProduto().getCodigoBarra().equals(produto.getCodigoBarra())) {
-                if (item.getQuantidade() >= produto.getEstoque()) {
-                    alerta(Alert.AlertType.WARNING, "Estoque insuficiente", 
-                        "Não é possível adicionar mais unidades. Estoque disponível: " + produto.getEstoque());
+        int quantidadeDesejada = 1; // valor padrão
+
+        String textoQuantidade = tfAdicionarAVenda.getText().trim();
+        if (!textoQuantidade.isEmpty()) {
+            try {
+                quantidadeDesejada = Integer.parseInt(textoQuantidade);
+                if (quantidadeDesejada <= 0) {
+                    alerta(Alert.AlertType.WARNING, "Quantidade inválida", "A quantidade deve ser maior que zero.");
                     return;
                 }
-
-                item.incrementarQuantidade();
-                venda.adicionarPreco(produto.getPrecoVenda());
-                tabelaItensVenda.refresh();
-                atualizarTotal();
+            } catch (NumberFormatException e) {
+                alerta(Alert.AlertType.WARNING, "Quantidade inválida", "Digite um número válido na quantidade.");
                 return;
             }
         }
 
-        if (produto.getEstoque() <= 0) {
-            alerta(Alert.AlertType.WARNING, "Produto esgotado", 
-                "O produto selecionado está com estoque zerado.");
+        double precoUnitario = produto.getPrecoVenda();
+        double totalAdicional = precoUnitario * quantidadeDesejada;
+
+        for (ItemVenda item : itensVenda) {
+            if (item.getProduto().getCodigoBarra().equals(produto.getCodigoBarra())) {
+                int novaQuantidade = item.getQuantidade() + quantidadeDesejada;
+
+                if (novaQuantidade > produto.getEstoque()) {
+                    alerta(Alert.AlertType.WARNING, "Estoque insuficiente",
+                            "Não é possível adicionar essa quantidade. Estoque disponível: " + produto.getEstoque());
+                    return;
+                }
+
+                item.setQuantidade(novaQuantidade);
+                venda.adicionarPreco(totalAdicional);
+                tabelaItensVenda.refresh();
+                atualizarTotal();
+                tfAdicionarAVenda.clear();
+                return;
+            }
+        }
+
+        if (quantidadeDesejada > produto.getEstoque()) {
+            alerta(Alert.AlertType.WARNING, "Estoque insuficiente",
+                    "Não é possível adicionar essa quantidade. Estoque disponível: " + produto.getEstoque());
             return;
         }
 
-        habilitarBtn();
-        
-        ItemVenda novoItem = new ItemVenda(produto);
-        
+        ItemVenda novoItem = new ItemVenda(produto, quantidadeDesejada);
         itensVenda.add(novoItem);
-        
-        venda.adicionarPreco(produto.getPrecoVenda());
-        
+        venda.adicionarPreco(totalAdicional);
+        tabelaItensVenda.refresh();
         atualizarTotal();
+        tfAdicionarAVenda.clear();
+        habilitarBtn();
     }
+
+
 
     @FXML
     private void removerItemSelecionado() {

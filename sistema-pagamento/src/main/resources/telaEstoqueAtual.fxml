@@ -15,26 +15,27 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="1239.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaEstoqueAtualController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="1126.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="106.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="80.0" layoutX="474.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="308.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="589.0" layoutX="8.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="1225.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="43.0" layoutX="9.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="460.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="9.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="301.0" />
       <TableView fx:id="tabelaProdutos2" layoutX="14.0" layoutY="152.0" prefHeight="567.0" prefWidth="1210.0">
         <columns>
-          <TableColumn fx:id="colCodigoBarra" prefWidth="127.0" text="Código de Barra" />
-            <TableColumn fx:id="colNome" prefWidth="152.0" text="Nome" />
-            <TableColumn fx:id="colCategoria" prefWidth="84.0" text="Categoria" />
-            <TableColumn fx:id="colEstoque" prefWidth="36.0" text="QTD" />
-            <TableColumn fx:id="colPrecoVenda" prefWidth="61.0" text="P. Venda" />
+          <TableColumn fx:id="colCodigoBarra" prefWidth="111.0" text="Código de Barra" />
+            <TableColumn fx:id="colNome" prefWidth="156.0" text="Nome" />
+            <TableColumn fx:id="colCategoria" prefWidth="89.0" text="Categoria" />
+            <TableColumn fx:id="colEstoque" prefWidth="37.0" text="QTD" />
+            <TableColumn fx:id="colPrecoVenda" prefWidth="67.0" text="P. Venda" />
             <TableColumn fx:id="colPrecoCompra" prefWidth="72.0" text="P. Compra" />
-            <TableColumn fx:id="colPrecoMestre" minWidth="0.0" prefWidth="66.0" text="P. Mestre" />
-            <TableColumn fx:id="colReferencia" prefWidth="101.0" text="Referência" />
-            <TableColumn fx:id="colLoja" prefWidth="93.0" text="Loja" />
+            <TableColumn fx:id="colPrecoMestre" minWidth="0.0" prefWidth="78.0" text="P.A grosso" />
+            <TableColumn fx:id="colReferencia" prefWidth="95.0" text="Referência" />
+            <TableColumn fx:id="colLoja" prefWidth="87.0" text="Loja" />
             <TableColumn fx:id="colFabricante" prefWidth="74.0" text="Fabricante" />
-            <TableColumn fx:id="colLucroBruto" prefWidth="77.0" text="Lucro Bruto" />
-            <TableColumn fx:id="colMargem" prefWidth="59.0" text="Lucro(%)" />
-            <TableColumn fx:id="colFornecedor" prefWidth="160.0" text="Fornecedor" />
-            <TableColumn fx:id="colModelo" prefWidth="75.0" text="Modelo" />
-            <TableColumn fx:id="colCodigo" prefWidth="75.0" text="Código" />
+            <TableColumn fx:id="colLucroBruto" prefWidth="60.0" text="Lucro" />
+            <TableColumn fx:id="colMargem" prefWidth="66.0" text="Lucro(%)" />
+            <TableColumn fx:id="colFornecedor" prefWidth="100.0" text="Fornecedor" />
+            <TableColumn fx:id="colModelo" prefWidth="116.0" text="Modelo" />
+            <TableColumn fx:id="colCodigo" prefWidth="104.0" text="Código" />
         </columns>
       </TableView>
       <VBox layoutX="14.0" layoutY="90.0" prefHeight="22.0" prefWidth="114.0">
@@ -48,9 +49,9 @@
       <Button fx:id="btnExcluir" layoutX="213.0" layoutY="15.0" mnemonicParsing="false" onAction="#excluirProduto" prefHeight="50.0" prefWidth="93.0" styleClass="deletar" text="Excluir" />
       <Button fx:id="btnFechar" layoutX="1133.0" layoutY="36.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="50.0" prefWidth="93.0" style="-fx-background-color: #ff0000;" styleClass="deletar" text="Fechar" />
       <Button fx:id="btnBusca" layoutX="367.0" layoutY="85.0" mnemonicParsing="false" onAction="#buscarProduto" prefHeight="29.0" prefWidth="93.0" text="Pesquisar" />
-      <Label layoutX="852.0" layoutY="22.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
-      <Label layoutX="852.0" layoutY="63.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
-      <ImageView fitHeight="122.0" fitWidth="150.0" layoutX="702.0" layoutY="2.0" opacity="0.36">
+      <Label layoutX="1001.0" layoutY="22.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
+      <Label layoutX="1001.0" layoutY="63.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
+      <ImageView fitHeight="122.0" fitWidth="150.0" layoutX="851.0" layoutY="2.0" opacity="0.36">
          <image>
             <Image url="@img/carinho.png" />
          </image>
@@ -65,6 +66,8 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="476.0" layoutY="11.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="117.0" text="Atualizar Preço" />
+      <Button fx:id="btnAtualizarPreco" layoutX="484.0" layoutY="50.0" mnemonicParsing="false" onAction="#atualizarPrecoSelecionado" prefHeight="31.0" prefWidth="127.0" text="Atualizar P.Venda" />
+      <TextField fx:id="tfPreco" layoutX="482.0" layoutY="86.0" prefHeight="29.0" prefWidth="292.0" promptText="Insira o Valor desejado e pressione no botão acima" />
+      <Button fx:id="btnAtualizarPreco1" layoutX="647.0" layoutY="50.0" mnemonicParsing="false" onAction="#atualizarPrecoCompraSelecionado" prefHeight="31.0" prefWidth="127.0" style="-fx-font-size: 11px;" text="Atualizar P.Compra" />
    </children>
 </AnchorPane>
