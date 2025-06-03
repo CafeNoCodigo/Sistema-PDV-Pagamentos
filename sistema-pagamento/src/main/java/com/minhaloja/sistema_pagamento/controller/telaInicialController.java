@@ -2,7 +2,9 @@ package com.minhaloja.sistema_pagamento.controller;
 
 import java.util.List;
 
+import com.minhaloja.sistema_pagamento.dao.CaixaDAO;
 import com.minhaloja.sistema_pagamento.dao.FuncionarioDAO;
+import com.minhaloja.sistema_pagamento.util.NotificacaoSistema;
 import com.minhaloja.sistema_pagamento.util.WindowManager;
 
 import javafx.animation.*;
@@ -24,6 +26,7 @@ public class telaInicialController {
     @FXML private Label labelAnimada;
 
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+    private final CaixaDAO caixaDAO = new CaixaDAO();
 
     private final String textoAnimado = "F P S  ";
     private int indiceTexto = 0;
@@ -34,6 +37,10 @@ public class telaInicialController {
         carregarFuncionariosNoChoiceBox();
         iniciarAnimacaoLabel();
         aplicarAnimacoesComponentes();
+     
+    	String msg = "EXISTE UM CAIXA ABERTO!";
+    	popUp(msg);	
+     
     }
 
     private void iniciarAnimacaoLabel() {
@@ -126,5 +133,12 @@ public class telaInicialController {
 
     public void abrirTelaRequisicao2() {
         WindowManager.abrirTelaRequisicao();
+    }
+    
+    private void popUp(String msg) {
+    	if (caixaDAO.isCaixaAberto()) {
+            NotificacaoSistema notificacao = new NotificacaoSistema();
+            notificacao.mostrarNotificacaoPopUp(msg);
+        }
     }
 }

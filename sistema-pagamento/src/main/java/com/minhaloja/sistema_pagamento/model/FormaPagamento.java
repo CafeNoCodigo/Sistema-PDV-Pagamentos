@@ -13,7 +13,6 @@ public class FormaPagamento {
 	    return id;
 	}
 
-
 	public String getNome() {
 		return nome;
 	}
@@ -43,7 +42,5 @@ public class FormaPagamento {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	
-	
+	}	
 }

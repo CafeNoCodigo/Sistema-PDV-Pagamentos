@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import com.minhaloja.sistema_pagamento.dao.*;
 import com.minhaloja.sistema_pagamento.model.*;
+import com.minhaloja.sistema_pagamento.util.NotificacaoSistema;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -322,11 +323,11 @@ public class telaVendaController {
         // Preencher venda
         venda.setData(LocalDate.now());
         venda.setTotalProduto(total);
-        venda.setFormaPagamento(forma.getNome());
+        venda.setFormaPagamento(forma.getId());
         venda.setValorPago(valorPago);
         venda.setTroco(valorPago - total);
         venda.setItens(new ArrayList<>(itensVenda));
-        venda.setIdCaixa(idCaixaAtual); // ✅ Agora sim
+        venda.setIdCaixa(idCaixaAtual);
 
         // Verifica se os produtos têm ID válido
         for (ItemVenda item : itensVenda) {
@@ -416,6 +417,11 @@ public class telaVendaController {
 
     @FXML
     private void fecharJanela() {
+    	if (caixaDAO.isCaixaAberto()) {
+        	String msg = "CAIXA AINDA ABERTO!";
+            NotificacaoSistema notificacao = new NotificacaoSistema();
+            notificacao.mostrarNotificacaoPopUp(msg);
+        }
         Stage stage = (Stage) btnFechar.getScene().getWindow();
         stage.close();
     }
