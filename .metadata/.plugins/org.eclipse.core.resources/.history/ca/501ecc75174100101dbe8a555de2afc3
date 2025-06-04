@@ -94,15 +94,10 @@ public class telaInicialController {
 
     @FXML
     private void fecharJanela() {
-    	if (caixaDAO.isCaixaAberto()) {
-        	String msg = "CAIXA AINDA ABERTO!";
-            NotificacaoSistema notificacao = new NotificacaoSistema();
-            notificacao.mostrarNotificacaoPopUp(msg);
-        }
         Stage stage = (Stage) btnFechar.getScene().getWindow();
         stage.close();
 
-        // Finaliza a aplicação completamente
+        // Finaliza a aplicação JavaFX completamente
         javafx.application.Platform.exit();
         System.exit(0);
     }

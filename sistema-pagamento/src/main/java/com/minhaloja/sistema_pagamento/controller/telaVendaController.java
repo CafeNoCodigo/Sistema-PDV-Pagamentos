@@ -12,6 +12,8 @@ import com.minhaloja.sistema_pagamento.dao.*;
 import com.minhaloja.sistema_pagamento.model.*;
 import com.minhaloja.sistema_pagamento.util.NotificacaoSistema;
 
+import javafx.animation.Animation;
+import javafx.animation.ScaleTransition;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -21,7 +23,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class telaVendaController {
 
@@ -57,9 +61,22 @@ public class telaVendaController {
         configurarEventos();
         listarTodos();
         
+        aplicarAnimacoesComponentes();
+        
         boolean aberto = caixaDAO.isCaixaAberto();
         btnAbrirCaixa.setDisable(aberto);
         btnFecharCaixa.setDisable(!aberto);
+        
+        /*configurarBotaoAnimado(btnFecharCaixa);
+        configurarBotaoAnimado(btnAbrirCaixa);
+        configurarBotaoAnimado(btnBusca);
+        configurarBotaoAnimado(btnListaTodos);
+        configurarBotaoAnimado(btnAdicionar);
+        configurarBotaoAnimado(btnRemoverItem);
+        configurarBotaoAnimado(btnCancelarVenda);
+        configurarBotaoAnimado(btnLimparItem);
+        configurarBotaoAnimado(btnGerar);
+        configurarBotaoAnimado(btnRegistrarVenda);*/
         
         atualizarContadorVendas();
     }
@@ -474,4 +491,53 @@ public class telaVendaController {
         btnCancelarVenda.setDisable(true);        
         btnLimparItem.setDisable(true);
     }
+    
+    private void aplicarAnimacoesComponentes() {
+        
+        btnFechar.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+            ScaleTransition scaleUp = new ScaleTransition(Duration.millis(200), btnFechar);
+            scaleUp.setToX(1.05);
+            scaleUp.setToY(1.05);
+            scaleUp.play();
+        });
+
+        btnFechar.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+            ScaleTransition scaleDown = new ScaleTransition(Duration.millis(200), btnFechar);
+            scaleDown.setToX(1.0);
+            scaleDown.setToY(1.0);
+            scaleDown.play();
+        });
+
+        // Efeito pulse contínuo
+        ScaleTransition pulse = new ScaleTransition(Duration.seconds(1.5), btnFechar);
+        pulse.setFromX(1.0);
+        pulse.setFromY(1.0);
+        pulse.setToX(1.03);
+        pulse.setToY(1.03);
+        pulse.setCycleCount(Animation.INDEFINITE);
+        pulse.setAutoReverse(true);
+        pulse.play();
+    }
+    
+    /*private void configurarBotaoAnimado(Button btn) {
+        DropShadow shadow = new DropShadow();
+
+        btn.setOnMouseEntered(e -> {
+            btn.setEffect(shadow);
+            btn.setCursor(Cursor.HAND);
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+            st.setToX(1.05);
+            st.setToY(1.05);
+            st.play();
+        });
+
+        btn.setOnMouseExited(e -> {
+            btn.setEffect(null);
+            btn.setCursor(Cursor.DEFAULT);
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+            st.setToX(1.0);
+            st.setToY(1.0);
+            st.play();
+        });
+    }*/
 }
