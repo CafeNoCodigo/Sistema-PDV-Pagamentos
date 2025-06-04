@@ -18,7 +18,7 @@
 <AnchorPane prefHeight="658.0" prefWidth="994.0" styleClass="container-retangulo" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaCadastroProdutoController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="537.0" layoutX="-7.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="810.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="47.0" layoutX="1.0" layoutY="543.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="554.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="47.0" layoutX="1.0" layoutY="543.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="435.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="53.0" layoutX="2.0" layoutY="595.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="612.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="91.0" layoutX="838.0" layoutY="412.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="148.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="158.0" layoutX="818.0" layoutY="246.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="168.0" />
@@ -329,11 +329,6 @@
          </children>
       </VBox>
       <ChoiceBox fx:id="choiceCor" layoutX="595.0" layoutY="91.0" prefHeight="27.0" prefWidth="132.0" style="-fx-background-radius: 10;" />
-      <Button fx:id="btnBuscar" layoutX="453.0" layoutY="553.0" mnemonicParsing="false" onAction="#buscarProduto" prefHeight="31.0" prefWidth="92.0" style="-fx-background-radius: 10;" text="Pesquisar">
-         <font>
-            <Font name="Franklin Gothic Medium" size="13.0" />
-         </font>
-      </Button>
       <Label layoutX="869.0" layoutY="564.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
       <Label layoutX="869.0" layoutY="605.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
       <ImageView fitHeight="102.0" fitWidth="126.0" layoutX="740.0" layoutY="551.0" opacity="0.36">

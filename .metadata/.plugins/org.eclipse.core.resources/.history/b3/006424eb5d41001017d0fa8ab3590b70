@@ -1,0 +1,45 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.util.Map;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+
+public class telaRelatorioController {
+
+	@FXML
+	private DatePicker datePicker;
+
+	@FXML
+	private Label lblJan, lblFev, lblMar, lblAbr, lblMai, lblJun, lblJul, lblAgo, lblSet, lblOut, lblNov, lblDez;
+	
+	@FXML private VendaDAO vendaDAO = new VendaDAO();
+
+	@FXML
+	private void initialize() {
+	    datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
+	        if (newDate != null) {
+	            int anoSelecionado = newDate.getYear();
+	            Map<Integer, Double> totais = vendaDAO.buscarTotaisPorMes(anoSelecionado);
+	            atualizarLabelsTotais(totais);
+	        }
+	    });
+	}
+
+	private void atualizarLabelsTotais(Map<Integer, Double> totais) {
+	    lblJan.setText(String.format("MZN %.2f", totais.getOrDefault(1, 0.0)));
+	    lblFev.setText(String.format("MZN %.2f", totais.getOrDefault(2, 0.0)));
+	    lblMar.setText(String.format("MZN %.2f", totais.getOrDefault(3, 0.0)));
+	    lblAbr.setText(String.format("MZN %.2f", totais.getOrDefault(4, 0.0)));
+	    lblMai.setText(String.format("MZN %.2f", totais.getOrDefault(5, 0.0)));
+	    lblJun.setText(String.format("MZN %.2f", totais.getOrDefault(6, 0.0)));
+	    lblJul.setText(String.format("MZN %.2f", totais.getOrDefault(7, 0.0)));
+	    lblAgo.setText(String.format("MZN %.2f", totais.getOrDefault(8, 0.0)));
+	    lblSet.setText(String.format("MZN %.2f", totais.getOrDefault(9, 0.0)));
+	    lblOut.setText(String.format("MZN %.2f", totais.getOrDefault(10, 0.0)));
+	    lblNov.setText(String.format("MZN %.2f", totais.getOrDefault(11, 0.0)));
+	    lblDez.setText(String.format("MZN %.2f", totais.getOrDefault(12, 0.0)));
+	}
+
+}

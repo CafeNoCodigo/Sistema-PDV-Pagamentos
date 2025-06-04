@@ -18,7 +18,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
@@ -66,7 +65,6 @@ public class telaCadastroProdutoController {
     @FXML private Button btnExcluir;
     @FXML private Button btnInserirImgProduto;
     @FXML private Button btnApagarImgProduto;
-    @FXML private Button btnBuscar;
     @FXML private Button btnTodos;
     
     @FXML private Label estoqueQTD;
@@ -157,19 +155,7 @@ public class telaCadastroProdutoController {
         colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
         colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
         
-        tabelaProdutos.setItems(produtoDAO.listarProdutos());
-    }
-    
-    @FXML
-    private void buscarProduto(ActionEvent event) {
-        String textoBusca = tfBusca.getText().trim();
-
-        if (!textoBusca.isEmpty()) {
-            ObservableList<Produto> resultados = produtoDAO.buscarProdutosPorTexto(textoBusca);
-            tabelaProdutos.setItems(resultados);
-        } else {
-            tabelaProdutos.setItems(produtoDAO.listarProdutos());
-        }
+        tabelaProdutos.setItems(produtoDAO.listarProdutos2());
     }
     
     @FXML public void apagarImgProduto() {
@@ -479,7 +465,7 @@ public class telaCadastroProdutoController {
         colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
         colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
         
-        tabelaProdutos.setItems(produtoDAO.listarProdutos());
+        tabelaProdutos.setItems(produtoDAO.listarProdutos2());
         
         tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -509,7 +495,7 @@ public class telaCadastroProdutoController {
         aplicarFadeTransition(tfCategoria);
         Button[] botoes = {
             btnFechar, btnNovo, btnGerar, btnApagar, btnExcluir, btnInserirImgProduto,
-            btnApagarImgProduto, btnBuscar, btnTodos
+            btnApagarImgProduto, btnTodos
         };
         for (Button botao : botoes) {
             adicionarEfeitoBotao(botao);
@@ -517,10 +503,21 @@ public class telaCadastroProdutoController {
         
         configurarImageViewComEfeito(imgCodigoBarra);
         configurarImageViewComEfeito(imgProduto);
+        
+        tfBusca.textProperty().addListener((obs, antigo, novo) -> {
+            String texto = novo == null ? "" : novo.trim().toLowerCase();
+
+            if (!texto.isEmpty()) {
+                ObservableList<Produto> resultados = produtoDAO.buscarProdutosPorTexto(texto);
+                tabelaProdutos.setItems(resultados);
+            } else {
+                tabelaProdutos.setItems(produtoDAO.listarProdutos2());
+            }
+        });
     }
     
     private void carregarProdutosNaTabela() {
-        tabelaProdutos.setItems(produtoDAO.listarProdutos());
+        tabelaProdutos.setItems(produtoDAO.listarProdutos2());
     }
     
 }

@@ -417,6 +417,45 @@ public class ProdutoDAO {
         return lista;
     }
     
+    public ObservableList<Produto> listarProdutos2() {
+        ObservableList<Produto> lista = FXCollections.observableArrayList();
+        String sql = "SELECT id, codigoBarra, nome, categoria, estoque, precoVenda, precoMestre, precoCompra, "
+                   + "referencia, loja, fabricante, fornecedor, imgQrCode, modelo, codigo, garantia, cor, infoAdicional, imagem "
+                   + "FROM produtos";
+
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Produto p = new Produto();
+                p.setId(rs.getInt("id"));
+                p.setCodigoBarra(rs.getString("codigoBarra"));
+                p.setNome(rs.getString("nome"));
+                p.setCategoria(rs.getString("categoria"));
+                p.setEstoque(rs.getInt("estoque"));
+                p.setPrecoVenda(rs.getDouble("precoVenda"));
+                p.setPrecoMestre(rs.getDouble("precoMestre"));
+                p.setPrecoCompra(rs.getDouble("precoCompra"));
+                p.setReferencia(rs.getString("referencia"));
+                p.setLoja(rs.getString("loja"));
+                p.setFabricante(rs.getString("fabricante"));
+                p.setFornecedor(rs.getString("fornecedor"));
+                p.setQrCode(rs.getBytes("imgQrCode"));
+                p.setModelo(rs.getString("modelo"));
+                p.setCodigo(rs.getString("codigo"));
+                p.setGarantia(rs.getString("garantia"));
+                p.setCor(rs.getString("cor"));
+                p.setInfoAdicional(rs.getString("infoAdicional"));
+                p.setImagem(rs.getBytes("imagem"));
+
+                lista.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar produtos: " + e.getMessage());
+        }
+
+        return lista;
+    }
+    
     public Image obterImagemQrCode(String codigoBarra) {
         String sql = "SELECT imgQrCode FROM produtos WHERE codigoBarra = ?";
         

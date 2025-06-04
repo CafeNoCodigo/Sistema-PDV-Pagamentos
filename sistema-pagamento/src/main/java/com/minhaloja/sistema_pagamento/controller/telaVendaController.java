@@ -41,7 +41,7 @@ public class telaVendaController {
     @FXML private TableColumn<ItemVenda, Integer> colItemQuantidade;
     @FXML private TableColumn<ItemVenda, Double> colItemSubtotal;
 
-    @FXML private Button btnFecharCaixa, btnAbrirCaixa, btnFechar, btnBusca, btnListaTodos, btnAdicionar, btnRemoverItem, btnCancelarVenda, btnLimparItem, btnGerar, btnRegistrarVenda;
+    @FXML private Button btnFecharCaixa, btnAbrirCaixa, btnFechar, btnListaTodos, btnAdicionar, btnRemoverItem, btnCancelarVenda, btnLimparItem, btnGerar, btnRegistrarVenda;
     @FXML private TextField tfBusca, tfConta, tfValorPago, tfAdicionarAVenda;
     @FXML private Label lbPreco, lbTotal, lbTroco, lbContadorVendas;
     @FXML private ImageView imgProduto;
@@ -66,6 +66,17 @@ public class telaVendaController {
         boolean aberto = caixaDAO.isCaixaAberto();
         btnAbrirCaixa.setDisable(aberto);
         btnFecharCaixa.setDisable(!aberto);
+        
+        tfBusca.textProperty().addListener((obs, antigo, novo) -> {
+            String texto = novo == null ? "" : novo.trim();
+
+            if (texto.isEmpty()) {
+                tabelaProdutos.setItems(produtoDAO.listarProdutos());
+            } else {
+                tabelaProdutos.setItems(produtoDAO.buscarProdutosPorTexto(texto));
+            }
+        });
+
         
         /*configurarBotaoAnimado(btnFecharCaixa);
         configurarBotaoAnimado(btnAbrirCaixa);
@@ -396,7 +407,7 @@ public class telaVendaController {
 
     // --- Utilitários ---
     private void atualizarTotal() {
-        lbTotal.setText(String.format("MZN$ %.2f", venda.getTotalProduto()));
+        lbTotal.setText(String.format("%.2f", venda.getTotalProduto()));
     }
 
     private void exibirDetalhesProduto(Produto produto) {
@@ -417,14 +428,6 @@ public class telaVendaController {
         if (formas != null) {
             cbFormaPagamento.getItems().setAll(formas);
         }
-    }
-
-    @FXML
-    private void buscarProduto() {
-        String texto = tfBusca.getText().trim();
-        tabelaProdutos.setItems(texto.isEmpty()
-                ? produtoDAO.listarProdutos()
-                : produtoDAO.buscarProdutosPorTexto(texto));
     }
 
     @FXML

@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.minhaloja.sistema_pagamento.model.ItemVenda;
 import com.minhaloja.sistema_pagamento.model.Venda;
@@ -18,6 +20,26 @@ public class VendaDAO {
     public VendaDAO() {
         criarTabelaSeNaoExistir();
     }
+    
+    public Map<Integer, Double> buscarTotaisPorMes(int ano) {
+        Map<Integer, Double> totaisPorMes = new HashMap<>();
+        String sql = "SELECT MONTH(data) AS mes, SUM(totalProduto) AS total " +
+                     "FROM venda WHERE YEAR(data) = ? GROUP BY MONTH(data)";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, ano);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int mes = rs.getInt("mes");
+                double total = rs.getDouble("total");
+                totaisPorMes.put(mes, total);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totaisPorMes;
+    }
+
     
     public double obterTotalPorData(LocalDate data) {
         String sql = "SELECT SUM(totalProduto) FROM venda WHERE DATE(data) = ?";

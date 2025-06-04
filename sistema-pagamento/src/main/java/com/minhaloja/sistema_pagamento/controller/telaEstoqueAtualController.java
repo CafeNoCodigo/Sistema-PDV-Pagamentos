@@ -5,7 +5,6 @@ import com.minhaloja.sistema_pagamento.model.Produto;
 import com.minhaloja.sistema_pagamento.util.WindowManager;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -26,6 +25,38 @@ public class telaEstoqueAtualController {
     @FXML private TextField tfBusca, tfPreco;
     
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
+    
+    @FXML
+    public void initialize() {
+        colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPrecoVenda.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+        colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
+        colFabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
+        colLucroBruto.setCellValueFactory(new PropertyValueFactory<>("lucroBruto"));
+        colMargem.setCellValueFactory(new PropertyValueFactory<>("Margem"));
+        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
+        colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        
+        
+        tabelaProdutos2.setItems(produtoDAO.listarProdutos());
+        
+        tfBusca.textProperty().addListener((obs, antigo, novo) -> {
+            String texto = novo == null ? "" : novo.trim();
+
+            if (texto.isEmpty()) {
+                tabelaProdutos2.setItems(produtoDAO.listarProdutos());
+            } else {
+                tabelaProdutos2.setItems(produtoDAO.buscarProdutosPorTexto(texto));
+            }
+        });
+    }
     
     @FXML
     private void listarTodos() {
@@ -111,42 +142,12 @@ public class telaEstoqueAtualController {
             alerta(Alert.AlertType.ERROR, "Erro", "Falha ao atualizar o preço.");
         }
     }
-    
-    @FXML
-    private void buscarProduto(ActionEvent event) {
-        String textoBusca = tfBusca.getText().trim();
-
-        if (!textoBusca.isEmpty()) {
-            ObservableList<Produto> resultados = produtoDAO.buscarProdutosPorTexto(textoBusca);
-            tabelaProdutos2.setItems(resultados);
-        } else {
-            tabelaProdutos2.setItems(produtoDAO.listarProdutos());
-        }
-    }
 
 	public void abrirTelaCadastroProduto2() {
 		WindowManager.abrirTelaCadastroProduto();
 	}
 	
-	public void initialize() {
-        colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
-        colPrecoVenda.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
-        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
-        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
-        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
-        colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
-        colFabricante.setCellValueFactory(new PropertyValueFactory<>("fabricante"));
-        colLucroBruto.setCellValueFactory(new PropertyValueFactory<>("lucroBruto"));
-        colMargem.setCellValueFactory(new PropertyValueFactory<>("Margem"));
-        colFornecedor.setCellValueFactory(new PropertyValueFactory<>("fornecedor"));
-        colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
-        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-        
-        tabelaProdutos2.setItems(produtoDAO.listarProdutos()); 
-    }
+	
 	
 	@FXML
     private void fecharJanela() {
