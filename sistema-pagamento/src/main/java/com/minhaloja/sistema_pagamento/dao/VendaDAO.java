@@ -1,10 +1,12 @@
 package com.minhaloja.sistema_pagamento.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.minhaloja.sistema_pagamento.model.ItemVenda;
@@ -16,6 +18,68 @@ public class VendaDAO {
     public VendaDAO() {
         criarTabelaSeNaoExistir();
     }
+    
+    public double obterTotalPorData(LocalDate data) {
+        String sql = "SELECT SUM(totalProduto) FROM venda WHERE DATE(data) = ?";
+        try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql)) {
+            stmt.setDate(1, Date.valueOf(data));
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public double obterTotalPorMes(LocalDate data) {
+        String sql = "SELECT SUM(totalProduto) FROM venda WHERE MONTH(data) = ? AND YEAR(data) = ?";
+        try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql)) {
+            stmt.setInt(1, data.getMonthValue());
+            stmt.setInt(2, data.getYear());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public double obterTotalPorAno(LocalDate data) {
+        String sql = "SELECT SUM(totalProduto) FROM venda WHERE YEAR(data) = ?";
+        try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql)) {
+            stmt.setInt(1, data.getYear());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public double obterEntradaPorData(LocalDate data) {
+        String sql = "SELECT SUM(valPago) FROM venda WHERE DATE(data) = ?";
+        try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql)) {
+            stmt.setDate(1, Date.valueOf(data));
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+    
+    public double obterSaidaPorData(LocalDate data) {
+        String sql = "SELECT SUM(troco) FROM venda WHERE DATE(data) = ?";
+        try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql)) {
+            stmt.setDate(1, Date.valueOf(data));
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
 
     public int inserirVenda(Venda venda) throws SQLException {
         String sql = "INSERT INTO venda (totalProduto, formaPagamento, valPago, troco, data, id_caixa) VALUES (?, ?, ?, ?, ?, ?)";

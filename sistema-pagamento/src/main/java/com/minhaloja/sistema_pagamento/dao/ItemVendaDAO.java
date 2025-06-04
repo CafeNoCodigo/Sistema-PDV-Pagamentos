@@ -13,6 +13,30 @@ import com.minhaloja.sistema_pagamento.model.Venda;
 import com.minhaloja.sistema_pagamento.util.Conexao;
 
 public class ItemVendaDAO {
+	
+	public List<String> listarCategoriasUnicas() {
+	    List<String> categorias = new ArrayList<>();
+	    String sql = """
+	        SELECT DISTINCT p.categoria
+	        FROM item_venda iv
+	        JOIN produtos p ON iv.id_produto = p.id
+	        WHERE p.categoria IS NOT NULL
+	        ORDER BY p.categoria
+	    """;
+
+	    try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            categorias.add(rs.getString("categoria"));
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return categorias;
+	}
 
 	public List<ItemVenda> buscarItensComProdutoEVenda() {
 	    List<ItemVenda> lista = new ArrayList<>();

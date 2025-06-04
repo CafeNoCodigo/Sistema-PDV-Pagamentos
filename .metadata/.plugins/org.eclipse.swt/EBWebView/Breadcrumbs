@@ -1,103 +1,30 @@
-0:20:42 Tab5 StartNav66 #typed
-0:20:42 Tab5 FinishNav66
-0:20:42 Tab5 PageLoad
-0:20:43 Tab5 StartNav67 #typed
-0:20:43 Tab5 FinishNav67
-0:20:43 Tab5 PageLoad
-0:22:12 Tab5 StartNav68 #typed
-0:22:12 Tab5 FinishNav68
-0:22:12 Tab5 PageLoad
-0:22:18 Tab4 StartNav69 #typed
-0:22:18 Tab4 FinishNav69
-0:22:18 Tab4 PageLoad
-0:22:18 Tab4 StartNav70 #typed
-0:22:18 Tab4 FinishNav70
-0:22:18 Tab4 PageLoad
-0:22:19 Tab4 StartNav71 #typed
-0:22:19 Tab4 FinishNav71
-0:22:19 Tab4 PageLoad
-0:23:05 Tab4 StartNav72 #typed
-0:23:05 Tab4 FinishNav72
-0:23:05 Tab4 PageLoad
-0:28:22 Tab5 StartNav73 #typed
-0:28:22 Tab5 FinishNav73
-0:28:22 Tab5 PageLoad
-0:28:25 Tab5 StartNav74 #typed
-0:28:25 Tab5 FinishNav74
-0:28:25 Tab5 PageLoad
-0:28:26 Tab5 StartNav75 #typed
-0:28:26 Tab5 FinishNav75
-0:28:26 Tab5 PageLoad
-0:29:06 Tab5 StartNav76 #typed
-0:29:06 Tab5 FinishNav76
-0:29:06 Tab5 PageLoad
-0:29:07 Tab5 StartNav77 #typed
-0:29:07 Tab5 FinishNav77
-0:29:07 Tab5 PageLoad
-0:29:09 Tab5 StartNav78 #typed
-0:29:09 Tab5 FinishNav78
-0:29:09 Tab5 PageLoad
-0:29:11 Tab5 StartNav79 #typed
-0:29:11 Tab5 FinishNav79
-0:29:11 Tab5 PageLoad
-0:29:13 Tab5 StartNav80 #typed
-0:29:13 Tab5 FinishNav80
-0:29:13 Tab5 PageLoad
-0:29:14 Tab5 StartNav81 #typed
-0:29:14 Tab5 FinishNav81
-0:29:14 Tab5 PageLoad
-0:29:17 Tab5 StartNav82 #typed
-0:29:17 Tab5 FinishNav82
-0:29:17 Tab5 PageLoad
-0:29:27 Tab5 StartNav83 #typed
-0:29:27 Tab5 FinishNav83
-0:29:27 Tab5 PageLoad
-0:29:31 Tab5 StartNav84 #typed
-0:29:31 Tab5 FinishNav84
-0:29:31 Tab5 PageLoad
-0:29:32 Tab5 StartNav85 #typed
-0:29:32 Tab5 FinishNav85
-0:29:32 Tab5 PageLoad
-0:29:33 Tab5 StartNav86 #typed
-0:29:33 Tab5 FinishNav86
-0:29:33 Tab5 PageLoad
-0:29:34 Tab5 StartNav87 #typed
-0:29:34 Tab5 FinishNav87
-0:29:34 Tab5 PageLoad
-0:29:34 Tab5 StartNav88 #typed
-0:29:34 Tab5 FinishNav88
-0:29:34 Tab5 PageLoad
-0:29:36 Tab5 StartNav89 #typed
-0:29:36 Tab5 FinishNav89
-0:29:36 Tab5 PageLoad
-0:29:37 Tab5 StartNav90 #typed
-0:29:37 Tab5 FinishNav90
-0:29:37 Tab5 PageLoad
-0:29:40 Tab5 StartNav91 #typed
-0:29:40 Tab5 FinishNav91
-0:29:40 Tab5 PageLoad
-0:29:42 Tab5 StartNav92 #typed
-0:29:42 Tab5 FinishNav92
-0:29:42 Tab5 PageLoad
-0:29:44 Tab5 StartNav93 #typed
-0:29:44 Tab5 FinishNav93
-0:29:44 Tab5 PageLoad
-0:29:49 Tab5 StartNav94 #typed
-0:29:49 Tab5 FinishNav94
-0:29:49 Tab5 PageLoad
-0:29:50 Tab5 StartNav95 #typed
-0:29:50 Tab5 FinishNav95
-0:29:50 Tab5 PageLoad
-0:32:41 Tab5 StartNav96 #typed
-0:32:41 Tab5 FinishNav96
-0:32:41 Tab5 PageLoad
-0:32:50 Tab5 StartNav97 #typed
-0:32:50 Tab5 FinishNav97
-0:32:50 Tab5 PageLoad
-0:32:53 Tab5 StartNav98 #typed
-0:32:53 Tab5 FinishNav98
-0:32:53 Tab5 PageLoad
-0:32:54 Tab5 StartNav99 #typed
-0:32:54 Tab5 FinishNav99
-0:32:54 Tab5 PageLoad
-0:32:56 Microsoft.Shutdown.OnWindowClosing
+1:45:25 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:45:25 Microsoft.Shutdown.TabStripModel.CloseAllTabs
+1:45:25 Microsoft.Shutdown.TabStripModel.CloseTabs
+1:45:25 Microsoft.Shutdown.TabStripModel.CloseTabs_EdgeBeforeClosingAllTabs
+1:45:25 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl
+1:45:25 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_TabClosable
+1:45:25 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosingAll
+1:45:25 Microsoft.Shutdown.TabStripModel.CloseWebContentses
+1:45:25 Microsoft.Shutdown.TabStripModel.CloseWebContentses_FastShutdown
+1:45:25 Microsoft.Shutdown.TabStripModel.ShouldRunUnloadListenerBeforeClosing_false
+1:45:25 Tab12 RenderProcessGone
+1:45:25 Microsoft.Shutdown.TabStripModel.RunUnloadListenerBeforeClosing_false
+1:45:25 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosedAll
+1:45:25 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications
+1:45:25 Browser12 Close Tab12 at 0
+1:45:25 Tab12 WebContentsDestroyed
+1:45:25 Microsoft.Shutdown.OnWindowClosing
+1:45:25 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:45:25 Widget Closed: BrowserFrame
+1:45:25 Microsoft.Shutdown.OnWindowClosing
+1:45:25 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:45:25 Microsoft.Last_Browser_Removed
+1:45:25 Microsoft.Shutdown.ShutdownIfNoBrowsers
+1:45:25 Microsoft.Shutdown.SetTryingToQuit_Quitting
+1:45:25 Microsoft.Shutdown.NotifyAppTerminating
+1:45:25 Microsoft.Shutdown.OnAppExiting
+1:45:25 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura
+1:45:25 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura.NotificationUIManager_StartShutdown
+1:45:25 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura.CloseAllSecondaryWidgets
+1:45:25 Shutdown
