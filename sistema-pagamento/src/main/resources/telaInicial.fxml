@@ -89,7 +89,7 @@
                   <MenuItem mnemonicParsing="false" text="Serviços" />
                   <MenuItem mnemonicParsing="false" text="Fornecedores" />
                   <MenuItem mnemonicParsing="false" text="Cliente" />
-                  <MenuItem mnemonicParsing="false" text="Formas de Pagamento" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaFormaPagamento" text="Formas de Pagamento" />
                </items>
           </Menu>
           <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">

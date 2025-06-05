@@ -195,3 +195,19 @@
     -fx-padding: 10px;
     -fx-background-radius: 0 0 10px 10px;
 }
+
+.chart-bar {
+    -fx-padding: 5px;
+}
+
+.chart-bar.barra-baixa {
+    -fx-bar-fill: #e74c3c; /* Vermelho */
+}
+
+.chart-bar.barra-media {
+    -fx-bar-fill: #f1c40f; /* Amarelo */
+}
+
+.chart-bar.barra-alta {
+    -fx-bar-fill: #2ecc71; /* Verde */
+}

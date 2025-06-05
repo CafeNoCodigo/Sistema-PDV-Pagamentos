@@ -1,0 +1,393 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.Optional;
+
+import javax.imageio.ImageIO;
+
+
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.minhaloja.sistema_pagamento.dao.VendaDAO;
+
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.image.WritableImage;
+
+public class telaRelatorioController {
+
+	
+	@FXML private DatePicker datePicker;
+	
+	@FXML private Label lbJan, lbFev, lbMar, lbAbr, lbMai, lbJun, lbJul, lbAgo, lbSet, lbOut, lbNov, lbDez;
+	
+	@FXML private BarChart<String, Number> graficoAnual;
+	
+	@FXML private Button btnExportarPdf, btnAtualizarGrafico;
+	
+	@FXML private VendaDAO vendaDAO = new VendaDAO(); 
+	
+	@FXML
+	private void atualizarGrafico() {
+	    graficoAnual.getData().clear();
+
+	    Map<String, Label> mapaMeses = Map.ofEntries(
+	        Map.entry("Janeiro", lbJan),
+	        Map.entry("Fevereiro", lbFev),
+	        Map.entry("Março", lbMar),
+	        Map.entry("Abril", lbAbr),
+	        Map.entry("Maio", lbMai),
+	        Map.entry("Junho", lbJun),
+	        Map.entry("Julho", lbJul),
+	        Map.entry("Agosto", lbAgo),
+	        Map.entry("Setembro", lbSet),
+	        Map.entry("Outubro", lbOut),
+	        Map.entry("Novembro", lbNov),
+	        Map.entry("Dezembro", lbDez)
+	    );
+
+	    List<Double> valores = mapaMeses.values().stream()
+	        .map(label -> parse(label)) 
+	        .collect(Collectors.toList());
+
+	    XYChart.Series<String, Number> series = new XYChart.Series<>();
+	    series.setName("Totais Mensais");
+
+	    for (Map.Entry<String, Label> entry : mapaMeses.entrySet()) {
+	        String mes = entry.getKey();
+	        double valor = parse(entry.getValue());
+
+	        XYChart.Data<String, Number> data = new XYChart.Data<>(mes, valor);
+	        series.getData().add(data);
+
+	        Platform.runLater(() -> {
+	            Node node = data.getNode();
+	            if (node != null) {
+	                String estilo = getEstiloBarra(valor, valores);
+	                node.getStyleClass().add(estilo);
+	            }
+	        });
+	    }
+
+	    graficoAnual.getData().add(series);
+	}
+
+	private String getEstiloBarra(double valor, Collection<Double> todosValores) {
+	    if (todosValores == null || todosValores.isEmpty()) return "barra-media";
+
+	    double min = Collections.min(todosValores);
+	    double max = Collections.max(todosValores);
+	    double media = todosValores.stream().mapToDouble(Double::doubleValue).average().orElse(0);
+
+	    double limiteBaixo = (min + media) / 2;
+	    double limiteAlto = (media + max) / 2;
+
+	    if (valor <= limiteBaixo) {
+	        return "barra-baixa";
+	    } else if (valor >= limiteAlto) {
+	        return "barra-alta";
+	    } else {
+	        return "barra-media";
+	    }
+	}
+
+
+	private double parse(Label label) {
+	    try {
+	        return Double.parseDouble(label.getText().replace(",", ".").replaceAll("[^\\d.]", ""));
+	    } catch (Exception e) {
+	        return 0;
+	    }
+	}
+	
+	private List<Integer> mostrarDialogoSelecaoAnos(List<Integer> anos) {
+	    ListView<Integer> listView = new ListView<>(FXCollections.observableArrayList(anos));
+	    listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+	    Dialog<List<Integer>> dialog = new Dialog<>();
+	    dialog.setTitle("Selecionar Anos para Exportar");
+	    dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+	    dialog.getDialogPane().setContent(listView);
+
+	    dialog.setResultConverter(dialogButton -> {
+	        if (dialogButton == ButtonType.OK) {
+	            return new ArrayList<>(listView.getSelectionModel().getSelectedItems());
+	        }
+	        return null;
+	    });
+
+	    Optional<List<Integer>> resultado = dialog.showAndWait();
+	    return resultado.orElse(null);
+	}
+
+	private Image gerarGraficoComoImagem(Map<String, Double> dados) {
+	    final WritableImage[] fxImage = new WritableImage[1];
+	    final CountDownLatch latch = new CountDownLatch(1);
+
+	    Platform.runLater(() -> {
+	        try {
+	            CategoryAxis xAxis = new CategoryAxis();
+	            NumberAxis yAxis = new NumberAxis();
+	            BarChart<String, Number> chart = new BarChart<>(xAxis, yAxis);
+	            chart.setTitle("Totais Mensais");
+	            chart.setLegendVisible(false);
+
+	            chart.setPrefWidth(600);
+	            chart.setPrefHeight(400);
+
+	            XYChart.Series<String, Number> series = new XYChart.Series<>();
+	            for (Map.Entry<String, Double> entry : dados.entrySet()) {
+	                series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+	            }
+	            chart.getData().add(series);
+
+	            chart.applyCss();
+	            chart.layout();
+
+	            fxImage[0] = new WritableImage((int) chart.getPrefWidth(), (int) chart.getPrefHeight());
+	            chart.snapshot(null, fxImage[0]);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            latch.countDown();
+	        }
+	    });
+
+	    try {
+	        latch.await(); // Aguarda o JavaFX concluir a renderização
+	        if (fxImage[0] != null) {
+	            ByteArrayOutputStream out = new ByteArrayOutputStream();
+	            ImageIO.write(SwingFXUtils.fromFXImage(fxImage[0], null), "png", out);
+	            return Image.getInstance(out.toByteArray());
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return null;
+	}
+
+
+	
+	@FXML
+	private void exportarTotaisPorMesParaPDF(ActionEvent event) {
+	    List<Integer> anosDisponiveis = IntStream.rangeClosed(2025, 2035).boxed().collect(Collectors.toList());
+	    List<Integer> anosSelecionados = mostrarDialogoSelecaoAnos(anosDisponiveis);
+
+	    if (anosSelecionados == null || anosSelecionados.isEmpty()) {
+	        alerta(Alert.AlertType.WARNING, "Exportação Cancelada", "Nenhum ano foi selecionado.");
+	        return;
+	    }
+
+	    Document documento = new Document();
+
+	    try {
+	        String userHome = System.getProperty("user.home");
+	        File pastaDestino = new File(userHome, "Desktop/FPS_COMMERCE/RELATÓRIO_DE_VENDAS_ANUAL");
+	        if (!pastaDestino.exists()) pastaDestino.mkdirs();
+
+	        String nomeArquivo = "RELATÓRIO_DE_VENDA_" +
+	                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf";
+	        File arquivo = new File(pastaDestino, nomeArquivo);
+
+	        PdfWriter.getInstance(documento, new FileOutputStream(arquivo));
+	        documento.open();
+
+	        // Obter dados do DAO
+	        Map<String, Double> totais = vendaDAO.obterTotaisPorMes();
+	        Map<Integer, List<MonthTotal>> dadosPorAno = new TreeMap<>();
+
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+	        for (Map.Entry<String, Double> entry : totais.entrySet()) {
+	            YearMonth ym = YearMonth.parse(entry.getKey(), formatter);
+	            int ano = ym.getYear();
+	            MonthTotal mt = new MonthTotal(ym, entry.getValue());
+	            dadosPorAno.computeIfAbsent(ano, k -> new ArrayList<>()).add(mt);
+	        }
+
+	        for (Integer ano : anosSelecionados) {
+	            List<MonthTotal> lista = dadosPorAno.get(ano);
+	            if (lista == null) continue;
+
+	            if (documento.getPageNumber() > 0) documento.newPage();
+
+	            Paragraph titulo = new Paragraph("Totais de Venda - Ano " + ano,
+	                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16));
+	            titulo.setAlignment(Element.ALIGN_CENTER);
+	            documento.add(titulo);
+	            documento.add(new Paragraph(" "));
+
+	            PdfPTable tabela = new PdfPTable(2);
+	            tabela.setWidthPercentage(100);
+	            tabela.addCell("Mês");
+	            tabela.addCell("Total Vendido (MZN)");
+
+	            double totalAnual = 0.0;
+	            DateTimeFormatter mesFormatter = DateTimeFormatter.ofPattern("MMMM", Locale.forLanguageTag("pt-BR"));
+
+	            Map<String, Double> dadosParaGrafico = new LinkedHashMap<>();
+
+	            for (MonthTotal mt : lista) {
+	                String nomeMes = capitalize(mt.mes.format(mesFormatter));
+	                tabela.addCell(nomeMes);
+	                tabela.addCell(String.format("MZN %.2f", mt.total));
+	                totalAnual += mt.total;
+	                dadosParaGrafico.put(nomeMes, mt.total);
+	            }
+
+	            tabela.addCell(new PdfPCell(new Phrase("Total Anual", FontFactory.getFont(FontFactory.HELVETICA_BOLD))));
+	            tabela.addCell(new PdfPCell(new Phrase(String.format("MZN %.2f", totalAnual),
+	                    FontFactory.getFont(FontFactory.HELVETICA_BOLD))));
+
+	            documento.add(tabela);
+	            documento.add(new Paragraph(" "));
+
+	            // Gerar gráfico JavaFX -> imagem -> PDF
+	            Image grafico = gerarGraficoComoImagem(dadosParaGrafico);
+	            if (grafico != null) {
+	                documento.add(grafico);
+	            }
+	        }
+
+	        documento.close();
+
+	        alerta(Alert.AlertType.INFORMATION, "PDF Gerado",
+	                "Relatório salvo em:\n" + arquivo.getAbsolutePath());
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        alerta(Alert.AlertType.ERROR, "Erro ao Gerar PDF", e.getMessage());
+	    }
+	}
+
+	
+	private static class MonthTotal {
+	    YearMonth mes;
+	    double total;
+
+	    MonthTotal(YearMonth mes, double total) {
+	        this.mes = mes;
+	        this.total = total;
+	    }
+	}
+
+	
+	private String capitalize(String texto) {
+	    if (texto == null || texto.isEmpty()) return texto;
+	    return texto.substring(0, 1).toUpperCase() + texto.substring(1);
+	}
+
+
+	@FXML
+	private void initialize() {
+		datePicker.getEditor().textProperty().addListener((obs, oldText, newText) -> {
+		    try {
+		        LocalDate data = datePicker.getConverter().fromString(newText);
+		        if (data != null) {
+		            int ano = data.getYear();
+		            Map<Integer, Double> totais = vendaDAO.buscarTotaisPorMes(ano);
+		            limparLabelsTotais();
+		            atualizarLabelsTotais(totais);
+		        }
+		    } catch (Exception ignored) {}
+		});
+		
+		ChangeListener<String> listener = (obs, oldVal, newVal) -> atualizarGrafico();
+
+	    lbJan.textProperty().addListener(listener);
+	    lbFev.textProperty().addListener(listener);
+	    lbMar.textProperty().addListener(listener);
+	    lbAbr.textProperty().addListener(listener);
+	    lbMai.textProperty().addListener(listener);
+	    lbJun.textProperty().addListener(listener);
+	    lbJul.textProperty().addListener(listener);
+	    lbAgo.textProperty().addListener(listener);
+	    lbSet.textProperty().addListener(listener);
+	    lbOut.textProperty().addListener(listener);
+	    lbNov.textProperty().addListener(listener);
+	    lbDez.textProperty().addListener(listener);
+
+	    atualizarGrafico();
+	}
+	
+	private void limparLabelsTotais() {
+	    lbJan.setText("MZN 0.00");
+	    lbFev.setText("MZN 0.00");
+	    lbMar.setText("MZN 0.00");
+	    lbAbr.setText("MZN 0.00");
+	    lbMai.setText("MZN 0.00");
+	    lbJun.setText("MZN 0.00");
+	    lbJul.setText("MZN 0.00");
+	    lbAgo.setText("MZN 0.00");
+	    lbSet.setText("MZN 0.00");
+	    lbOut.setText("MZN 0.00");
+	    lbNov.setText("MZN 0.00");
+	    lbDez.setText("MZN 0.00");
+	}
+
+	private void atualizarLabelsTotais(Map<Integer, Double> totais) {
+	    lbJan.setText(String.format("MZN %.2f", totais.getOrDefault(1, 0.0)));
+	    lbFev.setText(String.format("MZN %.2f", totais.getOrDefault(2, 0.0)));
+	    lbMar.setText(String.format("MZN %.2f", totais.getOrDefault(3, 0.0)));
+	    lbAbr.setText(String.format("MZN %.2f", totais.getOrDefault(4, 0.0)));
+	    lbMai.setText(String.format("MZN %.2f", totais.getOrDefault(5, 0.0)));
+	    lbJun.setText(String.format("MZN %.2f", totais.getOrDefault(6, 0.0)));
+	    lbJul.setText(String.format("MZN %.2f", totais.getOrDefault(7, 0.0)));
+	    lbAgo.setText(String.format("MZN %.2f", totais.getOrDefault(8, 0.0)));
+	    lbSet.setText(String.format("MZN %.2f", totais.getOrDefault(9, 0.0)));
+	    lbOut.setText(String.format("MZN %.2f", totais.getOrDefault(10, 0.0)));
+	    lbNov.setText(String.format("MZN %.2f", totais.getOrDefault(11, 0.0)));
+	    lbDez.setText(String.format("MZN %.2f", totais.getOrDefault(12, 0.0)));
+	}
+	
+	private void alerta(Alert.AlertType tipo, String titulo, String msg) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(msg);
+        alerta.showAndWait();
+    }
+
+}

@@ -1,0 +1,268 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.minhaloja.sistema_pagamento.model.ItemVenda;
+import com.minhaloja.sistema_pagamento.model.Venda;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+public class VendaDAO {
+
+    public VendaDAO() {
+        criarTabelaSeNaoExistir();
+    }
+    
+    public double obterTotalMpesa() {
+        String sql = "SELECT SUM(valorProduto) FROM venda WHERE formaPagamento LIKE 'Mpesa%'";
+        
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0.0;
+    }
+
+    public double obterTotalEmola() {
+        String sql = "SELECT SUM(valorProduto) FROM venda WHERE formaPagamento LIKE 'Emola%'";
+        
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0.0;
+    }
+
+    
+    public double obterTotalNumerario() {
+    	String sql = "SELECT SUM(totalProduto) FROM venda WHERE formaPagamento = 'Numerário'";
+    	
+    	try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql);
+    			ResultSet rs = stmt.executeQuery()) {
+    		if(rs.next()) {
+    			return rs.getDouble(1);
+    		}
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return 0.0;
+    }
+    
+    public Map<Integer, Double> buscarTotaisPorMes(int ano) {
+        Map<Integer, Double> totaisPorMes = new HashMap<>();
+        String sql = "SELECT MONTH(data) AS mes, SUM(totalProduto) AS total " +
+                     "FROM venda WHERE YEAR(data) = ? GROUP BY MONTH(data)";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, ano);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int mes = rs.getInt("mes");
+                double total = rs.getDouble("total");
+                totaisPorMes.put(mes, total);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return totaisPorMes;
+    }
+    
+    public Map<String, Double> obterTotaisPorMes() {
+        Map<String, Double> totais = new LinkedHashMap<>();
+
+        String sql = "SELECT DATE_FORMAT(data, '%Y-%m') AS mes, SUM(totalProduto) AS total " +
+                     "FROM venda GROUP BY mes ORDER BY mes";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String mes = rs.getString("mes");
+                double total = rs.getDouble("total");
+                totais.put(mes, total);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totais;
+    }
+
+
+    
+    public double obterTotalPorData(LocalDate data) {
+        String sql = "SELECT SUM(totalProduto) FROM venda WHERE DATE(data) = ?";
+        try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql)) {
+            stmt.setDate(1, Date.valueOf(data));
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public double obterTotalPorMes(LocalDate data) {
+        String sql = "SELECT SUM(totalProduto) FROM venda WHERE MONTH(data) = ? AND YEAR(data) = ?";
+        try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql)) {
+            stmt.setInt(1, data.getMonthValue());
+            stmt.setInt(2, data.getYear());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public double obterTotalPorAno(LocalDate data) {
+        String sql = "SELECT SUM(totalProduto) FROM venda WHERE YEAR(data) = ?";
+        try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql)) {
+            stmt.setInt(1, data.getYear());
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public double obterEntradaPorData(LocalDate data) {
+        String sql = "SELECT SUM(valPago) FROM venda WHERE DATE(data) = ?";
+        try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql)) {
+            stmt.setDate(1, Date.valueOf(data));
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+    
+    public double obterSaidaPorData(LocalDate data) {
+        String sql = "SELECT SUM(troco) FROM venda WHERE DATE(data) = ?";
+        try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql)) {
+            stmt.setDate(1, Date.valueOf(data));
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+
+    public int inserirVenda(Venda venda) throws SQLException {
+        String sql = "INSERT INTO venda (totalProduto, formaPagamento, valPago, troco, data, id_caixa) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setDouble(1, venda.getTotalProduto());
+            stmt.setString(2, venda.getFormaPagamento());
+            stmt.setDouble(3, venda.getValorPago());
+            stmt.setDouble(4, venda.getTroco());
+            stmt.setDate(5, java.sql.Date.valueOf(venda.getData()));
+            stmt.setInt(6, venda.getIdCaixa());
+
+            int linhasAfetadas = stmt.executeUpdate();
+            System.out.println("Linhas afetadas (venda): " + linhasAfetadas);
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return -1;
+    }
+
+
+    public void inserirItensVenda(int vendaId, List<ItemVenda> itens) throws SQLException {
+        String sql = "INSERT INTO item_venda (id_venda, id_produto, quantidade, preco_unitario, subtotal) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            for (ItemVenda item : itens) {
+                stmt.setInt(1, vendaId);
+                stmt.setInt(2, item.getProduto().getId());
+                stmt.setInt(3, item.getQuantidade());
+                stmt.setDouble(4, item.getPrecoUnitario());
+                stmt.setDouble(5, item.getSubtotal());
+                
+                System.out.println("Inserindo item: " + item.getProduto().getId() + ", qtd: " + item.getQuantidade());
+                
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+        } catch (SQLException e) {
+        	System.err.println("Erro ao inserir itens da venda: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void criarTabelaSeNaoExistir() {
+    	String sqlVenda = """
+    		    CREATE TABLE IF NOT EXISTS venda (
+    		        id INT AUTO_INCREMENT PRIMARY KEY,
+    		        totalProduto DOUBLE,
+    		        formaPagamento VARCHAR(50),
+    		        valPago DOUBLE,
+    		        troco DOUBLE,
+    		        data DATE,
+    		        id_caixa INT,
+    		        FOREIGN KEY (id_caixa) REFERENCES caixa(id)
+    		    );
+    		""";
+
+
+        String sqlItemVenda = """
+            CREATE TABLE IF NOT EXISTS item_venda (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                id_venda INT,
+                id_produto INT,
+                quantidade INT,
+                preco_unitario DOUBLE,
+                subtotal DOUBLE,
+                FOREIGN KEY (id_venda) REFERENCES venda(id),
+                FOREIGN KEY (id_produto) REFERENCES produtos(id)
+            );
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             Statement stmt = conn.createStatement()) {
+
+            stmt.execute(sqlVenda);
+            stmt.execute(sqlItemVenda);
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao criar tabelas de venda: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}

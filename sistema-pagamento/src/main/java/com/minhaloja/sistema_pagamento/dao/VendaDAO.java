@@ -22,6 +22,58 @@ public class VendaDAO {
         criarTabelaSeNaoExistir();
     }
     
+    public double obterTotalNumerarioPorAno(int ano) {
+        String sql = "SELECT SUM(totalProduto) FROM venda WHERE formaPagamento = 'Numerário' AND YEAR(data) = ?";
+        
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, ano);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public double obterTotalMpesaPorAno(int ano) {
+        String sql = "SELECT SUM(totalProduto) FROM venda WHERE formaPagamento LIKE 'Mpesa%' AND YEAR(data) = ?";
+        
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, ano);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    public double obterTotalEmolaPorAno(int ano) {
+        String sql = "SELECT SUM(totalProduto) FROM venda WHERE formaPagamento LIKE 'Emola%' AND YEAR(data) = ?";
+        
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, ano);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
+    }
+
+    
     public Map<Integer, Double> buscarTotaisPorMes(int ano) {
         Map<Integer, Double> totaisPorMes = new HashMap<>();
         String sql = "SELECT MONTH(data) AS mes, SUM(totalProduto) AS total " +
