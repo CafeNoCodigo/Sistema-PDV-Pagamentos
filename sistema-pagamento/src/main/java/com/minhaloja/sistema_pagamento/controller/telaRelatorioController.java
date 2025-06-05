@@ -1,23 +1,130 @@
 package com.minhaloja.sistema_pagamento.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.minhaloja.sistema_pagamento.dao.VendaDAO;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
 public class telaRelatorioController {
 
-	@FXML
-	private DatePicker datePicker;
-
-	@FXML
-	private Label lbJan, lbFev, lbMar, lbAbr, lbMai, lbJun, lbJul, lbAgo, lbSet, lbOut, lbNov, lbDez;
+	
+	@FXML private DatePicker datePicker;
+	
+	@FXML private Label lbJan, lbFev, lbMar, lbAbr, lbMai, lbJun, lbJul, lbAgo, lbSet, lbOut, lbNov, lbDez;
+	
+	@FXML private Button btnExportarPdf;
 	
 	@FXML private VendaDAO vendaDAO = new VendaDAO(); 
+	
+	@FXML
+	private void exportarTotaisPorMesParaPDF(ActionEvent event) {
+	    Document documento = new Document();
+
+	    try {
+	        // Caminho fixo
+	        String userHome = System.getProperty("user.home");
+	        File pastaDestino = new File(userHome, "Desktop/FPS_COMMERCE/RELATÓRIO_DE_VENDAS_ANUAL");
+	        if (!pastaDestino.exists()) pastaDestino.mkdirs();
+
+	        String nomeArquivo = "RELATÓRIO DE VENDA DE_" +
+	                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf";
+	        File arquivo = new File(pastaDestino, nomeArquivo);
+
+	        PdfWriter.getInstance(documento, new FileOutputStream(arquivo));
+	        documento.open();
+
+	        // Dados agrupados por ano
+	        Map<String, Double> totais = vendaDAO.obterTotaisPorMes();
+	        Map<Integer, List<MonthTotal>> dadosPorAno = new TreeMap<>();
+
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+	        for (Map.Entry<String, Double> entry : totais.entrySet()) {
+	            YearMonth ym = YearMonth.parse(entry.getKey(), formatter);
+	            int ano = ym.getYear();
+	            MonthTotal mt = new MonthTotal(ym, entry.getValue());
+
+	            dadosPorAno.computeIfAbsent(ano, k -> new ArrayList<>()).add(mt);
+	        }
+
+	        // Para cada ano, nova página
+	        for (Map.Entry<Integer, List<MonthTotal>> anoEntry : dadosPorAno.entrySet()) {
+	            if (documento.getPageNumber() > 0) documento.newPage();
+
+	            int ano = anoEntry.getKey();
+	            List<MonthTotal> lista = anoEntry.getValue();
+
+	            Font tituloFonte = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
+	            Paragraph titulo = new Paragraph("Totais de Venda - Ano " + ano, tituloFonte);
+	            titulo.setAlignment(Element.ALIGN_CENTER);
+	            documento.add(titulo);
+	            documento.add(new Paragraph(" ")); // espaço
+
+	            PdfPTable tabela = new PdfPTable(2);
+	            tabela.setWidthPercentage(100);
+	            tabela.addCell("Mês");
+	            tabela.addCell("Total Vendido (MZN)");
+
+	            DateTimeFormatter mesFormatter = DateTimeFormatter.ofPattern("MMMM", Locale.forLanguageTag("pt-BR"));
+
+	            for (MonthTotal mt : lista) {
+	                String nomeMes = capitalize(mt.mes.format(mesFormatter));
+	                tabela.addCell(nomeMes);
+	                tabela.addCell(String.format("MZN %.2f", mt.total));
+	            }
+
+	            documento.add(tabela);
+	        }
+
+	        documento.close();
+
+	        alerta(Alert.AlertType.INFORMATION, "Gerar PDF de Relatório de Vendas","PDF gerado em:\n" + arquivo.getAbsolutePath());
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        alerta(Alert.AlertType.ERROR, "Gerar PDF de Relatório de Vendas", "Erro ao gerar PDF:\n" + e.getMessage());
+	    }
+	}
+	
+	private static class MonthTotal {
+	    YearMonth mes;
+	    double total;
+
+	    MonthTotal(YearMonth mes, double total) {
+	        this.mes = mes;
+	        this.total = total;
+	    }
+	}
+
+
+	
+	private String capitalize(String texto) {
+	    if (texto == null || texto.isEmpty()) return texto;
+	    return texto.substring(0, 1).toUpperCase() + texto.substring(1);
+	}
+
 
 	@FXML
 	private void initialize() {
@@ -63,5 +170,13 @@ public class telaRelatorioController {
 	    lbNov.setText(String.format("MZN %.2f", totais.getOrDefault(11, 0.0)));
 	    lbDez.setText(String.format("MZN %.2f", totais.getOrDefault(12, 0.0)));
 	}
+	
+	private void alerta(Alert.AlertType tipo, String titulo, String msg) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(msg);
+        alerta.showAndWait();
+    }
 
 }

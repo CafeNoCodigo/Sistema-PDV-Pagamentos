@@ -1,10 +1,23 @@
 package com.minhaloja.sistema_pagamento.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.minhaloja.sistema_pagamento.dao.ProdutoDAO;
 import com.minhaloja.sistema_pagamento.model.Produto;
 import com.minhaloja.sistema_pagamento.util.WindowManager;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -20,7 +33,7 @@ public class telaEstoqueAtualController {
     @FXML private TableColumn<Produto, String> colCodigoBarra, colNome, colCategoria,colReferencia, colLoja, colFornecedor, colModelo, colCodigo;
     @FXML private TableColumn<Produto, Double> colEstoque, colPrecoCompra, colPrecoMestre, colPrecoVenda, colFabricante, colLucroBruto, colMargem;
     
-    @FXML private Button btnFechar, btnExcluir, btnTodos, btnAtualizarPreco, btnAtualizarPreco1;
+    @FXML private Button btnFechar, btnExcluir, btnTodos, btnAtualizarPreco, btnAtualizarPreco1, btnExportarPdf;
     
     @FXML private TextField tfBusca, tfPreco;
     
@@ -56,6 +69,54 @@ public class telaEstoqueAtualController {
                 tabelaProdutos2.setItems(produtoDAO.buscarProdutosPorTexto(texto));
             }
         });
+    }
+    
+    @FXML
+    private void exportarParaPDF(ActionEvent event) {
+        Document documento = new Document();
+        try {
+            // Local que será salvo
+            String userHome = System.getProperty("user.home");
+            File pastaDestino = new File(userHome, "Desktop/FPS_COMMERCE/ESTOQUE DÍSPONIVEL");
+            if (!pastaDestino.exists()) {
+                pastaDestino.mkdirs();
+            }
+
+            String nomeArquivo = "Estoque de_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf";
+            File arquivo = new File(pastaDestino, nomeArquivo);
+
+            PdfWriter.getInstance(documento, new FileOutputStream(arquivo));
+            documento.open();
+
+            Font fonteNegrito = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
+            Paragraph titulo = new Paragraph("Relatório de Produtos Em Estoque", fonteNegrito);
+            titulo.setAlignment(Element.ALIGN_CENTER); 
+            documento.add(titulo);
+            documento.add(new Paragraph(" "));
+
+            PdfPTable tabela = new PdfPTable(4);
+            tabela.setWidthPercentage(100);
+
+            tabela.addCell("Nome");
+            tabela.addCell("Código de Barra");
+            tabela.addCell("Categoria");
+            tabela.addCell("Quantidade");
+
+            for (Produto p : tabelaProdutos2.getItems()) {
+                tabela.addCell(p.getNome());
+                tabela.addCell(p.getCodigoBarra());
+                tabela.addCell(p.getCategoria());
+                tabela.addCell(String.format(" %d", p.getEstoque()));
+            }
+
+            documento.add(tabela);
+            documento.close();
+            alerta(Alert.AlertType.INFORMATION, "Gerar PDF de Estoque", "PDF salvo em: " + arquivo.getAbsolutePath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            alerta(Alert.AlertType.ERROR, "Gerar PDF de Estoque", "Erro ao gerar PDF: " + e.getMessage());
+        }
     }
     
     @FXML

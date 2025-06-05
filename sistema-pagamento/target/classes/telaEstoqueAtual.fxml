@@ -15,10 +15,10 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="1239.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaEstoqueAtualController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="1126.0" layoutY="28.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="106.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="80.0" layoutX="474.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="308.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="122.0" layoutX="390.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="308.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="589.0" layoutX="8.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="1225.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="43.0" layoutX="9.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="350.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="9.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="301.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="43.0" layoutX="9.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="373.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="9.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="373.0" />
       <TableView fx:id="tabelaProdutos2" layoutX="14.0" layoutY="152.0" prefHeight="567.0" prefWidth="1210.0">
         <columns>
           <TableColumn fx:id="colCodigoBarra" prefWidth="111.0" text="Código de Barra" />
@@ -43,10 +43,10 @@
             <Label prefHeight="22.0" prefWidth="117.0" text="Pesquisar Produto" />
          </children>
       </VBox>
-      <TextField fx:id="tfBusca" layoutX="128.0" layoutY="86.0" prefHeight="29.0" prefWidth="220.0" promptText="Digite Para Pesquisar Produto" />
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" prefHeight="50.0" prefWidth="93.0" text="Adicionar" />
-      <Button fx:id="btnTodos" layoutX="114.0" layoutY="15.0" mnemonicParsing="false" onAction="#listarTodos" prefHeight="50.0" prefWidth="93.0" text="Todos" />
-      <Button fx:id="btnExcluir" layoutX="213.0" layoutY="15.0" mnemonicParsing="false" onAction="#excluirProduto" prefHeight="50.0" prefWidth="93.0" styleClass="deletar" text="Excluir" />
+      <TextField fx:id="tfBusca" layoutX="128.0" layoutY="86.0" prefHeight="29.0" prefWidth="248.0" promptText="Digite Para Pesquisar Produto" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" prefHeight="50.0" prefWidth="85.0" text="Adicionar" />
+      <Button fx:id="btnTodos" layoutX="106.0" layoutY="14.0" mnemonicParsing="false" onAction="#listarTodos" prefHeight="50.0" prefWidth="85.0" text="Todos" />
+      <Button fx:id="btnExcluir" layoutX="291.0" layoutY="14.0" mnemonicParsing="false" onAction="#excluirProduto" prefHeight="50.0" prefWidth="85.0" styleClass="deletar" text="Excluir" />
       <Button fx:id="btnFechar" layoutX="1133.0" layoutY="36.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="50.0" prefWidth="93.0" style="-fx-background-color: #ff0000;" styleClass="deletar" text="Fechar" />
       <Label layoutX="1001.0" layoutY="22.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
       <Label layoutX="1001.0" layoutY="63.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
@@ -65,8 +65,9 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button fx:id="btnAtualizarPreco" layoutX="484.0" layoutY="50.0" mnemonicParsing="false" onAction="#atualizarPrecoSelecionado" prefHeight="31.0" prefWidth="127.0" text="Atualizar P.Venda" />
-      <TextField fx:id="tfPreco" layoutX="482.0" layoutY="86.0" prefHeight="29.0" prefWidth="292.0" promptText="Insira o Valor desejado e pressione no botão acima" />
-      <Button fx:id="btnAtualizarPreco1" layoutX="647.0" layoutY="50.0" mnemonicParsing="false" onAction="#atualizarPrecoCompraSelecionado" prefHeight="31.0" prefWidth="127.0" style="-fx-font-size: 11px;" text="Atualizar P.Compra" />
+      <Button fx:id="btnAtualizarPreco" layoutX="400.0" layoutY="13.0" mnemonicParsing="false" onAction="#atualizarPrecoSelecionado" prefHeight="50.0" prefWidth="127.0" text="Atualizar P.Venda" />
+      <TextField fx:id="tfPreco" layoutX="398.0" layoutY="84.0" prefHeight="35.0" prefWidth="292.0" promptText="Insira o Valor desejado e pressione no botão acima" />
+      <Button fx:id="btnAtualizarPreco1" layoutX="563.0" layoutY="13.0" mnemonicParsing="false" onAction="#atualizarPrecoCompraSelecionado" prefHeight="50.0" prefWidth="127.0" style="-fx-font-size: 11px;" text="Atualizar P.Compra" />
+      <Button fx:id="btnExportarPdf" layoutX="199.0" layoutY="14.0" mnemonicParsing="false" onAction="#exportarParaPDF" prefHeight="50.0" prefWidth="85.0" text="PDF" />
    </children>
 </AnchorPane>

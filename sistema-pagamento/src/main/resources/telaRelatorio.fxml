@@ -3,6 +3,7 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -23,57 +24,57 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="63.0" layoutX="463.0" layoutY="157.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="764.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="363.0" layoutX="459.0" layoutY="229.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="764.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="441.0" layoutX="5.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="444.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="61.0" layoutX="5.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="228.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="61.0" layoutX="5.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="376.0" />
       <DatePicker fx:id="datePicker" layoutX="10.0" layoutY="69.0" prefHeight="44.0" prefWidth="215.0" promptText="Selecione a Data" />
       <VBox layoutX="13.0" layoutY="164.0" prefHeight="419.0" prefWidth="133.0" style="-fx-background-color: WHITE;">
          <children>
             <Label alignment="CENTER" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #c0cd5e; -fx-background-radius: 10PX;" text="MÊSES" />
-            <Label alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="JANEIRO" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="FEVEREIRO" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="MARCO" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="ABRIL" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="MAIO" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="JUNHO" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="JULHO" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="AGOSTO" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="SETEMBRO" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="OUTUBRO" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="NOVEMBRO" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="DEZEMBRO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="JANEIRO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="FEVEREIRO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="MARCO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="ABRIL" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="MAIO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="JUNHO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="JULHO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="AGOSTO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="SETEMBRO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="OUTUBRO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="NOVEMBRO" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="DEZEMBRO" textFill="RED" />
          </children>
       </VBox>
       <VBox layoutX="160.0" layoutY="164.0" prefHeight="419.0" prefWidth="133.0" style="-fx-background-color: WHITE;">
          <children>
             <Label alignment="CENTER" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #c0cd5e; -fx-background-radius: 10PX;" text="TOTAL" />
-            <Label fx:id="lbJan" alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbFev" alignment="CENTER" disable="true" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbMar" alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbAbr" alignment="CENTER" disable="true" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbMai" alignment="CENTER" disable="true" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbJun" alignment="CENTER" disable="true" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbJul" alignment="CENTER" disable="true" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbAgo" alignment="CENTER" disable="true" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbSet" alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbOut" alignment="CENTER" disable="true" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbNov" alignment="CENTER" disable="true" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label fx:id="lbDez" alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbJan" alignment="CENTER" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbFev" alignment="CENTER" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbMar" alignment="CENTER" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbAbr" alignment="CENTER" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbMai" alignment="CENTER" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbJun" alignment="CENTER" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbJul" alignment="CENTER" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbAgo" alignment="CENTER" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbSet" alignment="CENTER" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbOut" alignment="CENTER" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbNov" alignment="CENTER" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label fx:id="lbDez" alignment="CENTER" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
          </children>
       </VBox>
       <VBox layoutX="304.0" layoutY="164.0" prefHeight="419.0" prefWidth="133.0" style="-fx-background-color: WHITE;">
          <children>
             <Label alignment="CENTER" prefHeight="26.0" prefWidth="133.0" style="-fx-background-color: #c0cd5e; -fx-background-radius: 10PX;" text="LUCRO" />
-            <Label alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
-            <Label alignment="CENTER" disable="true" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="31.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="33.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="34.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="133.0" style="-fx-font-weight: BOLD;" text="0,00 MZN" textFill="RED" />
          </children>
       </VBox>
       <BarChart layoutX="470.0" layoutY="245.0" prefHeight="334.0" prefWidth="742.0" style="-fx-background-color: #c0cd5e;">
@@ -147,5 +148,6 @@
             <Font size="22.0" />
          </font>
       </Label>
+      <Button fx:id="btnExportarPdf" layoutX="238.0" layoutY="68.0" mnemonicParsing="false" onAction="#exportarTotaisPorMesParaPDF" prefHeight="46.0" prefWidth="133.0" text="Exportar Para PDF" />
    </children>
 </AnchorPane>

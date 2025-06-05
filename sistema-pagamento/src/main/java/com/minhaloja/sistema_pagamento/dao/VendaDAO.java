@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,30 @@ public class VendaDAO {
         }
         return totaisPorMes;
     }
+    
+    public Map<String, Double> obterTotaisPorMes() {
+        Map<String, Double> totais = new LinkedHashMap<>();
+
+        String sql = "SELECT DATE_FORMAT(data, '%Y-%m') AS mes, SUM(totalProduto) AS total " +
+                     "FROM venda GROUP BY mes ORDER BY mes";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String mes = rs.getString("mes");
+                double total = rs.getDouble("total");
+                totais.put(mes, total);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totais;
+    }
+
 
     
     public double obterTotalPorData(LocalDate data) {

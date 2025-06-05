@@ -1,5 +1,6 @@
 com\minhaloja\sistema_pagamento\controller\telaEstoqueAtualController.class
 com\minhaloja\sistema_pagamento\util\NotificacaoSistema.class
+com\minhaloja\sistema_pagamento\controller\telaRelatorioController$MonthTotal.class
 com\minhaloja\sistema_pagamento\controller\telaCadastroFuncionarioController.class
 com\minhaloja\sistema_pagamento\App.class
 com\minhaloja\sistema_pagamento\dao\FormaPagamentoDAO.class

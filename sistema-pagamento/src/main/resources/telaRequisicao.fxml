@@ -37,7 +37,7 @@
         </columns>
       </TableView>
       <Button fx:id="btnAdd" layoutX="20.0" layoutY="105.0" mnemonicParsing="false" onAction="#atualizarEstoqueSelecionado" text="Atualizar QTD" />
-      <Button layoutX="308.0" layoutY="106.0" mnemonicParsing="false" styleClass="deletar" text="Excluir" />
+      <Button layoutX="289.0" layoutY="106.0" mnemonicParsing="false" styleClass="deletar" text="Excluir" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="41.0" layoutX="-12.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="1179.0" />
       <VBox layoutX="20.0" layoutY="5.0" prefHeight="31.0" prefWidth="252.0">
          <children>
@@ -49,7 +49,7 @@
             <Image url="@img/inserirFotoBI.png" />
          </image>
       </ImageView>
-      <Button layoutX="382.0" layoutY="107.0" mnemonicParsing="false" text="Imprimir" />
+      <Button fx:id="btnExportarPdf" layoutX="363.0" layoutY="107.0" mnemonicParsing="false" onAction="#exportarParaPDF" prefHeight="31.0" prefWidth="99.0" text="Obter PDF" />
       <Button fx:id="btnFechar" layoutX="1002.0" layoutY="86.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="52.0" prefWidth="83.0" styleClass="deletar" text="Fechar" />
       <Button disable="true" layoutX="912.0" layoutY="86.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="83.0" />
       <Line endX="1054.0" layoutX="100.0" layoutY="613.0" startX="-100.0" />
