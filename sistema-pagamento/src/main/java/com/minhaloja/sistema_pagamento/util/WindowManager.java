@@ -11,6 +11,24 @@ import javafx.stage.Stage;
 public class WindowManager {
 	
 	@FXML
+	public static void abrirTelaCadastroCliente() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroCliente.fxml"));
+			Parent root = fxmlLoader.load();
+			
+			Stage stage = new Stage();
+			stage.setTitle("Cadastrar Cliente");
+			stage.setResizable(false);
+			stage.setMaximized(false);
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
 	public static void abrirTelaFormaPagamento() {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaFormaPagamento.fxml"));

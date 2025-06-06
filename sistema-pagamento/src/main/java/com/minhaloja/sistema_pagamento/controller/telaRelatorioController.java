@@ -184,7 +184,7 @@ public class telaRelatorioController {
 	            if (!pastaDestino.exists()) pastaDestino.mkdirs();
 
 	            String nomeArquivo = "RELATÓRIO_DE_VENDA_DE_" +
-	                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf";
+	                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss")) + ".pdf";
 	            File arquivo = new File(pastaDestino, nomeArquivo);
 
 	            PdfWriter.getInstance(documento, new FileOutputStream(arquivo));

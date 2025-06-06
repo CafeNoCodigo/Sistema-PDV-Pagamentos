@@ -107,6 +107,10 @@ public class telaInicialController {
         System.exit(0);
     }
     
+    public void abrirTelaCadastroCliente() {
+    	WindowManager.abrirTelaCadastroCliente();
+    }
+    
     public void abrirTelaFormaPagamento() {
         WindowManager.abrirTelaFormaPagamento();
     }

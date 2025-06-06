@@ -82,7 +82,7 @@ public class telaEstoqueAtualController {
                 pastaDestino.mkdirs();
             }
 
-            String nomeArquivo = "Estoque de_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf";
+            String nomeArquivo = "Estoque de_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss")) + ".pdf";
             File arquivo = new File(pastaDestino, nomeArquivo);
 
             PdfWriter.getInstance(documento, new FileOutputStream(arquivo));
@@ -247,9 +247,6 @@ public class telaEstoqueAtualController {
                     sucessoAlerta.showAndWait();
                     carregarProdutosNaTabela();
                     
-                    //carregarProdutosNaTabela(); // Atualiza a tabela
-                    //contarProdutos();           // Atualiza contador
-                   // limparCampos();             // Limpa os campos se necessário
                 } else {
                     Alert erro = new Alert(Alert.AlertType.ERROR);
                     erro.setTitle("Erro");

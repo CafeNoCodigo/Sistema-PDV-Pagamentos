@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="860.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaCadastroClienteController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="408.0" layoutX="28.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="693.0" />
+      <TabPane layoutX="38.0" layoutY="105.0" prefHeight="361.0" prefWidth="676.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Dados Pessoais">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="286.0" prefWidth="662.0">
+                     <children>
+                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="21.0" prefWidth="53.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="100.0" text="Codigo" />
+                           </children>
+                        </VBox>
+                        <TextField layoutX="78.0" layoutY="14.0" prefHeight="12.0" prefWidth="74.0" style="-fx-padding: 2 5 2 5; -fx-background-color: #fceb9e;" />
+                        <VBox layoutX="168.0" layoutY="15.0" prefHeight="21.0" prefWidth="87.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="100.0" text="Numero de BI" />
+                           </children>
+                        </VBox>
+                        <TextField layoutX="255.0" layoutY="15.0" prefHeight="21.0" prefWidth="150.0" style="-fx-padding: 2 5 2 5;" />
+                        <VBox layoutX="423.0" layoutY="14.0" prefHeight="21.0" prefWidth="87.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="100.0" text="Imagem do BI" />
+                           </children>
+                        </VBox>
+                        <Button layoutX="509.0" layoutY="14.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="26.0" style="-fx-padding: 2 5 2 5;" styleClass="botao-pastel">
+                           <graphic>
+                              <ImageView disable="true" fitHeight="15.0" fitWidth="20.0">
+                                 <image>
+                                    <Image url="@img/inserirFotoBI.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <VBox layoutX="14.0" layoutY="47.0" prefHeight="21.0" prefWidth="53.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="100.0" text="Nome" />
+                           </children>
+                        </VBox>
+                        <TextField  layoutX="78.0" layoutY="47.0" prefHeight="21.0" prefWidth="569.0" style="-fx-padding: 2 5 2 5;" />
+                        <VBox layoutX="14.0" layoutY="87.0" prefHeight="21.0" prefWidth="61.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="100.0" text="Endereco" />
+                           </children>
+                        </VBox>
+                        <TextField layoutX="79.0" layoutY="87.0" prefHeight="21.0" prefWidth="356.0" style="-fx-padding: 2 5 2 5;" />
+                        <VBox layoutX="14.0" layoutY="122.0" prefHeight="21.0" prefWidth="53.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="100.0" text="Bairro" />
+                           </children>
+                        </VBox>
+                        <TextField  layoutX="79.0" layoutY="122.0" prefHeight="21.0" prefWidth="356.0" style="-fx-padding: 2 5 2 5;" />
+                        <VBox layoutX="11.0" layoutY="158.0" prefHeight="21.0" prefWidth="53.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="100.0" text="Cidade" />
+                           </children>
+                        </VBox>
+                        <TextField  layoutX="80.0" layoutY="158.0" prefHeight="21.0" prefWidth="355.0" style="-fx-padding: 2 5 2 5;" />
+                        <VBox layoutX="11.0" layoutY="190.0" prefHeight="21.0" prefWidth="65.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="100.0" text="Telefone 1" />
+                           </children>
+                        </VBox>
+                        <TextField  layoutX="80.0" layoutY="190.0" prefHeight="21.0" prefWidth="143.0" style="-fx-padding: 2 5 2 5;" />
+                        <VBox layoutX="11.0" layoutY="221.0" prefHeight="21.0" prefWidth="53.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="100.0" text="NUIT" />
+                           </children>
+                        </VBox>
+                        <TextField  layoutX="79.0" layoutY="221.0" prefHeight="21.0" prefWidth="569.0" style="-fx-padding: 2 5 2 5;" />
+                        <VBox layoutX="11.0" layoutY="251.0" prefHeight="21.0" prefWidth="53.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="100.0" text="Nascido" />
+                           </children>
+                        </VBox>
+                        <DatePicker  layoutX="79.0" layoutY="249.0" prefHeight="21.0" prefWidth="174.0" />
+                        <Label layoutX="236.0" layoutY="187.0" prefHeight="27.0" prefWidth="76.0" text="Telefone 2" />
+                        <TextField layoutX="302.0" layoutY="190.0" prefHeight="21.0" prefWidth="132.0" style="-fx-padding: 2 5 2 5;" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="130.0" layoutX="448.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="199.0" />
+                        <ImageView  fitHeight="117.0" fitWidth="156.0" layoutX="472.0" layoutY="88.0">
+                           <image>
+                              <Image url="@img/inserirFotoBI.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="ad" text="Adicionais">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="21.0" prefWidth="41.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="100.0" text="Cargo" />
+                           </children>
+                        </VBox>
+                        <TextField layoutX="119.0" layoutY="14.0" prefHeight="21.0" prefWidth="520.0" style="-fx-padding: 2 5 2 5;" />
+                        <Button layoutX="557.0" layoutY="44.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="26.0" style="-fx-padding: 2 5 2 5;" styleClass="botao-pastel">
+                           <graphic>
+                              <ImageView disable="true" fitHeight="15.0" fitWidth="20.0">
+                                 <image>
+                                    <Image url="@img/inserirFotoBI.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="178.0" layoutX="474.0" layoutY="83.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="180.0" />
+                        <ImageView  fitHeight="182.0" fitWidth="174.0" layoutX="477.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/inserirFotoBI.png" />
+                           </image>
+                        </ImageView>
+                        <VBox layoutX="492.0" layoutY="44.0" prefHeight="21.0" prefWidth="65.0">
+                           <children>
+                              <Label prefHeight="21.0" prefWidth="87.0" text="Fotografia" />
+                           </children>
+                        </VBox>
+                        <Label layoutX="14.0" layoutY="42.0" prefHeight="26.0" prefWidth="106.0" text="Conta Bancaria 1" />
+                        <TextField  layoutX="118.0" layoutY="45.0" prefHeight="21.0" prefWidth="131.0" style="-fx-padding: 2 5 2 5;" />
+                        <Label layoutX="14.0" layoutY="80.0" prefHeight="26.0" prefWidth="88.0" text="Data de Inicio" />
+                        <Label layoutX="262.0" layoutY="41.0" prefHeight="26.0" prefWidth="51.0" text="Conta 2" />
+                        <TextField layoutX="342.0" layoutY="44.0" prefHeight="21.0" prefWidth="124.0" style="-fx-padding: 2 5 2 5;" />
+                        <DatePicker layoutX="118.0" layoutY="75.0" prefHeight="29.0" prefWidth="131.0" promptText="Escolha a data" />
+                        <Label layoutX="262.0" layoutY="81.0" prefHeight="26.0" prefWidth="88.0" text="Data de Fim" />
+                        <DatePicker layoutX="342.0" layoutY="79.0" prefHeight="29.0" prefWidth="124.0" promptText="Escolha a data" />
+                        <Label layoutX="14.0" layoutY="112.0" prefHeight="26.0" prefWidth="88.0" text="Salario" />
+                        <TextField layoutX="116.0" layoutY="114.0" prefHeight="21.0" prefWidth="135.0" style="-fx-padding: 2 5 2 5;" />
+                        <Label layoutX="262.0" layoutY="113.0" prefHeight="26.0" prefWidth="68.0" text="Transporte" />
+                        <TextField layoutX="341.0" layoutY="116.0" prefHeight="21.0" prefWidth="127.0" style="-fx-padding: 2 5 2 5;" />
+                        <Label layoutX="14.0" layoutY="144.0" prefHeight="26.0" prefWidth="88.0" text="Alimentação" />
+                        <TextField layoutX="116.0" layoutY="147.0" prefHeight="21.0" prefWidth="135.0" style="-fx-padding: 2 5 2 5;" />
+                        <TextField layoutX="341.0" layoutY="147.0" prefHeight="21.0" prefWidth="127.0" style="-fx-padding: 2 5 2 5;" />
+                        <Label layoutX="296.0" layoutY="145.0" prefHeight="26.0" prefWidth="34.0" text="Loja" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Lista dos Funcionarios">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView prefHeight="287.0" prefWidth="656.0">
+                          <columns>
+                            <TableColumn prefWidth="185.0" text="Nome" />
+                            <TableColumn prefWidth="107.0" text="Cargo" />
+                              <TableColumn prefWidth="74.0" text="Salário" />
+                              <TableColumn prefWidth="105.0" text="Contacto" />
+                              <TableColumn prefWidth="92.0" text="Nascido" />
+                              <TableColumn prefWidth="92.0" text="Loja" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="39.0" layoutY="478.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" style="-fx-padding: 2 5 2 5;" text="Salvar" />
+      <Button layoutX="157.0" layoutY="478.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="106.0" style="-fx-padding: 2 5 2 5;" styleClass="cancelar" text="Cancelar" />
+      <VBox layoutX="5.0" layoutY="506.0" prefHeight="17.0" prefWidth="283.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="331.0" text="Manutencao no Cadastro de Funcionarios" />
+         </children>
+      </VBox>
+      <VBox layoutX="401.0" layoutY="474.0" prefHeight="29.0" prefWidth="124.0">
+         <children>
+            <Label prefHeight="29.0" prefWidth="182.0" text="Total de Registros:" />
+         </children>
+      </VBox>
+      <VBox layoutX="512.0" layoutY="477.0" prefHeight="21.0" prefWidth="65.0" style="-fx-background-color: #fceb9e; -fx-background-radius: 10;">
+         <children>
+            <Label alignment="CENTER" prefHeight="29.0" prefWidth="72.0" style="-fx-font-size: 17px;" textFill="RED">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+         </children>
+      </VBox>
+      <Line endX="713.0" layoutX="147.0" layoutY="506.0" opacity="0.54" startX="-147.0" />
+      <Button disable="true" layoutX="39.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" text="Primeiro" />
+      <Button disable="true" layoutX="123.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="68.0" text="Ultimo" />
+      <Button disable="true" layoutX="208.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" text="Anterior" />
+      <Button disable="true" layoutX="294.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="81.0" text="Proximo" />
+      <Button layoutX="386.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="88.0" text="Novo" />
+      <Line endX="-20.5" endY="2.0" layoutX="219.0" layoutY="63.0" opacity="0.54" startX="-20.5" startY="-63.0" />
+      <Line endX="-20.5" endY="2.0" layoutX="401.0" layoutY="63.0" opacity="0.54" startX="-20.5" startY="-63.0" />
+      <Button layoutX="481.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="88.0" text="Limpar" />
+      <Button layoutX="585.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="137.0" styleClass="deletar" text="Eliminar" />
+      <ChoiceBox layoutX="43.0" layoutY="75.0" prefHeight="27.0" prefWidth="670.0" />
+      <Line endX="-20.5" endY="2.0" layoutX="596.0" layoutY="63.0" opacity="0.54" startX="-20.5" startY="-63.0" />
+      <Button layoutX="759.0" layoutY="7.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="88.0" styleClass="deletar" text="Fechar" />
+      <Label layoutX="737.0" layoutY="388.0" opacity="0.34" prefHeight="59.0" prefWidth="117.0" style="-fx-font-size: 50px; -fx-font-weight: bold;" text="F P S" textFill="#67a4b5" />
+      <Label layoutX="737.0" layoutY="429.0" opacity="0.34" prefHeight="44.0" prefWidth="117.0" style="-fx-font-size: 20PX; -fx-font-weight: bold;" text="SOLUTIONS" textFill="#67a4b5" />
+      <ImageView fitHeight="104.0" fitWidth="117.0" layoutX="737.0" layoutY="286.0" opacity="0.36">
+         <image>
+            <Image url="@img/carinho.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="13.0" fitWidth="15.0" layoutX="627.0" layoutY="508.0">
+         <image>
+            <Image url="@img/copyright-1345865_1280.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="644.0" layoutY="508.0" style="-fx-font-size: 10PX;" text="ALL COPYRIGHTS RESERVED TO FPS SOLUTIONS">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

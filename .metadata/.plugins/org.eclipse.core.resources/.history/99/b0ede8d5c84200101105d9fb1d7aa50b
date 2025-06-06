@@ -1,0 +1,45 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+public class ClienteDAO {
+	
+	public ClienteDAO() {
+		criarTabelaSeNaoExistir();
+	}
+
+	private void criarTabelaSeNaoExistir() {
+		String sql = """
+					CREATE TABLE IF NOT EXISTS cliente (
+						id INT AUTO_INCREMENT PRIMARY KEY,
+						nome VARCHAR(255),
+						endereco VARCHHAR(255),
+						bi VARCHAR(255),
+						email VARCHAR(255),
+						cidade VARCHAR(255),
+						telefone1 VARCHAR(255),
+						telefone2 VARCHAR(255),
+						nuit VARCHAR(255),
+						dataNascido DATE,
+						info VARCHAR(255),
+						conta1 VARCHAR(255),
+						conta2 VARCHAR(255),
+						dataREG DATE,
+						genero VARCHAR(50)
+						status VARCHAR(50),
+						imagem BOLB,
+						);
+				""";
+		
+		try(Connection conn = Conexao.conectar(); Statement stmt = conn.createStatement()) {
+			stmt.execute(sql);
+		}catch(SQLException e) {
+			System.err.println("Erro ao criar tabela cliente" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+}

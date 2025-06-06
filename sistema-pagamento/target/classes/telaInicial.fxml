@@ -21,7 +21,7 @@
 
 <AnchorPane scaleShape="false" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaInicialController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="654.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" style="-fx-opacity: 0.7;" styleClass="container-retangulo" width="1267.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="743.0" layoutX="11.0" layoutY="9.0" stroke="BLACK" strokeType="INSIDE" style="-fx-opacity: 0.7;" styleClass="container-retangulo" width="1833.0">
          <fill>
             <LinearGradient endX="0.9289099526066351" endY="1.0" startX="0.0616113744075831">
                <stops>
@@ -59,7 +59,7 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fceb9e" height="82.0" layoutX="-3.0" layoutY="116.0" opacity="0.62" stroke="TRANSPARENT" strokeType="INSIDE" width="1267.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fceb9e" height="82.0" layoutX="-3.0" layoutY="116.0" opacity="0.62" stroke="TRANSPARENT" strokeType="INSIDE" width="1844.0" />
       <Label layoutX="613.0" layoutY="436.0" opacity="0.36" style="-fx-font-size: 100PX; -fx-font-weight: BOLD;" text="SOLUTIONS" textFill="#67a4b5" />
       <ImageView fitHeight="550.0" fitWidth="588.0" layoutX="6.0" layoutY="96.0" opacity="0.36">
          <image>
@@ -67,7 +67,7 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="271.0" layoutX="-2.0" layoutY="239.0" opacity="0.64" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="688.0" />
-      <MenuBar layoutX="-15.0" prefHeight="82.0" prefWidth="1282.0">
+      <MenuBar layoutX="-15.0" prefHeight="120.0" prefWidth="1859.0">
         <menus>
           <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
                <graphic>
@@ -281,7 +281,7 @@
          <effect>
             <DropShadow />
          </effect></Line>
-      <Button disable="true" layoutX="2.0" layoutY="258.0" mnemonicParsing="false" prefHeight="108.0" prefWidth="147.0" styleClass="botao-pastel">
+      <Button layoutX="2.0" layoutY="258.0" mnemonicParsing="false" onAction="#abrirTelaCadastroCliente" prefHeight="108.0" prefWidth="147.0" styleClass="botao-pastel">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -340,15 +340,15 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="136.0" layoutX="331.0" layoutY="364.0" stroke="#f8de34" strokeType="INSIDE" styleClass="container-retangulo" width="20.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="136.0" layoutX="331.0" layoutY="244.0" stroke="#f8de34" strokeType="INSIDE" styleClass="container-retangulo" width="20.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="136.0" layoutX="151.0" layoutY="364.0" stroke="#f8de34" strokeType="INSIDE" styleClass="container-retangulo" width="20.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="24.0" layoutX="1.0" layoutY="364.0" stroke="#f8de34" strokeType="INSIDE" styleClass="container-retangulo" width="1267.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="24.0" layoutX="1.0" layoutY="364.0" stroke="#f8de34" strokeType="INSIDE" styleClass="container-retangulo" width="1845.0">
          <effect>
             <DropShadow />
          </effect></Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="24.0" layoutX="1.0" layoutY="239.0" stroke="#f8de34" strokeType="INSIDE" styleClass="container-retangulo" width="1267.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="24.0" layoutX="1.0" layoutY="239.0" stroke="#f8de34" strokeType="INSIDE" styleClass="container-retangulo" width="1844.0">
          <effect>
             <DropShadow />
          </effect></Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="24.0" layoutY="489.0" stroke="#f8de34" strokeType="INSIDE" styleClass="container-retangulo" width="1267.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8de34" height="24.0" layoutX="56.0" layoutY="-22.0" stroke="#f8de34" strokeType="INSIDE" styleClass="container-retangulo" width="1844.0">
          <effect>
             <DropShadow />
          </effect></Rectangle>
@@ -422,7 +422,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView disable="true" fitHeight="68.0" fitWidth="69.0" layoutX="43.0" layoutY="269.0" opacity="0.69">
+      <ImageView disable="true" fitHeight="68.0" fitWidth="69.0" layoutX="43.0" layoutY="269.0">
          <image>
             <Image url="@img/cadastrarCliente.png" />
          </image>
@@ -519,12 +519,12 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="525.0" layoutY="266.0" mnemonicParsing="false" onAction="#abrirTelaRequisicao2" prefHeight="93.0" prefWidth="154.0" styleClass="botao-pastel">
+      <Button layoutX="525.0" layoutY="266.0" mnemonicParsing="false" onAction="#abrirTelaRequisicao2" prefHeight="99.0" prefWidth="154.0" styleClass="botao-pastel">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ImageView disable="true" fitHeight="75.0" fitWidth="100.0" layoutX="544.0" layoutY="266.0">
+      <ImageView disable="true" fitHeight="75.0" fitWidth="83.0" layoutX="554.0" layoutY="266.0">
          <image>
             <Image url="@img/requisicao.png" />
          </image>
@@ -538,9 +538,9 @@
             </Label>
          </children>
       </VBox>
-      <Button fx:id="btnFechar" layoutX="1073.0" layoutY="26.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="62.0" prefWidth="120.0" styleClass="deletar" text="FECHAR" />
+      <Button fx:id="btnFechar" layoutX="1093.0" layoutY="26.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="62.0" prefWidth="112.0" styleClass="deletar" text="FECHAR" />
       <Label fx:id="labelAnimada" layoutX="608.0" layoutY="190.0" opacity="0.36" style="-fx-font-size: 252PX; -fx-font-weight: BOLD;" text="F P S" textFill="#67a4b5" />
-      <Button layoutX="529.0" layoutY="390.0" mnemonicParsing="false" onAction="#abrirTelaFormaPagamento" prefHeight="62.0" prefWidth="147.0" styleClass="botao-pastel">
+      <Button layoutX="529.0" layoutY="390.0" mnemonicParsing="false" onAction="#abrirTelaFormaPagamento" prefHeight="99.0" prefWidth="147.0" styleClass="botao-pastel">
          <graphic>
             <ImageView disable="true" fitHeight="62.0" fitWidth="105.0">
                <image>
@@ -565,12 +565,12 @@
          </children>
       </VBox>
       <Button fx:id="btnAtualizar" layoutX="441.0" layoutY="199.0" mnemonicParsing="false" onAction="#carregarFuncionariosNoChoiceBox" prefHeight="31.0" prefWidth="83.0" text="Atualizar" />
-      <ImageView fitHeight="13.0" fitWidth="15.0" layoutX="1035.0" layoutY="640.0">
+      <ImageView fitHeight="13.0" fitWidth="15.0" layoutX="1091.0" layoutY="6.0">
          <image>
             <Image url="@img/copyright-1345865_1280.png" />
          </image>
       </ImageView>
-      <Label layoutX="1052.0" layoutY="640.0" style="-fx-font-size: 10PX;" text="ALL COPYRIGHTS RESERVED TO FPS SOLUTIONS">
+      <Label layoutX="1108.0" layoutY="6.0" prefHeight="13.0" prefWidth="215.0" style="-fx-font-size: 10PX;" text="ALL COPYRIGHTS RESERVED TO FPS SOLUTIONS">
          <font>
             <Font size="22.0" />
          </font>

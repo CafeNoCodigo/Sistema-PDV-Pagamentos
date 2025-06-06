@@ -241,7 +241,7 @@
             <Font name="Franklin Gothic Medium" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="250.0" layoutY="606.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" style="-fx-background-radius: 10;" text="Imprimir">
+      <Button disable="true" layoutX="250.0" layoutY="606.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" style="-fx-background-radius: 10;">
          <font>
             <Font name="Franklin Gothic Medium" size="13.0" />
          </font>

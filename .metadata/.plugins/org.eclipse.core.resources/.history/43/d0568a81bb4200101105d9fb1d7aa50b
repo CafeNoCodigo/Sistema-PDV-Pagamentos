@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="917.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.telaCadastroClienteController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="48.0" layoutX="23.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="332.0" />
+      <Button layoutX="31.0" layoutY="23.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Novo" />
+      <Button layoutX="138.0" layoutY="23.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Limpar" />
+      <Button layoutX="248.0" layoutY="23.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Eliminar" />
+      <Button layoutX="769.0" layoutY="23.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="100.0" text="Fechar" />
+   </children>
+</AnchorPane>

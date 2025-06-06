@@ -8,7 +8,9 @@
     <fullyQualifiedTypeName name="javafx.scene.layout.VBox"/>
     <fullyQualifiedTypeName name="javafx.fxml.FXML"/>
     <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.controller.telaCadastroProdutoController"/>
-    <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.util.Conexao"/>
     <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.model.FormaPagamento"/>
     <fullyQualifiedTypeName name="javafx.scene.control.Alert.AlertType"/>
+    <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.util.Conexao"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
 </qualifiedTypeNameHistroy>

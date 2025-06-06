@@ -1,0 +1,89 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.minhaloja.sistema_pagamento.model.Cliente;
+import com.minhaloja.sistema_pagamento.model.Produto;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+public class ClienteDAO {
+	
+	public ClienteDAO() {
+		criarTabelaSeNaoExistir();
+	}
+	
+	public ObservableList<Cliente> listarClientes() {
+        ObservableList<Cliente> lista = FXCollections.observableArrayList();
+        String sql = "SELECT nome, telefone1, telefone2, conta1, conta2, info, status";
+
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setNome(rs.getString("nome"));
+                c.setTelefone1(rs.getString("telefone1"));
+                c.setEstoque(rs.getInt("estoque"));
+                c.setPrecoVenda(rs.getDouble("precoVenda"));
+                c.setPrecoMestre(rs.getDouble("precoMestre"));
+                c.setPrecoCompra(rs.getDouble("precoCompra"));
+                c.setReferencia(rs.getString("referencia"));
+                c.setLoja(rs.getString("loja"));
+                c.setFabricante(rs.getString("fabricante"));
+                c.setFornecedor(rs.getString("fornecedor"));
+                c.setQrCode(rs.getBytes("imgQrCode"));
+                c.setModelo(rs.getString("modelo"));
+                c.setCodigo(rs.getString("codigo"));
+                c.setGarantia(rs.getString("garantia"));
+                c.setCor(rs.getString("cor"));
+                c.setInfoAdicional(rs.getString("infoAdicional"));
+                c.setImagem(rs.getBytes("imagem"));
+
+                lista.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar produtos: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
+	private void criarTabelaSeNaoExistir() {
+		String sql = """
+					CREATE TABLE IF NOT EXISTS cliente (
+						id INT AUTO_INCREMENT PRIMARY KEY,
+						nome VARCHAR(255),
+						endereco VARCHHAR(255),
+						bi VARCHAR(255),
+						email VARCHAR(255),
+						cidade VARCHAR(255),
+						telefone1 VARCHAR(255),
+						telefone2 VARCHAR(255),
+						nuit VARCHAR(255),
+						dataNascido DATE,
+						info VARCHAR(255),
+						conta1 VARCHAR(255),
+						conta2 VARCHAR(255),
+						dataREG DATE,
+						genero VARCHAR(50)
+						status VARCHAR(50),
+						imagem BOLB,
+						);
+				""";
+		
+		try(Connection conn = Conexao.conectar(); Statement stmt = conn.createStatement()) {
+			stmt.execute(sql);
+		}catch(SQLException e) {
+			System.err.println("Erro ao criar tabela cliente" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	
+}

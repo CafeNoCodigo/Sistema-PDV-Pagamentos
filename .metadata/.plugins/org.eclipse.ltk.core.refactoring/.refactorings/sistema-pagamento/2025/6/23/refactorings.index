@@ -1,0 +1,4 @@
+1749202542204	Rename type 'telaCadastroCliente'
+1749209350015	Encapsulate field 'telefone2, ...'
+1749209360887	Encapsulate field 'telefone1, ...'
+1749209467071	Encapsulate field 'status, ...'

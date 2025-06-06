@@ -32,7 +32,7 @@ public class App extends Application {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             stage.setResizable(false);
-            stage.setMaximized(false);
+            stage.setMaximized(true);
             stage.setTitle("FPS_Commerce");
             stage.setScene(scene);
             stage.show();

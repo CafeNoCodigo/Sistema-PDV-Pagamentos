@@ -1,0 +1,22 @@
+package com.minhaloja.sistema_pagamento.model;
+
+import java.time.LocalDate;
+
+public class Cliente {
+
+	private String nome;
+	private String endereco;
+	private String email;
+	private String cidade;
+	private String tel1;
+	private String tel2;
+	private String nuit;
+	private LocalDate dataNascido;
+	private String info;
+	private String conta1;
+	private String conta2;
+	private LocalDate dataReg;
+	private String genero;
+	private String statusCliente;
+	private byte[] imagem;
+}
