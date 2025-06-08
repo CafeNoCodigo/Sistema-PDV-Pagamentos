@@ -87,7 +87,7 @@ public class TelaRequisicaoController {
                 pastaDestino.mkdirs();
             }
 
-            String nomeArquivo = "Requisição de_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".pdf";
+            String nomeArquivo = "Requisição de_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) + ".pdf";
             File arquivo = new File(pastaDestino, nomeArquivo);
 
             PdfWriter.getInstance(documento, new FileOutputStream(arquivo));

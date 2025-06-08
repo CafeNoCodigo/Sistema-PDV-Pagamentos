@@ -1,7 +1,25 @@
 package com.minhaloja.sistema_pagamento.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.minhaloja.sistema_pagamento.dao.CaixaDAO;
 import com.minhaloja.sistema_pagamento.dao.FuncionarioDAO;
 import com.minhaloja.sistema_pagamento.util.NotificacaoSistema;
@@ -37,10 +55,115 @@ public class telaInicialController {
         iniciarAnimacaoLabel();
         aplicarAnimacoesComponentes();
      
-    	String msg = "EXISTE UM CAIXA ABERTO!";
+    	String msg = "versao 2!";
     	popUp(msg);	
      
     }
+    private static final String VERSAO_ATUAL = "1.0.0";
+    private static final String LINK_UPDATE_JSON = "https://drive.google.com/uc?export=download&id=1p12uHbdTUm_SzGXaoCXAlhVebUOmBDk6";
+
+    public void verificarAtualizacao() {
+        new Thread(() -> {
+            try {
+                JsonObject updateInfo = baixarUpdateJson(LINK_UPDATE_JSON);
+                String novaVersao = updateInfo.get("versao").getAsString();
+                String urlArquivo = updateInfo.get("url_arquivo").getAsString();
+
+                if (VERSAO_ATUAL.equals(novaVersao)) {
+                    mostrarMensagem("Atualização", "Você já está na versão mais recente: " + VERSAO_ATUAL);
+                    return;
+                }
+
+                mostrarMensagem("Atualização", "Nova versão disponível: " + novaVersao + "\nBaixando atualização...");
+
+                String zipPath = "atualizacao.zip";
+                baixarArquivo(urlArquivo, zipPath);
+                descompactar(zipPath, ".");
+
+                Files.deleteIfExists(Paths.get(zipPath));
+                mostrarMensagem("Atualização", "Atualização concluída! O app será reiniciado.");
+                Thread.sleep(1500);
+                reiniciarAplicativo();
+            } catch (Exception e) {
+                e.printStackTrace();
+                mostrarMensagem("Erro", "Erro ao atualizar: " + e.getMessage());
+            }
+        }).start();
+    }
+
+    @SuppressWarnings("deprecation")
+	private JsonObject baixarUpdateJson(String url) throws IOException {
+        try (InputStream is = new URL(url).openStream();
+             InputStreamReader isr = new InputStreamReader(is);
+             BufferedReader reader = new BufferedReader(isr)) {
+            return JsonParser.parseReader(reader).getAsJsonObject();
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+	private void baixarArquivo(String url, String destino) throws IOException {
+        try (InputStream in = new URL(url).openStream()) {
+            Files.copy(in, Paths.get(destino), StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+    private void descompactar(String zipFilePath, String destino) throws IOException {
+        try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
+            ZipEntry entry;
+            while ((entry = zis.getNextEntry()) != null) {
+                File novoArquivo = new File(destino, entry.getName());
+                if (entry.isDirectory()) {
+                    novoArquivo.mkdirs();
+                } else {
+                    new File(novoArquivo.getParent()).mkdirs();
+                    try (FileOutputStream fos = new FileOutputStream(novoArquivo)) {
+                        byte[] buffer = new byte[1024];
+                        int len;
+                        while ((len = zis.read(buffer)) > 0) {
+                            fos.write(buffer, 0, len);
+                        }
+                    }
+                }
+                zis.closeEntry();
+            }
+        }
+    }
+
+    private void reiniciarAplicativo() {
+        try {
+            String caminho = new File(telaInicialController.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getPath();
+            if (caminho.endsWith(".exe")) {
+                new ProcessBuilder(caminho).start();
+            } else if (caminho.endsWith(".jar")) {
+                new ProcessBuilder("java", "-jar", caminho).start();
+            } else {
+                mostrarMensagem("Erro", "Formato de aplicação desconhecido.");
+                return;
+            }
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarMensagem("Erro", "Falha ao reiniciar o app: " + e.getMessage());
+        }
+    }
+
+    private void mostrarMensagem(String titulo, String mensagem) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(titulo);
+            alert.setHeaderText(null);
+            alert.setContentText(mensagem);
+            alert.showAndWait();
+        });
+    }
+
+        private void fecharApp() {
+            fecharJanela();
+        }
+
+        private void relancarApp() {
+            fecharApp();
+        }
 
     private void iniciarAnimacaoLabel() {
         
@@ -95,7 +218,7 @@ public class telaInicialController {
     @FXML
     private void fecharJanela() {
     	if (caixaDAO.isCaixaAberto()) {
-        	String msg = "CAIXA AINDA ABERTO!";
+        	String msg = "EXISTE UM CAIXA AINDA ABERTO!";
             NotificacaoSistema notificacao = new NotificacaoSistema();
             notificacao.mostrarNotificacaoPopUp(msg);
         }

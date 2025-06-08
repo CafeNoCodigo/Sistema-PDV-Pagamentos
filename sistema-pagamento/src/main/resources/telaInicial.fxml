@@ -171,7 +171,7 @@
             </Menu>
             <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" onAction="#verificarAtualizacao" text="Atualizar Versão" />
               </items>
                <graphic>
                   <ImageView fitHeight="68.0" fitWidth="68.0">
@@ -575,5 +575,6 @@
             <Font size="22.0" />
          </font>
       </Label>
+      <Label layoutX="864.0" layoutY="166.0" prefHeight="31.0" prefWidth="185.0" text="versao 2" />
    </children>
 </AnchorPane>

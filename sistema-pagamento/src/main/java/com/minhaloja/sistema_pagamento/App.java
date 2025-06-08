@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -22,7 +23,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            // Captura exceções não tratadas da JavaFX Application Thread
+            // Captura exceções não tratadas 
             Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
                 logarErro(throwable);
                 exibirAlertaErro();
@@ -31,6 +32,8 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/telaInicial.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
+            Image icon = new Image(getClass().getResourceAsStream("/img/carinho.png"));
+            stage.getIcons().add(icon);
             stage.setResizable(false);
             stage.setMaximized(true);
             stage.setTitle("FPS_Commerce");

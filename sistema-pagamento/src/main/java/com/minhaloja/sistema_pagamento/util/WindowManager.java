@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class WindowManager {
@@ -17,6 +18,8 @@ public class WindowManager {
 			Parent root = fxmlLoader.load();
 			
 			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/cadastrarCliente.png"));
+            stage.getIcons().add(icon);
 			stage.setTitle("Cadastrar Cliente");
 			stage.setResizable(false);
 			stage.setMaximized(false);
@@ -35,6 +38,8 @@ public class WindowManager {
 			Parent root = fxmlLoader.load();
 			
 			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/formaPagamento.png"));
+            stage.getIcons().add(icon);
 			stage.setTitle("Registrar Forma de Pagamento");
 			stage.setResizable(false);
 			stage.setMaximized(false);
@@ -52,6 +57,8 @@ public class WindowManager {
 			Parent root = fxmlLoader.load();
 			
 			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/cadastrarProduto.png"));
+            stage.getIcons().add(icon);
 			stage.setTitle("Cadastro de Produto");
 			stage.setResizable(false);
 			stage.setMaximized(false);
@@ -69,6 +76,8 @@ public class WindowManager {
 			Parent root = fxmlLoader.load();
 			
 			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/cadastrarVendedor.png"));
+            stage.getIcons().add(icon);
 			stage.setTitle("Cadastro de Funcionario");
 			stage.setResizable(false);
 			stage.setMaximized(false);
@@ -87,6 +96,8 @@ public class WindowManager {
 			Parent root = fxmlLoader.load();
 			
 			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
+            stage.getIcons().add(icon);
 			stage.setTitle("Venda de Produto");
 			stage.setResizable(false);
 			stage.setMaximized(true);
@@ -104,6 +115,8 @@ public class WindowManager {
 			Parent root = fxmlLoader.load();
 			
 			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/fluxoCaixa.png"));
+            stage.getIcons().add(icon);
 			stage.setTitle("Fluxo de Caixa");
 			stage.setResizable(false);
 			stage.setMaximized(true);
@@ -122,6 +135,8 @@ public class WindowManager {
 			Parent root = fxmlLoader.load();
 			
 			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/pesquisaVenda.png"));
+            stage.getIcons().add(icon);
 			stage.setTitle("Estoque Atual");
 			stage.setResizable(false);
 			stage.setMaximized(true);
@@ -140,6 +155,8 @@ public class WindowManager {
 			Parent root = fxmlLoader.load();
 			
 			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/ordemdeservico2.png"));
+            stage.getIcons().add(icon);
 			stage.setTitle("Relatorio");
 			stage.setResizable(false);
 			stage.setMaximized(true);
@@ -157,6 +174,8 @@ public class WindowManager {
 			Parent root = fxmlLoader.load();
 			
 			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/requisicao.png"));
+            stage.getIcons().add(icon);
 			stage.setTitle("Requisições");
 			stage.setResizable(false);
 			stage.setMaximized(false);

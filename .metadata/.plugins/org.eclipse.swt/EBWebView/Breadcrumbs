@@ -1,66 +1,37 @@
-3:42:10 Browser5 Close Tab5 at 0
-3:42:10 Tab5 WebContentsDestroyed
-3:42:10 Microsoft.Shutdown.OnWindowClosing
-3:42:10 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
-3:42:10 Widget Closed: BrowserFrame
-3:42:10 Microsoft.Shutdown.OnWindowClosing
-3:42:10 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
-3:42:10 Microsoft.Browser_Removed
-3:42:10 Microsoft.Shutdown.OnWindowClosing
-3:42:10 Microsoft.Shutdown.OnWindowClosing_MaybeClearBrowsingDataOnExit
-3:42:10 Microsoft.Shutdown.OnWindowClosing_ClearBrowsingDataOnExitNotInProgress
-3:42:10 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
-3:42:10 Microsoft.Shutdown.TabStripModel.CloseAllTabs
-3:42:10 Microsoft.Shutdown.TabStripModel.CloseTabs
-3:42:10 Microsoft.Shutdown.TabStripModel.CloseTabs_EdgeBeforeClosingAllTabs
-3:42:10 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl
-3:42:10 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_TabClosable
-3:42:10 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosingAll
-3:42:10 Microsoft.Shutdown.TabStripModel.CloseWebContentses
-3:42:10 Microsoft.Shutdown.TabStripModel.CloseWebContentses_FastShutdown
-3:42:10 Microsoft.Shutdown.TabStripModel.ShouldRunUnloadListenerBeforeClosing_false
-3:42:10 Tab2 RenderProcessGone
-3:42:10 Microsoft.Shutdown.TabStripModel.RunUnloadListenerBeforeClosing_false
-3:42:10 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosedAll
-3:42:10 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications
-3:42:10 Browser2 Close Tab2 at 0
-3:42:10 Tab2 WebContentsDestroyed
-3:42:10 Microsoft.Shutdown.OnWindowClosing
-3:42:10 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
-3:42:10 Widget Closed: BrowserFrame
-3:42:10 Microsoft.Shutdown.OnWindowClosing
-3:42:10 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
-3:42:10 Microsoft.Browser_Removed
-3:42:10 Microsoft.Shutdown.OnWindowClosing
-3:42:10 Microsoft.Shutdown.OnWindowClosing_MaybeClearBrowsingDataOnExit
-3:42:11 Microsoft.Shutdown.OnWindowClosing_ClearBrowsingDataOnExitNotInProgress
-3:42:11 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
-3:42:11 Microsoft.Shutdown.TabStripModel.CloseAllTabs
-3:42:11 Microsoft.Shutdown.TabStripModel.CloseTabs
-3:42:11 Microsoft.Shutdown.TabStripModel.CloseTabs_EdgeBeforeClosingAllTabs
-3:42:11 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl
-3:42:11 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_TabClosable
-3:42:11 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosingAll
-3:42:11 Microsoft.Shutdown.TabStripModel.CloseWebContentses
-3:42:11 Microsoft.Shutdown.TabStripModel.CloseWebContentses_FastShutdown
-3:42:11 Microsoft.Shutdown.TabStripModel.ShouldRunUnloadListenerBeforeClosing_false
-3:42:11 Tab17 RenderProcessGone
-3:42:11 Microsoft.Shutdown.TabStripModel.RunUnloadListenerBeforeClosing_false
-3:42:11 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosedAll
-3:42:11 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications
-3:42:11 Browser17 Close Tab17 at 0
-3:42:11 Tab17 WebContentsDestroyed
-3:42:11 Microsoft.Shutdown.OnWindowClosing
-3:42:11 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
-3:42:11 Widget Closed: BrowserFrame
-3:42:11 Microsoft.Shutdown.OnWindowClosing
-3:42:11 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
-3:42:11 Microsoft.Last_Browser_Removed
-3:42:15 Microsoft.Shutdown.ShutdownIfNoBrowsers
-3:42:15 Microsoft.Shutdown.SetTryingToQuit_Quitting
-3:42:15 Microsoft.Shutdown.NotifyAppTerminating
-3:42:15 Microsoft.Shutdown.OnAppExiting
-3:42:15 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura
-3:42:15 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura.NotificationUIManager_StartShutdown
-3:42:15 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura.CloseAllSecondaryWidgets
-3:42:17 Shutdown
+0:14:08 Tab2 StartNav13 #typed
+0:14:08 Tab2 FinishNav13
+0:14:08 Tab2 PageLoad
+0:24:27 Memory Pressure: Moderate
+0:32:58 Microsoft.Shutdown.OnWindowClosing
+0:32:58 Microsoft.Shutdown.OnWindowClosing_MaybeClearBrowsingDataOnExit
+0:32:58 Microsoft.Shutdown.OnWindowClosing_ClearBrowsingDataOnExitNotInProgress
+0:32:58 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+0:32:58 Microsoft.Shutdown.TabStripModel.CloseAllTabs
+0:32:58 Microsoft.Shutdown.TabStripModel.CloseTabs
+0:32:58 Microsoft.Shutdown.TabStripModel.CloseTabs_EdgeBeforeClosingAllTabs
+0:32:58 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl
+0:32:58 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_TabClosable
+0:32:58 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosingAll
+0:32:58 Microsoft.Shutdown.TabStripModel.CloseWebContentses
+0:32:58 Microsoft.Shutdown.TabStripModel.CloseWebContentses_FastShutdown
+0:32:58 Microsoft.Shutdown.TabStripModel.ShouldRunUnloadListenerBeforeClosing_false
+0:32:58 Tab2 RenderProcessGone
+0:32:58 Microsoft.Shutdown.TabStripModel.RunUnloadListenerBeforeClosing_false
+0:32:58 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosedAll
+0:32:58 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications
+0:32:58 Browser2 Close Tab2 at 0
+0:32:58 Tab2 WebContentsDestroyed
+0:32:58 Microsoft.Shutdown.OnWindowClosing
+0:32:58 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+0:32:58 Widget Closed: BrowserFrame
+0:32:58 Microsoft.Shutdown.OnWindowClosing
+0:32:58 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+0:32:58 Microsoft.Last_Browser_Removed
+0:33:00 Microsoft.Shutdown.ShutdownIfNoBrowsers
+0:33:00 Microsoft.Shutdown.SetTryingToQuit_Quitting
+0:33:00 Microsoft.Shutdown.NotifyAppTerminating
+0:33:00 Microsoft.Shutdown.OnAppExiting
+0:33:00 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura
+0:33:00 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura.NotificationUIManager_StartShutdown
+0:33:00 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura.CloseAllSecondaryWidgets
+0:33:01 Shutdown

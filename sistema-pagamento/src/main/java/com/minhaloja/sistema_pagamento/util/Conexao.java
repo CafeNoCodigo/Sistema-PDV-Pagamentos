@@ -7,8 +7,14 @@ import java.sql.Statement;
 
 public class Conexao {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/minha_loja";
-    private static final String URL_SEM_BD = "jdbc:mysql://localhost:3306/";
+    private static final String IP_SERVIDOR = "192.168.1.101";
+    private static final String PORTA = "3306";
+    private static final String BANCO = "minha_loja";
+
+    private static final String URL = "jdbc:mysql://" + IP_SERVIDOR + ":" + PORTA + "/" + BANCO +
+                                      "?useSSL=false&allowPublicKeyRetrieval=true";
+    private static final String URL_SEM_BD = "jdbc:mysql://" + IP_SERVIDOR + ":" + PORTA + "/" +
+                                             "?useSSL=false&allowPublicKeyRetrieval=true";
     private static final String USUARIO = "root";
     private static final String SENHA = "22089mysql";
 
@@ -17,7 +23,7 @@ public class Conexao {
     // Conecta ao banco de dados, criando-o se necessário
     public static Connection conectar() throws SQLException {
         if (conexaoUnica == null || conexaoUnica.isClosed()) {
-            criarBancoSeNaoExistir(); // Garante que o banco exista
+            criarBancoSeNaoExistir();
             conexaoUnica = DriverManager.getConnection(URL, USUARIO, SENHA);
             System.out.println("Conexão com o banco de dados estabelecida.");
         }
@@ -29,7 +35,7 @@ public class Conexao {
         try (Connection conexao = DriverManager.getConnection(URL_SEM_BD, USUARIO, SENHA);
              Statement stmt = conexao.createStatement()) {
 
-            String sql = "CREATE DATABASE IF NOT EXISTS minha_loja";
+            String sql = "CREATE DATABASE IF NOT EXISTS " + BANCO;
             stmt.executeUpdate(sql);
             System.out.println("Banco de dados verificado/criado com sucesso.");
 
