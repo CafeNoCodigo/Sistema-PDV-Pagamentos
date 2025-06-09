@@ -8,13 +8,16 @@ C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\s
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\util\NotificacaoSistema.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\util\Conexao.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\telaEstoqueAtualController.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\TelaContasAPagarController.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Equipamento.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\ItemVenda.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\ClienteDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Venda.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\TelaFormaPagamentoController.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\ContaAPagarDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\telaCadastroProdutoController.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\telaRelatorioController.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\ContaAPagar.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\TelaRequisicaoController.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\ItemVendaDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Funcionario.java

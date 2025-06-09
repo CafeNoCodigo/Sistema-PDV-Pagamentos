@@ -17,4 +17,6 @@
     <fullyQualifiedTypeName name="javafx.scene.control.Alert.AlertType"/>
     <fullyQualifiedTypeName name="javafx.collections.FXCollections"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="java.awt.TrayIcon.MessageType"/>
+    <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.model.ContasAPagar"/>
 </qualifiedTypeNameHistroy>

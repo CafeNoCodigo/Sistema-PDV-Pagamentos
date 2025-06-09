@@ -85,7 +85,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario2" text="Funcionário" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" text="Produto" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroEquipamento" text="Equipamento" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Contas a pagar/Despesas" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroContaAPagar" text="Contas a pagar/Despesas" />
                   <MenuItem disable="true" mnemonicParsing="false" text="Serviços" />
                   <MenuItem disable="true" mnemonicParsing="false" text="Fornecedores" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroCliente" text="Cliente" />

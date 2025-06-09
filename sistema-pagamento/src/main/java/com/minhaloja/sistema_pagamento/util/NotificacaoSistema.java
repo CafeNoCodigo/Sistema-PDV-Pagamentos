@@ -13,7 +13,7 @@ public class NotificacaoSistema {
         }
 
         // Cria um ícone (obrigatório, mesmo que oculto)
-        Image image = Toolkit.getDefaultToolkit().createImage("order-management-16x16.png");
+        Image image = Toolkit.getDefaultToolkit().createImage("/carinho.ico");
 
         TrayIcon trayIcon = new TrayIcon(image, "Notificação");
         trayIcon.setImageAutoSize(true);
@@ -27,7 +27,7 @@ public class NotificacaoSistema {
             trayIcon.displayMessage(
                 "FPS - SOLUTIONS",
                 msg,
-                MessageType.WARNING
+                MessageType.INFO
             );
             
             new Thread(() -> {

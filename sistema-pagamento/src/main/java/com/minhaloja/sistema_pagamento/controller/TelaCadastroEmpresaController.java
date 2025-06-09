@@ -15,26 +15,30 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.minhaloja.sistema_pagamento.dao.EmpresaDAO;
 import com.minhaloja.sistema_pagamento.model.Empresa;
 
+import javafx.animation.ScaleTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class TelaCadastroEmpresaController {
 
-	@FXML private Button btnFechar, btnLimpar, btnSalvar, btnEliminar;
+	@FXML private Button btnFechar, btnLimpar, btnSalvar, btnEliminar, btnExportar;
 	
-	@FXML TextField tfNome, tfContacto, tfEmail, tfServico;
+	@FXML private TextField tfNome, tfContacto, tfEmail, tfServico;
 	
-	@FXML TableView<Empresa> tabelaEmpresas;
+	@FXML private TableView<Empresa> tabelaEmpresas;
 	
-	@FXML TableColumn<Empresa, String> colNome, colContacto, colEmail, colServico;
+	@FXML private TableColumn<Empresa, String> colNome, colContacto, colEmail, colServico;
 	
 	private final EmpresaDAO empresaDAO = new EmpresaDAO();
 	
@@ -46,7 +50,15 @@ public class TelaCadastroEmpresaController {
 		colServico.setCellValueFactory(new PropertyValueFactory<>("servico"));
 		
 		tabelaEmpresas.setItems(empresaDAO.listarEmpresas());
+		
+		configurarBotaoAnimado(btnFechar);
+		configurarBotaoAnimado(btnLimpar);
+		configurarBotaoAnimado(btnSalvar);
+		configurarBotaoAnimado(btnEliminar);
+		configurarBotaoAnimado(btnExportar);
 	}
+	
+	
 	
 	@FXML
     private void exportarParaPDF(ActionEvent event) {
@@ -199,5 +211,28 @@ public class TelaCadastroEmpresaController {
     	alerta.setHeaderText(null);
     	alerta.setContentText(msg);
     	alerta.showAndWait();
+    }
+    
+    // 🖱️ Efeito hover em botões
+    private void configurarBotaoAnimado(Button btn) {
+        DropShadow shadow = new DropShadow();
+
+        btn.setOnMouseEntered(e -> {
+            btn.setEffect(shadow);
+            btn.setCursor(Cursor.HAND);
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+            st.setToX(1.05);
+            st.setToY(1.05);
+            st.play();
+        });
+
+        btn.setOnMouseExited(e -> {
+            btn.setEffect(null);
+            btn.setCursor(Cursor.DEFAULT);
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+            st.setToX(1.0);
+            st.setToY(1.0);
+            st.play();
+        });
     }
 }

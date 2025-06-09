@@ -1,0 +1,270 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.minhaloja.sistema_pagamento.dao.ContaAPagarDAO;
+import com.minhaloja.sistema_pagamento.dao.FormaPagamentoDAO;
+import com.minhaloja.sistema_pagamento.model.ContaAPagar;
+
+import javafx.animation.ScaleTransition;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Cursor;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+public class TelaContasAPagarController {
+
+    @FXML private TextField tfDescricao, tfValor;
+    @FXML private DatePicker dpDataEmissao, dpDataVencimento, dpDataPagamento;
+    @FXML private ComboBox<String> cbFormaPagamento;
+    @FXML private Button btnSalvar, btnLimpar, btnFechar, btnPagar, btnPDF, btnEliminar;
+    @FXML private TableView<ContaAPagar> tabelaContasAPagar;
+    @FXML private TableColumn<ContaAPagar, String> colDescricao, colFormaPagamento;
+    @FXML private TableColumn<ContaAPagar, Double> colValor;
+    @FXML private TableColumn<ContaAPagar, LocalDate> colDataEmissao, colDataVencimento, colDataPagamentoCol;
+
+    private final ContaAPagarDAO contaDAO = new ContaAPagarDAO();
+
+    @FXML
+    public void initialize() {
+        configurarColunas();
+        listarContas();
+        carregarFormasPagamento();
+        configurarBotoesAnimados();
+    }
+
+    private void configurarColunas() {
+        colDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        colValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        colFormaPagamento.setCellValueFactory(new PropertyValueFactory<>("formaPagamento"));
+        colDataEmissao.setCellValueFactory(new PropertyValueFactory<>("dataEmissao"));
+        colDataVencimento.setCellValueFactory(new PropertyValueFactory<>("dataVencimento"));
+        colDataPagamentoCol.setCellValueFactory(new PropertyValueFactory<>("dataPagamento"));
+    }
+
+    private void carregarFormasPagamento() {
+        FormaPagamentoDAO formaDAO = new FormaPagamentoDAO();
+        List<String> formas = formaDAO.listarFormasPagamento();
+        cbFormaPagamento.getItems().setAll(formas);
+    }
+
+    @FXML
+    private void salvarConta() {
+        ContaAPagar conta = new ContaAPagar();
+
+        String descricao = tfDescricao.getText();
+        String valorStr = tfValor.getText();
+        LocalDate emissao = dpDataEmissao.getValue();
+        LocalDate vencimento = dpDataVencimento.getValue();
+        LocalDate pagamento = dpDataPagamento.getValue();
+        String formaPagamento = cbFormaPagamento.getValue();
+
+        // Validações básicas
+        if (descricao == null || descricao.trim().isEmpty()) {
+            mostrarAlerta("Por favor, preencha a descrição.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        double valor;
+        try {
+            valor = Double.parseDouble(valorStr);
+            if (valor <= 0) {
+                mostrarAlerta("O valor deve ser maior que zero.", Alert.AlertType.ERROR);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Valor inválido. Use apenas números.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        if (emissao == null) {
+            mostrarAlerta("Selecione a data de emissão.", Alert.AlertType.ERROR);
+            return;
+        }
+        if (vencimento == null) {
+            mostrarAlerta("Selecione a data de vencimento.", Alert.AlertType.ERROR);
+            return;
+        }
+        if (formaPagamento == null || formaPagamento.trim().isEmpty()) {
+            mostrarAlerta("Selecione uma forma de pagamento.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        // Monta objeto
+        conta.setDescricao(descricao.trim());
+        conta.setValor(valor);
+        conta.setDataEmissao(emissao);
+        conta.setDataVencimento(vencimento);
+        conta.setFormaPagamento(formaPagamento);
+
+        if (pagamento != null) {
+            conta.setDataPagamento(pagamento);
+            conta.setPaga(true);
+        } else {
+            conta.setDataPagamento(null);
+            conta.setPaga(false);
+        }
+
+        // Salva no banco
+        if (contaDAO.inserir(conta)) {
+            listarContas();
+            limparCampos();
+            mostrarAlerta("Conta salva com sucesso!", Alert.AlertType.INFORMATION);
+        } else {
+            mostrarAlerta("Erro ao salvar conta!", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void eliminarConta() {
+        ContaAPagar selecionada = tabelaContasAPagar.getSelectionModel().getSelectedItem();
+        if (selecionada == null) {
+            mostrarAlerta("Selecione uma conta para eliminar.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        boolean sucesso = contaDAO.deletar(selecionada.getId());
+        if (sucesso) {
+            listarContas();
+            mostrarAlerta("Conta eliminada com sucesso!", Alert.AlertType.INFORMATION);
+        } else {
+            mostrarAlerta("Erro ao eliminar conta!", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void listarContas() {
+        List<ContaAPagar> lista = contaDAO.listarTodas();
+        tabelaContasAPagar.getItems().setAll(lista);
+    }
+
+    @FXML
+    private void fecharJanela() {
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void limparCampos() {
+        tfDescricao.clear();
+        tfValor.clear();
+        dpDataEmissao.setValue(null);
+        dpDataVencimento.setValue(null);
+        dpDataPagamento.setValue(null);
+        cbFormaPagamento.getSelectionModel().clearSelection();
+    }
+
+    private void mostrarAlerta(String mensagem, Alert.AlertType tipo) {
+        Alert alert = new Alert(tipo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void exportarParaPDF(ActionEvent event) {
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setTitle("Confirmar Exportação");
+        confirmacao.setHeaderText("Deseja exportar as Contas a Pagar para PDF?");
+
+        confirmacao.showAndWait().ifPresent(resposta -> {
+            if (resposta == ButtonType.OK) {
+                gerarPDF();
+            }
+        });
+    }
+
+    private void gerarPDF() {
+        Document documento = new Document();
+        try {
+            String userHome = System.getProperty("user.home");
+            File pastaDestino = new File(userHome, "Desktop/FPS_COMMERCE/CONTAS_A_PAGAR");
+            if (!pastaDestino.exists()) pastaDestino.mkdirs();
+
+            String nomeArquivo = "Contas_a_Pagar_" +
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) + ".pdf";
+            File arquivo = new File(pastaDestino, nomeArquivo);
+
+            PdfWriter.getInstance(documento, new FileOutputStream(arquivo));
+            documento.open();
+
+            Font fonteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
+            Paragraph titulo = new Paragraph("Contas a Pagar", fonteTitulo);
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            documento.add(titulo);
+            documento.add(new Paragraph(" "));
+
+            PdfPTable tabela = new PdfPTable(5);
+            tabela.setWidthPercentage(100);
+            tabela.addCell("Descrição");
+            tabela.addCell("Valor");
+            tabela.addCell("Vencimento");
+            tabela.addCell("Forma Pagamento");
+            tabela.addCell("Pago em");
+
+            for (ContaAPagar conta : tabelaContasAPagar.getItems()) {
+                tabela.addCell(conta.getDescricao());
+                tabela.addCell(String.format("MZN %.2f", conta.getValor()));
+                tabela.addCell(conta.getDataVencimento() != null ? conta.getDataVencimento().toString() : "");
+                tabela.addCell(conta.getFormaPagamento() != null ? conta.getFormaPagamento() : "");
+                tabela.addCell(conta.getDataPagamento() != null ? conta.getDataPagamento().toString() : "-");
+            }
+
+            documento.add(tabela);
+            documento.close();
+
+            mostrarAlerta("PDF salvo em:\n" + arquivo.getAbsolutePath(), Alert.AlertType.INFORMATION);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Erro ao gerar PDF:\n" + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void configurarBotoesAnimados() {
+        configurarBotaoAnimado(btnSalvar);
+        configurarBotaoAnimado(btnLimpar);
+        configurarBotaoAnimado(btnFechar);
+        configurarBotaoAnimado(btnPagar);
+        configurarBotaoAnimado(btnPDF);
+        configurarBotaoAnimado(btnEliminar);
+    }
+
+    private void configurarBotaoAnimado(Button btn) {
+        DropShadow sombra = new DropShadow();
+
+        btn.setOnMouseEntered(e -> {
+            btn.setEffect(sombra);
+            btn.setCursor(Cursor.HAND);
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+            st.setToX(1.05);
+            st.setToY(1.05);
+            st.play();
+        });
+
+        btn.setOnMouseExited(e -> {
+            btn.setEffect(null);
+            btn.setCursor(Cursor.DEFAULT);
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+            st.setToX(1.0);
+            st.setToY(1.0);
+            st.play();
+        });
+    }
+}

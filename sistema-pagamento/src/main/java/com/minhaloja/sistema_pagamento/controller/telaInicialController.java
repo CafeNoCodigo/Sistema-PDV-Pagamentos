@@ -273,6 +273,10 @@ public class telaInicialController {
 	public void abrirTelaCadastroEquipamento() {
 		WindowManager.abrirTelaCadastroEquipamento();
 	}
+	
+	public void abrirTelaCadastroContaAPagar() {
+		WindowManager.abrirTelaCadastroContaAPagar();
+	}
     
     private void popUp(String msg) {
     	if (caixaDAO.isCaixaAberto()) {

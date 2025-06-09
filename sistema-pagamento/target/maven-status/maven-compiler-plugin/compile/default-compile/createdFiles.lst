@@ -1,6 +1,7 @@
 com\minhaloja\sistema_pagamento\controller\telaEstoqueAtualController.class
 com\minhaloja\sistema_pagamento\util\NotificacaoSistema.class
 com\minhaloja\sistema_pagamento\controller\telaRelatorioController$MonthTotal.class
+com\minhaloja\sistema_pagamento\dao\ContaAPagarDAO.class
 com\minhaloja\sistema_pagamento\controller\telaCadastroFuncionarioController.class
 com\minhaloja\sistema_pagamento\App.class
 com\minhaloja\sistema_pagamento\dao\FormaPagamentoDAO.class
@@ -29,9 +30,11 @@ com\minhaloja\sistema_pagamento\dao\ClienteDAO.class
 com\minhaloja\sistema_pagamento\model\Caixa.class
 com\minhaloja\sistema_pagamento\TesteConexao.class
 com\minhaloja\sistema_pagamento\controller\TelaCadastroEquipamentoController.class
+com\minhaloja\sistema_pagamento\controller\TelaContasAPagarController.class
 com\minhaloja\sistema_pagamento\dao\ItemVendaDAO.class
 com\minhaloja\sistema_pagamento\model\Funcionario.class
 com\minhaloja\sistema_pagamento\dao\FuncionarioDAO.class
 com\minhaloja\sistema_pagamento\model\Equipamento.class
 com\minhaloja\sistema_pagamento\dao\ProdutoEsgotadoDAO.class
 com\minhaloja\sistema_pagamento\controller\telaCadastroClienteController.class
+com\minhaloja\sistema_pagamento\model\ContaAPagar.class

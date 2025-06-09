@@ -20,6 +20,23 @@ public class FormaPagamentoDAO {
 		criarTabelaSeNaoExistir();
 	}
 	
+	public List<String> listarFormasPagamento() {
+        List<String> lista = new ArrayList<>();
+        String sql = "SELECT id FROM formaPagamento";
+
+        try (Connection conn = Conexao.conectar();PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                lista.add(rs.getString("id"));
+            }
+        } catch (SQLException e) {
+        	System.out.println("Erro ao listar as formas de pagamentos " + e.getMessage() );
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+	
 	public List<FormaPagamento> buscarTodas() {
 	    List<FormaPagamento> lista = new ArrayList<>();
 

@@ -1,0 +1,53 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.time.LocalDate;
+
+import com.minhaloja.sistema_pagamento.model.ContaAPagar;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+
+public class TelaContasAPagarController {
+
+    
+    @FXML private TextField tfDescricao, tfFornecedor, tfValor;
+    
+    @FXML private DatePicker dpDataEmissao, dpDataVencimento, dpDataPagamento;
+    
+    @FXML private ComboBox<String> cbFormaPagamento;
+    
+    @FXML private Button btnSalvar, btnLimpar, btnFechar, btnPagar, btnPDF, btnEliminar;
+    
+    @FXML private TableView<ContaAPagar> tabelaContasAPagar;
+    
+    @FXML private TableColumn<String, ContaAPagar> colDescricao, colValor, colFormaPagamento;
+    @FXML private TableColumn<LocalDate, ContaAPagar> colDataEmissao, colDataVencimento, colDataPagamento;
+    
+    @FXML
+    private void salvarConta() {
+        ContaAPagar conta = new ContaAPagar();
+        conta.setDescricao(tfDescricao.getText());
+        conta.setFornecedor(tfFornecedor.getText());
+        conta.setValor(Double.parseDouble(tfValor.getText()));
+        conta.setDataEmissao(dpDataEmissao.getValue());
+        conta.setDataVencimento(dpDataVencimento.getValue());
+        conta.setDataPagamento(dpDataPagamento.getValue());
+        conta.setFormaPagamento(cbFormaPagamento.getValue());
+        conta.setPaga(dpDataPagamento.getValue() != null);
+
+        ContaAPagarDAO dao = new ContaAPagarDAO();
+        if (dao.inserir(conta)) {
+            listarContas(); // atualiza a tabela
+            limparCampos();
+            mostrarAlerta("Conta salva com sucesso!", Alert.AlertType.INFORMATION);
+        } else {
+            mostrarAlerta("Erro ao salvar conta!", Alert.AlertType.ERROR);
+        }
+    }
+
+}

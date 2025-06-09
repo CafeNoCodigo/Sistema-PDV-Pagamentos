@@ -1,0 +1,161 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import com.minhaloja.sistema_pagamento.model.ContaAPagar;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ContaAPagarDAO {
+
+    // Inserir nova conta
+    public boolean inserir(ContaAPagar conta) {
+        String sql = "INSERT INTO contas_pagar (descricao, fornecedor, valor, data_emissao, data_vencimento, paga, data_pagamento, forma_pagamento) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, conta.getDescricao());
+            stmt.setString(2, conta.getFornecedor());
+            stmt.setDouble(3, conta.getValor());
+            stmt.setDate(4, Date.valueOf(conta.getDataEmissao()));
+            stmt.setDate(5, Date.valueOf(conta.getDataVencimento()));
+            stmt.setBoolean(6, conta.isPaga());
+            if (conta.getDataPagamento() != null) {
+                stmt.setDate(7, Date.valueOf(conta.getDataPagamento()));
+            } else {
+                stmt.setNull(7, Types.DATE);
+            }
+            stmt.setString(8, conta.getFormaPagamento());
+
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Atualizar conta existente
+    public boolean atualizar(ContaAPagar conta) {
+        String sql = "UPDATE contas_pagar SET descricao=?, fornecedor=?, valor=?, data_emissao=?, data_vencimento=?, paga=?, data_pagamento=?, forma_pagamento=? WHERE id=?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, conta.getDescricao());
+            stmt.setString(2, conta.getFornecedor());
+            stmt.setDouble(3, conta.getValor());
+            stmt.setDate(4, Date.valueOf(conta.getDataEmissao()));
+            stmt.setDate(5, Date.valueOf(conta.getDataVencimento()));
+            stmt.setBoolean(6, conta.isPaga());
+
+            if (conta.getDataPagamento() != null) {
+                stmt.setDate(7, Date.valueOf(conta.getDataPagamento()));
+            } else {
+                stmt.setNull(7, Types.DATE);
+            }
+
+            stmt.setString(8, conta.getFormaPagamento());
+            stmt.setInt(9, conta.getId());
+
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Remover conta por ID
+    public boolean deletar(int id) {
+        String sql = "DELETE FROM contas_pagar WHERE id=?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Buscar todas as contas
+    public List<ContaAPagar> listarTodas() {
+        List<ContaAPagar> contas = new ArrayList<>();
+        String sql = "SELECT * FROM contas_pagar ORDER BY data_vencimento ASC";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                ContaAPagar conta = new ContaAPagar();
+                conta.setId(rs.getInt("id"));
+                conta.setDescricao(rs.getString("descricao"));
+                conta.setFornecedor(rs.getString("fornecedor"));
+                conta.setValor(rs.getDouble("valor"));
+                conta.setDataEmissao(rs.getDate("data_emissao").toLocalDate());
+                conta.setDataVencimento(rs.getDate("data_vencimento").toLocalDate());
+                conta.setPaga(rs.getBoolean("paga"));
+
+                Date dataPgto = rs.getDate("data_pagamento");
+                if (dataPgto != null) {
+                    conta.setDataPagamento(dataPgto.toLocalDate());
+                }
+
+                conta.setFormaPagamento(rs.getString("forma_pagamento"));
+                contas.add(conta);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return contas;
+    }
+
+    // Buscar por ID
+    public ContaAPagar buscarPorId(int id) {
+        String sql = "SELECT * FROM contas_pagar WHERE id=?";
+        ContaAPagar conta = null;
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                conta = new ContaAPagar();
+                conta.setId(rs.getInt("id"));
+                conta.setDescricao(rs.getString("descricao"));
+                conta.setFornecedor(rs.getString("fornecedor"));
+                conta.setValor(rs.getDouble("valor"));
+                conta.setDataEmissao(rs.getDate("data_emissao").toLocalDate());
+                conta.setDataVencimento(rs.getDate("data_vencimento").toLocalDate());
+                conta.setPaga(rs.getBoolean("paga"));
+
+                Date dataPgto = rs.getDate("data_pagamento");
+                if (dataPgto != null) {
+                    conta.setDataPagamento(dataPgto.toLocalDate());
+                }
+
+                conta.setFormaPagamento(rs.getString("forma_pagamento"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return conta;
+    }
+}
+

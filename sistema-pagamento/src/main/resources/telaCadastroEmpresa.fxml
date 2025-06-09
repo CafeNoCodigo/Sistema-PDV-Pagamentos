@@ -59,7 +59,7 @@
                           </columns>
                         </TableView>
                         <Button fx:id="btnEliminar" layoutX="4.0" layoutY="4.0" mnemonicParsing="false" onAction="#excluirEmpresas" prefHeight="31.0" prefWidth="80.0" styleClass="deletar" text="Eliminar" />
-                        <Button layoutX="95.0" layoutY="4.0" mnemonicParsing="false" onAction="#exportarParaPDF" prefHeight="31.0" prefWidth="86.0" text="PDF" />
+                        <Button fx:id="btnExportar" layoutX="95.0" layoutY="4.0" mnemonicParsing="false" onAction="#exportarParaPDF" prefHeight="31.0" prefWidth="86.0" text="PDF" />
                      </children>
                   </AnchorPane>
             </content>

@@ -1,0 +1,21 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+
+public class TelaContasAPagarController {
+
+    
+    @FXML TextField tfDescricao, tfFornecedor, tfValor;
+    
+    @FXML DatePicker dpDataEmissao, dpDataVencimento, dpDataPagamento;
+    
+    @FXML ComboBox<String> cbFormaPagamento;
+    
+    @FXML Button btnSalvar, btnLimpar, btnFechar, btnPagar, btnPDF;
+    
+    @FXML TableView<ContaAPagar> tabelaContasAPagar;
+}

@@ -7,9 +7,30 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class WindowManager {
+	
+	@FXML
+	public static void abrirTelaCadastroContaAPagar() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaContasAPagar.fxml"));
+			Parent root = fxmlLoader.load();
+			
+			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
+            stage.getIcons().add(icon);
+			stage.setTitle("Contas A Pagar");
+			stage.setResizable(false);
+			stage.setMaximized(false);
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@FXML
 	public static void abrirTelaCadastroEquipamento() {

@@ -1,0 +1,71 @@
+package com.minhaloja.sistema_pagamento.model;
+
+import java.sql.Date;
+import java.time.LocalDate;
+
+public class ContaAPagar {
+    private int id;
+    private String descricao;
+    private String fornecedor;
+    private double valor;
+    private LocalDate dataEmissao;
+    private LocalDate dataVencimento;
+    private boolean paga;
+    private Date dataPagamento;
+    private LocalDate dataPagamento2;
+    
+    public LocalDate getDataPagamento2() {
+		return dataPagamento2;
+	}
+
+	public void setDataPagamento2(LocalDate dataPagamento2) {
+		this.dataPagamento2 = dataPagamento2;
+	}
+	private String formaPagamento;
+
+    public ContaAPagar(int id, String descricao, String fornecedor, double valor, LocalDate dataEmissao,
+                      LocalDate dataVencimento, boolean paga, Date dataPagamento, String formaPagamento) {
+        this.id = id;
+        this.descricao = descricao;
+        this.fornecedor = fornecedor;
+        this.valor = valor;
+        this.dataEmissao = dataEmissao;
+        this.dataVencimento = dataVencimento;
+        this.paga = paga;
+        this.dataPagamento = dataPagamento;
+        this.formaPagamento = formaPagamento;
+    }
+
+    public ContaAPagar() {
+    }
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getDescricao() { return descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
+
+    public String getFornecedor() { return fornecedor; }
+    public void setFornecedor(String fornecedor) { this.fornecedor = fornecedor; }
+
+    public double getValor() { return valor; }
+    public void setValor(double valor) { this.valor = valor; }
+
+    public LocalDate getDataEmissao() { return dataEmissao; }
+    public void setDataEmissao(LocalDate dataEmissao) { this.dataEmissao = dataEmissao; }
+
+    public LocalDate getDataVencimento() { return dataVencimento; }
+    public void setDataVencimento(LocalDate dataVencimento) { this.dataVencimento = dataVencimento; }
+
+    public boolean isPaga() { return paga; }
+    public void setPaga(boolean paga) { this.paga = paga; }
+
+    public Date getDataPagamento() { return dataPagamento; }
+    public void setDataPagamento(Date dataPagamento) { this.dataPagamento = dataPagamento; }
+
+    public String getFormaPagamento() { return formaPagamento; }
+    public void setFormaPagamento(String formaPagamento) { this.formaPagamento = formaPagamento; }
+
+	
+}
+
