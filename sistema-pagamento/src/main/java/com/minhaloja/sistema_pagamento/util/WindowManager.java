@@ -40,6 +40,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Cadastrar Equipamento");
 			stage.setResizable(false);
@@ -59,6 +60,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Cadastrar Empresa");
 			stage.setResizable(false);
@@ -78,6 +80,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/cadastrarCliente.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Cadastrar Cliente");
 			stage.setResizable(false);
@@ -98,6 +101,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/formaPagamento.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Registrar Forma de Pagamento");
 			stage.setResizable(false);
@@ -117,6 +121,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/cadastrarProduto.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Cadastro de Produto");
 			stage.setResizable(false);
@@ -136,6 +141,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/cadastrarVendedor.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Cadastro de Funcionario");
 			stage.setResizable(false);
@@ -156,6 +162,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Venda de Produto");
 			stage.setResizable(false);
@@ -175,6 +182,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/fluxoCaixa.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Fluxo de Caixa");
 			stage.setResizable(false);
@@ -195,6 +203,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/pesquisaVenda.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Estoque Atual");
 			stage.setResizable(false);
@@ -215,6 +224,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/ordemdeservico2.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Relatorio");
 			stage.setResizable(false);
@@ -234,6 +244,7 @@ public class WindowManager {
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/requisicao.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
 			stage.setTitle("Requisições");
 			stage.setResizable(false);
