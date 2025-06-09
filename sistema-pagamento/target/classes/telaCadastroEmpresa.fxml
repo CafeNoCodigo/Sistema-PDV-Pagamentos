@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="777.0" stylesheets="@estilo.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.minhaloja.sistema_pagamento.controller.TelaCadastroEmpresaController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="37.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="778.0" />
+      <TabPane layoutX="-1.0" layoutY="37.0" prefHeight="428.0" prefWidth="777.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Dados da Empresa">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="364.0" prefWidth="755.0">
+                     <children>
+                        <ImageView fitHeight="295.0" fitWidth="343.0" opacity="0.36">
+                           <image>
+                              <Image url="@img/carinho.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="labelAnimada" layoutX="326.0" layoutY="7.0" opacity="0.36" prefHeight="240.0" prefWidth="411.0" style="-fx-font-size: 180px; -fx-font-weight: BOLD;" text="F P S" textFill="#67a4b5" />
+                        <Label layoutX="343.0" layoutY="212.0" opacity="0.36" style="-fx-font-size: 70px; -fx-font-weight: BOLD;" text="SOLUTIONS" textFill="#67a4b5" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="356.0" layoutY="-1.0" opacity="0.72" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="754.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="45.0" layoutX="252.0" layoutY="281.0" stroke="BLACK" strokeType="INSIDE" styleClass="container-retangulo" width="215.0" />
+                        <Label layoutX="338.0" layoutY="45.0" style="-fx-font-weight: bold;" text="Nome" />
+                        <TextField fx:id="tfNome" layoutX="215.0" layoutY="70.0" prefHeight="29.0" prefWidth="289.0" />
+                        <Label layoutX="326.0" layoutY="108.0" prefHeight="17.0" prefWidth="69.0" style="-fx-font-weight: bold;" text="Contacto" />
+                        <Label layoutX="340.0" layoutY="168.0" style="-fx-font-weight: bold;" text="Email" />
+                        <TextField fx:id="tfContacto" layoutX="213.0" layoutY="127.0" prefHeight="29.0" prefWidth="292.0" />
+                        <TextField fx:id="tfEmail" layoutX="215.0" layoutY="186.0" prefHeight="29.0" prefWidth="292.0" />
+                        <TextField fx:id="tfServico" layoutX="215.0" layoutY="243.0" prefHeight="29.0" prefWidth="292.0" />
+                        <Label layoutX="341.0" layoutY="225.0" style="-fx-font-weight: bold;" text="Serviço" />
+                        <Button fx:id="btnSalvar" layoutX="257.0" layoutY="288.0" mnemonicParsing="false" onAction="#salvarEmpresa" prefHeight="31.0" prefWidth="101.0" style="-fx-font-weight: bold;" text="Salvar" />
+                        <Button fx:id="btnLimpar" layoutX="368.0" layoutY="288.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="31.0" prefWidth="92.0" style="-fx-font-weight: bold;" styleClass="cancelar" text="Limpar" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Lista de Empresas cadastradas">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tabelaEmpresas" layoutY="39.0" prefHeight="315.0" prefWidth="755.0" styleClass="tab-pane">
+                          <columns>
+                            <TableColumn fx:id="colNome" prefWidth="137.0" text="Nome" />
+                            <TableColumn fx:id="colContacto" prefWidth="138.0" text="Contacto" />
+                              <TableColumn fx:id="colEmail" prefWidth="117.0" text="Email" />
+                              <TableColumn fx:id="colServico" prefWidth="75.0" text="Serviço" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="btnEliminar" layoutX="4.0" layoutY="4.0" mnemonicParsing="false" onAction="#excluirEmpresas" prefHeight="31.0" prefWidth="80.0" styleClass="deletar" text="Eliminar" />
+                        <Button layoutX="95.0" layoutY="4.0" mnemonicParsing="false" onAction="#exportarParaPDF" prefHeight="31.0" prefWidth="86.0" text="PDF" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <Line endX="651.0" layoutX="126.0" layoutY="465.0" startX="-126.0" />
+      <Label layoutY="472.0" prefHeight="17.0" prefWidth="411.0" text="Cadastro de Empresas Parceiras, Prestadoras de Serviços e ou Clientes." />
+      <ImageView fitHeight="13.0" fitWidth="15.0" layoutX="544.0" layoutY="474.0">
+         <image>
+            <Image url="@img/copyright-1345865_1280.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="561.0" layoutY="474.0" prefHeight="13.0" prefWidth="215.0" style="-fx-font-size: 10PX;" text="ALL COPYRIGHTS RESERVED TO FPS SOLUTIONS">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnFechar" layoutX="684.0" layoutY="1.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="31.0" prefWidth="80.0" styleClass="deletar" text="Fechar" />
+   </children>
+</AnchorPane>

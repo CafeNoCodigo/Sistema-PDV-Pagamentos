@@ -1,0 +1,158 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.minhaloja.sistema_pagamento.model.Empresa;
+import com.minhaloja.sistema_pagamento.model.Produto;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+
+public class EmpresaDAO {
+	
+	public EmpresaDAO() {
+		criarTabelaSeNaoExistir();
+	}
+	
+	@FXML
+    private void exportarParaPDF(ActionEvent event) {
+        Document documento = new Document();
+        try {
+            // Local que será salvo
+            String userHome = System.getProperty("user.home");
+            File pastaDestino = new File(userHome, "Desktop/FPS_COMMERCE/EMPRESAS_CADASTRADAS");
+            if (!pastaDestino.exists()) {
+                pastaDestino.mkdirs();
+            }
+
+            String nomeArquivo = "EMPRESAS CADASTRADAS _" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) + ".pdf";
+            File arquivo = new File(pastaDestino, nomeArquivo);
+
+            PdfWriter.getInstance(documento, new FileOutputStream(arquivo));
+            documento.open();
+
+            Font fonteNegrito = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
+            Paragraph titulo = new Paragraph("Empresas Cadastradas", fonteNegrito);
+            titulo.setAlignment(Element.ALIGN_CENTER); 
+            documento.add(titulo);
+            documento.add(new Paragraph(" "));
+
+            PdfPTable tabela = new PdfPTable(4);
+            tabela.setWidthPercentage(100);
+
+            tabela.addCell("Nome");
+            tabela.addCell("contacto");
+            tabela.addCell("email");
+            tabela.addCell("servico");
+
+            for (Produto p : tabelaEmpresas.getItems()) {
+                tabela.addCell(p.getNome());
+                tabela.addCell(p.getCodigoBarra());
+                tabela.addCell(p.getCategoria());
+                tabela.addCell(String.format(" %d", p.getEstoque()));
+            }
+
+            documento.add(tabela);
+            documento.close();
+            alerta(Alert.AlertType.INFORMATION, "Gerar PDF de Estoque", "PDF salvo em: " + arquivo.getAbsolutePath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            alerta(Alert.AlertType.ERROR, "Gerar PDF de Estoque", "Erro ao gerar PDF: " + e.getMessage());
+        }
+    }
+	
+	public boolean excluirEmpresas(String nome) {
+		String sql = "DELETE FROM empresa WHERE nome = ?";
+		
+		try(Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)){
+			stmt.setString(1, nome);
+			stmt.executeUpdate();
+			return true;
+		}catch(SQLException e) {
+			System.out.println("Falha ao eliminar Empresa " + e.getMessage());
+			return false;
+		}
+	}
+	
+	public ObservableList<Empresa> listarEmpresas(){
+		ObservableList<Empresa> lista = FXCollections.observableArrayList();
+		String sql = "SELECT nome, contacto, email, servico FROM empresa";
+		
+		try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)){
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Empresa empresa = new Empresa();
+				empresa.setNome(rs.getString("nome"));
+				empresa.setContacto(rs.getString("contacto"));
+				empresa.setEmail(rs.getString("email"));
+				empresa.setServico(rs.getString("servico"));
+				
+				lista.add(empresa);
+			}
+		}catch(SQLException e) {
+			System.out.println("Erro ao listar Empresas " + e.getMessage());
+		}
+		return lista;
+	}	
+
+	private void criarTabelaSeNaoExistir() {
+        String sql = """
+            CREATE TABLE IF NOT EXISTS empresa (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nome VARCHAR(255),
+                contacto VARCHAR(255),
+                email VARCHAR(100),
+                servico VARCHAR(255)
+            );
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.err.println("Erro ao criar tabela caixa: " + e.getMessage());
+        }
+    }
+	
+	public boolean inserirEmpresa(Empresa empresa) {
+	    String sql = """
+	        INSERT INTO empresa (nome, contacto, email, servico)
+	        VALUES (?, ?, ?, ?)
+	    """;
+
+	    try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, empresa.getNome());
+	        stmt.setString(2, empresa.getContacto());
+	        stmt.setString(3, empresa.getEmail());
+	        stmt.setString(4, empresa.getServico());
+
+	        stmt.executeUpdate();
+	        return true;
+
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao inserir cliente: " + e.getMessage());
+	        return false;
+	    }
+	}
+}

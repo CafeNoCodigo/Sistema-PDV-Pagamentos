@@ -89,7 +89,7 @@ public class CaixaDAO {
             if (linhasAfetadas > 0) {
                 try (ResultSet rs = stmt.getGeneratedKeys()) {
                     if (rs.next()) {
-                        return rs.getInt(1); // Retorna o ID gerado
+                        return rs.getInt(1);
                     }
                 }
             }

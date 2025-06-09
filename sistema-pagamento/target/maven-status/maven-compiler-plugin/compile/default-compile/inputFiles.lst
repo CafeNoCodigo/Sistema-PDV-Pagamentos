@@ -8,6 +8,7 @@ C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\s
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\util\NotificacaoSistema.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\util\Conexao.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\telaEstoqueAtualController.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Equipamento.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\ItemVenda.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\ClienteDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Venda.java
@@ -20,11 +21,16 @@ C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\s
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Caixa.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Cliente.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\FormaPagamento.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\TelaCadastroEmpresaController.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\ProdutoDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\VendaDAO.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Empresa.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\EmpresaDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Produto.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\App.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\telaFluxoCaixaController.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\FuncionarioDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\ProdutoEsgotadoDAO.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\TelaCadastroEquipamentoController.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\telaVendaController.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\EquipamentoDAO.java

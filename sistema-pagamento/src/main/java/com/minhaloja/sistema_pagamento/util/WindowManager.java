@@ -12,6 +12,44 @@ import javafx.stage.Stage;
 public class WindowManager {
 	
 	@FXML
+	public static void abrirTelaCadastroEquipamento() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroEquipamento.fxml"));
+			Parent root = fxmlLoader.load();
+			
+			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
+            stage.getIcons().add(icon);
+			stage.setTitle("Cadastrar Equipamento");
+			stage.setResizable(false);
+			stage.setMaximized(false);
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public static void abrirTelaCadastroEmpresa() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroEmpresa.fxml"));
+			Parent root = fxmlLoader.load();
+			
+			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
+            stage.getIcons().add(icon);
+			stage.setTitle("Cadastrar Empresa");
+			stage.setResizable(false);
+			stage.setMaximized(false);
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
 	public static void abrirTelaCadastroCliente() {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroCliente.fxml"));

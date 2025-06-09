@@ -1,0 +1,54 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import com.minhaloja.sistema_pagamento.dao.EmpresaDAO;
+import com.minhaloja.sistema_pagamento.model.Empresa;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+public class TelaCadastroEmpresaController {
+
+	@FXML private Button btnFechar, btnLimpar;
+	
+	@FXML TextField tfNome, tfContacto, tfEmail, tfServico;
+	
+	private final EmpresaDAO empresaDAO = new EmpresaDAO();
+
+    @FXML
+    private void fecharJanela() {
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+    }
+    
+    @FXML
+    private void limparCampos() {
+    	tfNome.clear();
+    	tfContacto.clear();
+    	tfEmail.clear();
+    	tfServico.clear();
+    }
+    
+    @FXML
+    private void SalvarEmpresa() {
+    	Empresa empresa = new Empresa();
+    	
+    	empresa.setNome(tfNome.getText());
+    	empresa.setContacto(tfContacto.getText());
+    	empresa.setEmail(tfEmail.getText());
+    	empresa.setServico(tfServico.getText());
+    	
+    	boolean sucesso = empresaDAO.inserirEmpresa(empresa);
+    	
+    	if(sucesso) {
+    		
+    	}
+    }
+    
+    private void alerta(Alert.AlertType tipo, String titulo, String msg) {
+    	Alert alerta = new Alert(tipo);
+    	
+    }
+}

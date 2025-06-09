@@ -467,7 +467,7 @@ public class ProdutoDAO {
                 byte[] imagemBytes = rs.getBytes("imgQrCode");
                 if (imagemBytes != null) {
                     InputStream is = new ByteArrayInputStream(imagemBytes);
-                    return new Image(is); // javafx.scene.image.Image
+                    return new Image(is);
                 }
             }
         } catch (SQLException e) {

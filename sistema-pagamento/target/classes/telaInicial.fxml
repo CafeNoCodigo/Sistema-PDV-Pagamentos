@@ -60,8 +60,8 @@
          </fill>
       </Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fceb9e" height="82.0" layoutX="-3.0" layoutY="116.0" opacity="0.62" stroke="TRANSPARENT" strokeType="INSIDE" width="1844.0" />
-      <Label layoutX="613.0" layoutY="436.0" opacity="0.36" style="-fx-font-size: 100PX; -fx-font-weight: BOLD;" text="SOLUTIONS" textFill="#67a4b5" />
-      <ImageView fitHeight="550.0" fitWidth="588.0" layoutX="6.0" layoutY="96.0" opacity="0.36">
+      <Label layoutX="613.0" layoutY="436.0" opacity="0.25" style="-fx-font-size: 100PX; -fx-font-weight: BOLD;" text="SOLUTIONS" textFill="#67a4b5" />
+      <ImageView fitHeight="550.0" fitWidth="588.0" layoutX="6.0" layoutY="96.0" opacity="0.25">
          <image>
             <Image url="@img/carinho.png" />
          </image>
@@ -81,14 +81,14 @@
                   </ImageView>
                </graphic>
                <items>
-                  <MenuItem mnemonicParsing="false" text="Empresa" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroEmpresa" text="Empresa" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario2" text="Funcionário" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" text="Produto" />
-                  <MenuItem mnemonicParsing="false" text="Equipamento" />
-                  <MenuItem mnemonicParsing="false" text="Contas a pagar/Despesas" />
-                  <MenuItem mnemonicParsing="false" text="Serviços" />
-                  <MenuItem mnemonicParsing="false" text="Fornecedores" />
-                  <MenuItem mnemonicParsing="false" text="Cliente" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroEquipamento" text="Equipamento" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Contas a pagar/Despesas" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Serviços" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Fornecedores" />
+                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroCliente" text="Cliente" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaFormaPagamento" text="Formas de Pagamento" />
                </items>
           </Menu>
@@ -108,10 +108,10 @@
                </items></Menu>
             <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
               <items>
-                <MenuItem mnemonicParsing="false" text="Fornecedor" />
+                <MenuItem disable="true" mnemonicParsing="false" text="Fornecedor" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaVenda2" text="Produto" />
-                  <MenuItem mnemonicParsing="false" text="Serviço" />
-                  <MenuItem mnemonicParsing="false" text="Cliente" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Serviço" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Cliente" />
               </items>
                <graphic>
                   <ImageView fitHeight="68.0" fitWidth="68.0">
@@ -128,11 +128,11 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#abrirTelaEstoqueAtual2" text="Estoque de Produto" />
                   <MenuItem mnemonicParsing="false" onAction="#abrirTelaFluxoCaixa2" text="Fluxo de Caixa" />
-                  <MenuItem mnemonicParsing="false" text="Compras por Fornecedor" />
-                  <MenuItem mnemonicParsing="false" text="Compras por Produto" />
-                  <MenuItem mnemonicParsing="false" text="Lucro bruto por produto" />
-                  <MenuItem mnemonicParsing="false" text="Lucro esperado no estoque atual" />
-                  <MenuItem mnemonicParsing="false" text="Contas a Pagar" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Compras por Fornecedor" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Compras por Produto" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Lucro bruto por produto" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Lucro esperado no estoque atual" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="Contas a Pagar" />
               </items>
                <graphic>
                   <ImageView fitHeight="68.0" fitWidth="68.0">
@@ -168,6 +168,9 @@
                      </effect>
                   </ImageView>
                </graphic>
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Devolução" />
+               </items>
             </Menu>
             <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
               <items>
@@ -539,7 +542,7 @@
          </children>
       </VBox>
       <Button fx:id="btnFechar" layoutX="1093.0" layoutY="26.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="62.0" prefWidth="112.0" styleClass="deletar" text="FECHAR" />
-      <Label fx:id="labelAnimada" layoutX="608.0" layoutY="190.0" opacity="0.36" style="-fx-font-size: 252PX; -fx-font-weight: BOLD;" text="F P S" textFill="#67a4b5" />
+      <Label fx:id="labelAnimada" layoutX="608.0" layoutY="190.0" opacity="0.25" style="-fx-font-size: 252PX; -fx-font-weight: BOLD;" text="F P S" textFill="#67a4b5" />
       <Button layoutX="529.0" layoutY="390.0" mnemonicParsing="false" onAction="#abrirTelaFormaPagamento" prefHeight="99.0" prefWidth="147.0" styleClass="botao-pastel">
          <graphic>
             <ImageView disable="true" fitHeight="62.0" fitWidth="105.0">
@@ -575,6 +578,5 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Label layoutX="864.0" layoutY="166.0" prefHeight="31.0" prefWidth="185.0" text="versao 2" />
    </children>
 </AnchorPane>

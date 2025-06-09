@@ -55,11 +55,11 @@ public class telaInicialController {
         iniciarAnimacaoLabel();
         aplicarAnimacoesComponentes();
      
-    	String msg = "versao 2!";
+    	String msg = "EXISTE UM CAIXA AINDA ABERTO!";
     	popUp(msg);	
      
     }
-    private static final String VERSAO_ATUAL = "1.0.0";
+    private static final String VERSAO_ATUAL = "1.0.2";
     private static final String LINK_UPDATE_JSON = "https://drive.google.com/uc?export=download&id=1p12uHbdTUm_SzGXaoCXAlhVebUOmBDk6";
 
     public void verificarAtualizacao() {
@@ -157,13 +157,13 @@ public class telaInicialController {
         });
     }
 
-        private void fecharApp() {
+       /* private void fecharApp() {
             fecharJanela();
         }
 
         private void relancarApp() {
             fecharApp();
-        }
+        }*/
 
     private void iniciarAnimacaoLabel() {
         
@@ -265,6 +265,14 @@ public class telaInicialController {
     public void abrirTelaRequisicao2() {
         WindowManager.abrirTelaRequisicao();
     }
+    
+	public void abrirTelaCadastroEmpresa() {
+		WindowManager.abrirTelaCadastroEmpresa();
+	}
+	
+	public void abrirTelaCadastroEquipamento() {
+		WindowManager.abrirTelaCadastroEquipamento();
+	}
     
     private void popUp(String msg) {
     	if (caixaDAO.isCaixaAberto()) {

@@ -1,0 +1,208 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.minhaloja.sistema_pagamento.dao.EquipamentoDAO;
+import com.minhaloja.sistema_pagamento.model.Equipamento;
+
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
+public class TelaCadastroEquipamentoController {
+
+	@FXML private Button btnFechar, btnLimpar, btnSalvar, btnEliminar, btnExportar;
+	
+	@FXML private TextField tfNome, tfLoja, tfResponsavel, tfModelo, tfDepartamento;
+	
+	@FXML private TableView<Equipamento> tabelaEquipamentos;
+	
+	@FXML private TableColumn<Equipamento, String> colNome, colLoja, colResponsavel, colModelo;
+	
+	@FXML private DatePicker dpDataAquisicao;
+	
+	private final EquipamentoDAO equipamentoDAO = new EquipamentoDAO();
+	
+	@FXML
+	private void initialize() {
+		colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		colLoja.setCellValueFactory(new PropertyValueFactory<>("loja"));
+		colResponsavel.setCellValueFactory(new PropertyValueFactory<>("responsavel"));
+		colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+		
+		tabelaEquipamentos.setItems(equipamentoDAO.listarEquipamentos());
+	}
+	
+	@FXML
+    private void exportarParaPDF(ActionEvent event) {
+		
+		// Confirmação
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setTitle("Confirmar exclusão");
+        confirmacao.setHeaderText("Você tem certeza que deseja Exportar o PDF da lista de Equipamentos?");
+
+        // Espera a resposta do usuário
+        confirmacao.showAndWait().ifPresent(resposta -> {
+            if (resposta == javafx.scene.control.ButtonType.OK) {
+            	Document documento = new Document();
+                try {
+                    // Local que será salvo
+                    String userHome = System.getProperty("user.home");
+                    File pastaDestino = new File(userHome, "Desktop/FPS_COMMERCE/EQUIPAMENTOS_CADASTRADOS");
+                    if (!pastaDestino.exists()) {
+                        pastaDestino.mkdirs();
+                    }
+
+                    String nomeArquivo = "Equipamentos Cadastrados _" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) + ".pdf";
+                    File arquivo = new File(pastaDestino, nomeArquivo);
+
+                    PdfWriter.getInstance(documento, new FileOutputStream(arquivo));
+                    documento.open();
+
+                    Font fonteNegrito = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
+                    Paragraph titulo = new Paragraph("Equipamentos Cadastrados", fonteNegrito);
+                    titulo.setAlignment(Element.ALIGN_CENTER); 
+                    documento.add(titulo);
+                    documento.add(new Paragraph(" "));
+
+                    PdfPTable tabela = new PdfPTable(4);
+                    tabela.setWidthPercentage(100);
+
+                    tabela.addCell("Nome");
+                    tabela.addCell("loja");
+                    tabela.addCell("responsavel");
+                    tabela.addCell("departamento");
+
+                    for (Equipamento empresa : tabelaEquipamentos.getItems()) {
+                        tabela.addCell(empresa.getNome());
+                        tabela.addCell(empresa.getLoja());
+                        tabela.addCell(empresa.getResponsavel());
+                        tabela.addCell(empresa.getDepartamento());
+                    }
+
+                    documento.add(tabela);
+                    documento.close();
+                    alerta(Alert.AlertType.INFORMATION, "Gerar PDF de lista de Equipamentos", "PDF salvo em: " + arquivo.getAbsolutePath());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    alerta(Alert.AlertType.ERROR, "Gerar PDF de lista de Equipamentos", "Erro ao gerar PDF: " + e.getMessage());
+                }
+            }
+        });
+        
+    }
+	
+	@FXML
+	private void excluirEmpresas() {
+		Equipamento selecionado = tabelaEquipamentos.getSelectionModel().getSelectedItem();
+		        
+	        if (selecionado == null) {
+	            alerta(Alert.AlertType.WARNING, "Nenhuma seleção", "Por favor, selecione um Equipamento na tabela.");
+	            return;
+	        }
+	
+	        // Confirmação
+	        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+	        confirmacao.setTitle("Confirmar exclusão");
+	        confirmacao.setHeaderText("Você tem certeza que deseja excluir este Equipamento?");
+	        confirmacao.setContentText("Equipamento: " + selecionado.getNome());
+	
+	        // Espera a resposta do usuário
+	        confirmacao.showAndWait().ifPresent(resposta -> {
+	            if (resposta == javafx.scene.control.ButtonType.OK) {
+	                boolean sucesso = equipamentoDAO.excluirEquipamentos(selecionado.getNome());
+	
+	                if (sucesso) {
+	                    alerta(Alert.AlertType.INFORMATION, "Sucesso", "Equipamento excluído com sucesso.");    
+	                    carregarEmpresas();
+	                    limparCampos();             
+	                } else {
+	                    alerta(Alert.AlertType.ERROR, "Erro ao excluir Equipamento", "Não foi possível excluir o Equipamento.");
+	                }
+	            }
+	        });
+    }
+
+    @FXML
+    private void fecharJanela() {
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+    }
+    
+    @FXML
+    private void limparCampos() {
+    	tfNome.clear();
+    	tfLoja.clear();
+    	tfResponsavel.clear();
+    	tfModelo.clear();
+    	tfDepartamento.clear();
+    }
+    
+    @FXML
+    private void salvarEmpresa() {
+    	if(tfNome.getText().matches("")) {
+    		alerta(Alert.AlertType.ERROR, "Erro", "Insira o Nome da Empresa");
+    		return;
+    	}else if(tfLoja.getText().matches("")) {
+    		alerta(Alert.AlertType.ERROR, "Erro", "Insira o Contacto da Empresa");
+    		return;
+    	}else if(tfResponsavel.getText().matches("")){
+    		alerta(Alert.AlertType.ERROR, "Erro", "Insira o Email da Empresa");
+    		return;
+    	}else if(!(tfResponsavel.getText().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"))) {
+    		alerta(Alert.AlertType.INFORMATION, "Erro", "Insira o Email da Empresa de forma correcta");
+    		return;
+    	}else if(tfModelo.getText().matches("")) {
+    		alerta(Alert.AlertType.INFORMATION, "Aviso", "A empresa será cadastrada sem informações\nde serviço.");
+    	}
+    	Equipamento empresa = new Equipamento();
+    	
+    	empresa.setNome(tfNome.getText());
+    	empresa.setLoja(tfLoja.getText());
+    	empresa.setResponsavel(tfResponsavel.getText());
+    	empresa.setModelo(tfModelo.getText());
+    	empresa.setDepartamento(tfDepartamento.getText());
+    	
+    	boolean sucesso = equipamentoDAO.inserirEmpresa(empresa);
+    	
+    	if(sucesso) {
+    		alerta(Alert.AlertType.INFORMATION, "Sucesso", "Empresa Cadastrada com sucesso");
+    		limparCampos();
+    		carregarEmpresas();
+    	} else {
+    		alerta(Alert.AlertType.INFORMATION, "Erro", "Falha ao Cadastrar a Empresa");
+    	}
+    }
+    
+    private void carregarEmpresas() {
+		ObservableList<Equipamento> listaEmpresa = equipamentoDAO.listarEquipamentos();
+		tabelaEquipamentos.setItems(listaEmpresa);
+    }
+    
+    private void alerta(Alert.AlertType tipo, String titulo, String msg) {
+    	Alert alerta = new Alert(tipo);
+    	alerta.setTitle(titulo);
+    	alerta.setHeaderText(null);
+    	alerta.setContentText(msg);
+    	alerta.showAndWait();
+    }
+}

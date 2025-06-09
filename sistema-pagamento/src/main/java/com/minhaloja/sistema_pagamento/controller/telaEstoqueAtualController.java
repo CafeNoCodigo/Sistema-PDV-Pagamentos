@@ -73,50 +73,63 @@ public class telaEstoqueAtualController {
     
     @FXML
     private void exportarParaPDF(ActionEvent event) {
-        Document documento = new Document();
-        try {
-            // Local que será salvo
-            String userHome = System.getProperty("user.home");
-            File pastaDestino = new File(userHome, "Desktop/FPS_COMMERCE/ESTOQUE DÍSPONIVEL");
-            if (!pastaDestino.exists()) {
-                pastaDestino.mkdirs();
+    	
+    	
+    	// Confirmação
+        Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacao.setTitle("Confirmar exclusão");
+        confirmacao.setHeaderText("Você tem certeza que deseja Exportar PDF da lista de Produtos em Estoque?");
+
+        // Espera a resposta do usuário
+        confirmacao.showAndWait().ifPresent(resposta -> {
+            if (resposta == javafx.scene.control.ButtonType.OK) {
+            	Document documento = new Document();
+                try {
+                    // Local que será salvo
+                    String userHome = System.getProperty("user.home");
+                    File pastaDestino = new File(userHome, "Desktop/FPS_COMMERCE/ESTOQUE DÍSPONIVEL");
+                    if (!pastaDestino.exists()) {
+                        pastaDestino.mkdirs();
+                    }
+
+                    String nomeArquivo = "Estoque de_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) + ".pdf";
+                    File arquivo = new File(pastaDestino, nomeArquivo);
+
+                    PdfWriter.getInstance(documento, new FileOutputStream(arquivo));
+                    documento.open();
+
+                    Font fonteNegrito = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
+                    Paragraph titulo = new Paragraph("Relatório de Produtos Em Estoque", fonteNegrito);
+                    titulo.setAlignment(Element.ALIGN_CENTER); 
+                    documento.add(titulo);
+                    documento.add(new Paragraph(" "));
+
+                    PdfPTable tabela = new PdfPTable(4);
+                    tabela.setWidthPercentage(100);
+
+                    tabela.addCell("Nome");
+                    tabela.addCell("Código de Barra");
+                    tabela.addCell("Categoria");
+                    tabela.addCell("Quantidade");
+
+                    for (Produto p : tabelaProdutos2.getItems()) {
+                        tabela.addCell(p.getNome());
+                        tabela.addCell(p.getCodigoBarra());
+                        tabela.addCell(p.getCategoria());
+                        tabela.addCell(String.format(" %d", p.getEstoque()));
+                    }
+
+                    documento.add(tabela);
+                    documento.close();
+                    alerta(Alert.AlertType.INFORMATION, "Gerar PDF de Estoque", "PDF salvo em: " + arquivo.getAbsolutePath());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    alerta(Alert.AlertType.ERROR, "Gerar PDF de Estoque", "Erro ao gerar PDF: " + e.getMessage());
+                }
+    	
             }
-
-            String nomeArquivo = "Estoque de_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) + ".pdf";
-            File arquivo = new File(pastaDestino, nomeArquivo);
-
-            PdfWriter.getInstance(documento, new FileOutputStream(arquivo));
-            documento.open();
-
-            Font fonteNegrito = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16);
-            Paragraph titulo = new Paragraph("Relatório de Produtos Em Estoque", fonteNegrito);
-            titulo.setAlignment(Element.ALIGN_CENTER); 
-            documento.add(titulo);
-            documento.add(new Paragraph(" "));
-
-            PdfPTable tabela = new PdfPTable(4);
-            tabela.setWidthPercentage(100);
-
-            tabela.addCell("Nome");
-            tabela.addCell("Código de Barra");
-            tabela.addCell("Categoria");
-            tabela.addCell("Quantidade");
-
-            for (Produto p : tabelaProdutos2.getItems()) {
-                tabela.addCell(p.getNome());
-                tabela.addCell(p.getCodigoBarra());
-                tabela.addCell(p.getCategoria());
-                tabela.addCell(String.format(" %d", p.getEstoque()));
-            }
-
-            documento.add(tabela);
-            documento.close();
-            alerta(Alert.AlertType.INFORMATION, "Gerar PDF de Estoque", "PDF salvo em: " + arquivo.getAbsolutePath());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            alerta(Alert.AlertType.ERROR, "Gerar PDF de Estoque", "Erro ao gerar PDF: " + e.getMessage());
-        }
+        });    
     }
     
     @FXML

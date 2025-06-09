@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class Conexao {
 
-    private static final String IP_SERVIDOR = "192.168.1.101";
+    private static final String IP_SERVIDOR = "localhost"; //"192.168.1.101";
     private static final String PORTA = "3306";
     private static final String BANCO = "minha_loja";
 

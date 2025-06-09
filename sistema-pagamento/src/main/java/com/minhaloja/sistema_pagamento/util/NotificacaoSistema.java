@@ -29,8 +29,7 @@ public class NotificacaoSistema {
                 msg,
                 MessageType.WARNING
             );
-
-            // Remove o ícone após 5 segundos
+            
             new Thread(() -> {
                 try {
                     Thread.sleep(50000);

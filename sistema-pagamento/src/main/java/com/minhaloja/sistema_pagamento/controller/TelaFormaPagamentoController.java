@@ -66,7 +66,7 @@ public class TelaFormaPagamentoController {
     
     @FXML
     private void registrarFormaPagamento() {
-        limparEstilosErros(); // Limpa estilos anteriores
+        limparEstilosErros();
 
         String conta = tfConta.getText();
 
@@ -178,7 +178,6 @@ public class TelaFormaPagamentoController {
     	tfNome.setDisable(false);
     	tfConta.setDisable(false);
     	tfResponsavel.setDisable(false);
-    	//tfId.setDisable(false);
     	tfEmail.setDisable(false);
     }
     

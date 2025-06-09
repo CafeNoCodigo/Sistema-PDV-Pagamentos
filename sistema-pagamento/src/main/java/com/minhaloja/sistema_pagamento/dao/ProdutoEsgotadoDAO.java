@@ -33,11 +33,6 @@ public class ProdutoEsgotadoDAO {
         }
     }
     
-    /**
-     * Remove o produto da tabela produtos_esgotados se o estoque for maior que zero.
-     * @param idProduto ID do produto
-     * @return true se removido, false se não foi necessário ou houve erro
-     */
     public boolean removerProdutoSeEstoqueMaiorQueZero(int idProduto) {
         String verificaEstoqueSql = "SELECT estoque FROM produtos WHERE id = ?";
         String deleteSql = "DELETE FROM produtos_esgotados WHERE id_produto = ?";
@@ -66,12 +61,7 @@ public class ProdutoEsgotadoDAO {
 
         return false;
     }
-
-    /**
-     * Registra um produto como esgotado, se ainda não estiver registrado.
-     * @param idProduto ID do produto
-     * @return true se registrado com sucesso, false se já estava registrado ou erro ocorreu
-     */
+    
     public boolean registrarProdutoEsgotado(int idProduto) {
         String verificaSql = "SELECT COUNT(*) FROM produtos_esgotados WHERE id_produto = ?";
         String insereSql = "INSERT INTO produtos_esgotados (id_produto, data_esgotado) VALUES (?, ?)";
@@ -82,7 +72,6 @@ public class ProdutoEsgotadoDAO {
             verificaStmt.setInt(1, idProduto);
             try (ResultSet rs = verificaStmt.executeQuery()) {
                 if (rs.next() && rs.getInt(1) > 0) {
-                    // Produto já registrado como esgotado
                     return false;
                 }
             }
@@ -101,10 +90,6 @@ public class ProdutoEsgotadoDAO {
         }
     }
 
-    /**
-     * Lista todos os produtos esgotados (estoque <= 0 ou já registrados como esgotados)
-     * @return lista de produtos esgotados
-     */
     public List<Produto> listarProdutosEsgotados() {
         List<Produto> produtos = new ArrayList<>();
 

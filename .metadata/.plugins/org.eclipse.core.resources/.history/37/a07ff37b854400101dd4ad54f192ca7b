@@ -1,0 +1,100 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import com.minhaloja.sistema_pagamento.model.Equipamento;
+import com.minhaloja.sistema_pagamento.model.Equipamento;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+public class EquipamentoDAO {
+	
+	public EquipamentoDAO() {
+		criarTabelaSeNaoExistir();
+	}
+	
+	
+	
+	public boolean excluirEquipamentos(String nome) {
+		String sql = "DELETE FROM equipamento WHERE nome = ?";
+		
+		try(Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)){
+			stmt.setString(1, nome);
+			stmt.executeUpdate();
+			return true;
+		}catch(SQLException e) {
+			System.out.println("Falha ao eliminar Equipamento " + e.getMessage());
+			return false;
+		}
+	}
+	
+	public ObservableList<Equipamento> listarEquipamentos(){
+		ObservableList<Equipamento> lista = FXCollections.observableArrayList();
+		String sql = "SELECT nome, loja, responsavel, modelo, departamento, dataAquisicao FROM empresa";
+		
+		try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)){
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Equipamento equipamento = new Equipamento();
+				equipamento.setNome(rs.getString("nome"));
+				equipamento.setLoja(rs.getString("loja"));
+				equipamento.setResponsavel(rs.getString("responsavel"));
+				equipamento.setModelo(rs.getString("modelo"));
+				equipamento.setDepartamento(rs.getString("departamento"));
+				equipamento.setDataAquisicao(Date.valueOf("dataAquisicao"));
+				
+				
+				lista.add(equipamento);
+			}
+		}catch(SQLException e) {
+			System.out.println("Erro ao listar Empresas " + e.getMessage());
+		}
+		return lista;
+	}	
+
+	private void criarTabelaSeNaoExistir() {
+        String sql = """
+            CREATE TABLE IF NOT EXISTS empresa (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nome VARCHAR(255),
+                contacto VARCHAR(255),
+                email VARCHAR(100),
+                servico VARCHAR(255)
+            );
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.err.println("Erro ao criar tabela caixa: " + e.getMessage());
+        }
+    }
+	
+	public boolean inserirEmpresa(Equipamento empresa) {
+	    String sql = """
+	        INSERT INTO empresa (nome, contacto, email, servico)
+	        VALUES (?, ?, ?, ?)
+	    """;
+
+	    try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, empresa.getNome());
+	        stmt.setString(2, empresa.getContacto());
+	        stmt.setString(3, empresa.getEmail());
+	        stmt.setString(4, empresa.getServico());
+
+	        stmt.executeUpdate();
+	        return true;
+
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao inserir cliente: " + e.getMessage());
+	        return false;
+	    }
+	}
+}

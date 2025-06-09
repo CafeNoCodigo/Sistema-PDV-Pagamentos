@@ -1,0 +1,95 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import com.minhaloja.sistema_pagamento.dao.EmpresaDAO;
+import com.minhaloja.sistema_pagamento.model.Empresa;
+
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
+public class TelaCadastroEmpresaController {
+
+	@FXML private Button btnFechar, btnLimpar, btnSalvar;
+	
+	@FXML TextField tfNome, tfContacto, tfEmail, tfServico;
+	
+	@FXML TableView<Empresa> tabelaEmpresas;
+	
+	@FXML TableColumn<Empresa, String> colNome, colContacto, colEmail, colServico;
+	
+	private final EmpresaDAO empresaDAO = new EmpresaDAO();
+	
+	@FXML
+	private void initialize() {
+		colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		colContacto.setCellValueFactory(new PropertyValueFactory<>("contacto"));
+		colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+		colServico.setCellValueFactory(new PropertyValueFactory<>("servico"));
+		
+		tabelaEmpresas.setItems(empresaDAO.listarEmpresas());
+	}
+
+    @FXML
+    private void fecharJanela() {
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+    }
+    
+    @FXML
+    private void limparCampos() {
+    	tfNome.clear();
+    	tfContacto.clear();
+    	tfEmail.clear();
+    	tfServico.clear();
+    }
+    
+    @FXML
+    private void salvarEmpresa() {
+    	if(tfNome.getText().matches("")) {
+    		alerta(Alert.AlertType.ERROR, "Erro", "Insira o Nome da Empresa");
+    		return;
+    	}else if(tfContacto.getText().matches("")) {
+    		alerta(Alert.AlertType.ERROR, "Erro", "Insira o Contacto da Empresa");
+    		return;
+    	}else if(tfEmail.getText().matches("")){
+    		alerta(Alert.AlertType.ERROR, "Erro", "Insira o Email da Empresa");
+    		return;
+    	}else if(!(tfEmail.getText().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"))) {
+    		alerta(Alert.AlertType.INFORMATION, "Erro", "Insira o Email da Empresa de forma correcta");
+    		return;
+    	}else if(tfServico.getText().matches("")) {
+    		alerta(Alert.AlertType.INFORMATION, "Aviso", "A empresa será cadastrada sem informações\nde serviço.");
+    	}
+    	Empresa empresa = new Empresa();
+    	
+    	empresa.setNome(tfNome.getText());
+    	empresa.setContacto(tfContacto.getText());
+    	empresa.setEmail(tfEmail.getText());
+    	empresa.setServico(tfServico.getText());
+    	
+    	boolean sucesso = empresaDAO.inserirEmpresa(empresa);
+    	
+    	if(sucesso) {
+    		alerta(Alert.AlertType.INFORMATION, "Sucesso", "Empresa Cadastrada com sucesso");
+    		limparCampos();
+    		ObservableList<Empresa> listaEmpresa = empresaDAO.listarEmpresas();
+    		tabelaEmpresas.setItems(listaEmpresa);
+    	} else {
+    		alerta(Alert.AlertType.INFORMATION, "Erro", "Falha ao Cadastrar a Empresa");
+    	}
+    }
+    
+    private void alerta(Alert.AlertType tipo, String titulo, String msg) {
+    	Alert alerta = new Alert(tipo);
+    	alerta.setTitle(titulo);
+    	alerta.setHeaderText(null);
+    	alerta.setContentText(msg);
+    	alerta.showAndWait();
+    }
+}

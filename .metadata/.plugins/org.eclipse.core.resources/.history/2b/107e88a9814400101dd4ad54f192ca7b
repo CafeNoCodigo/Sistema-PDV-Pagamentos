@@ -1,0 +1,7 @@
+package com.minhaloja.sistema_pagamento.model;
+
+public class Equipamento {
+
+	private String nome, modelo, loja, departamento, responsavel;
+	private LocalDate dataAquisicao;
+}

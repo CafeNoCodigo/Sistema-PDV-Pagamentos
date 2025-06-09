@@ -1,0 +1,9 @@
+package com.minhaloja.sistema_pagamento.model;
+
+import java.time.LocalDate;
+
+public class Equipamento {
+
+	private String nome, modelo, loja, departamento, responsavel;
+	private LocalDate dataAquisicao;
+}
