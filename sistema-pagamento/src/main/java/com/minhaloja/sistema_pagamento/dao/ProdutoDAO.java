@@ -12,9 +12,11 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -307,8 +309,12 @@ public class ProdutoDAO {
             pstmt.setString(16, produto.getCodigo());
             pstmt.setString(17, produto.getCor());
             pstmt.setBytes(18, produto.getImagem());
-            pstmt.setDate(19, java.sql.Date.valueOf(produto.getData()));
-
+            
+            if(produto.getData() != null) {
+            	pstmt.setDate(19, Date.valueOf(produto.getData()));
+            }else {
+            	pstmt.setNull(19, Types.DATE);
+            }
             pstmt.executeUpdate();
             System.out.println("Produto salvo com sucesso.");
          

@@ -23,6 +23,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -46,7 +47,7 @@ public class telaCadastroProdutoController {
 	@FXML private VBox formulario;
 	@FXML private TextField tfNomeProduto, tfPrecoCompra, tfPrecoVenda, tfPrecoMestre, tfMargem, tfLucroBruto, tfCategoria, tfGarantia;
     @FXML private TextField tfReferencia, tfEstoque, tfLoja, tfFabricante, tfFornecedor, tfInfoAdicional,tfCodigoBarra, tfCodigo;
-    @FXML private TextField tfModelo, tfBusca;
+    @FXML private TextField tfModelo, tfBusca, tfCambio;
     
     @FXML public TableView<Produto> tabelaProdutos;
     @FXML private TableColumn<Produto, String> colCodigoBarra;
@@ -78,10 +79,113 @@ public class telaCadastroProdutoController {
     @FXML private ChoiceBox<String> choiceFornecedor;
     @FXML private ChoiceBox<String> choiceCor;
     
+    @FXML private ComboBox<String> cbMoedaCompra;
+    
     private byte[] imgQrCode;
     private byte[] imgProdutoByte;
     
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
+    
+    private double cambio = 1;
+    
+    @FXML public void initialize() {
+        carregarCoresChoiceBox();
+        carregarMoedaCompraNoComboBox();
+        carregarCategoriasNoChoiceBox();
+        carregarfornecedoresNoChoiceBox();
+        contarProdutosComEfeito();
+
+        aplicarFadeTransition(tabelaProdutos);
+
+        // Imagem padrão e efeito fade
+        Image imagemPadrao2 = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
+        imgCodigoBarra.setImage(imagemPadrao2);
+        imgCodigoBarra.setPreserveRatio(true);
+        imgCodigoBarra.setSmooth(true);
+        aplicarFadeTransition(imgCodigoBarra);
+
+        // Configura colunas
+        colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
+        colPrecoVenda.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
+        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
+        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
+        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+        
+        tabelaProdutos.setItems(produtoDAO.listarProdutos2());
+        
+        tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                preencherCamposComProduto(newSelection);
+                aplicarFadeTransition(imgProduto);
+            }
+        }); 
+        
+        
+        
+        choiceCategoria.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                tfCategoria.setText(newVal);
+                aplicarFadeTransition(tfCategoria);
+            }
+        });
+        
+        choiceFornecedor.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                tfFornecedor.setText(newVal);
+                aplicarFadeTransition(tfFornecedor);
+            }
+        });
+        
+        cbMoedaCompra.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                if(newVal.equals("RMB")) {
+                	Alert sucessoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                    sucessoAlerta.setTitle("Atenção!");
+                    sucessoAlerta.setHeaderText("Informe o câmbio do RMB atual..");
+                    sucessoAlerta.showAndWait();
+                	tfCambio.setDisable(false);
+                }else if(newVal.equals("DOLAR")) {
+                	Alert sucessoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                    sucessoAlerta.setTitle("Atenção!");
+                    sucessoAlerta.setHeaderText("Informe o câmbio do DOLAR atual.");
+                    sucessoAlerta.showAndWait();
+                	tfCambio.setDisable(false);
+                }else if(newVal.equals("MZN")) {
+                	tfCambio.setDisable(true);
+                }
+            }
+        });
+        
+        aplicarFadeTransition(tfNomeProduto);
+        aplicarFadeTransition(tfPrecoCompra);
+        aplicarFadeTransition(tfPrecoVenda);
+        aplicarFadeTransition(tfPrecoMestre);
+        aplicarFadeTransition(tfCategoria);
+        Button[] botoes = {
+            btnFechar, btnNovo, btnGerar, btnApagar, btnExcluir, btnInserirImgProduto,
+            btnApagarImgProduto, btnTodos
+        };
+        for (Button botao : botoes) {
+            adicionarEfeitoBotao(botao);
+        }
+        
+        configurarImageViewComEfeito(imgCodigoBarra);
+        configurarImageViewComEfeito(imgProduto);
+        
+        tfBusca.textProperty().addListener((obs, antigo, novo) -> {
+            String texto = novo == null ? "" : novo.trim().toLowerCase();
+
+            if (!texto.isEmpty()) {
+                ObservableList<Produto> resultados = produtoDAO.buscarProdutosPorTexto(texto);
+                tabelaProdutos.setItems(resultados);
+            } else {
+                tabelaProdutos.setItems(produtoDAO.listarProdutos2());
+            }
+        });
+    }
     
     //Fade transition genérico para qualquer Node
     private void aplicarFadeTransition(javafx.scene.Node node) {
@@ -243,6 +347,11 @@ public class telaCadastroProdutoController {
         );
     }
     
+    @FXML
+    private void carregarMoedaCompraNoComboBox() {
+    	cbMoedaCompra.getItems().setAll("MZN", "RMB", "DOLAR");
+    }
+    
     private void contarProdutos() {
     	 int total = produtoDAO.contarProdutos();
     	 contarP.setText(String.valueOf(total));
@@ -284,17 +393,17 @@ public class telaCadastroProdutoController {
         Stage stage = (Stage) btnFechar.getScene().getWindow();
         stage.close();
     }
-
-
+    
     @FXML
     private void salvarProduto() {
         tfMargem.setText("0");
         tfLucroBruto.setText("0");
         Produto produto = new Produto();
-
+        
         try {
             produto.setNome(tfNomeProduto.getText());
-            produto.setPrecoCompra(Double.parseDouble(tfPrecoCompra.getText()));
+            cambio = Double.parseDouble(tfCambio.getText());
+            produto.setPrecoCompra(cambio * Double.parseDouble(tfPrecoCompra.getText()));
             produto.setPrecoVenda(Double.parseDouble(tfPrecoVenda.getText()));
             produto.setPrecoMestre(Double.parseDouble(tfPrecoMestre.getText()));
             produto.setCategoria(tfCategoria.getText());
@@ -309,7 +418,7 @@ public class telaCadastroProdutoController {
             produto.setQrCode(imgQrCode);
             produto.setModelo(tfModelo.getText());
             produto.setCodigo(tfCodigo.getText());
-            produto.setCor(choiceCor.getValue());  // <- Corrigido para pegar a cor do ChoiceBox
+            produto.setCor(choiceCor.getValue());
             produto.setImagem(imgProdutoByte);
         } catch (NumberFormatException e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -440,81 +549,6 @@ public class telaCadastroProdutoController {
     //    return new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
     //}
 	
-    @FXML public void initialize() {
-        carregarCoresChoiceBox();
-        carregarCategoriasNoChoiceBox();
-        carregarfornecedoresNoChoiceBox();
-        contarProdutosComEfeito();
-
-        aplicarFadeTransition(tabelaProdutos);
-
-        // Imagem padrão e efeito fade
-        Image imagemPadrao2 = new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
-        imgCodigoBarra.setImage(imagemPadrao2);
-        imgCodigoBarra.setPreserveRatio(true);
-        imgCodigoBarra.setSmooth(true);
-        aplicarFadeTransition(imgCodigoBarra);
-
-        // Configura colunas
-        colCodigoBarra.setCellValueFactory(new PropertyValueFactory<>("codigoBarra"));
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        colEstoque.setCellValueFactory(new PropertyValueFactory<>("estoque"));
-        colPrecoVenda.setCellValueFactory(new PropertyValueFactory<>("precoVenda"));
-        colPrecoMestre.setCellValueFactory(new PropertyValueFactory<>("precoMestre"));
-        colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
-        colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
-        
-        tabelaProdutos.setItems(produtoDAO.listarProdutos2());
-        
-        tabelaProdutos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                preencherCamposComProduto(newSelection);
-                aplicarFadeTransition(imgProduto);
-            }
-        }); 
-        
-        choiceCategoria.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                tfCategoria.setText(newVal);
-                aplicarFadeTransition(tfCategoria);
-            }
-        });
-        
-        choiceFornecedor.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                tfFornecedor.setText(newVal);
-                aplicarFadeTransition(tfFornecedor);
-            }
-        });
-        
-        aplicarFadeTransition(tfNomeProduto);
-        aplicarFadeTransition(tfPrecoCompra);
-        aplicarFadeTransition(tfPrecoVenda);
-        aplicarFadeTransition(tfPrecoMestre);
-        aplicarFadeTransition(tfCategoria);
-        Button[] botoes = {
-            btnFechar, btnNovo, btnGerar, btnApagar, btnExcluir, btnInserirImgProduto,
-            btnApagarImgProduto, btnTodos
-        };
-        for (Button botao : botoes) {
-            adicionarEfeitoBotao(botao);
-        }
-        
-        configurarImageViewComEfeito(imgCodigoBarra);
-        configurarImageViewComEfeito(imgProduto);
-        
-        tfBusca.textProperty().addListener((obs, antigo, novo) -> {
-            String texto = novo == null ? "" : novo.trim().toLowerCase();
-
-            if (!texto.isEmpty()) {
-                ObservableList<Produto> resultados = produtoDAO.buscarProdutosPorTexto(texto);
-                tabelaProdutos.setItems(resultados);
-            } else {
-                tabelaProdutos.setItems(produtoDAO.listarProdutos2());
-            }
-        });
-    }
     
     private void carregarProdutosNaTabela() {
         tabelaProdutos.setItems(produtoDAO.listarProdutos2());

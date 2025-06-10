@@ -19,4 +19,5 @@
     <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="java.awt.TrayIcon.MessageType"/>
     <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.model.ContasAPagar"/>
+    <fullyQualifiedTypeName name="java.sql.Types"/>
 </qualifiedTypeNameHistroy>

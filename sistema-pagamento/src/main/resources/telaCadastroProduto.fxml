@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -23,8 +24,8 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="91.0" layoutX="838.0" layoutY="412.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="148.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="158.0" layoutX="818.0" layoutY="246.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="168.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00ff9500" height="25.0" layoutX="818.0" layoutY="167.0" stroke="#00000036" strokeType="INSIDE" styleClass="container-retangulo" width="168.0" />
-      <TextField fx:id="tfCodigoBarra" layoutX="1.0" layoutY="94.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" />
-      <Button fx:id="btnGerar" layoutX="135.0" layoutY="92.0" mnemonicParsing="false" onAction="#gerarCodigoBarras" prefHeight="10.0" prefWidth="56.0" style="-fx-background-radius: 10; -fx-pref-height: 25; -fx-padding: 2 0 2 0;" text="Gerar" />
+      <TextField fx:id="tfCodigoBarra" layoutX="3.0" layoutY="30.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" />
+      <Button fx:id="btnGerar" layoutX="137.0" layoutY="28.0" mnemonicParsing="false" onAction="#gerarCodigoBarras" prefHeight="10.0" prefWidth="56.0" style="-fx-background-radius: 10; -fx-pref-height: 25; -fx-padding: 2 0 2 0;" text="Gerar" />
       <TextField fx:id="tfNomeProduto" layoutX="199.0" layoutY="94.0" prefHeight="21.0" prefWidth="388.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" styleClass="text-field" />
       <VBox layoutX="205.0" layoutY="75.0" prefHeight="18.0" prefWidth="185.0">
          <children>
@@ -41,7 +42,7 @@
       <TextField fx:id="tfLucroBruto" disable="true" layoutX="310.0" layoutY="141.0" prefHeight="29.0" prefWidth="132.0" style="-fx-background-radius: 10;" text="0" />
       <TextField fx:id="tfPrecoVenda" layoutX="453.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" />
       <TextField fx:id="tfPrecoMestre" layoutX="594.0" layoutY="145.0" prefHeight="21.0" prefWidth="132.0" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" />
-      <VBox layoutX="5.0" layoutY="73.0" prefHeight="18.0" prefWidth="124.0">
+      <VBox layoutX="7.0" layoutY="9.0" prefHeight="18.0" prefWidth="124.0">
          <children>
             <VBox prefHeight="18.0" prefWidth="118.0">
                <children>
@@ -216,7 +217,7 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutY="5.0" mnemonicParsing="false" onAction="#salvarProduto" prefHeight="63.0" prefWidth="602.0" style="-fx-background-radius: 10; -fx-padding: 2 6 2 6;" text="Salvar">
+      <Button layoutX="202.0" layoutY="5.0" mnemonicParsing="false" onAction="#salvarProduto" prefHeight="63.0" prefWidth="400.0" style="-fx-background-radius: 10; -fx-padding: 2 6 2 6;" text="Salvar">
          <font>
             <Font name="Franklin Gothic Medium" size="13.0" />
          </font>
@@ -346,5 +347,7 @@
             <Font size="22.0" />
          </font>
       </Label>
+      <ComboBox fx:id="cbMoedaCompra" layoutX="4.0" layoutY="93.0" prefHeight="23.0" prefWidth="142.0" promptText="Moeda de Compra" />
+      <TextField fx:id="tfCambio" disable="true" layoutX="4.0" layoutY="65.0" prefHeight="21.0" prefWidth="132.0" promptText="Insira o Valor Câmbio" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" />
    </children>
 </AnchorPane>
