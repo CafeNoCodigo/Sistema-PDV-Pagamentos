@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -217,7 +218,7 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="202.0" layoutY="5.0" mnemonicParsing="false" onAction="#salvarProduto" prefHeight="63.0" prefWidth="400.0" style="-fx-background-radius: 10; -fx-padding: 2 6 2 6;" text="Salvar">
+      <Button layoutX="336.0" layoutY="5.0" mnemonicParsing="false" onAction="#salvarProduto" prefHeight="63.0" prefWidth="266.0" style="-fx-background-radius: 10; -fx-padding: 2 6 2 6;" text="Salvar">
          <font>
             <Font name="Franklin Gothic Medium" size="13.0" />
          </font>
@@ -347,7 +348,10 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbMoedaCompra" layoutX="4.0" layoutY="93.0" prefHeight="23.0" prefWidth="142.0" promptText="Moeda de Compra" />
+      <ComboBox fx:id="cbMoedaCompra" layoutX="4.0" layoutY="93.0" prefHeight="27.0" prefWidth="160.0" promptText="Moeda de Compra" styleClass="choice-box" />
       <TextField fx:id="tfCambio" disable="true" layoutX="4.0" layoutY="65.0" prefHeight="21.0" prefWidth="132.0" promptText="Insira o Valor Câmbio" style="-fx-background-radius: 10; -fx-pref-height: 20; -fx-padding: 2 3 2 3;" />
+      <Label layoutX="224.0" layoutY="10.0" text="Importar Produtos" />
+      <Button fx:id="btnImportar" layoutX="224.0" layoutY="29.0" mnemonicParsing="false" onAction="#importarProdutosExcel" prefHeight="31.0" prefWidth="106.0" text="Importar" />
+      <ProgressBar fx:id="progressBar" layoutX="329.0" layoutY="250.0" prefHeight="37.0" prefWidth="379.0" progress="0.0" visible="false" />
    </children>
 </AnchorPane>

@@ -211,3 +211,20 @@
 .chart-bar.barra-alta {
     -fx-bar-fill: #2ecc71; /* Verde */
 }
+
+/* Aplica estilo à barra inteira */
+.progress-bar {
+    -fx-background-color: transparent; /* Fundo transparente */
+    -fx-border-color: #4CAF50;
+    -fx-border-radius: 10;
+    -fx-padding: 2;
+    -fx-border-width: 1.5;
+    -fx-background-radius: 10;
+}
+
+/* Aplica estilo à parte preenchida da barra */
+.progress-bar .bar {
+    -fx-background-color: linear-gradient(to right, #4CAF50, #81C784); /* Verde degradê */
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.5, 0, 1);
+}

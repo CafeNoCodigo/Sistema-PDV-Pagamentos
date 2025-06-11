@@ -96,28 +96,32 @@ public class ProdutoDAO {
 	
 	public ObservableList<Produto> buscarProdutosPorTexto(String texto) {
 	    ObservableList<Produto> lista = FXCollections.observableArrayList();
-	    boolean isNumero = texto.matches("\\d+"); // Verifica se o texto é inteiro
+	    boolean isNumero = texto.matches("\\d+(\\.\\d+)?"); // números inteiros ou decimais
 
 	    String sql = "SELECT * FROM produtos WHERE "
-	               + "nome LIKE ? OR categoria LIKE ? OR referencia LIKE ? OR modelo LIKE ? OR fornecedor LIKE ?";
+	               + "nome LIKE ? OR categoria LIKE ? OR referencia LIKE ? "
+	               + "OR modelo LIKE ? OR fornecedor LIKE ? OR codigoBarra LIKE ?";
 
 	    if (isNumero) {
-	        sql += " OR estoque LIKE ? OR precoCompra LIKE ? ";
+	        sql += " OR CAST(estoque AS CHAR) LIKE ? OR CAST(precoCompra AS CHAR) LIKE ?";
 	    }
 
 	    try (Connection conn = Conexao.conectar();
 	         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
 	        String buscaComLike = "%" + texto + "%";
-	        stmt.setString(1, buscaComLike); // nome
-	        stmt.setString(2, buscaComLike); // categoria
-	        stmt.setString(3, buscaComLike); // referencia
-	        stmt.setString(4, buscaComLike); // modelo
-	        stmt.setString(5, buscaComLike); // fornecedor
+	        int paramIndex = 1;
+
+	        stmt.setString(paramIndex++, buscaComLike); // nome
+	        stmt.setString(paramIndex++, buscaComLike); // categoria
+	        stmt.setString(paramIndex++, buscaComLike); // referencia
+	        stmt.setString(paramIndex++, buscaComLike); // modelo
+	        stmt.setString(paramIndex++, buscaComLike); // fornecedor
+	        stmt.setString(paramIndex++, buscaComLike); // codigoBarra
 
 	        if (isNumero) {
-	            stmt.setInt(6, Integer.parseInt(texto)); // quantidade
-	            stmt.setDouble(7, Double.parseDouble(texto)); // preco de compra
+	            stmt.setString(paramIndex++, buscaComLike); // estoque
+	            stmt.setString(paramIndex++, buscaComLike); // precoCompra
 	        }
 
 	        ResultSet rs = stmt.executeQuery();
@@ -150,6 +154,7 @@ public class ProdutoDAO {
 
 	    return lista;
 	}
+			
 	
 	public List<String> listarFornecedores() {
 	    List<String> fornecedores = new ArrayList<>();
@@ -318,11 +323,7 @@ public class ProdutoDAO {
             pstmt.executeUpdate();
             System.out.println("Produto salvo com sucesso.");
          
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Sucesso");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Produto salvo com sucesso!");
-            alerta.showAndWait();
+            
         } catch (SQLException e) {
             System.out.println("Erro ao salvar produto: " + e.getMessage());
         }

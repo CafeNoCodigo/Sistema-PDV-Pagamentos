@@ -7,6 +7,14 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -17,7 +25,9 @@ import com.minhaloja.sistema_pagamento.model.Produto;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
@@ -25,6 +35,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -80,6 +91,10 @@ public class telaCadastroProdutoController {
     @FXML private ChoiceBox<String> choiceCor;
     
     @FXML private ComboBox<String> cbMoedaCompra;
+    
+    @FXML private Button btnImportar;
+   
+    @FXML private ProgressBar progressBar;
     
     private byte[] imgQrCode;
     private byte[] imgProdutoByte;
@@ -186,6 +201,168 @@ public class telaCadastroProdutoController {
             }
         });
     }
+    
+    @FXML
+    private void importarProdutosExcel(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selecionar arquivo Excel");
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Planilhas Excel", "*.xlsx", "*.xls")
+        );
+        File file = fileChooser.showOpenDialog(btnImportar.getScene().getWindow());
+        if (file != null) {
+            importarProdutosDoExcel(file);
+        }
+    }
+
+
+    
+
+    
+    private void importarProdutosDoExcel(File file) {
+        //FileChooser fileChooser = new FileChooser();
+        //fileChooser.setTitle("Selecionar Planilha de Produtos");
+        //fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel (*.xlsx)", "*.xlsx"));
+        //File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            Task<Void> task = new Task<>() {
+                @Override
+                protected Void call() throws Exception {
+                    try (FileInputStream fis = new FileInputStream(file);
+                         Workbook workbook = criarWorkbookCorreto(file)) {
+
+                        Sheet sheet = workbook.getSheetAt(0);
+                        int totalLinhas = sheet.getLastRowNum();
+                        int processadas = 0;
+
+                        for (int i = 1; i <= totalLinhas; i++) {
+                            Row row = sheet.getRow(i);
+                            if (row == null) continue;
+
+                            Produto produto = new Produto();
+
+                            Cell cellCodigo = row.getCell(0);
+                            String codigoBarra = (cellCodigo == null || cellCodigo.getCellType() == CellType.BLANK)
+                                    ? gerarCodigoBarras()
+                                    : getCellString(cellCodigo);
+
+                            produto.setCodigoBarra(codigoBarra);
+
+                            try {
+                                gerarCodigoDeBarrasImage(codigoBarra);
+                                produto.setQrCode(imgQrCode);
+                            } catch (Exception e) {
+                                System.err.println("Erro ao gerar imagem do código de barras: " + e.getMessage());
+                            }
+
+                            produto.setNome(getCellString(row.getCell(1)));
+                            produto.setFornecedor(getCellString(row.getCell(2)));
+                            produto.setEstoque((int) getCellNumeric(row.getCell(3)));
+                            produto.setCategoria(getCellString(row.getCell(4)));
+                            produto.setPrecoCompra(getCellNumeric(row.getCell(5)));
+                            produto.setPrecoMestre(getCellNumeric(row.getCell(6)));
+                            produto.setPrecoVenda(getCellNumeric(row.getCell(7)));
+                            produto.setModelo(getCellString(row.getCell(8)));
+                            produto.setCor(getCellString(row.getCell(9)));
+                            produto.setReferencia(getCellString(row.getCell(10)));
+                            produto.setLoja(getCellString(row.getCell(11)));
+
+                            produtoDAO.salvarProduto(produto);
+
+                            // Atualizar contagem e barra
+                            processadas++;
+                            updateProgress(processadas, totalLinhas);
+                        }
+                    }
+
+                    return null;
+                }
+            };
+
+            // Vincula a barra ao progresso da tarefa
+            progressBar.setVisible(true);
+            progressBar.progressProperty().bind(task.progressProperty());
+
+            task.setOnSucceeded(e -> {
+                progressBar.progressProperty().unbind();
+                progressBar.setProgress(0);
+                progressBar.setVisible(false);
+                listarTodos();
+                contarProdutos();
+
+                Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+                alerta.setTitle("Sucesso");
+                alerta.setHeaderText("Importação Concluída");
+                alerta.setContentText("Todos os produtos foram importados com sucesso.");
+                alerta.showAndWait();
+            });
+
+            task.setOnFailed(e -> {
+                progressBar.progressProperty().unbind();
+                progressBar.setProgress(0);
+                progressBar.setVisible(false);
+                e.getSource().getException().printStackTrace();
+
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Erro");
+                alerta.setHeaderText("Erro ao Importar");
+                alerta.setContentText("Não foi possível importar os produtos: " + e.getSource().getException().getMessage());
+                alerta.showAndWait();
+            });
+
+            new Thread(task).start();
+        }
+    }
+
+
+
+
+	private Workbook criarWorkbookCorreto(File file) throws IOException {
+	    FileInputStream fis = new FileInputStream(file);
+
+	    // Detecta o tipo de arquivo pelo conteúdo (não apenas pela extensão)
+	    if (file.getName().toLowerCase().endsWith(".xlsx")) {
+	        try {
+	            return new XSSFWorkbook(fis);
+	        } catch (Exception e) {
+	            throw new IOException("Erro ao abrir arquivo .xlsx", e);
+	        }
+	    } else if (file.getName().toLowerCase().endsWith(".xls")) {
+	        try {
+	            return new HSSFWorkbook(fis);
+	        } catch (Exception e) {
+	            throw new IOException("Erro ao abrir arquivo .xls", e);
+	        }
+	    } else {
+	        throw new IllegalArgumentException("Formato de arquivo não suportado: " + file.getName());
+	    }
+	}
+
+
+    private String getCellString(Cell cell) {
+        if (cell == null) return "";
+        return switch (cell.getCellType()) {
+            case STRING -> cell.getStringCellValue().trim();
+            case NUMERIC -> String.valueOf((long) cell.getNumericCellValue());
+            case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
+            default -> "";
+        };
+    }
+
+    private double getCellNumeric(Cell cell) {
+        if (cell == null) return 0.0;
+        return switch (cell.getCellType()) {
+            case NUMERIC -> cell.getNumericCellValue();
+            case STRING -> {
+                try { yield Double.parseDouble(cell.getStringCellValue()); }
+                catch (NumberFormatException e) { yield 0.0; }
+            }
+            default -> 0.0;
+        };
+    }
+
+
     
     //Fade transition genérico para qualquer Node
     private void aplicarFadeTransition(javafx.scene.Node node) {
@@ -376,7 +553,7 @@ public class telaCadastroProdutoController {
     @FXML
     private String gerarCodigoBarras() {
         // Gera base no tempo atual
-        String codigo = "SRG" + System.currentTimeMillis();
+        String codigo = "FPS" + System.currentTimeMillis();
         tfCodigoBarra.setText(codigo);
         
         try {
@@ -431,11 +608,17 @@ public class telaCadastroProdutoController {
 
         try {
             produtoDAO.salvarProduto(produto);
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Sucesso");
+            alerta.setHeaderText(null);
+            alerta.setContentText("Produto salvo com sucesso!");
+            alerta.showAndWait();
             carregarProdutosNaTabela();
             carregarCategoriasNoChoiceBox();
             carregarfornecedoresNoChoiceBox();
             limparCampos();
             contarProdutos();
+            
 
         } catch (Exception e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -540,15 +723,6 @@ public class telaCadastroProdutoController {
         aplicarFadeEmTextField(tfModelo);
         aplicarFadeEmTextField(tfCodigo);
     }
-    
-    //private Image getImagemPadraoProduto() {
-    //    return new Image(getClass().getResourceAsStream("/img/inserirFotoProduto.png"));
-    //}
-
-   // private Image getImagemPadraoQrCode() {
-    //    return new Image(getClass().getResourceAsStream("/img/semQrCode.png"));
-    //}
-	
     
     private void carregarProdutosNaTabela() {
         tabelaProdutos.setItems(produtoDAO.listarProdutos2());

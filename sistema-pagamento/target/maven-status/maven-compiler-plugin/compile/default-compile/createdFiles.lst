@@ -3,6 +3,7 @@ com\minhaloja\sistema_pagamento\util\NotificacaoSistema.class
 com\minhaloja\sistema_pagamento\controller\telaRelatorioController$MonthTotal.class
 com\minhaloja\sistema_pagamento\dao\ContaAPagarDAO.class
 com\minhaloja\sistema_pagamento\controller\telaCadastroFuncionarioController.class
+com\minhaloja\sistema_pagamento\controller\telaCadastroProdutoController$2.class
 com\minhaloja\sistema_pagamento\App.class
 com\minhaloja\sistema_pagamento\dao\FormaPagamentoDAO.class
 com\minhaloja\sistema_pagamento\controller\telaVendaController.class
@@ -11,6 +12,7 @@ com\minhaloja\sistema_pagamento\controller\telaCadastroProdutoController.class
 com\minhaloja\sistema_pagamento\controller\TelaFormaPagamentoController.class
 com\minhaloja\sistema_pagamento\controller\TelaCadastroServicoController.class
 com\minhaloja\sistema_pagamento\controller\telaFluxoCaixaController.class
+com\minhaloja\sistema_pagamento\controller\telaCadastroProdutoController$1.class
 com\minhaloja\sistema_pagamento\util\WindowManager.class
 com\minhaloja\sistema_pagamento\dao\EquipamentoDAO.class
 com\minhaloja\sistema_pagamento\model\ItemVenda.class
