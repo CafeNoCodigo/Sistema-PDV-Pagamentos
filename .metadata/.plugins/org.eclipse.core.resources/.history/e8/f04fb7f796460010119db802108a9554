@@ -1,0 +1,32 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+public class ServicoDAO {
+	
+	private void criarTabelaSeNaoExistir() {
+    	String sql = """
+	    		    CREATE TABLE IF NOT EXISTS servico (
+				    id INT AUTO_INCREMENT PRIMARY KEY,
+				    nome VARCHAR(100) NOT NULL,
+				    descricao TEXT,
+				    preco DECIMAL(10, 2) NOT NULL,
+				    categoria VARCHAR(50),
+				    duracao INT,
+				    ativo BOOLEAN DEFAULT TRUE,
+				    imagem LONGBLOB
+				);
+    		""";
+
+        try (Connection conn = Conexao.conectar(); Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println("Erro ao criar tabela: " + e.getMessage());
+        }
+    }
+
+}

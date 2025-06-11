@@ -1,0 +1,98 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.minhaloja.sistema_pagamento.model.Servico;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+public class ServicoDAO {
+	
+	public ServicoDAO() {
+		criarTabelaSeNaoExistir();
+	}
+	
+	public void salvar(Servico s) throws SQLException {
+        String sql = "INSERT INTO servico (nome, descricao, preco, categoria, duracao, ativo, imagem) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, s.getNome());
+            stmt.setString(2, s.getDescricao());
+            stmt.setDouble(3, s.getPreco());
+            stmt.setString(4, s.getCategoria());
+            stmt.setInt(5, s.getDuracao());
+            stmt.setBoolean(6, s.isAtivo());
+            stmt.setBytes(7, s.getImagem());
+            stmt.executeUpdate();
+        }
+    }
+
+    public List<Servico> listar() throws SQLException {
+        List<Servico> lista = new ArrayList<>();
+        String sql = "SELECT * FROM servico";
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Servico s = new Servico();
+                s.setId(rs.getInt("id"));
+                s.setNome(rs.getString("nome"));
+                s.setDescricao(rs.getString("descricao"));
+                s.setPreco(rs.getDouble("preco"));
+                s.setCategoria(rs.getString("categoria"));
+                s.setDuracao(rs.getInt("duracao"));
+                s.setAtivo(rs.getBoolean("ativo"));
+                s.setImagem(rs.getBytes("imagem"));
+                lista.add(s);
+            }
+        }
+        return lista;
+    }
+
+    public void atualizar(Servico s) throws SQLException {
+        String sql = "UPDATE servico SET nome=?, descricao=?, preco=?, categoria=?, duracao=?, ativo=?, imagem=? WHERE id=?";
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, s.getNome());
+            stmt.setString(2, s.getDescricao());
+            stmt.setDouble(3, s.getPreco());
+            stmt.setString(4, s.getCategoria());
+            stmt.setInt(5, s.getDuracao());
+            stmt.setBoolean(6, s.isAtivo());
+            stmt.setBytes(7, s.getImagem());
+            stmt.setInt(8, s.getId());
+            stmt.executeUpdate();
+        }
+    }
+
+    public void remover(int id) throws SQLException {
+        String sql = "DELETE FROM servico WHERE id=?";
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
+	
+	private void criarTabelaSeNaoExistir() {
+    	String sql = """
+	    		    CREATE TABLE IF NOT EXISTS servico (
+				    id INT AUTO_INCREMENT PRIMARY KEY,
+				    nome VARCHAR(100) NOT NULL,
+				    descricao TEXT,
+				    preco DECIMAL(10, 2) NOT NULL,
+				    categoria VARCHAR(50),
+				    duracao INT,
+				    ativo BOOLEAN DEFAULT TRUE,
+				    imagem LONGBLOB
+				);
+    		""";
+
+        try (Connection conn = Conexao.conectar(); Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println("Erro ao criar tabela: " + e.getMessage());
+        }
+    }
+
+}

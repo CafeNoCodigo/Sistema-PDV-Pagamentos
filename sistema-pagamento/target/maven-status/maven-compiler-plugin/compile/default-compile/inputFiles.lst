@@ -14,6 +14,7 @@ C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\s
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\ClienteDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Venda.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\TelaFormaPagamentoController.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\ServicoDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\ContaAPagarDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\telaCadastroProdutoController.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\telaRelatorioController.java
@@ -25,6 +26,8 @@ C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\s
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Cliente.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\FormaPagamento.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\TelaCadastroEmpresaController.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\controller\TelaCadastroServicoController.java
+C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Servico.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\ProdutoDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\dao\VendaDAO.java
 C:\Users\fabia\Desktop\Workspace\sistema-pagamento\src\main\java\com\minhaloja\sistema_pagamento\model\Empresa.java

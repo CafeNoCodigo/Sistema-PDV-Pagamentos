@@ -13,6 +13,26 @@ import javafx.stage.Stage;
 public class WindowManager {
 	
 	@FXML
+	public static void abrirTelaCadastroServico() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroServico.fxml"));
+			Parent root = fxmlLoader.load();
+			
+			Stage stage = new Stage();
+			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
+			stage.initModality(Modality.APPLICATION_MODAL);
+            stage.getIcons().add(icon);
+			stage.setTitle("Cadastrar Servicos");
+			stage.setResizable(false);
+			stage.setMaximized(false);
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
 	public static void abrirTelaCadastroContaAPagar() {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaContasAPagar.fxml"));

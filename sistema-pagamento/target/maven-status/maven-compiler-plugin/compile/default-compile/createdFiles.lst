@@ -9,6 +9,7 @@ com\minhaloja\sistema_pagamento\controller\telaVendaController.class
 com\minhaloja\sistema_pagamento\controller\telaInicialController.class
 com\minhaloja\sistema_pagamento\controller\telaCadastroProdutoController.class
 com\minhaloja\sistema_pagamento\controller\TelaFormaPagamentoController.class
+com\minhaloja\sistema_pagamento\controller\TelaCadastroServicoController.class
 com\minhaloja\sistema_pagamento\controller\telaFluxoCaixaController.class
 com\minhaloja\sistema_pagamento\util\WindowManager.class
 com\minhaloja\sistema_pagamento\dao\EquipamentoDAO.class
@@ -22,6 +23,7 @@ com\minhaloja\sistema_pagamento\model\Empresa.class
 com\minhaloja\sistema_pagamento\model\Produto.class
 com\minhaloja\sistema_pagamento\dao\VendaDAO.class
 com\minhaloja\sistema_pagamento\model\FormaPagamento.class
+com\minhaloja\sistema_pagamento\model\Servico.class
 com\minhaloja\sistema_pagamento\controller\telaRelatorioController.class
 com\minhaloja\sistema_pagamento\model\Venda.class
 com\minhaloja\sistema_pagamento\dao\CaixaDAO.class
@@ -35,6 +37,7 @@ com\minhaloja\sistema_pagamento\dao\ItemVendaDAO.class
 com\minhaloja\sistema_pagamento\model\Funcionario.class
 com\minhaloja\sistema_pagamento\dao\FuncionarioDAO.class
 com\minhaloja\sistema_pagamento\model\Equipamento.class
+com\minhaloja\sistema_pagamento\dao\ServicoDAO.class
 com\minhaloja\sistema_pagamento\dao\ProdutoEsgotadoDAO.class
 com\minhaloja\sistema_pagamento\controller\telaCadastroClienteController.class
 com\minhaloja\sistema_pagamento\model\ContaAPagar.class

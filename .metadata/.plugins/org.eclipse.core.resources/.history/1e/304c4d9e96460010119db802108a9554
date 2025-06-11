@@ -1,0 +1,14 @@
+package com.minhaloja.sistema_pagamento.model;
+
+public class Servico {
+    private int id;
+    private String nome;
+    private String descricao;
+    private double preco;
+    private String categoria;
+    private int duracao; // em minutos
+    private boolean ativo;
+    private byte[] imagem;
+    
+    
+}
