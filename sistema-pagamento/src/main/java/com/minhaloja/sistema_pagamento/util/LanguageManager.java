@@ -22,16 +22,16 @@ public class LanguageManager {
         if (CONFIG_FILE.exists()) {
             try (FileInputStream input = new FileInputStream(CONFIG_FILE)) {
                 config.load(input);
-                String lang = config.getProperty("language", "pt");
+                String lang = config.getProperty("language", "en");
                 currentLocale = new Locale(lang);
                 Locale.setDefault(currentLocale);
             } catch (IOException e) {
                 e.printStackTrace();
-                currentLocale = new Locale("pt");
+                currentLocale = new Locale("en");
                 Locale.setDefault(currentLocale);
             }
         } else {
-            currentLocale = new Locale("pt");
+            currentLocale = new Locale("en");
             Locale.setDefault(currentLocale);
         }
     }

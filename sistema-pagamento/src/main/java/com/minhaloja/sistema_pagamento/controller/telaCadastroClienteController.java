@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -48,8 +49,8 @@ public class telaCadastroClienteController {
 	
 	@FXML private Button btnInserirImg, btnNovo, btnCancelar, btnEliminar, btnFechar, btnSalvar, btnLimpar;
 	
-	@FXML private Label lbTotalReg, lbNome, lbEndereco, lbBi;
-	
+	@FXML private Label lbTotalReg2, lbTotalReg, lbNome, lbCode2, lbEndereco, lbBi, lbEmail, lbCity, lbTelefone, lbTelefone2, lbBirthday, lbInfo, lbFooter, lbAccount, lbAccount2, lbRegData, lbGender, lbStatus, lbPicture;
+	@FXML private Tab tabData, tabAditional, tabClientList;
 	@FXML private TableView<Cliente> tabelaClientes;
 	
 	@FXML private TableColumn<Cliente, String> colNome, colTelefone1, colTelefone2, colConta1, colConta2, colInfo, colStatus;
@@ -59,10 +60,7 @@ public class telaCadastroClienteController {
 	@FXML 
 	private void initialize() {
 		ResourceBundle bundle = LanguageManager.getBundle();
-
-		lbNome.setText(bundle.getString("label.nome"));
-		lbEndereco.setText(bundle.getString("label.endereco"));
-		lbBi.setText(bundle.getString("label.bi"));
+		updateLanguage(bundle);
 		
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colTelefone1.setCellValueFactory(new PropertyValueFactory<>("telefone1"));
@@ -73,14 +71,50 @@ public class telaCadastroClienteController {
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         
         cbGenero.getItems().addAll("Masculino", "Feminino", "Outro");
-
-        cbStatus.getItems().addAll("Ativo", "Inativo", "Suspenso");
-
-        
-        
         tabelaClientes.setItems(clienteDAO.listarClientes());
         
         aplicarAnimacoesComponentes();
+	}
+	
+	private void updateLanguage(ResourceBundle bundle) {
+		lbNome.setText(bundle.getString("label.nome"));
+		lbEndereco.setText(bundle.getString("label.endereco"));
+		lbBi.setText(bundle.getString("label.bi"));
+		lbCode2.setText(bundle.getString("label.code"));
+
+		lbEmail.setText(bundle.getString("label.email"));
+		lbCity.setText(bundle.getString("label.cidade"));
+		lbTelefone.setText(bundle.getString("label.telefone1"));
+		lbTelefone2.setText(bundle.getString("label.telefone2"));
+		lbBirthday.setText(bundle.getString("label.nascido"));
+		lbTotalReg2.setText(bundle.getString("label.totalReg"));
+		lbInfo.setText(bundle.getString("label.info"));
+		lbAccount.setText(bundle.getString("label.conta"));
+		lbAccount2.setText(bundle.getString("label.conta2"));
+		lbRegData.setText(bundle.getString("label.dataReg"));
+		lbStatus.setText(bundle.getString("label.status"));
+		lbGender.setText(bundle.getString("label.gender"));
+		lbPicture.setText(bundle.getString("label.picture"));
+		lbFooter.setText(bundle.getString("label.footer"));
+
+		tabData.setText(bundle.getString("tab.data"));
+		tabAditional.setText(bundle.getString("tab.aditional"));
+		tabClientList.setText(bundle.getString("tab.clientList"));
+
+		colNome.setText(bundle.getString("table.nome"));
+		colTelefone1.setText(bundle.getString("table.telefone"));
+		colTelefone2.setText(bundle.getString("table.telefone2"));
+		colConta1.setText(bundle.getString("table.conta"));
+		colConta2.setText(bundle.getString("table.conta2"));
+		colInfo.setText(bundle.getString("table.info"));
+
+		btnNovo.setText(bundle.getString("button.novo"));
+		btnLimpar.setText(bundle.getString("button.limpar"));
+		btnEliminar.setText(bundle.getString("button.eliminar"));
+		btnSalvar.setText(bundle.getString("button.salvar"));
+		btnCancelar.setText(bundle.getString("button.cancelar"));
+		btnFechar.setText(bundle.getString("button.fechar"));
+
 	}
 	
 	@FXML
