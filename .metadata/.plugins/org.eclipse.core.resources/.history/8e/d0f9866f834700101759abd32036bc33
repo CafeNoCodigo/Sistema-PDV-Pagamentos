@@ -1,0 +1,21 @@
+### messages_pt.properties
+label.config=Configurações
+label.registrar=Registrar
+label.ordem=Ordem De Serviço
+label.cadProduto=Cad. Produto
+label.comprar=Comprar
+label.venda=Venda
+label.devolucao=Devolução
+label.relatorio=Relatório
+label.pesquisaProduto=Pesquisar Produto
+label.resumoVendas=Resumo de Vendas
+label.selecaoFuncionario=Selecionar Funcionário
+label.cadCliente= Cad. Cliente
+label.cadFuncionario=Cad. Funcionário
+label.requisicao=Requisição
+label.fluxoCaixa=Fluxo de Caixa
+label.dre=DRE
+label.estoqueAtual=Estoque Atual
+label.formaPagamento=Formas de Pagamento
+button.atualizar=Atualizar
+button.fechar=Fechar

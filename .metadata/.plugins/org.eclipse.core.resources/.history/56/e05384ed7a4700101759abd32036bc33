@@ -1,0 +1,6 @@
+### messages_pt.properties
+label.username=Nome de Usuário
+button.login=Entrar
+button.exit=Sair
+label.language=Idioma
+label.password=Senha

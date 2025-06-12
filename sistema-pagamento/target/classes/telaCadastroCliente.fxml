@@ -35,19 +35,19 @@
                         <TextField layoutX="78.0" layoutY="14.0" prefHeight="12.0" prefWidth="74.0" style="-fx-padding: 2 5 2 5; -fx-background-color: #fceb9e;" />
                         <VBox layoutX="168.0" layoutY="15.0" prefHeight="21.0" prefWidth="87.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="100.0" text="Numero de BI" />
+                              <Label fx:id="lbBi" prefHeight="27.0" prefWidth="100.0" text="Numero de BI" />
                            </children>
                         </VBox>
                         <TextField fx:id="tfBi" layoutX="255.0" layoutY="15.0" prefHeight="21.0" prefWidth="393.0" style="-fx-padding: 2 5 2 5;" />
                         <VBox layoutX="14.0" layoutY="47.0" prefHeight="21.0" prefWidth="53.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="100.0" text="Nome" />
+                              <Label fx:id="lbNome" prefHeight="27.0" prefWidth="100.0" text="Nome" />
                            </children>
                         </VBox>
                         <TextField fx:id="tfNome" layoutX="78.0" layoutY="47.0" prefHeight="21.0" prefWidth="569.0" style="-fx-padding: 2 5 2 5;" />
                         <VBox layoutX="14.0" layoutY="87.0" prefHeight="21.0" prefWidth="61.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="100.0" text="Endereco" />
+                              <Label fx:id="lbEndereco" prefHeight="27.0" prefWidth="100.0" text="Endereco" />
                            </children>
                         </VBox>
                         <TextField fx:id="tfEndereco" layoutX="79.0" layoutY="87.0" prefHeight="21.0" prefWidth="568.0" style="-fx-padding: 2 5 2 5;" />

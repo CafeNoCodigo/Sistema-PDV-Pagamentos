@@ -1,0 +1,17 @@
+package com.minhaloja.sistema_pagamento.util;
+
+import java.util.*;
+
+public class LanguageManager {
+    private static Locale currentLocale = Locale.getDefault();
+    private static ResourceBundle bundle = ResourceBundle.getBundle("messages", currentLocale);
+
+    public static void setLocale(Locale locale) {
+        currentLocale = locale;
+        bundle = ResourceBundle.getBundle("messages", currentLocale);
+    }
+
+    public static ResourceBundle getBundle() {
+        return bundle;
+    }
+}

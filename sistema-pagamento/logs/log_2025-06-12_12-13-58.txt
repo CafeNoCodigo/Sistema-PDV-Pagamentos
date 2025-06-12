@@ -1,0 +1,19 @@
+[2025-06-12 12:14:01] ERRO:
+java.util.MissingResourceException: Can't find bundle for base name i18n/messages_en_US.properties, locale en_US
+	at java.base/java.util.ResourceBundle.throwMissingResourceException(ResourceBundle.java:2059)
+	at java.base/java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1697)
+	at java.base/java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1600)
+	at java.base/java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1555)
+	at java.base/java.util.ResourceBundle.getBundle(ResourceBundle.java:861)
+	at com.minhaloja.sistema_pagamento.util.WindowManager.showScene(WindowManager.java:36)
+	at com.minhaloja.sistema_pagamento.App.start(App.java:40)
+	at javafx.graphics@21.0.7/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839)
+	at javafx.graphics@21.0.7/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483)
+	at javafx.graphics@21.0.7/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@21.0.7/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21.0.7/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21.0.7/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.7/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+

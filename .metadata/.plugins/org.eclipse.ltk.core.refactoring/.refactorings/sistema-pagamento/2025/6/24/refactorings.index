@@ -2,3 +2,6 @@
 1749476273194	Rename type 'TelaContasAPagar'
 1749476325764	Rename type 'ContaAPagar'
 1749476988436	Rename type 'ContasAPagar'
+1749725475887	Rename resource 'messages_ch.properties'
+1749726518033	Rename resource 'messages_fr.properties'
+1749726527221	Delete element

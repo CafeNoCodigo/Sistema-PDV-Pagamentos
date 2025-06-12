@@ -12,6 +12,32 @@ import javafx.stage.Stage;
 
 public class WindowManager {
 	
+	private static Stage mainStage;
+    private static String currentFxml;
+
+    public static void setMainStage(Stage stage) {
+        mainStage = stage;
+    }
+
+    public static void setCurrentFxml(String fxml) {
+        currentFxml = fxml;
+    }
+	
+    public static void reloadCurrentScene() {
+        try {
+            if (mainStage == null || currentFxml == null) {
+                throw new IllegalStateException("mainStage ou currentFxml não foram inicializados.");
+            }
+            FXMLLoader loader = new FXMLLoader(WindowManager.class.getResource(currentFxml));
+            loader.setResources(LanguageManager.getBundle());
+            Parent root = loader.load();
+            mainStage.getScene().setRoot(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+	
 	@FXML
 	public static void abrirTelaCadastroServico() {
 		try {
@@ -97,6 +123,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroCliente.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/cadastrarCliente.png"));

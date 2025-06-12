@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.minhaloja.sistema_pagamento.util.Conexao;
+import com.minhaloja.sistema_pagamento.util.LanguageManager;
+import com.minhaloja.sistema_pagamento.util.WindowManager;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -23,27 +26,39 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            // Captura exceções não tratadas 
+            LanguageManager.loadConfig();
+
+            // Captura exceções não tratadas
             Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
                 logarErro(throwable);
                 exibirAlertaErro();
             });
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/telaInicial.fxml"));
+            loader.setResources(LanguageManager.getBundle());
             Parent root = loader.load();
+
             Scene scene = new Scene(root);
             Image icon = new Image(getClass().getResourceAsStream("/img/carinho.png"));
+
             stage.getIcons().add(icon);
             stage.setResizable(false);
             stage.setMaximized(true);
             stage.setTitle("FPS_Commerce");
             stage.setScene(scene);
             stage.show();
+
+            // Salva o Stage se usar WindowManager
+            WindowManager.setMainStage(stage);
+            WindowManager.setCurrentFxml("/telaInicial.fxml");
+
         } catch (Exception e) {
             logarErro(e);
             exibirAlertaErro();
         }
     }
+
+
 
     public static void main(String[] args) {
         prepararArquivoDeLog();
@@ -80,7 +95,7 @@ public class App extends Application {
         } catch (Exception e) {
             System.err.println("Falha ao salvar log: " + e.getMessage());
         }
-        throwable.printStackTrace(); // Também mostra no console
+        throwable.printStackTrace();
     }
 
     private static void exibirAlertaErro() {

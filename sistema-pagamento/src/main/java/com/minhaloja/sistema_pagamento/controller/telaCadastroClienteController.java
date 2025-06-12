@@ -4,11 +4,13 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
 import com.minhaloja.sistema_pagamento.dao.ClienteDAO;
 import com.minhaloja.sistema_pagamento.model.Cliente;
+import com.minhaloja.sistema_pagamento.util.LanguageManager;
 
 import javafx.animation.Animation;
 import javafx.animation.ScaleTransition;
@@ -34,28 +36,34 @@ import javafx.util.Duration;
 
 public class telaCadastroClienteController {
 
-	@FXML TextField tfNome, tfEndereco, tfCidade, tfEmail, tfBi, tfTelefone1, tfTelefone2, tfNuit, tfConta1, tfConta2;
+	@FXML private TextField tfNome, tfEndereco, tfCidade, tfEmail, tfBi, tfTelefone1, tfTelefone2, tfNuit, tfConta1, tfConta2;
 	
-	@FXML DatePicker dpDataNascido, dpDataReg;
+	@FXML private DatePicker dpDataNascido, dpDataReg;
 	
-	@FXML TextArea taInfo;
+	@FXML private TextArea taInfo;
 	
-	@FXML ComboBox<String> cbGenero, cbStatus, cbListaCliente;
+	@FXML private ComboBox<String> cbGenero, cbStatus, cbListaCliente;
 	
-	@FXML ImageView imgCliente;
+	@FXML private ImageView imgCliente;
 	
-	@FXML Button btnInserirImg, btnNovo, btnCancelar, btnEliminar, btnFechar, btnSalvar, btnLimpar;
+	@FXML private Button btnInserirImg, btnNovo, btnCancelar, btnEliminar, btnFechar, btnSalvar, btnLimpar;
 	
-	@FXML Label lbTotalReg;
+	@FXML private Label lbTotalReg, lbNome, lbEndereco, lbBi;
 	
-	@FXML TableView<Cliente> tabelaClientes;
+	@FXML private TableView<Cliente> tabelaClientes;
 	
-	@FXML TableColumn<Cliente, String> colNome, colTelefone1, colTelefone2, colConta1, colConta2, colInfo, colStatus;
+	@FXML private TableColumn<Cliente, String> colNome, colTelefone1, colTelefone2, colConta1, colConta2, colInfo, colStatus;
 	
 	private final ClienteDAO clienteDAO = new ClienteDAO();
 	
 	@FXML 
 	private void initialize() {
+		ResourceBundle bundle = LanguageManager.getBundle();
+
+		lbNome.setText(bundle.getString("label.nome"));
+		lbEndereco.setText(bundle.getString("label.endereco"));
+		lbBi.setText(bundle.getString("label.bi"));
+		
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colTelefone1.setCellValueFactory(new PropertyValueFactory<>("telefone1"));
         colTelefone2.setCellValueFactory(new PropertyValueFactory<>("telefone2"));

@@ -1,0 +1,32 @@
+package com.minhaloja.sistema_pagamento.util;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
+@SuppressWarnings("deprecation")
+public class LanguageManager {
+    private static final Preferences prefs = Preferences.userNodeForPackage(LanguageManager.class);
+    private static Locale currentLocale;
+    private static final String PREF_KEY = "idioma";
+
+    static {
+        // Carrega o idioma salvo ao iniciar
+        String lang = prefs.get(PREF_KEY, "pt"); // pt é o idioma padrão
+        setLocale(new Locale(lang));
+    }
+
+    public static void setLocale(Locale locale) {
+        currentLocale = locale;
+        prefs.put(PREF_KEY, locale.getLanguage()); // Salva a linguagem selecionada
+    }
+
+    public static Locale getLocale() {
+        return currentLocale;
+    }
+
+    public static ResourceBundle getBundle() {
+        return ResourceBundle.getBundle("messages", currentLocale);
+    }
+}
+

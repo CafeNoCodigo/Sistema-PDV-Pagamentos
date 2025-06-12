@@ -16,6 +16,7 @@ com\minhaloja\sistema_pagamento\controller\telaCadastroProdutoController$1.class
 com\minhaloja\sistema_pagamento\util\WindowManager.class
 com\minhaloja\sistema_pagamento\dao\EquipamentoDAO.class
 com\minhaloja\sistema_pagamento\model\ItemVenda.class
+com\minhaloja\sistema_pagamento\util\LanguageManager.class
 com\minhaloja\sistema_pagamento\dao\ProdutoDAO.class
 com\minhaloja\sistema_pagamento\controller\TelaRequisicaoController.class
 com\minhaloja\sistema_pagamento\util\Conexao.class

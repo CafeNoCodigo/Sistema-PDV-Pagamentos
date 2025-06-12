@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -81,15 +82,15 @@
                   </ImageView>
                </graphic>
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroEmpresa" text="Empresa" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario2" text="Funcionário" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" text="Produto" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroEquipamento" text="Equipamento" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroContaAPagar" text="Contas a pagar/Despesas" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroServico" text="Serviços" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Fornecedores" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaCadastroCliente" text="Cliente" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaFormaPagamento" text="Formas de Pagamento" />
+                  <MenuItem fx:id="miEmpresa" mnemonicParsing="false" onAction="#abrirTelaCadastroEmpresa" text="Empresa" />
+                  <MenuItem fx:id="miFuncionario" mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario2" text="Funcionário" />
+                  <MenuItem fx:id="miProduto" mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" text="Produto" />
+                  <MenuItem fx:id="miEquipamento" mnemonicParsing="false" onAction="#abrirTelaCadastroEquipamento" text="Equipamento" />
+                  <MenuItem fx:id="miDespesas" mnemonicParsing="false" onAction="#abrirTelaCadastroContaAPagar" text="Contas a pagar/Despesas" />
+                  <MenuItem fx:id="miServicos" mnemonicParsing="false" onAction="#abrirTelaCadastroServico" text="Serviços" />
+                  <MenuItem fx:id="miFornecedores" disable="true" mnemonicParsing="false" text="Fornecedores" />
+                  <MenuItem fx:id="miCliente" mnemonicParsing="false" onAction="#abrirTelaCadastroCliente" text="Cliente" />
+                  <MenuItem fx:id="miFormaPagamento" mnemonicParsing="false" onAction="#abrirTelaFormaPagamento" text="Formas de Pagamento" />
                </items>
           </Menu>
           <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
@@ -104,14 +105,14 @@
                   </ImageView>
                </graphic>
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaRequisicao2" text="Requisição" />
+                  <MenuItem fx:id="miRequisicao" mnemonicParsing="false" onAction="#abrirTelaRequisicao2" text="Requisição" />
                </items></Menu>
             <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
               <items>
-                <MenuItem disable="true" mnemonicParsing="false" text="Fornecedor" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaVenda2" text="Produto" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Serviço" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Cliente" />
+                <MenuItem fx:id="miFornecedor" disable="true" mnemonicParsing="false" text="Fornecedor" />
+                  <MenuItem fx:id="miProduto2" mnemonicParsing="false" onAction="#abrirTelaVenda2" text="Produto" />
+                  <MenuItem fx:id="miServico2" disable="true" mnemonicParsing="false" text="Serviço" />
+                  <MenuItem fx:id="miCliente2" disable="true" mnemonicParsing="false" text="Cliente" />
               </items>
                <graphic>
                   <ImageView fitHeight="68.0" fitWidth="68.0">
@@ -126,13 +127,13 @@
             </Menu>
             <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#abrirTelaEstoqueAtual2" text="Estoque de Produto" />
-                  <MenuItem mnemonicParsing="false" onAction="#abrirTelaFluxoCaixa2" text="Fluxo de Caixa" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Compras por Fornecedor" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Compras por Produto" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Lucro bruto por produto" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Lucro esperado no estoque atual" />
-                  <MenuItem disable="true" mnemonicParsing="false" text="Contas a Pagar" />
+                <MenuItem fx:id="miEstoqueProduto" mnemonicParsing="false" onAction="#abrirTelaEstoqueAtual2" text="Estoque de Produto" />
+                  <MenuItem fx:id="miFluxoCaixa" mnemonicParsing="false" onAction="#abrirTelaFluxoCaixa2" text="Fluxo de Caixa" />
+                  <MenuItem fx:id="miCompraFornecedor" disable="true" mnemonicParsing="false" text="Compras por Fornecedor" />
+                  <MenuItem fx:id="miCompraProduto" disable="true" mnemonicParsing="false" text="Compras por Produto" />
+                  <MenuItem fx:id="miLucroProduto" disable="true" mnemonicParsing="false" text="Lucro bruto por produto" />
+                  <MenuItem fx:id="miLucroEstoque" disable="true" mnemonicParsing="false" text="Lucro esperado no estoque atual" />
+                  <MenuItem fx:id="miContaPagar" disable="true" mnemonicParsing="false" text="Contas a Pagar" />
               </items>
                <graphic>
                   <ImageView fitHeight="68.0" fitWidth="68.0">
@@ -169,12 +170,12 @@
                   </ImageView>
                </graphic>
                <items>
-                  <MenuItem mnemonicParsing="false" text="Devolução" />
+                  <MenuItem fx:id="miDevolucao" mnemonicParsing="false" text="Devolução" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" style="-fx-background-radius: 8px; -fx-background-insets: 0; -fx-background-color: transparent; -fx-transition: background-color 0.3s ease; -fx-text-fill: #3a3a3a; -fx-font-weight: bold;" text="          ">
               <items>
-                <MenuItem disable="true" mnemonicParsing="false" onAction="#verificarAtualizacao" text="Atualizar Versão" />
+                <MenuItem fx:id="miAtualizar" disable="true" mnemonicParsing="false" onAction="#verificarAtualizacao" text="Atualizar Versão" />
               </items>
                <graphic>
                   <ImageView fitHeight="68.0" fitWidth="68.0">
@@ -209,7 +210,7 @@
       </Button>
       <VBox layoutX="14.0" layoutY="174.0" prefHeight="24.0" prefWidth="76.0">
          <children>
-            <Label alignment="CENTER" prefHeight="27.0" prefWidth="76.0" text="Venda" textAlignment="CENTER">
+            <Label fx:id="lbVenda2" alignment="CENTER" prefHeight="27.0" prefWidth="76.0" text="Venda" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -233,7 +234,7 @@
       </Button>
       <VBox layoutX="155.0" layoutY="175.0" prefHeight="24.0" prefWidth="112.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="115.0" text="Compra" textAlignment="CENTER">
+            <Label fx:id="lbComprar2" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="115.0" text="Compra" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -247,7 +248,7 @@
       </Button>
       <VBox layoutX="295.0" layoutY="177.0" prefHeight="24.0" prefWidth="185.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="185.0" text="Pesquisar Produto" textAlignment="CENTER">
+            <Label fx:id="lbPesquisaProduto" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="185.0" text="Pesquisar Produto" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="20.0" />
                </font>
@@ -257,7 +258,7 @@
       <Button layoutX="512.0" layoutY="132.0" mnemonicParsing="false" onAction="#abrirTelaRelatorio2" prefHeight="51.0" prefWidth="100.0" styleClass="botao-pastel" />
       <VBox layoutX="472.0" layoutY="176.0" prefHeight="24.0" prefWidth="185.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="185.0" text="Resumo de Vendas" textAlignment="CENTER">
+            <Label fx:id="lbResumoVendas" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="185.0" text="Resumo de Vendas" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -266,7 +267,7 @@
       </VBox>
       <VBox layoutX="15.0" layoutY="203.0" prefHeight="24.0" prefWidth="196.0">
          <children>
-            <Label prefHeight="27.0" prefWidth="254.0" text="Selecione o Funcionário:">
+            <Label fx:id="lbSelecaoFuncionario" prefHeight="27.0" prefWidth="254.0" text="Selecione o Funcionário:">
                <font>
                   <Font name="Franklin Gothic Medium" size="20.0" />
                </font>
@@ -291,7 +292,7 @@
       </Button>
       <VBox layoutX="27.0" layoutY="340.0" prefHeight="24.0" prefWidth="100.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="100.0" text="Cad. Cliente" textAlignment="CENTER">
+            <Label fx:id="lbCadCliente" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="100.0" text="Cad. Cliente" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -316,7 +317,7 @@
       </ImageView>
       <VBox layoutX="191.0" layoutY="340.0" prefHeight="24.0" prefWidth="132.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Cad. Produto" textAlignment="CENTER">
+            <Label fx:id="lbCadProduto" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Cad. Produto" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -330,7 +331,7 @@
       </Button>
       <VBox layoutX="364.0" layoutY="340.0" prefHeight="24.0" prefWidth="132.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Cad. Funcionário" textAlignment="CENTER">
+            <Label fx:id="lbCadFuncionario" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Cad. Funcionário" textAlignment="CENTER">
                <font>
                   <Font name="Segoe UI Bold" size="17.0" />
                </font>
@@ -362,7 +363,7 @@
       </Button>
       <VBox layoutX="11.0" layoutY="463.0" prefHeight="24.0" prefWidth="132.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="132.0" text="Fluxo de Caixa" textAlignment="CENTER">
+            <Label fx:id="lbFluxoCaixa" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="132.0" text="Fluxo de Caixa" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -386,7 +387,7 @@
       </Button>
       <VBox layoutX="187.0" layoutY="463.0" prefHeight="24.0" prefWidth="132.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="132.0" text="DRE">
+            <Label fx:id="lbDRE" alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="132.0" text="DRE">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -410,7 +411,7 @@
       </Button>
       <VBox layoutX="364.0" layoutY="461.0" prefHeight="24.0" prefWidth="132.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="132.0" text="Estoque Atual" textAlignment="CENTER">
+            <Label fx:id="lbEstoqueAtual" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="132.0" text="Estoque Atual" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -465,12 +466,12 @@
       </ImageView>
       <VBox layoutY="94.0" prefHeight="24.0" prefWidth="112.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="117.0" text="Registrar" textAlignment="CENTER" />
+            <Label fx:id="lbRegistrar" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="117.0" text="Registrar" textAlignment="CENTER" />
          </children>
       </VBox>
       <VBox layoutX="141.0" layoutY="96.0" prefHeight="24.0" prefWidth="74.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="115.0" text="Comprar" textAlignment="CENTER">
+            <Label fx:id="lbComprar" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="115.0" text="Comprar" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -479,7 +480,7 @@
       </VBox>
       <VBox layoutX="271.0" layoutY="98.0" prefHeight="24.0" prefWidth="83.0">
          <children>
-            <Label alignment="CENTER" prefHeight="27.0" prefWidth="76.0" text="Venda" textAlignment="CENTER">
+            <Label fx:id="lbVenda" alignment="CENTER" prefHeight="27.0" prefWidth="76.0" text="Venda" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -488,7 +489,7 @@
       </VBox>
       <VBox layoutX="396.0" layoutY="98.0" prefHeight="24.0" prefWidth="83.0">
          <children>
-            <Label alignment="CENTER" prefHeight="27.0" prefWidth="76.0" text="Relatório" textAlignment="CENTER">
+            <Label fx:id="lbRelatorio" alignment="CENTER" prefHeight="27.0" prefWidth="76.0" text="Relatório" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -497,7 +498,7 @@
       </VBox>
       <VBox layoutX="505.0" layoutY="98.0" prefHeight="24.0" prefWidth="112.0">
          <children>
-            <Label alignment="CENTER" prefHeight="24.0" prefWidth="121.0" text="Ordem de Serviço" textAlignment="CENTER">
+            <Label fx:id="lbOrdem" alignment="CENTER" prefHeight="24.0" prefWidth="121.0" text="Ordem de Serviço" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -506,7 +507,7 @@
       </VBox>
       <VBox layoutX="612.0" layoutY="101.0" prefHeight="17.0" prefWidth="160.0">
          <children>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Devolução" textAlignment="CENTER">
+            <Label fx:id="lbDevolucao" alignment="CENTER" prefHeight="17.0" prefWidth="160.0" text="Devolução" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -515,7 +516,7 @@
       </VBox>
       <VBox layoutX="775.0" layoutY="101.0" prefHeight="17.0" prefWidth="90.0">
          <children>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="97.0" text="Configurações" textAlignment="CENTER">
+            <Label fx:id="lbConfig" alignment="CENTER" prefHeight="17.0" prefWidth="97.0" text="Configurações" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="19.0" />
                </font>
@@ -534,7 +535,7 @@
       </ImageView>
       <VBox layoutX="536.0" layoutY="340.0" prefHeight="24.0" prefWidth="132.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Requisição" textAlignment="CENTER">
+            <Label fx:id="lbRequisicao" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="132.0" text="Requisição" textAlignment="CENTER">
                <font>
                   <Font name="Segoe UI Bold" size="17.0" />
                </font>
@@ -560,7 +561,7 @@
       </Button>
       <VBox layoutX="541.0" layoutY="464.0" prefHeight="24.0" prefWidth="132.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="132.0" text="Formas de Pagamento" textAlignment="CENTER">
+            <Label fx:id="lbFormaPagamento" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="132.0" text="Formas de Pagamento" textAlignment="CENTER">
                <font>
                   <Font name="Franklin Gothic Medium" size="18.0" />
                </font>
@@ -578,5 +579,6 @@
             <Font size="22.0" />
          </font>
       </Label>
+      <ComboBox fx:id="comboIdioma" layoutX="888.0" layoutY="50.0" prefHeight="27.0" prefWidth="147.0" promptText="Select Language" styleClass="choice-box" />
    </children>
 </AnchorPane>

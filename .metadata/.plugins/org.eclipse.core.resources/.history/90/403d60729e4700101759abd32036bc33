@@ -1,0 +1,63 @@
+package com.minhaloja.sistema_pagamento.util;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
+import java.io.*;
+import java.util.*;
+
+public class LanguageManager {
+    private static Locale currentLocale;
+    private static final Properties config = new Properties();
+    private static final String CONFIG_PATH = System.getProperty("user.home") + File.separator + "fps_commerce";
+    private static final File CONFIG_FILE = new File(CONFIG_PATH, "config.properties");
+
+    static {
+        loadConfig();
+    }
+
+    private static void loadConfig() {
+        if (CONFIG_FILE.exists()) {
+            try (InputStream input = new FileInputStream(CONFIG_FILE)) {
+                config.load(input);
+                String lang = config.getProperty("language", "pt");
+                currentLocale = new Locale(lang);
+            } catch (IOException e) {
+                e.printStackTrace();
+                currentLocale = new Locale("pt");
+            }
+        } else {
+            currentLocale = new Locale("pt");
+        }
+    }
+
+    private static void saveConfig() {
+        try {
+            File dir = new File(CONFIG_PATH);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            try (OutputStream output = new FileOutputStream(CONFIG_FILE)) {
+                config.store(output, null);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setLocale(Locale locale) {
+        currentLocale = locale;
+        config.setProperty("language", locale.getLanguage());
+        saveConfig();
+    }
+
+    public static Locale getLocale() {
+        return currentLocale;
+    }
+
+    public static ResourceBundle getBundle() {
+        return ResourceBundle.getBundle("messages", currentLocale);
+    }
+}
+

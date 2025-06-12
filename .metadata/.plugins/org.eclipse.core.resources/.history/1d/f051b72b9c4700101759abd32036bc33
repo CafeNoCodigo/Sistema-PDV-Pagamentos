@@ -1,0 +1,21 @@
+### messages_en.properties
+label.config=Settings
+label.registrar=Register
+label.ordem=Service Order
+label.cadProduto=Product Reg.
+label.comprar=Buy
+label.venda=Sale
+label.devolucao=Return
+label.relatorio=Report
+label.pesquisaProduto=Search Product
+label.resumoVendas=Sales Summary
+label.selecaoFuncionario=Select Employee
+label.cadCliente=Client Reg.
+label.cadFuncionario=Employee Reg.
+label.requisicao=Request
+label.fluxoCaixa=Cash Flow
+label.dre=Income Statement
+label.estoqueAtual=Current Stock
+label.formaPagamento=Payment Methods
+button.atualizar=Update
+button.fechar=Close
