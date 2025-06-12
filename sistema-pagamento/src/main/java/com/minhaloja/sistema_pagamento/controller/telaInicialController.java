@@ -44,7 +44,7 @@ public class telaInicialController {
     @FXML private Button btnFechar;
     @FXML private Button btnAtualizar;
     @FXML private ChoiceBox<String> choiceFuncionario;
-    @FXML private Label labelAnimada, lbConfig, lbVenda, lbComprar, lbRegistrar, lbRelatorio, lbVenda2, lbComprar2, lbOrdem, lbDevolucao, lbPesquisaProduto, lbResumoVendas, lbCadCliente, lbCadProduto, lbCadFuncionario, lbRequisicao, lbFluxoCaixa, lbDRE, lbEstoqueAtual, lbFormaPagamento;
+    @FXML private Label labelAnimada, lbConfig, lbSelFuncionario, lbVenda, lbComprar, lbRegistrar, lbRelatorio, lbVenda2, lbComprar2, lbOrdem, lbDevolucao, lbPesquisaProduto, lbResumoVendas, lbCadCliente, lbCadProduto, lbCadFuncionario, lbRequisicao, lbFluxoCaixa, lbDRE, lbEstoqueAtual, lbFormaPagamento;
     @FXML private MenuItem miEmpresa, miFuncionario, miEquipamento, miProduto, miDespesas, miServicos, miFornecedores, miCliente, miFormaPagamento, miRequisicao, miFornecedor, miProduto2, miServico2, miCliente2, miEstoqueProduto, miFluxoCaixa, miCompraFornecedor, miCompraProduto, miLucroProduto, miLucroEstoque, miContaPagar, miDevolucao, miAtualizar;
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final CaixaDAO caixaDAO = new CaixaDAO();
@@ -70,9 +70,9 @@ public class telaInicialController {
 
     	Locale current = LanguageManager.getLocale();
     	comboIdioma.setValue(switch (current.getLanguage()) {
-    	    case "en" -> "English";
+    	    case "pt" -> "Português";
     	    case "zh" -> "中文";
-    	    default -> "Português";
+    	    default -> "English";
     	});
 
     	comboIdioma.setOnAction(e -> {
@@ -112,6 +112,8 @@ public class telaInicialController {
         lbDRE.setText(bundle.getString("label.dre"));
         lbEstoqueAtual.setText(bundle.getString("label.estoqueAtual"));
         lbFormaPagamento.setText(bundle.getString("label.formaPagamento"));
+        lbSelFuncionario.setText(bundle.getString("label.selecaoFuncionario"));
+        
         btnAtualizar.setText(bundle.getString("button.atualizar"));
         btnFechar.setText(bundle.getString("button.fechar"));
     	miEmpresa.setText(bundle.getString("menu-item.empresa"));

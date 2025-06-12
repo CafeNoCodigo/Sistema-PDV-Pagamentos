@@ -267,7 +267,7 @@
       </VBox>
       <VBox layoutX="15.0" layoutY="203.0" prefHeight="24.0" prefWidth="196.0">
          <children>
-            <Label fx:id="lbSelecaoFuncionario" prefHeight="27.0" prefWidth="254.0" text="Selecione o Funcionário:">
+            <Label fx:id="lbSelFuncionario" prefHeight="27.0" prefWidth="254.0" text="Selecione o Funcionário:">
                <font>
                   <Font name="Franklin Gothic Medium" size="20.0" />
                </font>

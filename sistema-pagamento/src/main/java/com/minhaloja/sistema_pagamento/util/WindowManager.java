@@ -1,6 +1,7 @@
 package com.minhaloja.sistema_pagamento.util;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +44,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroServico.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
@@ -63,6 +65,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaContasAPagar.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
@@ -83,6 +86,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroEquipamento.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
@@ -103,6 +107,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroEmpresa.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
@@ -129,7 +134,16 @@ public class WindowManager {
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/cadastrarCliente.png"));
 			stage.initModality(Modality.APPLICATION_MODAL);
             stage.getIcons().add(icon);
-			stage.setTitle("Cadastrar Cliente");
+            
+            Locale current = LanguageManager.getLocale();
+            String title="Register Customer";
+            switch(current.getLanguage()) {
+            case "pt" -> title="Cadastrar Cliente";
+    	    case "zh" -> title="注册客户";
+    	    default -> title="Register Customer";
+            }
+            
+			stage.setTitle(title);
 			stage.setResizable(false);
 			stage.setMaximized(false);
 			stage.setScene(new Scene(root));
@@ -145,6 +159,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaFormaPagamento.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/formaPagamento.png"));
@@ -165,6 +180,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroProduto.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/cadastrarProduto.png"));
@@ -185,6 +201,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaCadastroFuncionario.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/cadastrarVendedor.png"));
@@ -206,6 +223,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaVenda.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/carinho.png"));
@@ -226,6 +244,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaFluxoCaixa.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/fluxoCaixa.png"));
@@ -247,6 +266,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaEstoqueAtual.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/pesquisaVenda.png"));
@@ -268,6 +288,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaRelatorio.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/ordemdeservico2.png"));
@@ -288,6 +309,7 @@ public class WindowManager {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("/telaRequisicao.fxml"));
 			Parent root = fxmlLoader.load();
+			fxmlLoader.setResources(LanguageManager.getBundle());
 			
 			Stage stage = new Stage();
 			Image icon = new Image(WindowManager.class.getResourceAsStream("/img/requisicao.png"));
