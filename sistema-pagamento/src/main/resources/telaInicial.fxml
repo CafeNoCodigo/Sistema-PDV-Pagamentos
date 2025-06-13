@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -241,10 +242,14 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="336.0" layoutY="127.0" mnemonicParsing="false" onAction="#abrirTelaEstoqueAtual2" prefHeight="51.0" prefWidth="100.0" styleClass="botao-pastel" AnchorPane.topAnchor="127.0">
+      <Button layoutX="336.0" layoutY="127.0" mnemonicParsing="false" onAction="#abrirTelaEstoqueAtual2" prefHeight="51.0" prefWidth="100.0" AnchorPane.topAnchor="127.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <styleClass>
+            <String fx:value="botao-pastel" />
+            <String fx:value="arrow-button" />
+         </styleClass>
       </Button>
       <VBox layoutX="295.0" layoutY="177.0" prefHeight="24.0" prefWidth="185.0">
          <children>
@@ -255,7 +260,11 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="512.0" layoutY="132.0" mnemonicParsing="false" onAction="#abrirTelaRelatorio2" prefHeight="51.0" prefWidth="100.0" styleClass="botao-pastel" />
+      <Button layoutX="512.0" layoutY="132.0" mnemonicParsing="false" onAction="#abrirTelaRelatorio2" prefHeight="51.0" prefWidth="100.0">
+         <styleClass>
+            <String fx:value="botao-pastel" />
+            <String fx:value="button" />
+         </styleClass></Button>
       <VBox layoutX="472.0" layoutY="176.0" prefHeight="24.0" prefWidth="185.0">
          <children>
             <Label fx:id="lbResumoVendas" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="185.0" text="Resumo de Vendas" textAlignment="CENTER">
@@ -285,10 +294,14 @@
          <effect>
             <DropShadow />
          </effect></Line>
-      <Button layoutX="2.0" layoutY="258.0" mnemonicParsing="false" onAction="#abrirTelaCadastroCliente" prefHeight="108.0" prefWidth="147.0" styleClass="botao-pastel">
+      <Button layoutX="2.0" layoutY="258.0" mnemonicParsing="false" onAction="#abrirTelaCadastroCliente" prefHeight="108.0" prefWidth="147.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <styleClass>
+            <String fx:value="botao-pastel" />
+            <String fx:value="button" />
+         </styleClass>
       </Button>
       <VBox layoutX="27.0" layoutY="340.0" prefHeight="24.0" prefWidth="100.0">
          <children>
@@ -299,18 +312,19 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="172.0" layoutY="263.0" mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" prefHeight="99.0" prefWidth="160.0" styleClass="botao-pastel">
+      <Button layoutX="172.0" layoutY="263.0" mnemonicParsing="false" onAction="#abrirTelaCadastroProduto2" prefHeight="99.0" prefWidth="160.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <styleClass>
+            <String fx:value="botao-pastel" />
+            <String fx:value="button" />
+         </styleClass>
       </Button>
-      <ImageView disable="true" fitHeight="75.0" fitWidth="90.0" layoutX="211.0" layoutY="262.0">
+      <ImageView disable="true" fitHeight="75.0" fitWidth="90.0" layoutX="211.0" layoutY="262.0" preserveRatio="true">
          <image>
             <Image url="@img/cadastrarProduto.png" />
          </image>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
          <effect>
             <DropShadow />
          </effect>
@@ -324,10 +338,14 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="353.0" layoutY="266.0" mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario2" prefHeight="93.0" prefWidth="154.0" styleClass="botao-pastel">
+      <Button layoutX="353.0" layoutY="266.0" mnemonicParsing="false" onAction="#abrirTelaCadastroFuncionario2" prefHeight="93.0" prefWidth="154.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <styleClass>
+            <String fx:value="botao-pastel" />
+            <String fx:value="button" />
+         </styleClass>
       </Button>
       <VBox layoutX="364.0" layoutY="340.0" prefHeight="24.0" prefWidth="132.0">
          <children>
@@ -356,10 +374,14 @@
          <effect>
             <DropShadow />
          </effect></Rectangle>
-      <Button layoutX="4.0" layoutY="390.0" mnemonicParsing="false" onAction="#abrirTelaFluxoCaixa2" prefHeight="99.0" prefWidth="147.0" styleClass="botao-pastel">
+      <Button layoutX="4.0" layoutY="390.0" mnemonicParsing="false" onAction="#abrirTelaFluxoCaixa2" prefHeight="99.0" prefWidth="147.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <styleClass>
+            <String fx:value="botao-pastel" />
+            <String fx:value="button" />
+         </styleClass>
       </Button>
       <VBox layoutX="11.0" layoutY="463.0" prefHeight="24.0" prefWidth="132.0">
          <children>
@@ -370,9 +392,9 @@
             </Label>
          </children>
       </VBox>
-      <Button disable="true" layoutX="171.0" layoutY="390.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="160.0" styleClass="botao-pastel">
+      <Button disable="true" layoutX="171.0" layoutY="390.0" mnemonicParsing="false" prefHeight="94.0" prefWidth="160.0">
          <graphic>
-            <ImageView disable="true" fitHeight="78.0" fitWidth="83.0">
+            <ImageView disable="true" fitHeight="78.0" fitWidth="83.0" preserveRatio="true">
                <image>
                   <Image url="@img/dre.png" />
                </image>
@@ -384,6 +406,10 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <styleClass>
+            <String fx:value="botao-pastel" />
+            <String fx:value="button" />
+         </styleClass>
       </Button>
       <VBox layoutX="187.0" layoutY="463.0" prefHeight="24.0" prefWidth="132.0">
          <children>
@@ -396,7 +422,7 @@
       </VBox>
       <Button layoutX="354.0" layoutY="393.0" mnemonicParsing="false" onAction="#abrirTelaEstoqueAtual2" prefHeight="93.0" prefWidth="147.0" styleClass="botao-pastel">
          <graphic>
-            <ImageView disable="true" fitHeight="50.0" fitWidth="65.0">
+            <ImageView disable="true" fitHeight="50.0" fitWidth="65.0" preserveRatio="true">
                <image>
                   <Image url="@img/pesquisaVenda.png" />
                </image>
@@ -418,7 +444,7 @@
             </Label>
          </children>
       </VBox>
-      <ImageView disable="true" fitHeight="62.0" fitWidth="74.0" layoutX="393.0" layoutY="275.0">
+      <ImageView disable="true" fitHeight="62.0" fitWidth="74.0" layoutX="393.0" layoutY="275.0" preserveRatio="true">
          <image>
             <Image url="@img/cadastrarVendedor.png" />
          </image>
@@ -426,18 +452,15 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView disable="true" fitHeight="68.0" fitWidth="69.0" layoutX="43.0" layoutY="269.0">
+      <ImageView disable="true" fitHeight="68.0" fitWidth="69.0" layoutX="43.0" layoutY="269.0" preserveRatio="true">
          <image>
             <Image url="@img/cadastrarCliente.png" />
          </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
          <effect>
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView disable="true" fitHeight="62.0" fitWidth="74.0" layoutX="43.0" layoutY="396.0">
+      <ImageView disable="true" fitHeight="62.0" fitWidth="74.0" layoutX="43.0" layoutY="396.0" preserveRatio="true">
          <image>
             <Image url="@img/fluxoCaixa.png" />
          </image>
@@ -445,7 +468,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView disable="true" fitHeight="42.0" fitWidth="45.0" layoutX="361.0" layoutY="132.0">
+      <ImageView disable="true" fitHeight="42.0" fitWidth="45.0" layoutX="361.0" layoutY="132.0" preserveRatio="true">
          <image>
             <Image url="@img/pesquisa2.png" />
          </image>
@@ -523,15 +546,22 @@
             </Label>
          </children>
       </VBox>
-      <Button layoutX="525.0" layoutY="266.0" mnemonicParsing="false" onAction="#abrirTelaRequisicao2" prefHeight="99.0" prefWidth="154.0" styleClass="botao-pastel">
+      <Button layoutX="525.0" layoutY="266.0" mnemonicParsing="false" onAction="#abrirTelaRequisicao2" prefHeight="99.0" prefWidth="154.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <styleClass>
+            <String fx:value="botao-pastel" />
+            <String fx:value="button" />
+         </styleClass>
       </Button>
-      <ImageView disable="true" fitHeight="75.0" fitWidth="83.0" layoutX="554.0" layoutY="266.0">
+      <ImageView disable="true" fitHeight="75.0" fitWidth="83.0" layoutX="554.0" layoutY="266.0" preserveRatio="true">
          <image>
             <Image url="@img/requisicao.png" />
          </image>
+         <effect>
+            <DropShadow />
+         </effect>
       </ImageView>
       <VBox layoutX="536.0" layoutY="340.0" prefHeight="24.0" prefWidth="132.0">
          <children>
@@ -546,7 +576,7 @@
       <Label fx:id="labelAnimada" layoutX="608.0" layoutY="190.0" opacity="0.25" style="-fx-font-size: 252PX; -fx-font-weight: BOLD;" text="F P S" textFill="#67a4b5" />
       <Button layoutX="529.0" layoutY="390.0" mnemonicParsing="false" onAction="#abrirTelaFormaPagamento" prefHeight="99.0" prefWidth="147.0" styleClass="botao-pastel">
          <graphic>
-            <ImageView disable="true" fitHeight="62.0" fitWidth="105.0">
+            <ImageView disable="true" fitHeight="62.0" fitWidth="105.0" preserveRatio="true">
                <image>
                   <Image url="@img/formaPagamento.png" />
                </image>

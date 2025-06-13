@@ -19,6 +19,14 @@ public class Cliente {
 	private LocalDate dataReg;
 	private String genero;
 	private String status, bi;
+	private int id;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getBi() {
 		return bi;
 	}
