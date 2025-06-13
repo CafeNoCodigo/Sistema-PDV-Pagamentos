@@ -1,27 +1,23 @@
-<h1 align="center">
-	<img alt="Logo" width="56px" src=".github/logo.png" width="200px" />
-</h1>
-
 <h3 align="center">
-  React PDV/POS
+  Java PDV/POS
 </h3>
 
-<p align="center">POS (Point of Sale System) built with ReactJS</p>
+<p align="center">🛒 POS (Point of Sale System) built with JAVA</p>
 
 <p align="center">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/jeancabral/react-pdv">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/cafenocodigo/sistema-pdv-pagamentos">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/jeancabral/react-pdv">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/cafenocodigo/sistema-pdv-pagamentos">
 
-  <a href="https://github.com/jeancabral/react-pdv/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/jeancabral/react-pdv">
+  <a href="https://github.com/cafenocodigo/sistema-pdv-pagamentos/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/cafenocodigo/sistema-pdv-pagamentos">
   </a>
 
-  <a href="https://github.com/jeancabral/react-pdv/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/jeancabral/react-pdv">
+  <a href="https://github.com/cafenocodigo/sistema-pdv-pagamentos/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/cafenocodigo/sistema-pdv-pagamentos">
   </a>
 
-  <img alt="GitHub" src="https://img.shields.io/github/license/jeancabral/react-pdv">
+  <img alt="GitHub" src="https://img.shields.io/github/license/cafenocodigo/sistema-pdv-pagamentos">
 </p>
 
 <p align="center">
@@ -32,26 +28,42 @@
   <a href="#-license">License</a>
 </p>
 
-## 👨🏻‍💻 About the project
+## 🧭 About the project
 
-- <p style="color: red;">POS (Point of Sale System) built with ReactJS</p>
+- <p style="color: red;">🛒 POS (Point of Sale System) built with JAVA</p>
+<p align="center">A Point of Sale (POS) system built with Java, designed to streamline retail operations, manage inventory, and handle sales transactions efficiently. This project is ideal for small and medium-sized businesses looking for a customizable, offline desktop solution.</p>
 
-- [Demo @ netlify](https://5f1334983bb412d8a17342ed--react-pos.netlify.app/)
-- [Template @ Figma](https://www.figma.com/file/hjFds4JruLo2SWobQbb2Ss/React-PDV-Frontend?node-id=24%3A2)
+## 🚀 Technologies 
 
-<h1 align="center">
-	<img alt="Mockup" width="800px" src=".github/mockup.png" width="200px" />
-</h1>
+I used:
 
-## 🚀 Technologies
+- [Java](https://www.java.com/en/)
+- [Apache Maven](https://maven.apache.org/)
+- [Maven Repository](https://mvnrepository.com/) for dependencies management
+- [JavaFx](https://openjfx.io/) for the user interface
+- [Java SDK 21+](https://www.oracle.com/java/technologies/javase/)
+- Scene Builder for UI design
+- MySQL for data persistence
+- JDBC for database connectivity
 
-Technologies that I used to develop this web client
+## ✅ Core Features
 
-- [ReactJS](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Eslint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [EditorConfig](https://editorconfig.org/)
+- Product and inventory management
+- Barcode/QR code generation and scanning
+- Customer registration and history
+- Sales and payment processing (cash, M-Pesa, card, etc.)
+- Receipt generation and PDF export
+- Daily cash register control (opening/closing of cash drawer)
+- User authentication and access levels
+- Multi-language support (EN, PT, ZH)
+
+## 📦 Structure
+
+- model – JavaBeans representing data structures (e.g., Product, Sale, Customer)
+- dao – Data Access Objects for database operations
+- controller – Handles UI logic (JavaFX)
+- view – FXML files for the UI
+- util – Utility classes (e.g., database connection)
 
 ## 💻 Getting started
 
@@ -60,46 +72,41 @@ Technologies that I used to develop this web client
 **Clone the project and access the folder**
 
 ```bash
-$ git clone https://github.com/jeancabral/react-pdv.git && cd react-pdv
+$ git clone https://github.com/cafenocodigo/sistema-pdv-pagamentos.git && cd sistema-pdv-pagamentos
 ```
 
-**Follow the steps below**
+**📌Follow the steps below**
 
-```bash
-# Install the dependencies
-$ yarn
+1. Clone the repository
+2. Import as a Maven project
+	```bash
+	# Install the dependencies
+	$ mvn clean install
+	
+	#If you just need to download the dependencies
+	$ mvn dependencies:resolve
+	```
+3. Configure your MySQL database connection in Conexao.java
+4. Run the application from App.java or your launcher
 
-# Be sure the file 'src/services/api.ts' have the IP to your API
 
-# Start the client
-$ yarn start
-```
-
-## Contributors
-
-<a href="https://twiiter.com/jeancabral">
-<img src="https://avatars1.githubusercontent.com/u/2077886?s=460&v=4" width="75px">
-</a>
-<a href="https://github.com/pablohenriqueop">
-<img src="https://avatars2.githubusercontent.com/u/28938150?s=460&u=dda791c5809c0c180da7d999ef9b83ecd4401f17&v=4" width="75px">
-</a>
 
 ## 🤔 How to contribute
 
 **Make a fork of this repository**
 
 ```bash
-# Fork using GitHub official command line
-# If you don't have the GitHub CLI, use the web site to do that.
+# Fork using GitHub official Way
+# If you don't have the GitHub CLI, use the web site or Desktop App.
 
-$ gh repo fork jeancabral/react-pdv
+$ gh repo fork cafenocodigo/sistema-pdv-pagamentos
 ```
 
-**Follow the steps below**
+**Follow the steps below if you use the command line**
 
 ```bash
 # Clone your fork
-$ git clone your-fork-url && cd react-pdv
+$ git clone your-fork-url && cd cafenocodigo/sistema-pdv-pagamentos
 
 # Create a branch with your feature
 $ git checkout -b my-feature
@@ -119,4 +126,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Made with 💜 by Jean 👋 [See my linkedin](https://www.linkedin.com/in/jeancabralbr//)
+Made with 💜 by Fabio 👋 [See my linkedin](https://www.linkedin.com/in/fabiao-chirindza-mainato/)
