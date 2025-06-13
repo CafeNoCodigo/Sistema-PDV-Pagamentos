@@ -1,0 +1,264 @@
+package com.minhaloja.sistema_pagamento.controller;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
+
+import com.minhaloja.sistema_pagamento.dao.ClienteDAO;
+import com.minhaloja.sistema_pagamento.model.Cliente;
+import com.minhaloja.sistema_pagamento.util.LanguageManager;
+
+import javafx.animation.Animation;
+import javafx.animation.ScaleTransition;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+public class telaCadastroClienteController {
+
+	@FXML private TextField tfNome, tfEndereco, tfCidade, tfEmail, tfBi, tfTelefone1, tfTelefone2, tfNuit, tfConta1, tfConta2;
+	
+	@FXML private DatePicker dpDataNascido, dpDataReg;
+	
+	@FXML private TextArea taInfo;
+	
+	@FXML private ComboBox<String> cbGenero, cbStatus, cbListaCliente;
+	
+	@FXML private ImageView imgCliente;
+	
+	@FXML private Button btnInserirImg, btnNovo, btnCancelar, btnEliminar, btnFechar, btnSalvar, btnLimpar;
+	
+	@FXML private Label lbTotalReg2, lbTotalReg, lbNome, lbCode2, lbEndereco, lbBi, lbEmail, lbCity, lbTelefone, lbTelefone2, lbBirthday, lbInfo, lbFooter, lbAccount, lbAccount2, lbRegData, lbGender, lbStatus, lbPicture;
+	@FXML private Tab tabData, tabAditional, tabClientList;
+	@FXML private TableView<Cliente> tabelaClientes;
+	
+	@FXML private TableColumn<Cliente, String> colNome, colTelefone1, colTelefone2, colConta1, colConta2, colInfo, colStatus;
+	
+	private final ClienteDAO clienteDAO = new ClienteDAO();
+	
+	@FXML 
+	private void initialize() {
+		ResourceBundle bundle = LanguageManager.getBundle();
+		updateLanguage(bundle);
+		
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colTelefone1.setCellValueFactory(new PropertyValueFactory<>("telefone1"));
+        colTelefone2.setCellValueFactory(new PropertyValueFactory<>("telefone2"));
+        colConta1.setCellValueFactory(new PropertyValueFactory<>("conta1"));
+        colConta2.setCellValueFactory(new PropertyValueFactory<>("conta2"));
+        colInfo.setCellValueFactory(new PropertyValueFactory<>("info"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        
+        cbGenero.getItems().addAll("Masculino", "Feminino", "Outro");
+        tabelaClientes.setItems(clienteDAO.listarClientes());
+        
+        aplicarAnimacoesComponentes();
+	}
+	
+	private void updateLanguage(ResourceBundle bundle) {
+		lbNome.setText(bundle.getString("label.nome"));
+		lbEndereco.setText(bundle.getString("label.endereco"));
+		lbBi.setText(bundle.getString("label.bi"));
+		lbCode2.setText(bundle.getString("label.code"));
+
+		lbEmail.setText(bundle.getString("label.email"));
+		lbCity.setText(bundle.getString("label.cidade"));
+		lbTelefone.setText(bundle.getString("label.telefone1"));
+		lbTelefone2.setText(bundle.getString("label.telefone2"));
+		lbBirthday.setText(bundle.getString("label.nascido"));
+		lbTotalReg2.setText(bundle.getString("label.totalReg"));
+		lbInfo.setText(bundle.getString("label.info"));
+		lbAccount.setText(bundle.getString("label.conta"));
+		lbAccount2.setText(bundle.getString("label.conta2"));
+		lbRegData.setText(bundle.getString("label.dataReg"));
+		lbStatus.setText(bundle.getString("label.status"));
+		lbGender.setText(bundle.getString("label.gender"));
+		lbPicture.setText(bundle.getString("label.picture"));
+		lbFooter.setText(bundle.getString("label.footer"));
+
+		tabData.setText(bundle.getString("tab.data"));
+		tabAditional.setText(bundle.getString("tab.aditional"));
+		tabClientList.setText(bundle.getString("tab.clientList"));
+
+		colNome.setText(bundle.getString("table.nome"));
+		colTelefone1.setText(bundle.getString("table.telefone"));
+		colTelefone2.setText(bundle.getString("table.telefone2"));
+		colConta1.setText(bundle.getString("table.conta"));
+		colConta2.setText(bundle.getString("table.conta2"));
+		colInfo.setText(bundle.getString("table.info"));
+
+		btnNovo.setText(bundle.getString("button.novo"));
+		btnLimpar.setText(bundle.getString("button.limpar"));
+		btnEliminar.setText(bundle.getString("button.eliminar"));
+		btnSalvar.setText(bundle.getString("button.salvar"));
+		btnCancelar.setText(bundle.getString("button.cancelar"));
+		btnFechar.setText(bundle.getString("button.fechar"));
+
+	}
+	
+	@FXML
+	private void salvarCliente(ActionEvent event) {
+	    try {
+	        // Captura dados dos campos
+	        String nome = tfNome.getText().trim();
+	        String endereco = tfEndereco.getText().trim();
+	        String cidade = tfCidade.getText().trim();
+	        String email = tfEmail.getText().trim();
+	        String bi = tfBi.getText().trim();
+	        String telefone1 = tfTelefone1.getText().trim();
+	        String telefone2 = tfTelefone2.getText().trim();
+	        String nuit = tfNuit.getText().trim();
+	        String conta1 = tfConta1.getText().trim();
+	        String conta2 = tfConta2.getText().trim();
+	        String info = taInfo.getText().trim();
+
+	        String genero = cbGenero.getValue();
+	        String status = cbStatus.getValue();
+
+	        LocalDate dataNascido = dpDataNascido.getValue();
+	        LocalDate dataReg = dpDataReg.getValue();
+
+	        // Capturar imagem (se tiver)
+	        byte[] imagemBytes = null;
+	        if (imgCliente.getImage() != null) {
+	            imagemBytes = imagemToByteArray(imgCliente.getImage());
+	        }
+
+	        // Criar objeto Cliente e setar valores
+	        Cliente cliente = new Cliente();
+	        cliente.setNome(nome);
+	        cliente.setEndereco(endereco);
+	        cliente.setCidade(cidade);
+	        cliente.setEmail(email);
+	        cliente.setBi(bi);
+	        cliente.setTelefone1(telefone1);
+	        cliente.setTelefone2(telefone2);
+	        cliente.setNuit(nuit);
+	        cliente.setConta1(conta1);
+	        cliente.setConta2(conta2);
+	        cliente.setInfo(info);
+	        cliente.setGenero(genero);
+	        cliente.setStatus(status);
+	        cliente.setDataNascido(dataNascido);
+	        cliente.setDataReg(dataReg);
+	        cliente.setImagem(imagemBytes);
+
+	        // Inserir no banco via DAO
+	        boolean sucesso = clienteDAO.inserirCliente(cliente);
+
+	        if (sucesso) {
+	            alerta(Alert.AlertType.INFORMATION, "Cliente", "Cliente inserido com sucesso!");
+	            limparCamposs();
+	            atualizarTabelaClientes();
+	        } else {
+	            alerta(Alert.AlertType.ERROR, "Erro", "Falha ao inserir cliente.");
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        alerta(Alert.AlertType.ERROR, "Erro inesperado", e.getMessage());
+	    }
+	}
+	
+	@FXML
+	private void limparCamposs() {
+	    tfNome.clear();
+	    tfEndereco.clear();
+	    tfCidade.clear();
+	    tfEmail.clear();
+	    tfBi.clear();
+	    tfTelefone1.clear();
+	    tfTelefone2.clear();
+	    tfNuit.clear();
+	    tfConta1.clear();
+	    tfConta2.clear();
+	    taInfo.clear();
+
+	    cbGenero.getSelectionModel().clearSelection();
+	    cbStatus.getSelectionModel().clearSelection();
+	    dpDataNascido.setValue(null);
+	    dpDataReg.setValue(null);
+
+	    imgCliente.setImage(null);
+	}
+
+	private void atualizarTabelaClientes() {
+	    ObservableList<Cliente> listaClientes = clienteDAO.listarClientes(); // Ou seu DAO correto
+	    tabelaClientes.setItems(listaClientes);
+	}
+
+	
+	private void alerta(Alert.AlertType tipo, String titulo, String msg) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(msg);
+        alerta.showAndWait();
+    }
+	
+	private byte[] imagemToByteArray(Image image) {
+	    try {
+	        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+	        ByteArrayOutputStream s = new ByteArrayOutputStream();
+	        ImageIO.write(bImage, "png", s);
+	        return s.toByteArray();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+	
+	@FXML
+    private void fecharJanela() {
+        Stage stage = (Stage) btnFechar.getScene().getWindow();
+        stage.close();
+    }
+	
+private void aplicarAnimacoesComponentes() {
+        
+        btnFechar.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+            ScaleTransition scaleUp = new ScaleTransition(Duration.millis(200), btnFechar);
+            scaleUp.setToX(1.05);
+            scaleUp.setToY(1.05);
+            scaleUp.play();
+        });
+
+        btnFechar.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+            ScaleTransition scaleDown = new ScaleTransition(Duration.millis(200), btnFechar);
+            scaleDown.setToX(1.0);
+            scaleDown.setToY(1.0);
+            scaleDown.play();
+        });
+
+        // Efeito pulse contínuo
+        ScaleTransition pulse = new ScaleTransition(Duration.seconds(1.5), btnFechar);
+        pulse.setFromX(1.0);
+        pulse.setFromY(1.0);
+        pulse.setToX(1.03);
+        pulse.setToY(1.03);
+        pulse.setCycleCount(Animation.INDEFINITE);
+        pulse.setAutoReverse(true);
+        pulse.play();
+    }
+}

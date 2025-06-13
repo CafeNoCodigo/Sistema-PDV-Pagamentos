@@ -1,0 +1,144 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.minhaloja.sistema_pagamento.model.Cliente;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+public class ClienteDAO {
+	
+	public ClienteDAO() {
+		criarTabelaSeNaoExistir();
+	}
+	
+	public List<String> listarClientesNoComboBox(){
+		List<String> clientes = new ArrayList<>();
+		String sql = "SELECT DISTINCT nome FROM cliente ORDER BY nome";
+		
+		try(PreparedStatement stmt = Conexao.conectar().prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery()){
+			while(rs.next()) {
+				clientes.add(rs.getString("nome"));
+			}catch(SQLException e) {
+				e.printStackTrace();
+				System.out.println("Erro ao listar clientes no ComboBox: " + e.getMessage());
+			}
+		}
+	}
+	
+	public boolean deletarCliente(int id) {
+	    String sql = "DELETE FROM cliente WHERE id = ?";
+
+	    try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setInt(1, id);
+	        stmt.executeUpdate();
+	        return true;
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao deletar cliente: " + e.getMessage());
+	        return false;
+	    }
+	}
+
+	
+	public boolean inserirCliente(Cliente cliente) {
+	    String sql = """
+	        INSERT INTO cliente (nome, endereco, bi, email, cidade, telefone1, telefone2, nuit, dataNascido, info, conta1, conta2, dataREG, genero, status, imagem)
+	        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+	    """;
+
+	    try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, cliente.getNome());
+	        stmt.setString(2, cliente.getEndereco());
+	        stmt.setString(3, cliente.getBi());
+	        stmt.setString(4, cliente.getEmail());
+	        stmt.setString(5, cliente.getCidade());
+	        stmt.setString(6, cliente.getTelefone1());
+	        stmt.setString(7, cliente.getTelefone2());
+	        stmt.setString(8, cliente.getNuit());
+	        stmt.setDate(9, cliente.getDataNascido() != null ? java.sql.Date.valueOf(cliente.getDataNascido()) : null);
+	        stmt.setString(10, cliente.getInfo());
+	        stmt.setString(11, cliente.getConta1());
+	        stmt.setString(12, cliente.getConta2());
+	        stmt.setDate(13, cliente.getDataReg() != null ? java.sql.Date.valueOf(cliente.getDataReg()) : null);
+	        stmt.setString(14, cliente.getGenero());
+	        stmt.setString(15, cliente.getStatus());
+	        stmt.setBytes(16, cliente.getImagem());
+
+	        int rowsInserted = stmt.executeUpdate();
+	        return rowsInserted > 0;
+
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao inserir cliente: " + e.getMessage());
+	        return false;
+	    }
+	}
+
+	
+	public ObservableList<Cliente> listarClientes() {
+        ObservableList<Cliente> lista = FXCollections.observableArrayList();
+        String sql = "SELECT id, nome, telefone1, telefone2, conta1, conta2, info, status FROM cliente";
+
+        try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setTelefone1(rs.getString("telefone1"));
+                c.setTelefone2(rs.getString("telefone2"));
+                c.setConta1(rs.getString("conta1"));
+                c.setConta2(rs.getString("conta2"));
+                c.setInfo(rs.getString("info"));
+                c.setStatus(rs.getString("Status"));
+
+                lista.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar clientes: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
+	private void criarTabelaSeNaoExistir() {
+		String sql = """
+					CREATE TABLE IF NOT EXISTS cliente (
+						id INT AUTO_INCREMENT PRIMARY KEY,
+						nome VARCHAR(255),
+						endereco VARCHAR(255),
+						bi VARCHAR(255),
+						email VARCHAR(255),
+						cidade VARCHAR(255),
+						telefone1 VARCHAR(255),
+						telefone2 VARCHAR(255),
+						nuit VARCHAR(255),
+						dataNascido DATE,
+						info VARCHAR(255),
+						conta1 VARCHAR(255),
+						conta2 VARCHAR(255),
+						dataREG DATE,
+						genero VARCHAR(50),
+						status VARCHAR(50),
+						imagem BLOB
+						);
+				""";
+		
+		try(Connection conn = Conexao.conectar(); Statement stmt = conn.createStatement()) {
+			stmt.execute(sql);
+		}catch(SQLException e) {
+			System.err.println("Erro ao criar tabela cliente" + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	
+}

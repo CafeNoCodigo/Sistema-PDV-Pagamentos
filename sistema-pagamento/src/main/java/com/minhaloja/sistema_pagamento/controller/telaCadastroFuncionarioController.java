@@ -87,17 +87,6 @@ public class telaCadastroFuncionarioController {
 	
 
 	private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-	
-	private void aplicarAnimacaoHover(Button btn) {
-	    btn.setOnMouseEntered(e -> {
-	        btn.setScaleX(1.05);
-	        btn.setScaleY(1.05);
-	    });
-	    btn.setOnMouseExited(e -> {
-	        btn.setScaleX(1.0);
-	        btn.setScaleY(1.0);
-	    });
-	}
 
 	
 	private void aplicarFadeInInicial() {
@@ -253,14 +242,6 @@ public class telaCadastroFuncionarioController {
 	@FXML
 	public void initialize() {
 		aplicarFadeInInicial();
-		aplicarAnimacaoHover(btnSalvar);
-		aplicarAnimacaoHover(btnSelecionarImagemFuncionario);
-		aplicarAnimacaoHover(btnSelecionarImagemBi);
-		aplicarAnimacaoHover(btnFechar);
-		aplicarAnimacaoHover(btnLimpar);
-		aplicarAnimacaoHover(btnEliminar);
-		aplicarAnimacaoHover(btnNovo);
-		aplicarAnimacaoHover(btnCancelar);
 
 		colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		colCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));

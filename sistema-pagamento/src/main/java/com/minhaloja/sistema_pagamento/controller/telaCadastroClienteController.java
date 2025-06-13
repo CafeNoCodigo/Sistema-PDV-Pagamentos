@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -59,6 +60,8 @@ public class telaCadastroClienteController {
 	
 	@FXML 
 	private void initialize() {
+		
+		// To catch the selected language
 		ResourceBundle bundle = LanguageManager.getBundle();
 		updateLanguage(bundle);
 		
@@ -72,8 +75,44 @@ public class telaCadastroClienteController {
         
         cbGenero.getItems().addAll("Masculino", "Feminino", "Outro");
         tabelaClientes.setItems(clienteDAO.listarClientes());
+        carregarClientesNoComboBox();
         
         aplicarAnimacoesComponentes();
+	}
+	
+	private void carregarClientesNoComboBox() {
+		List<String> lista = clienteDAO.listarClientesNoComboBox();
+		cbListaCliente.getItems().setAll(lista);
+	}
+	
+	@FXML
+	private void deletarCliente() {
+		Cliente selecionado = tabelaClientes.getSelectionModel().getSelectedItem();
+		
+		if(selecionado == null) {
+			alerta(Alert.AlertType.INFORMATION, "Erro de Seleção", "Selecione o Cliente que Deseja Eliminar!");
+			return;
+		}
+		
+		Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+		confirm.setTitle("Eliminar Cliente");
+		confirm.setHeaderText("Tem certeza que deseja eliminar este Cliente?");
+		confirm.setContentText("Cliente " + selecionado.getNome());
+		
+		confirm.showAndWait().ifPresent(resposta -> {
+			if(resposta == javafx.scene.control.ButtonType.OK) {
+				boolean sucesso = clienteDAO.deletarCliente(selecionado.getId());
+				
+				System.out.println("Cliente deletado? " + sucesso);
+				if(sucesso) {
+					System.out.println("Id: " + selecionado.getId());
+					alerta(Alert.AlertType.INFORMATION, "Sucesso", "Cliente Eliminado Com Sucesso!");
+					limparCampos();
+					atualizarTabelaClientes();
+					carregarClientesNoComboBox();
+				}
+			}
+		});
 	}
 	
 	private void updateLanguage(ResourceBundle bundle) {
@@ -121,6 +160,10 @@ public class telaCadastroClienteController {
 	private void salvarCliente(ActionEvent event) {
 	    try {
 	        // Captura dados dos campos
+	    	if(tfNome.getText().matches("")) {
+	    		alerta(Alert.AlertType.INFORMATION, "Nome Vazio", "Insira o Nome do Cliente");
+	    		return;
+	    	}
 	        String nome = tfNome.getText().trim();
 	        String endereco = tfEndereco.getText().trim();
 	        String cidade = tfCidade.getText().trim();
@@ -169,8 +212,9 @@ public class telaCadastroClienteController {
 
 	        if (sucesso) {
 	            alerta(Alert.AlertType.INFORMATION, "Cliente", "Cliente inserido com sucesso!");
-	            limparCamposs();
+	            limparCampos();
 	            atualizarTabelaClientes();
+	            carregarClientesNoComboBox();
 	        } else {
 	            alerta(Alert.AlertType.ERROR, "Erro", "Falha ao inserir cliente.");
 	        }
@@ -182,7 +226,7 @@ public class telaCadastroClienteController {
 	}
 	
 	@FXML
-	private void limparCamposs() {
+	private void limparCampos() {
 	    tfNome.clear();
 	    tfEndereco.clear();
 	    tfCidade.clear();
@@ -204,10 +248,9 @@ public class telaCadastroClienteController {
 	}
 
 	private void atualizarTabelaClientes() {
-	    ObservableList<Cliente> listaClientes = clienteDAO.listarClientes(); // Ou seu DAO correto
+	    ObservableList<Cliente> listaClientes = clienteDAO.listarClientes();
 	    tabelaClientes.setItems(listaClientes);
 	}
-
 	
 	private void alerta(Alert.AlertType tipo, String titulo, String msg) {
         Alert alerta = new Alert(tipo);
@@ -235,30 +278,30 @@ public class telaCadastroClienteController {
         stage.close();
     }
 	
-private void aplicarAnimacoesComponentes() {
-        
-        btnFechar.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-            ScaleTransition scaleUp = new ScaleTransition(Duration.millis(200), btnFechar);
-            scaleUp.setToX(1.05);
-            scaleUp.setToY(1.05);
-            scaleUp.play();
-        });
-
-        btnFechar.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-            ScaleTransition scaleDown = new ScaleTransition(Duration.millis(200), btnFechar);
-            scaleDown.setToX(1.0);
-            scaleDown.setToY(1.0);
-            scaleDown.play();
-        });
-
-        // Efeito pulse contínuo
-        ScaleTransition pulse = new ScaleTransition(Duration.seconds(1.5), btnFechar);
-        pulse.setFromX(1.0);
-        pulse.setFromY(1.0);
-        pulse.setToX(1.03);
-        pulse.setToY(1.03);
-        pulse.setCycleCount(Animation.INDEFINITE);
-        pulse.setAutoReverse(true);
-        pulse.play();
-    }
+	private void aplicarAnimacoesComponentes() {
+	        
+	        btnFechar.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+	            ScaleTransition scaleUp = new ScaleTransition(Duration.millis(200), btnFechar);
+	            scaleUp.setToX(1.05);
+	            scaleUp.setToY(1.05);
+	            scaleUp.play();
+	        });
+	
+	        btnFechar.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+	            ScaleTransition scaleDown = new ScaleTransition(Duration.millis(200), btnFechar);
+	            scaleDown.setToX(1.0);
+	            scaleDown.setToY(1.0);
+	            scaleDown.play();
+	        });
+	
+	        // Efeito pulse contínuo
+	        ScaleTransition pulse = new ScaleTransition(Duration.seconds(1.5), btnFechar);
+	        pulse.setFromX(1.0);
+	        pulse.setFromY(1.0);
+	        pulse.setToX(1.03);
+	        pulse.setToY(1.03);
+	        pulse.setCycleCount(Animation.INDEFINITE);
+	        pulse.setAutoReverse(true);
+	        pulse.play();
+	 }
 }

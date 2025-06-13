@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.minhaloja.sistema_pagamento.model.Cliente;
 import com.minhaloja.sistema_pagamento.util.Conexao;
@@ -17,6 +19,39 @@ public class ClienteDAO {
 	public ClienteDAO() {
 		criarTabelaSeNaoExistir();
 	}
+	
+	public List<String> listarClientesNoComboBox(){
+		List<String> clientes = new ArrayList<>();
+		String sql = "SELECT DISTINCT nome FROM cliente ORDER BY nome";
+		
+		try (PreparedStatement stmt = Conexao.conectar().prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery()){
+			
+			while(rs.next()) {
+				clientes.add(rs.getString("nome"));
+			} 
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("Erro ao listar clientes no ComboBox: " + e.getMessage());
+		}
+		
+		return clientes;
+	}
+	
+	public boolean deletarCliente(int id) {
+	    String sql = "DELETE FROM cliente WHERE id = ?";
+
+	    try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setInt(1, id);
+	        stmt.executeUpdate();
+	        return true;
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao deletar cliente: " + e.getMessage());
+	        return false;
+	    }
+	}
+
 	
 	public boolean inserirCliente(Cliente cliente) {
 	    String sql = """
@@ -54,12 +89,13 @@ public class ClienteDAO {
 	
 	public ObservableList<Cliente> listarClientes() {
         ObservableList<Cliente> lista = FXCollections.observableArrayList();
-        String sql = "SELECT nome, telefone1, telefone2, conta1, conta2, info, status FROM cliente";
+        String sql = "SELECT id, nome, telefone1, telefone2, conta1, conta2, info, status FROM cliente";
 
         try (Connection conn = Conexao.conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Cliente c = new Cliente();
+                c.setId(rs.getInt("id"));
                 c.setNome(rs.getString("nome"));
                 c.setTelefone1(rs.getString("telefone1"));
                 c.setTelefone2(rs.getString("telefone2"));
