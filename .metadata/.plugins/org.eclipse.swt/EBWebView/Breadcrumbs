@@ -1,37 +1,64 @@
-3:17:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
-3:17:16 Microsoft.Shutdown.TabStripModel.CloseAllTabs
-3:17:16 Microsoft.Shutdown.TabStripModel.CloseTabs
-3:17:16 Microsoft.Shutdown.TabStripModel.CloseTabs_EdgeBeforeClosingAllTabs
-3:17:16 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl
-3:17:16 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_TabClosable
-3:17:16 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosingAll
-3:17:16 Microsoft.Shutdown.TabStripModel.CloseWebContentses
-3:17:16 Microsoft.Shutdown.TabStripModel.CloseWebContentses_FastShutdown
-3:17:16 Microsoft.Shutdown.TabStripModel.ShouldRunUnloadListenerBeforeClosing_false
-3:17:16 Tab58 RenderProcessGone
-3:17:16 Microsoft.UnloadController.ClearUnloadState
-3:17:16 Microsoft.Shutdown.TabStripModel.RunUnloadListenerBeforeClosing_false
-3:17:16 Microsoft.Shutdown.TabStripModel.InternalCloseTabsImpl_ClosedAll
-3:17:16 Microsoft.Shutdown.TabStripModel.SendDetachWebContentsNotifications
-3:17:16 Microsoft.UnloadController.ClearUnloadState
-3:17:16 Browser58 Close Tab58 at 0
-3:17:16 Tab58 WebContentsDestroyed
-3:17:16 Microsoft.UnloadController.TabStripEmpty
-3:17:16 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp
-3:17:16 Microsoft.UnloadController.HasCompletedUnloadProcessing_True
-3:17:16 Microsoft.Shutdown.OnWindowClosing
-3:17:16 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp
-3:17:16 Microsoft.UnloadController.HasCompletedUnloadProcessing_True
-3:17:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
-3:17:16 Widget Closed: BrowserFrame
-3:17:16 Microsoft.UnloadController.HasCompletedUnloadProcessing_True
-3:17:16 Microsoft.Shutdown.OnWindowClosing
-3:17:16 Microsoft.Last_Browser_Removed
-3:17:18 Microsoft.Shutdown.ShutdownIfNoBrowsers
-3:17:18 Microsoft.Shutdown.SetTryingToQuit_Quitting
-3:17:18 Microsoft.Shutdown.NotifyAppTerminating
-3:17:18 Microsoft.Shutdown.OnAppExiting
-3:17:18 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura
-3:17:18 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura.NotificationUIManager_StartShutdown
-3:17:18 Microsoft.Shutdown.HandleAppExitingForPlatform_Aura.CloseAllSecondaryWidgets
-3:17:19 Shutdown
+0:14:55 Tab4 StartNav38 #typed
+0:14:55 Tab4 FinishNav38
+0:14:55 Tab4 PageLoad
+0:14:56 Tab4 StartNav39 #typed
+0:14:56 Tab4 FinishNav39
+0:14:56 Tab4 PageLoad
+0:14:57 Tab4 StartNav40 #typed
+0:14:57 Tab4 FinishNav40
+0:14:57 Tab4 PageLoad
+0:15:26 Tab4 StartNav41 #typed
+0:15:26 Tab4 FinishNav41
+0:15:26 Tab4 PageLoad
+0:15:57 Tab4 StartNav42 #typed
+0:15:57 Tab4 FinishNav42
+0:15:57 Tab4 PageLoad
+0:15:59 Tab4 StartNav43 #typed
+0:15:59 Tab4 FinishNav43
+0:15:59 Tab4 PageLoad
+0:16:05 Tab4 StartNav44 #typed
+0:16:05 Tab4 FinishNav44
+0:16:05 Tab4 PageLoad
+0:17:39 Tab4 StartNav45 #typed
+0:17:39 Tab4 FinishNav45
+0:17:39 Tab4 PageLoad
+0:19:36 Tab4 StartNav46 #typed
+0:19:36 Tab4 FinishNav46
+0:19:36 Tab4 PageLoad
+0:20:47 Tab4 StartNav47 #typed
+0:20:47 Tab4 FinishNav47
+0:20:47 Tab4 PageLoad
+0:20:51 Tab4 StartNav48 #typed
+0:20:51 Tab4 FinishNav48
+0:20:51 Tab4 PageLoad
+0:20:52 Tab4 StartNav49 #typed
+0:20:52 Tab4 FinishNav49
+0:20:52 Tab4 PageLoad
+0:20:56 Tab4 StartNav50 #typed
+0:20:56 Tab4 FinishNav50
+0:20:56 Tab4 PageLoad
+0:20:57 Tab4 StartNav51 #typed
+0:20:57 Tab4 FinishNav51
+0:20:57 Tab4 PageLoad
+0:23:14 Tab4 StartNav52 #typed
+0:23:14 Tab4 FinishNav52
+0:23:14 Tab4 PageLoad
+0:25:56 Tab4 StartNav53 #typed
+0:25:56 Tab4 FinishNav53
+0:25:56 Tab4 PageLoad
+0:26:00 Tab4 StartNav54 #typed
+0:26:00 Tab4 FinishNav54
+0:26:00 Tab4 PageLoad
+0:26:02 Tab4 StartNav55 #typed
+0:26:02 Tab4 FinishNav55
+0:26:02 Tab4 PageLoad
+0:26:12 Tab4 StartNav56 #typed
+0:26:12 Tab4 FinishNav56
+0:26:12 Tab4 PageLoad
+0:26:13 Tab4 StartNav57 #typed
+0:26:13 Tab4 FinishNav57
+0:26:13 Tab4 PageLoad
+0:26:52 Tab4 StartNav58 #typed
+0:26:52 Tab4 FinishNav58
+0:26:52 Tab4 PageLoad
+0:27:57 Microsoft.UnloadController.IsUnclosableApp_IsNotWebApp

@@ -6,9 +6,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.minhaloja.sistema_pagamento.dao.FuncionarioDAO;
 import com.minhaloja.sistema_pagamento.model.Funcionario;
+import com.minhaloja.sistema_pagamento.util.LanguageManager;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -49,7 +51,7 @@ public class telaCadastroFuncionarioController {
 	@FXML private TextField tfAlimentacao;
 	@FXML private TextField tfLoja;
 	
-	@FXML private Button btnSalvar;
+	@FXML private Button btnSalvar,btnFirst, btnLast, btnPrevisiously, btnNext;
 	@FXML private Button btnSelecionarImagemFuncionario;
 	@FXML private Button btnSelecionarImagemBi;
 	@FXML private Button btnLimpar;
@@ -80,7 +82,7 @@ public class telaCadastroFuncionarioController {
     
     @FXML private Tab dp;
     @FXML private Tab ad;
-    @FXML private Tab lf;
+    @FXML private Tab lff;
 	
 	private byte[] imagemFuncionarioBytes;
 	private byte[] imagemBiBytes;
@@ -241,6 +243,9 @@ public class telaCadastroFuncionarioController {
 	
 	@FXML
 	public void initialize() {
+		ResourceBundle bundle = LanguageManager.getBundle();
+		updateLanguage(bundle);
+		
 		aplicarFadeInInicial();
 
 		colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -274,6 +279,50 @@ public class telaCadastroFuncionarioController {
 		    }
 		});
 
+
+	}
+	
+	@FXML private Label lbNome,lbEndereco,lbBi,lbCode2,lbCode,lbBairro,lbCity,lbTelefone,lbTelefone2,lbBirthday,lbTotalReg2,lbInfo,lbAccount,lbAccount2,lbPicture,lbFooter2;
+	private void updateLanguage(ResourceBundle bundle) {
+		lbNome.setText(bundle.getString("label.nome"));
+		lbEndereco.setText(bundle.getString("label.endereco"));
+		lbBi.setText(bundle.getString("label.bi"));
+		lbCode.setText(bundle.getString("label.code"));
+		lbBairro.setText(bundle.getString("label.email"));
+		lbCity.setText(bundle.getString("label.cidade"));
+		lbTelefone.setText(bundle.getString("label.telefone1"));
+		lbTelefone2.setText(bundle.getString("label.telefone2"));
+		lbBirthday.setText(bundle.getString("label.nascido"));
+		lbTotalReg2.setText(bundle.getString("label.totalReg"));
+		lbAccount.setText(bundle.getString("label.conta"));
+		lbAccount2.setText(bundle.getString("label.conta2"));
+		//lbRegData.setText(bundle.getString("label.dataReg"));
+		//lbStatus.setText(bundle.getString("label.status"));
+		//lbGender.setText(bundle.getString("label.gender"));
+		lbPicture.setText(bundle.getString("label.picture"));
+		lbFooter2.setText(bundle.getString("label.footer2"));
+
+		dp.setText(bundle.getString("tab.data"));
+		ad.setText(bundle.getString("tab.aditional"));
+		lff.setText(bundle.getString("tab.customerList"));
+
+		colNome.setText(bundle.getString("table.nome"));
+		colTelefone.setText(bundle.getString("table.telefone"));
+		colCargo.setText(bundle.getString("table.cargo"));
+		colSalario.setText(bundle.getString("table.salary"));
+		colNascido.setText(bundle.getString("table.birthday"));
+		colTelefone.setText(bundle.getString("table.telefone"));
+
+		btnNovo.setText(bundle.getString("button.novo"));
+		btnLimpar.setText(bundle.getString("button.limpar"));
+		btnEliminar.setText(bundle.getString("button.eliminar"));
+		btnSalvar.setText(bundle.getString("button.salvar"));
+		btnCancelar.setText(bundle.getString("button.cancelar"));
+		btnFechar.setText(bundle.getString("button.fechar"));
+		btnFirst.setText(bundle.getString("button.first"));
+		btnLast.setText(bundle.getString("button.last"));
+		btnPrevisiously.setText(bundle.getString("button.pre"));
+		btnNext.setText(bundle.getString("button.next"));
 
 	}
 	

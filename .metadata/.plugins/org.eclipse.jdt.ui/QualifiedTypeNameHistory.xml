@@ -20,4 +20,5 @@
     <fullyQualifiedTypeName name="java.sql.Types"/>
     <fullyQualifiedTypeName name="javafx.scene.control.Alert"/>
     <fullyQualifiedTypeName name="javafx.scene.control.Alert.AlertType"/>
+    <fullyQualifiedTypeName name="com.minhaloja.sistema_pagamento.util.LanguageManager"/>
 </qualifiedTypeNameHistroy>
