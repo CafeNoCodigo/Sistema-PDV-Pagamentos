@@ -40,7 +40,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -179,13 +178,6 @@ public class telaCadastroProdutoController {
         aplicarFadeTransition(tfPrecoVenda);
         aplicarFadeTransition(tfPrecoMestre);
         aplicarFadeTransition(tfCategoria);
-        Button[] botoes = {
-            btnFechar, btnNovo, btnGerar, btnApagar, btnExcluir, btnInserirImgProduto,
-            btnApagarImgProduto, btnTodos
-        };
-        for (Button botao : botoes) {
-            adicionarEfeitoBotao(botao);
-        }
         
         configurarImageViewComEfeito(imgCodigoBarra);
         configurarImageViewComEfeito(imgProduto);
@@ -214,17 +206,8 @@ public class telaCadastroProdutoController {
             importarProdutosDoExcel(file);
         }
     }
-
-
-    
-
     
     private void importarProdutosDoExcel(File file) {
-        //FileChooser fileChooser = new FileChooser();
-        //fileChooser.setTitle("Selecionar Planilha de Produtos");
-        //fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel (*.xlsx)", "*.xlsx"));
-        //File file = fileChooser.showOpenDialog(null);
-
         if (file != null) {
             Task<Void> task = new Task<>() {
                 @Override
@@ -315,9 +298,6 @@ public class telaCadastroProdutoController {
         }
     }
 
-
-
-
 	private Workbook criarWorkbookCorreto(File file) throws IOException {
 	    FileInputStream fis = new FileInputStream(file);
 
@@ -361,8 +341,6 @@ public class telaCadastroProdutoController {
             default -> 0.0;
         };
     }
-
-
     
     //Fade transition genérico para qualquer Node
     private void aplicarFadeTransition(javafx.scene.Node node) {
@@ -381,29 +359,6 @@ public class telaCadastroProdutoController {
     // Aplica fade em TextField ao limpar ou preencher - use no limparCampos e ao preencher
     private void aplicarFadeEmTextField(TextField tf) {
         aplicarFadeTransition(tf);
-    }
-    
- // Botão: sombra + cursor + escala suave no hover
-    private void adicionarEfeitoBotao(Button botao) {
-        DropShadow sombra = new DropShadow();
-        
-        botao.setOnMouseEntered(e -> {
-            botao.setEffect(sombra);
-            botao.setCursor(Cursor.HAND);
-            ScaleTransition st = new ScaleTransition(Duration.millis(150), botao);
-            st.setToX(1.05);
-            st.setToY(1.05);
-            st.play();
-        });
-        
-        botao.setOnMouseExited(e -> {
-            botao.setEffect(null);
-            botao.setCursor(Cursor.DEFAULT);
-            ScaleTransition st = new ScaleTransition(Duration.millis(150), botao);
-            st.setToX(1.0);
-            st.setToY(1.0);
-            st.play();
-        });
     }
     
     private void contarProdutosComEfeito() {
