@@ -282,7 +282,7 @@ public class telaCadastroFuncionarioController {
 
 	}
 	
-	@FXML private Label lbNome,lbEndereco,lbBi,lbCode2,lbCode,lbBairro,lbCity,lbTelefone,lbTelefone2,lbBirthday,lbTotalReg2,lbInfo,lbAccount,lbAccount2,lbPicture,lbFooter2;
+	@FXML private Label lbNome,lbEndereco,lbBi,lbCode2,lbCode,lbBairro,lbCity,lbSalary,lbTelefone,lbTransport,lbFood,lbStore,lbStartDay,lbEndDay,lbTelefone2,lbBirthday,lbTotalReg2,lbInfo,lbAccount,lbAccount2,lbPicture,lbFooter2,lbBiPicture,lbPosition;
 	private void updateLanguage(ResourceBundle bundle) {
 		lbNome.setText(bundle.getString("label.nome"));
 		lbEndereco.setText(bundle.getString("label.endereco"));
@@ -300,7 +300,16 @@ public class telaCadastroFuncionarioController {
 		//lbStatus.setText(bundle.getString("label.status"));
 		//lbGender.setText(bundle.getString("label.gender"));
 		lbPicture.setText(bundle.getString("label.picture"));
+		lbBiPicture.setText(bundle.getString("label.BiPicture"));
 		lbFooter2.setText(bundle.getString("label.footer2"));
+		
+		lbPosition.setText(bundle.getString("label.position"));
+		lbFood.setText(bundle.getString("label.food"));
+		lbStore.setText(bundle.getString("label.store"));
+		lbSalary.setText(bundle.getString("label.salary"));
+		lbTransport.setText(bundle.getString("label.transport"));
+		lbStartDay.setText(bundle.getString("label.startDay"));
+		lbEndDay.setText(bundle.getString("label.endDay"));
 
 		dp.setText(bundle.getString("tab.data"));
 		ad.setText(bundle.getString("tab.aditional"));
@@ -312,6 +321,7 @@ public class telaCadastroFuncionarioController {
 		colSalario.setText(bundle.getString("table.salary"));
 		colNascido.setText(bundle.getString("table.birthday"));
 		colTelefone.setText(bundle.getString("table.telefone"));
+		colLoja.setText(bundle.getString("label.store"));
 
 		btnNovo.setText(bundle.getString("button.novo"));
 		btnLimpar.setText(bundle.getString("button.limpar"));

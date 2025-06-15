@@ -250,7 +250,7 @@
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_LM_1EEd0EfCz3OMCCfCezQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="messages_pt.properties" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/file_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.PropertiesFileEditor&quot; name=&quot;messages_pt.properties&quot; partName=&quot;messages_pt.properties&quot; title=&quot;messages_pt.properties&quot; tooltip=&quot;sistema-pagamento/src/main/resources/messages_pt.properties&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/sistema-pagamento/src/main/resources/messages_pt.properties&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;2289&quot; selectionTopPixel=&quot;801&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.PropertiesFileEditor&quot; name=&quot;messages_pt.properties&quot; partName=&quot;messages_pt.properties&quot; title=&quot;messages_pt.properties&quot; tooltip=&quot;sistema-pagamento/src/main/resources/messages_pt.properties&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/sistema-pagamento/src/main/resources/messages_pt.properties&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1358&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>removeOnHide</tags>
           <tags>org.eclipse.jdt.ui.PropertiesFileEditor</tags>
@@ -258,13 +258,13 @@
           <tags>activeOnClose</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_VplIsEd0EfCz3OMCCfCezQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="messages_en.properties" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/file_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.PropertiesFileEditor&quot; name=&quot;messages_en.properties&quot; partName=&quot;messages_en.properties&quot; title=&quot;messages_en.properties&quot; tooltip=&quot;sistema-pagamento/src/main/resources/messages_en.properties&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/sistema-pagamento/src/main/resources/messages_en.properties&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1906&quot; selectionTopPixel=&quot;834&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.PropertiesFileEditor&quot; name=&quot;messages_en.properties&quot; partName=&quot;messages_en.properties&quot; title=&quot;messages_en.properties&quot; tooltip=&quot;sistema-pagamento/src/main/resources/messages_en.properties&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/sistema-pagamento/src/main/resources/messages_en.properties&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1256&quot; selectionTopPixel=&quot;289&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>removeOnHide</tags>
           <tags>org.eclipse.jdt.ui.PropertiesFileEditor</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_pQdSkEd9EfCz3OMCCfCezQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="messages_zh.properties" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/file_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.PropertiesFileEditor&quot; name=&quot;messages_zh.properties&quot; partName=&quot;messages_zh.properties&quot; title=&quot;messages_zh.properties&quot; tooltip=&quot;sistema-pagamento/src/main/resources/messages_zh.properties&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/sistema-pagamento/src/main/resources/messages_zh.properties&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;737&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.PropertiesFileEditor&quot; name=&quot;messages_zh.properties&quot; partName=&quot;messages_zh.properties&quot; title=&quot;messages_zh.properties&quot; tooltip=&quot;sistema-pagamento/src/main/resources/messages_zh.properties&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/sistema-pagamento/src/main/resources/messages_zh.properties&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1810&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>removeOnHide</tags>
           <tags>org.eclipse.jdt.ui.PropertiesFileEditor</tags>
@@ -288,7 +288,7 @@
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
         </children>
         <children xsi:type="basic:Part" xmi:id="_3q1dIEhcEfCrxp4N33g6zg" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="telaCadastroFuncionarioController.java" iconURI="platform:/plugin/org.eclipse.jdt.ui/icons/full/obj16/jcu_obj.png" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;telaCadastroFuncionarioController.java&quot; partName=&quot;telaCadastroFuncionarioController.java&quot; title=&quot;telaCadastroFuncionarioController.java&quot; tooltip=&quot;sistema-pagamento/src/main/java/com/minhaloja/sistema_pagamento/controller/telaCadastroFuncionarioController.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/sistema-pagamento/src/main/java/com/minhaloja/sistema_pagamento/controller/telaCadastroFuncionarioController.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;3004&quot; selectionTopPixel=&quot;3906&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;telaCadastroFuncionarioController.java&quot; partName=&quot;telaCadastroFuncionarioController.java&quot; title=&quot;telaCadastroFuncionarioController.java&quot; tooltip=&quot;sistema-pagamento/src/main/java/com/minhaloja/sistema_pagamento/controller/telaCadastroFuncionarioController.java&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/sistema-pagamento/src/main/java/com/minhaloja/sistema_pagamento/controller/telaCadastroFuncionarioController.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;12520&quot; selectionTopPixel=&quot;4030&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>removeOnHide</tags>
           <tags>org.eclipse.jdt.ui.CompilationUnitEditor</tags>
@@ -512,7 +512,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_rOEqxUX_EfC1TPkERXWVzw" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_qOnlEEhbEfCrxp4N33g6zg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_rOJj8EX_EfC1TPkERXWVzw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_iuQCQEnMEfCLUfO0wMJGEA" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_rOJj8EX_EfC1TPkERXWVzw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_rOEq0kX_EfC1TPkERXWVzw" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -520,8 +520,8 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_rOEq1EX_EfC1TPkERXWVzw" elementId="org.eclipse.ui.workbench.edit">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_qOqBUEhbEfCrxp4N33g6zg" elementId="undo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.png" tooltip="Undo" command="_rOI9J0X_EfC1TPkERXWVzw"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_qOqoYEhbEfCrxp4N33g6zg" elementId="redo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.png" tooltip="Redo" enabled="false" command="_rOI9pUX_EfC1TPkERXWVzw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_iuUTsEnMEfCLUfO0wMJGEA" elementId="undo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/undo_edit.png" tooltip="Undo" command="_rOI9J0X_EfC1TPkERXWVzw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_iuWv8EnMEfCLUfO0wMJGEA" elementId="redo" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/redo_edit.png" tooltip="Redo" enabled="false" command="_rOI9pUX_EfC1TPkERXWVzw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_rOEq2EX_EfC1TPkERXWVzw" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -545,7 +545,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_rOErIEX_EfC1TPkERXWVzw" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_qOsdkEhbEfCrxp4N33g6zg" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_rOJjqkX_EfC1TPkERXWVzw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_iuZMMEnMEfCLUfO0wMJGEA" elementId="org.eclipse.ui.window.pinEditor" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_rOJjqkX_EfC1TPkERXWVzw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_rOErLUX_EfC1TPkERXWVzw" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
