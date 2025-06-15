@@ -291,8 +291,7 @@ public class telaInicialController {
     private void fecharJanela() {
     	if (caixaDAO.isCaixaAberto()) {
         	String msg = "EXISTE UM CAIXA AINDA ABERTO!";
-            NotificacaoSistema notificacao = new NotificacaoSistema();
-            notificacao.mostrarNotificacaoPopUp(msg);
+            new NotificacaoSistema(msg);
         }
         Stage stage = (Stage) btnFechar.getScene().getWindow();
         stage.close();

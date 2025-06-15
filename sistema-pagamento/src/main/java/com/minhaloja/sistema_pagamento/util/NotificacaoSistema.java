@@ -4,6 +4,13 @@ import java.awt.*;
 import java.awt.TrayIcon.MessageType;
 
 public class NotificacaoSistema {
+	public NotificacaoSistema(String msg) {
+		mostrarNotificacaoPopUp(msg);
+	}
+	
+	public NotificacaoSistema() {
+		
+	}
 
     public void mostrarNotificacaoPopUp(String msg) {
         // Verifica se o sistema suporta notificações na bandeja

@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -24,6 +24,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.minhaloja.sistema_pagamento.dao.CaixaDAO;
 import com.minhaloja.sistema_pagamento.dao.FuncionarioDAO;
+import com.minhaloja.sistema_pagamento.util.LanguageManager;
 import com.minhaloja.sistema_pagamento.util.NotificacaoSistema;
 import com.minhaloja.sistema_pagamento.util.WindowManager;
 
@@ -33,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -41,39 +43,105 @@ public class telaInicialController {
 
     @FXML private Button btnFechar;
     @FXML private Button btnAtualizar;
-    
     @FXML private ChoiceBox<String> choiceFuncionario;
-    @FXML private Label labelAnimada;
-
+    @FXML private Label labelAnimada, lbConfig, lbSelFuncionario, lbVenda, lbComprar, lbRegistrar, lbRelatorio, lbVenda2, lbComprar2, lbOrdem, lbDevolucao, lbPesquisaProduto, lbResumoVendas, lbCadCliente, lbCadProduto, lbCadFuncionario, lbRequisicao, lbFluxoCaixa, lbDRE, lbEstoqueAtual, lbFormaPagamento;
+    @FXML private MenuItem miEmpresa, miFuncionario, miEquipamento, miProduto, miDespesas, miServicos, miFornecedores, miCliente, miFormaPagamento, miRequisicao, miFornecedor, miProduto2, miServico2, miCliente2, miEstoqueProduto, miFluxoCaixa, miCompraFornecedor, miCompraProduto, miLucroProduto, miLucroEstoque, miContaPagar, miDevolucao, miAtualizar;
     private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
     private final CaixaDAO caixaDAO = new CaixaDAO();
-
     private final String textoAnimado = "F P S  ";
     private int indiceTexto = 0;
     private Timeline timeline;
-    
     @FXML private ComboBox<String> comboIdioma;
+    private static final String VERSAO_ATUAL = "1.0.2";
+    private static final String LINK_UPDATE_JSON = "https://drive.google.com/uc?export=download&id=1p12uHbdTUm_SzGXaoCXAlhVebUOmBDk6";
 
     @FXML
     public void initialize() {
+    	WindowManager.setCurrentFxml("/telaInicial.fxml");
+    	
         carregarFuncionariosNoChoiceBox();
         iniciarAnimacaoLabel();
         aplicarAnimacoesComponentes();
      
     	String msg = "EXISTE UM CAIXA AINDA ABERTO!";
     	popUp(msg);	
+    	
+    	comboIdioma.getItems().addAll("Português", "English", "中文");
+
+    	Locale current = LanguageManager.getLocale();
+    	comboIdioma.setValue(switch (current.getLanguage()) {
+    	    case "pt" -> "Português";
+    	    case "zh" -> "中文";
+    	    default -> "English";
+    	});
+
+    	comboIdioma.setOnAction(e -> {
+    	    String selected = comboIdioma.getValue();
+    	    @SuppressWarnings("deprecation")
+			Locale locale = switch (selected) {
+    	        case "English" -> new Locale("en");
+    	        case "中文" -> new Locale("zh");
+    	        default -> new Locale("pt");
+    	    };
+
+    	    LanguageManager.setLocale(locale);
+    	    WindowManager.reloadCurrentScene();
+    	});
+        ResourceBundle bundle = LanguageManager.getBundle();
+        atualizarIdioma(bundle);
      
     }
     
-    private final Map<String, Locale> idiomas = Map.of(
-    	    "Português", new Locale("pt", "BR"),
-    	    "Inglês", new Locale("en", "US"),
-    	    "Francês", new Locale("fr", "FR")
-    	);
-    
-    private static final String VERSAO_ATUAL = "1.0.2";
-    private static final String LINK_UPDATE_JSON = "https://drive.google.com/uc?export=download&id=1p12uHbdTUm_SzGXaoCXAlhVebUOmBDk6";
+    private void atualizarIdioma(ResourceBundle bundle) {
+    	lbConfig.setText(bundle.getString("label.config"));
+        lbVenda.setText(bundle.getString("label.venda"));
+        lbVenda2.setText(bundle.getString("label.venda"));
+        lbComprar.setText(bundle.getString("label.comprar"));
+        lbComprar2.setText(bundle.getString("label.comprar"));
+        lbRegistrar.setText(bundle.getString("label.registrar"));
+        lbRelatorio.setText(bundle.getString("label.relatorio"));
+        lbOrdem.setText(bundle.getString("label.ordem"));
+        lbDevolucao.setText(bundle.getString("label.devolucao"));
+        lbPesquisaProduto.setText(bundle.getString("label.pesquisaProduto"));
+        lbResumoVendas.setText(bundle.getString("label.resumoVendas"));
+        lbCadProduto.setText(bundle.getString("label.cadProduto"));
+        lbCadCliente.setText(bundle.getString("label.cadCliente"));
+        lbCadFuncionario.setText(bundle.getString("label.cadFuncionario"));
+        lbRequisicao.setText(bundle.getString("label.requisicao"));
+        lbFluxoCaixa.setText(bundle.getString("label.fluxoCaixa"));
+        lbDRE.setText(bundle.getString("label.dre"));
+        lbEstoqueAtual.setText(bundle.getString("label.estoqueAtual"));
+        lbFormaPagamento.setText(bundle.getString("label.formaPagamento"));
+        lbSelFuncionario.setText(bundle.getString("label.selecaoFuncionario"));
+        
+        btnAtualizar.setText(bundle.getString("button.atualizar"));
+        btnFechar.setText(bundle.getString("button.fechar"));
+    	miEmpresa.setText(bundle.getString("menu-item.empresa"));
+    	miFuncionario.setText(bundle.getString("menu-item.funcionario"));
+    	miEquipamento.setText(bundle.getString("menu-item.equipamento"));
+    	miProduto.setText(bundle.getString("menu-item.produto"));
+    	miDespesas.setText(bundle.getString("menu-item.despesas"));
+    	miServicos.setText(bundle.getString("menu-item.servicos"));
+    	miFornecedores.setText(bundle.getString("menu-item.fornecedores"));
+    	miCliente.setText(bundle.getString("menu-item.cliente"));
+    	miFormaPagamento.setText(bundle.getString("menu-item.formaPagamento"));
+    	miRequisicao.setText(bundle.getString("menu-item.requisicao"));
+    	miFornecedor.setText(bundle.getString("menu-item.fornecedor"));
+    	miProduto2.setText(bundle.getString("menu-item.produto"));
+    	miServico2.setText(bundle.getString("menu-item.servicos"));
+    	miCliente2.setText(bundle.getString("menu-item.cliente"));
+    	miEstoqueProduto.setText(bundle.getString("menu-item.estoqueProduto"));
+    	miFluxoCaixa.setText(bundle.getString("menu-item.fluxoCaixa"));
+    	miCompraFornecedor.setText(bundle.getString("menu-item.compraFornecedor"));
+    	miCompraProduto.setText(bundle.getString("menu-item.compraProduto"));
+    	miLucroProduto.setText(bundle.getString("menu-item.lucroProduto"));
+    	miLucroEstoque.setText(bundle.getString("menu-item.lucroEstoque"));
+    	miContaPagar.setText(bundle.getString("menu-item.contaPagar"));
+    	miDevolucao.setText(bundle.getString("menu-item.devolucao"));
+    	miAtualizar.setText(bundle.getString("menu-item.atualizar"));
 
+    }
+    
     public void verificarAtualizacao() {
         new Thread(() -> {
             try {
@@ -168,14 +236,6 @@ public class telaInicialController {
             alert.showAndWait();
         });
     }
-
-       /* private void fecharApp() {
-            fecharJanela();
-        }
-
-        private void relancarApp() {
-            fecharApp();
-        }*/
 
     private void iniciarAnimacaoLabel() {
         

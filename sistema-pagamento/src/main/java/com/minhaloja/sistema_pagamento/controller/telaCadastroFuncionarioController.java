@@ -78,7 +78,8 @@ public class telaCadastroFuncionarioController {
     
     @FXML private ChoiceBox<String> choiceFuncionarios;
     
-    @FXML private Label contarF;
+    @FXML private Label lbNome,lbEndereco,lbBi,lbCode2,lbCode,lbBairro,lbCity,lbSalary,lbTelefone,lbTransport,lbFood,lbStore,lbStartDay,lbEndDay,lbTelefone2,lbBirthday;
+    @FXML private Label lbTotalReg2,lbInfo,lbAccount,lbAccount2,lbPicture,lbFooter2,lbBiPicture,lbPosition,contarF;
     
     @FXML private Tab dp;
     @FXML private Tab ad;
@@ -86,10 +87,8 @@ public class telaCadastroFuncionarioController {
 	
 	private byte[] imagemFuncionarioBytes;
 	private byte[] imagemBiBytes;
-	
 
 	private final FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-
 	
 	private void aplicarFadeInInicial() {
 	    aplicarFade(tfNome);
@@ -115,7 +114,6 @@ public class telaCadastroFuncionarioController {
 	    ft.setToValue(1.0);
 	    ft.play();
 	}
-
 	
 	private void preencherCamposComFuncionario(Funcionario funcionario) {
     	tfCodigo.setText(String.valueOf(funcionario.getCodigo()));
@@ -137,7 +135,6 @@ public class telaCadastroFuncionarioController {
         dpDataNascido.setValue(funcionario.getDataNascido());
         dpDataInicio.setValue(funcionario.getDataInicio());
         dpDataFim.setValue(funcionario.getDataFim());
-
 
         // Carregar e exibir imagem do banco de dados
         Image imagem = funcionarioDAO.obterImagem(funcionario.getNumeroBi());
@@ -278,11 +275,8 @@ public class telaCadastroFuncionarioController {
 		        }
 		    }
 		});
-
-
 	}
 	
-	@FXML private Label lbNome,lbEndereco,lbBi,lbCode2,lbCode,lbBairro,lbCity,lbSalary,lbTelefone,lbTransport,lbFood,lbStore,lbStartDay,lbEndDay,lbTelefone2,lbBirthday,lbTotalReg2,lbInfo,lbAccount,lbAccount2,lbPicture,lbFooter2,lbBiPicture,lbPosition;
 	private void updateLanguage(ResourceBundle bundle) {
 		lbNome.setText(bundle.getString("label.nome"));
 		lbEndereco.setText(bundle.getString("label.endereco"));
@@ -296,13 +290,9 @@ public class telaCadastroFuncionarioController {
 		lbTotalReg2.setText(bundle.getString("label.totalReg"));
 		lbAccount.setText(bundle.getString("label.conta"));
 		lbAccount2.setText(bundle.getString("label.conta2"));
-		//lbRegData.setText(bundle.getString("label.dataReg"));
-		//lbStatus.setText(bundle.getString("label.status"));
-		//lbGender.setText(bundle.getString("label.gender"));
 		lbPicture.setText(bundle.getString("label.picture"));
 		lbBiPicture.setText(bundle.getString("label.BiPicture"));
 		lbFooter2.setText(bundle.getString("label.footer2"));
-		
 		lbPosition.setText(bundle.getString("label.position"));
 		lbFood.setText(bundle.getString("label.food"));
 		lbStore.setText(bundle.getString("label.store"));
@@ -376,7 +366,6 @@ public class telaCadastroFuncionarioController {
 	    aplicarFade(tfLoja);
 	    
 	}
-
 	
 	@FXML
 	private void selecionarImagemFuncionario() {
@@ -491,6 +480,4 @@ public class telaCadastroFuncionarioController {
 	        alerta.showAndWait();
 	    }
 	}
-
-
 }

@@ -1,0 +1,217 @@
+package com.minhaloja.sistema_pagamento.dao;
+
+import com.minhaloja.sistema_pagamento.model.Produto;
+import com.minhaloja.sistema_pagamento.util.Conexao;
+import com.minhaloja.sistema_pagamento.util.NotificacaoSistema;
+
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProdutoEsgotadoDAO {
+
+    public ProdutoEsgotadoDAO() {
+        criarTabelaSeNaoExistir();
+    }
+
+    private void criarTabelaSeNaoExistir() {
+        String sql = """
+            CREATE TABLE IF NOT EXISTS produtos_esgotados (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                id_produto INT NOT NULL,
+                data_esgotado DATE NOT NULL,
+                FOREIGN KEY (id_produto) REFERENCES produtos(id)
+            );
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.err.println("Erro ao criar tabela produtos_esgotados: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    public boolean removerProdutoSeEstoqueMaiorQueZero(int idProduto) {
+        String verificaEstoqueSql = "SELECT estoque FROM produtos WHERE id = ?";
+        String deleteSql = "DELETE FROM produtos_esgotados WHERE id_produto = ?";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement verificaStmt = conn.prepareStatement(verificaEstoqueSql)) {
+
+            verificaStmt.setInt(1, idProduto);
+            try (ResultSet rs = verificaStmt.executeQuery()) {
+                if (rs.next()) {
+                    int estoque = rs.getInt("estoque");
+                    if (estoque > 0) {
+                        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
+                            deleteStmt.setInt(1, idProduto);
+                            int rowsAffected = deleteStmt.executeUpdate();
+                            return rowsAffected > 0;
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao remover produto esgotado: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
+    public String returnName(int idProduto) {
+
+        String sql = "SELECT nome FROM produtos WHERE id == " + idProduto;
+        String name = "";
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                name = rs.getString("nome");
+            }
+            return name;
+
+        } catch (SQLException e) {
+            System.err.println("Error returning the name of sold product: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return name;
+    }
+    
+    public boolean registrarProdutoEsgotado(int idProduto) {
+        String verificaSql = "SELECT COUNT(*) FROM produtos_esgotados WHERE id_produto = ?";
+        String insereSql = "INSERT INTO produtos_esgotados (id_produto, data_esgotado) VALUES (?, ?)";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement verificaStmt = conn.prepareStatement(verificaSql)) {
+        	String name = "";
+
+            verificaStmt.setInt(1, idProduto);
+            try (ResultSet rs = verificaStmt.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                	name = rs.getString("nome");
+                    return false;
+                }
+            }
+
+            try (PreparedStatement insereStmt = conn.prepareStatement(insereSql)) {
+                insereStmt.setInt(1, idProduto);
+                insereStmt.setDate(2, Date.valueOf(LocalDate.now()));
+                insereStmt.executeUpdate();
+                
+                new NotificacaoSistema("PRODUTO: " + name + " ADICIONADO A REQUISIÇÃO!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao registrar produto esgotado: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Produto> listarProdutosEsgotados() {
+        List<Produto> produtos = new ArrayList<>();
+
+        String sql = """
+            SELECT p.* FROM produtos p
+            LEFT JOIN produtos_esgotados pe ON p.id = pe.id_produto
+            WHERE p.estoque <= 0 OR pe.id_produto IS NOT NULL
+            ORDER BY p.nome
+        """;
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Produto p = new Produto();
+                p.setId(rs.getInt("id"));
+                p.setCodigoBarra(rs.getString("codigoBarra"));
+                p.setNome(rs.getString("nome"));
+                p.setCategoria(rs.getString("categoria"));
+                p.setEstoque(rs.getInt("estoque"));
+                p.setPrecoVenda(rs.getDouble("precoVenda"));
+                p.setPrecoMestre(rs.getDouble("precoMestre"));
+                p.setPrecoCompra(rs.getDouble("precoCompra"));
+                p.setReferencia(rs.getString("referencia"));
+                p.setLoja(rs.getString("loja"));
+                p.setFabricante(rs.getString("fabricante"));
+                p.setFornecedor(rs.getString("fornecedor"));
+                p.setQrCode(rs.getBytes("imgQrCode"));
+                p.setModelo(rs.getString("modelo"));
+                p.setCodigo(rs.getString("codigo"));
+                p.setGarantia(rs.getString("garantia"));
+                p.setCor(rs.getString("cor"));
+                p.setInfoAdicional(rs.getString("infoAdicional"));
+                p.setImagem(rs.getBytes("imagem"));
+                produtos.add(p);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar produtos esgotados: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return produtos;
+    }
+    
+    public List<String> verificarProdutosEsgotados() {
+        List<String> produtosRegistrados = new ArrayList<>();
+
+        String sql = "SELECT id, nome FROM produtos WHERE estoque <= 0";
+
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int idProduto = rs.getInt("id");
+                String nome = rs.getString("nome");
+
+                // Verifica se já foi registrado como esgotado
+                if (!jaRegistradoComoEsgotado(conn, idProduto)) {
+                    // Registra como esgotado
+                    if (registrarProdutoEsgotadoComConexao(conn, idProduto)) {
+                        produtosRegistrados.add(nome + " - " + LocalDate.now());
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar produtos esgotados: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return produtosRegistrados;
+    }
+
+    // Método auxiliar para verificar se produto já foi registrado como esgotado
+    private boolean jaRegistradoComoEsgotado(Connection conn, int idProduto) throws SQLException {
+        String sql = "SELECT 1 FROM produtos_esgotados WHERE id_produto = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idProduto);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    // Método auxiliar para registrar usando conexão existente
+    private boolean registrarProdutoEsgotadoComConexao(Connection conn, int idProduto) throws SQLException {
+        String sql = "INSERT INTO produtos_esgotados (id_produto, data_esgotado) VALUES (?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idProduto);
+            stmt.setDate(2, Date.valueOf(LocalDate.now()));
+            stmt.executeUpdate();
+            return true;
+        }
+    }
+
+}
